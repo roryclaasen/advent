@@ -4,7 +4,7 @@
     using System;
     using System.Threading.Tasks;
 
-    public class Day1Runner : Runner<Day1Challenge>, IRunner
+    public class Day1Runner : Runner<Day1Challenge>
     {
         public override int Year => 2015;
 
