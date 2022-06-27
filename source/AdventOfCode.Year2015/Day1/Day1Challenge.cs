@@ -4,14 +4,14 @@
     using System;
     using System.Threading.Tasks;
 
-    public class Day1Challenge : Challenge
+    public class Day1Challenge : IChallenge
     {
-        public override Task<string> SolvePart1(string input)
+        public Task<string> SolvePart1(string input)
         {
             throw new NotImplementedException();
         }
 
-        public override Task<string> SolvePart2(string input)
+        public Task<string> SolvePart2(string input)
         {
             throw new NotImplementedException();
         }

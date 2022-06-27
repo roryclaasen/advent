@@ -4,7 +4,7 @@
     using System.Threading.Tasks;
 
     public abstract class Runner<TChallenge> : IRunner
-        where TChallenge : Challenge, new()
+        where TChallenge : IChallenge, new()
     {
         protected Lazy<TChallenge> Challenge = new Lazy<TChallenge>(() => new());
 
