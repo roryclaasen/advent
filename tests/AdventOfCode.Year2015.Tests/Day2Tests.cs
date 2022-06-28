@@ -5,18 +5,11 @@
     using System.Threading.Tasks;
 
     [TestClass]
-    public class Day1Tests : ChallengeTests<Day1Challenge>
+    public class Day2Tests : ChallengeTests<Day2Challenge>
     {
         [TestMethod]
-        [DataRow("(())", "0")]
-        [DataRow("()()", "0")]
-        [DataRow("(((", "3")]
-        [DataRow("(()(()(", "3")]
-        [DataRow("))(((((", "3")]
-        [DataRow("())", "-1")]
-        [DataRow("))(", "-1")]
-        [DataRow(")))", "-3")]
-        [DataRow(")())())", "-3")]
+        [DataRow("2x3x4", "58")]
+        [DataRow("1x1x10", "43")]
         public async Task SolvePart1(string input, string answer)
         {
             var solvedAnswer = await this.challenge.SolvePart1(input).ConfigureAwait(false);
@@ -24,8 +17,8 @@
         }
 
         [TestMethod]
-        [DataRow(")", "1")]
-        [DataRow("()())", "5")]
+        [DataRow("2x3x4", "34")]
+        [DataRow("1x1x10", "14")]
         public async Task SolvePart2(string input, string answer)
         {
             var solvedAnswer = await this.challenge.SolvePart2(input).ConfigureAwait(false);
