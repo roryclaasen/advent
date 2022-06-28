@@ -8,13 +8,13 @@
 
     public class Day2Challenge : IChallenge
     {
-        private struct Dimenstion
+        private struct Dimension
         {
             public readonly int length;
             public readonly int width;
             public readonly int height;
 
-            public Dimenstion(int length, int width, int height)
+            public Dimension(int length, int width, int height)
             {
                 this.length = length;
                 this.width = width;
@@ -22,13 +22,13 @@
             }
         }
 
-        private IEnumerable<Dimenstion> ParseInput(string input) => input
+        private IEnumerable<Dimension> ParseInput(string input) => input
             .Split(Environment.NewLine)
             .Select(line => line.Split('x').Select(int.Parse))
             .Select(line =>
             {
                 var array = line.ToArray();
-                return new Dimenstion(array[0], array[1], array[2]);
+                return new Dimension(array[0], array[1], array[2]);
             });
 
 
@@ -61,15 +61,15 @@
 
             foreach (var box in parsed)
             {
-                var sides = new List<int>
+                var measurements = new List<int>
                 {
                     box.length,
                     box.width,
                     box.height
                 };
-                sides.Sort();
+                measurements.Sort();
 
-                total += (sides.Take(2).Sum() * 2) + (box.length * box.width * box.height);
+                total += (measurements.Take(2).Sum() * 2) + (box.length * box.width * box.height);
             }
 
             return this.Answer(total);
