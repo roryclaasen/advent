@@ -1,7 +1,6 @@
 ﻿namespace AdventOfCode.Year2015.Day1
 {
     using AdventOfCode.Infrastructure;
-    using System.Threading.Tasks;
 
     public class Day1Runner : Runner<Day1Challenge>
     {
@@ -9,16 +8,6 @@
 
         public override int Day => 1;
 
-        public override Task<string> SolvePart1()
-        {
-            var input = Properties.Resources.Day1;
-            return this.Challenge.Value.SolvePart1(input);
-        }
-
-        public override Task<string> SolvePart2()
-        {
-            var input = Properties.Resources.Day1;
-            return this.Challenge.Value.SolvePart2(input);
-        }
+        public override string Input => Properties.Resources.Day1Input;
     }
 }
