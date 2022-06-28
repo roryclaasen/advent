@@ -1,4 +1,4 @@
-﻿namespace AdventOfCode.Year2015.Day1
+﻿namespace AdventOfCode.Year2015
 {
     using AdventOfCode.Infrastructure;
     using System.Threading.Tasks;

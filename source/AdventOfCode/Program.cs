@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Text;
 
 IEnumerable<Assembly> GetAdventAssemblies()
 {
@@ -45,24 +46,37 @@ Dictionary<int, List<IRunner>> GetRunners()
     return dictionary;
 }
 
-var consoleWidth = 64;
-var yearSep = new string('#', consoleWidth);
+void WriteYear(string year)
+{
+    var consoleWidth = 64;
+    var yearSep = new string('#', consoleWidth);
+
+    Console.WriteLine(yearSep);
+    Console.WriteLine(year.PadLeft((consoleWidth + 4) / 2));
+    Console.WriteLine(yearSep);
+}
+
+void WriteAnswer(int part, string answer)
+{
+    Console.WriteLine($"  Part {part}:");
+    foreach(var line in answer.Split(Environment.NewLine))
+    {
+        Console.WriteLine($"    {line}");
+    }
+}
+
 
 var allRunners = GetRunners();
 foreach (var year in allRunners.Keys)
 {
-    Console.WriteLine(yearSep);
-    Console.WriteLine(year.ToString().PadLeft((consoleWidth + 4) / 2));
-    Console.WriteLine(yearSep);
+    WriteYear(year.ToString());
+
     var runners = allRunners[year].OrderBy(r => r.Day);
     foreach (var runner in runners)
     {
-        Console.WriteLine($" < Day {runner.Day} >");
+        Console.WriteLine($"Day {runner.Day}");
 
-        var part1 = await runner.SolvePart1();
-        Console.WriteLine($"  Part 1:\n{part1}\n");
-
-        var part2 = await runner.SolvePart2();
-        Console.WriteLine($"  Part 2:\n{part2}\n");
+        WriteAnswer(1, await runner.SolvePart1().ConfigureAwait(false));
+        WriteAnswer(2, await runner.SolvePart2().ConfigureAwait(false));
     }
 }
