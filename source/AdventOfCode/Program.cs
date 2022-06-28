@@ -28,25 +28,19 @@ IEnumerable<Type> FindAllOfType<T>(IEnumerable<Assembly> assemblies)
 Dictionary<int, List<IRunner>> GetRunners()
 {
     var dictionary = new Dictionary<int, List<IRunner>>();
-    var runners = FindAllOfType<IRunner>(GetAdventAssemblies());
-    foreach (var runnerType in runners)
+    var runners = FindAllOfType<IRunner>(GetAdventAssemblies())
+        .Select(Activator.CreateInstance)
+        .OfType<IRunner>();
+
+    foreach (var runner in runners)
     {
-        var runnerObj = Activator.CreateInstance(runnerType);
-        if (runnerObj is IRunner runner)
+        if (!dictionary.ContainsKey(runner.Year))
         {
-            if (!dictionary.ContainsKey(runner.Year))
-            {
-                dictionary.Add(runner.Year, new List<IRunner>());
-            }
+            dictionary.Add(runner.Year, new List<IRunner>());
+        }
 
-            dictionary[runner.Year].Add(runner);
-        }
-        else
-        {
-            // TODO Throw
-        }
+        dictionary[runner.Year].Add(runner);
     }
-
 
     return dictionary;
 }
