@@ -1,7 +1,5 @@
 ﻿namespace AdventOfCode.Infrastructure.Tests
 {
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
-
     [TestClass]
     public class ChallengeTests<TChallenge> where TChallenge : IChallenge, new()
     {
