@@ -63,9 +63,9 @@ namespace AdventOfCode.Year2015.Properties {
         /// <summary>
         ///   Looks up a localized string similar to (((())))()((((((((())()(()))(()((((()(()(((()((()((()(()()()()()))(((()(()((((((((((())(()()((())()(((())))()(()(()((()(()))(()()()()((()((()(((()()(((((((()()())()((((()()(((((()(())()(())((())()()))()(((((((())(()())(()(((())(()))((())))(()((()())))()())((((())))(()(((((()(())(((()()((()((()((((((((((())(()())))))()))())()()((((()()()()()()((((((())())(((()())()((()()(((()()()))(((((()))(((()(()()()(()(()(((())()))(()(((()((())()(()())())))((()()()(()()(((()))(((()((((()(((((()()(()())((()())())(()((((((( [rest of string was truncated]&quot;;.
         /// </summary>
-        internal static string Day1Part1 {
+        internal static string Day1 {
             get {
-                return ResourceManager.GetString("Day1Part1", resourceCulture);
+                return ResourceManager.GetString("Day1", resourceCulture);
             }
         }
     }

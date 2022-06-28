@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\source\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj" />
+  </ItemGroup>
+
+</Project>
