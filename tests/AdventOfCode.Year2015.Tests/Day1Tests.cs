@@ -2,7 +2,6 @@
 {
     using AdventOfCode.Infrastructure.Tests;
     using AdventOfCode.Year2015.Day1;
-    using Microsoft.VisualStudio.TestTools.UnitTesting;
     using System.Threading.Tasks;
 
     [TestClass]
