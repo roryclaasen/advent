@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------
-// <copyright file="Day2Tests.cs" company="Rory Claasen">
+// <copyright file="Day3Tests.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------
@@ -11,12 +11,13 @@ namespace AdventOfCode.Year2015.Tests
     using AdventOfCode.Year2015;
 
     [TestClass]
-    public class Day2Tests : ChallengeTests<Day2Challenge>
+    public class Day3Tests : ChallengeTests<Day3Challenge>
     {
         [TestMethod]
-        [DataRow("2x3x4", "58")]
-        [DataRow("1x1x10", "43")]
-        public async Task Day2SolvePart1(string input, string answer)
+        [DataRow(">", "2")]
+        [DataRow("^>v<", "4")]
+        [DataRow("^v^v^v^v^v", "2")]
+        public async Task Day3SolvePart1(string input, string answer)
         {
             if (this.Challenge == null)
             {
@@ -28,9 +29,10 @@ namespace AdventOfCode.Year2015.Tests
         }
 
         [TestMethod]
-        [DataRow("2x3x4", "34")]
-        [DataRow("1x1x10", "14")]
-        public async Task Day2SolvePart2(string input, string answer)
+        [DataRow("^v", "3")]
+        [DataRow("^>v<", "3")]
+        [DataRow("^v^v^v^v^v", "11")]
+        public async Task Day3SolvePart2(string input, string answer)
         {
             if (this.Challenge == null)
             {

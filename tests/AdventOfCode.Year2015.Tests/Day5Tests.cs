@@ -1,5 +1,5 @@
 // ------------------------------------------------------------------------------
-// <copyright file="Day2Tests.cs" company="Rory Claasen">
+// <copyright file="Day5Tests.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------
@@ -11,12 +11,15 @@ namespace AdventOfCode.Year2015.Tests
     using AdventOfCode.Year2015;
 
     [TestClass]
-    public class Day2Tests : ChallengeTests<Day2Challenge>
+    public class Day5Tests : ChallengeTests<Day5Challenge>
     {
         [TestMethod]
-        [DataRow("2x3x4", "58")]
-        [DataRow("1x1x10", "43")]
-        public async Task Day2SolvePart1(string input, string answer)
+        [DataRow("ugknbfddgicrmopn", "1")]
+        [DataRow("aaa", "1")]
+        [DataRow("jchzalrnumimnmhp", "0")]
+        [DataRow("haegwjzuvuyypxyu", "0")]
+        [DataRow("dvszwmarrgswjxmb", "0")]
+        public async Task Day5SolvePart1(string input, string answer)
         {
             if (this.Challenge == null)
             {
@@ -28,9 +31,11 @@ namespace AdventOfCode.Year2015.Tests
         }
 
         [TestMethod]
-        [DataRow("2x3x4", "34")]
-        [DataRow("1x1x10", "14")]
-        public async Task Day2SolvePart2(string input, string answer)
+        [DataRow("qjhvhtzxzqqjkmpb", "1")]
+        [DataRow("xxyxx", "1")]
+        [DataRow("uurcxstgmygtbstg", "0")]
+        [DataRow("ieodomkazucvgmuy", "0")]
+        public async Task Day5SolvePart2(string input, string answer)
         {
             if (this.Challenge == null)
             {
