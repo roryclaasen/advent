@@ -1,4 +1,10 @@
-﻿namespace AdventOfCode.Year2015
+﻿// ------------------------------------------------------------------------------
+// <copyright file="Day1Runner.cs" company="PlaceholderCompany">
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// </copyright>
+// ------------------------------------------------------------------------------
+
+namespace AdventOfCode.Year2015
 {
     using AdventOfCode.Infrastructure;
 

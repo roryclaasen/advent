@@ -1,4 +1,10 @@
-﻿namespace AdventOfCode.Infrastructure
+﻿// ------------------------------------------------------------------------------
+// <copyright file="Runner{TChallenge}.cs" company="PlaceholderCompany">
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// </copyright>
+// ------------------------------------------------------------------------------
+
+namespace AdventOfCode.Infrastructure
 {
     using System;
     using System.Threading.Tasks;
