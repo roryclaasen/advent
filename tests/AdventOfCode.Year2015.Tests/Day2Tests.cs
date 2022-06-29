@@ -1,4 +1,10 @@
-﻿namespace AdventOfCode.Year2015.Tests
+﻿// ------------------------------------------------------------------------------
+// <copyright file="Day2Tests.cs" company="PlaceholderCompany">
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// </copyright>
+// ------------------------------------------------------------------------------
+
+namespace AdventOfCode.Year2015.Tests
 {
     using System.Threading.Tasks;
     using AdventOfCode.Infrastructure.Tests;

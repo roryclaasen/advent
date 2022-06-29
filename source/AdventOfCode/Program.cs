@@ -1,4 +1,10 @@
-﻿using System;
+﻿// ------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="PlaceholderCompany">
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// </copyright>
+// ------------------------------------------------------------------------------
+
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
