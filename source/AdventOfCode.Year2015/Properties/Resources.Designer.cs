@@ -133,5 +133,60 @@ namespace AdventOfCode.Year2015.Properties {
                 return ResourceManager.GetString("Day2Input", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to ^&gt;&lt;^&gt;&gt;&gt;^&lt;^v&lt;v^^vv^&gt;&lt;&lt;^&lt;&gt;&lt;&lt;vv^&lt;&gt;^&lt;^v&gt;^vv&lt;&gt;v&gt;&lt;vv^^&lt;&gt;&gt;^^^v&lt;&lt;vv&gt;&lt;&lt;^&gt;^&lt;^v&lt;^&gt;^v&gt;&lt;&lt;&lt;v^&lt;v&lt;&lt;&lt;v&lt;&lt;vv&lt;v&lt;^&gt;&lt;^&gt;&gt;&lt;&gt;v&gt;v^&lt;&lt;v^^&lt;^v&lt;&gt;&lt;^&gt;^&lt;&lt;^^^&gt;v&gt;&gt;v^^&lt;v&gt;&gt;^&gt;vv&gt;&lt;v&gt;&gt;^&gt;&gt;v^&gt;^v&gt;^&lt;^^v&gt;^&gt;^^v&lt;v&gt;^^&lt;v&lt;&gt;&gt;v^^v&gt;&lt;^&gt;&lt;^&lt;&lt;&gt;v^&lt;^&lt;^v&lt;v&gt;v^&gt;&gt;&gt;v^v^&gt;^&lt;&gt;^v&lt;^^vv&lt;v&gt;^&gt;^&lt;&gt;^^&lt;vv^&lt;&gt;&lt;&lt;v&lt;^&lt;^^&gt;vv&lt;&gt;^&gt;v&lt;^&gt;^v&gt;v^&gt;^v&lt;&gt;^&gt;&lt;&gt;&gt;&lt;vv&lt;&gt;v^v&lt;&gt;&lt;&gt;v^v&gt;&gt;&gt;&gt;v^^&gt;^&gt;&lt;^^&lt;v&lt;^&gt;&lt;^&lt;v&gt;&gt;^v^v&lt;&gt;v&lt;&lt;&lt;^&lt;&lt;vvvv&lt;&lt;v^vv^&gt;v^^^&lt;^^^&lt;v&gt;&gt;v&lt;^v&gt;&gt;&gt;&gt;&gt;v&lt;^^^^&gt;v&lt;^&lt;&gt;&lt;v&gt;&gt;&gt;&gt;&gt;&lt;v&gt;&gt;v^vvvv^^&lt;v^&lt;&gt;^v&lt;^v^&gt;v&gt;&lt;^&gt;^v&lt;&lt;&gt;&gt;vv^&gt;v&gt;v^^&gt;vv^&lt....
+        /// </summary>
+        internal static string Day3Input {
+            get {
+                return ResourceManager.GetString("Day3Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to yzbqklnj.
+        /// </summary>
+        internal static string Day4Input {
+            get {
+                return ResourceManager.GetString("Day4Input", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to sszojmmrrkwuftyv
+        ///isaljhemltsdzlum
+        ///fujcyucsrxgatisb
+        ///qiqqlmcgnhzparyg
+        ///oijbmduquhfactbc
+        ///jqzuvtggpdqcekgk
+        ///zwqadogmpjmmxijf
+        ///uilzxjythsqhwndh
+        ///gtssqejjknzkkpvw
+        ///wrggegukhhatygfi
+        ///vhtcgqzerxonhsye
+        ///tedlwzdjfppbmtdx
+        ///iuvrelxiapllaxbg
+        ///feybgiimfthtplui
+        ///qxmmcnirvkzfrjwd
+        ///vfarmltinsriqxpu
+        ///oanqfyqirkraesfq
+        ///xilodxfuxphuiiii
+        ///yukhnchvjkfwcbiq
+        ///bdaibcbzeuxqplop
+        ///ivegnnpbiyxqsion
+        ///ybahkbzpditgwdgt
+        ///dmebdomwabxgtctu
+        ///ibtvimgfaeonknoh
+        ///jsqraroxudetmfyw
+        ///dqdbcwtpintfcvuz
+        ///tiyphjunlxddenpj
+        ///fgqwjgntxagidhah
+        ///nwenhxma [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string Day5Input {
+            get {
+                return ResourceManager.GetString("Day5Input", resourceCulture);
+            }
+        }
     }
 }

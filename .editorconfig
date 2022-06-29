@@ -34,6 +34,10 @@ tab_width = 2
 insert_final_newline = false
 trim_trailing_whitespace = false
 
+[*.txt]
+insert_final_newline = false
+trim_trailing_whitespace = false
+
 [*.{json,yml,Config,props}]
 indent_size = 2
 tab_width = 2
