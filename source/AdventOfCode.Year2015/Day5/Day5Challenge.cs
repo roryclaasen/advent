@@ -67,11 +67,6 @@ namespace AdventOfCode.Year2015
 
                 for (var i = 0; i < line.Length; i++)
                 {
-                    if (doublePair && repeats)
-                    {
-                        break;
-                    }
-
                     if (!doublePair && i < line.Length - 1)
                     {
                         var doubleChar = new Regex($"{line[i]}{line[i + 1]}");
@@ -89,11 +84,12 @@ namespace AdventOfCode.Year2015
                             repeats = true;
                         }
                     }
-                }
 
-                if (doublePair && repeats)
-                {
-                    nice++;
+                    if (doublePair && repeats)
+                    {
+                        nice++;
+                        break;
+                    }
                 }
             }
 
