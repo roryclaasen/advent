@@ -12,7 +12,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2573ECE4-3D36-4424-B69B-34038BBF688B}"
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Build.props = tests\Directory.Build.props
-		tests\Tests.build.props = tests\Tests.build.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2015.Tests", "tests\AdventOfCode.Year2015.Tests\AdventOfCode.Year2015.Tests.csproj", "{116ABC69-EE6B-480A-B2D4-83873C7061A8}"
@@ -20,13 +19,11 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DD4A664-01FD-477E-9DE9-C19F3BBEF1D2}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		NuGet.Config = NuGet.Config
+		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Infrastructure.Tests", "tests\AdventOfCode.Infrastructure.Tests\AdventOfCode.Infrastructure.Tests.csproj", "{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Year", "Year", "{F4B2193E-163C-4116-BBEE-5D963C88BB9F}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Year", "Year", "{7C62C386-3F23-4D88-BCF7-63A0C2D4AD01}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Infrastructure.Tests", "tests\AdventOfCode.Infrastructure.Tests\AdventOfCode.Infrastructure.Tests.csproj", "{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,10 +56,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{B2EB3B74-B4DC-4570-A9F9-B1BCB3F5E90D} = {7C62C386-3F23-4D88-BCF7-63A0C2D4AD01}
-		{116ABC69-EE6B-480A-B2D4-83873C7061A8} = {F4B2193E-163C-4116-BBEE-5D963C88BB9F}
+		{116ABC69-EE6B-480A-B2D4-83873C7061A8} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
 		{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
-		{F4B2193E-163C-4116-BBEE-5D963C88BB9F} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E90FE4B-5F43-4D51-8CD4-6C89F2FE5504}

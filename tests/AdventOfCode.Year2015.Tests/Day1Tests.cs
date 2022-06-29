@@ -1,8 +1,8 @@
 ﻿namespace AdventOfCode.Year2015.Tests
 {
+    using System.Threading.Tasks;
     using AdventOfCode.Infrastructure.Tests;
     using AdventOfCode.Year2015;
-    using System.Threading.Tasks;
 
     [TestClass]
     public class Day1Tests : ChallengeTests<Day1Challenge>
