@@ -1,0 +1,20 @@
+{
+  "name": "advent",
+  "version": "1.0.0",
+  "scripts": {
+    "new-day": "zx ./scripts/gen-new-day.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/roryclaasen/advent.git"
+  },
+  "author": "Rory Claasen <contact@roryclaasen.dev>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roryclaasen/advent/issues"
+  },
+  "homepage": "https://github.com/roryclaasen/advent#readme",
+  "dependencies": {
+    "zx": "^7.0.3"
+  }
+}

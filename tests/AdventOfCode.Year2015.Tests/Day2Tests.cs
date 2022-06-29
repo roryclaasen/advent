@@ -11,7 +11,7 @@ namespace AdventOfCode.Year2015.Tests
     using AdventOfCode.Year2015;
 
     [TestClass]
-    public class Day2Tests : ChallengeTests<Day2Challenge>
+    public class Day2Tests : ChallengeTests<Day3Challenge>
     {
         [TestMethod]
         [DataRow("2x3x4", "58")]
