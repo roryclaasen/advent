@@ -1,7 +1,6 @@
 #!/usr/bin/env zx
 
-import path from "path";
-import { fs, chalk, question } from "zx";
+import { fs, chalk, question, path } from "zx";
 
 const validYears = [
     "2015",
@@ -58,7 +57,9 @@ if (await fs.pathExists(dayDir)) {
 
 await fs.mkdir(dayDir);
 await fs.writeFile(path.resolve(dayDir, `Day${day}Input.txt`), ``);
-await fs.writeFile(path.resolve(dayDir, `Day${day}Runner.cs`), `// ------------------------------------------------------------------------------
+await fs.writeFile(
+    path.resolve(dayDir, `Day${day}Runner.cs`),
+    `// ------------------------------------------------------------------------------
 // <copyright file="Day${day}Runner.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
@@ -77,8 +78,11 @@ namespace AdventOfCode.Year2015
         public override string Input => Properties.Resources.Day${day}Input;
     }
 }
-`);
-await fs.writeFile(path.resolve(dayDir, `Day${day}Challenge.cs`), `// ------------------------------------------------------------------------------
+`
+);
+await fs.writeFile(
+    path.resolve(dayDir, `Day${day}Challenge.cs`),
+    `// ------------------------------------------------------------------------------
 // <copyright file="Day${day}Challenge.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
@@ -102,7 +106,12 @@ namespace AdventOfCode.Year2015
         }
     }
 }
-`);
+`
+);
 
 console.log(chalk.green(`Created day ${day} in ${year}`));
-console.log(chalk.yellow('Note that currently you still have to manually add the input file into the project resources.'))
+console.log(
+    chalk.yellow(
+        "Note that currently you still have to manually add the input file into the project resources."
+    )
+);
