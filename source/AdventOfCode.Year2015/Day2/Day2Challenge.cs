@@ -1,5 +1,5 @@
-﻿// ------------------------------------------------------------------------------
-// <copyright file="Day2Challenge.cs" company="PlaceholderCompany">
+// ------------------------------------------------------------------------------
+// <copyright file="Day2Challenge.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------
@@ -14,30 +14,6 @@ namespace AdventOfCode.Year2015
 
     public class Day2Challenge : IChallenge
     {
-        private struct Dimension
-        {
-            public readonly int length;
-            public readonly int width;
-            public readonly int height;
-
-            public Dimension(int length, int width, int height)
-            {
-                this.length = length;
-                this.width = width;
-                this.height = height;
-            }
-        }
-
-        private IEnumerable<Dimension> ParseInput(string input) => input
-            .Split(Environment.NewLine)
-            .Select(line => line.Split('x').Select(int.Parse))
-            .Select(line =>
-            {
-                var array = line.ToArray();
-                return new Dimension(array[0], array[1], array[2]);
-            });
-
-
         public Task<string> SolvePart1(string input)
         {
             var parsed = this.ParseInput(input);
@@ -48,9 +24,9 @@ namespace AdventOfCode.Year2015
             {
                 var sides = new List<int>
                 {
-                    box.length * box.width,
-                    box.width * box.height,
-                    box.height * box.length
+                    box.Length * box.Width,
+                    box.Width * box.Height,
+                    box.Height * box.Length,
                 };
 
                 total += (sides.Sum() * 2) + sides.Min();
@@ -69,16 +45,39 @@ namespace AdventOfCode.Year2015
             {
                 var measurements = new List<int>
                 {
-                    box.length,
-                    box.width,
-                    box.height
+                    box.Length,
+                    box.Width,
+                    box.Height,
                 };
                 measurements.Sort();
 
-                total += (measurements.Take(2).Sum() * 2) + (box.length * box.width * box.height);
+                total += (measurements.Take(2).Sum() * 2) + (box.Length * box.Width * box.Height);
             }
 
             return this.Answer(total);
+        }
+
+        private IEnumerable<Dimension> ParseInput(string input) => input
+            .Split(Environment.NewLine)
+            .Select(line => line.Split('x').Select(int.Parse))
+            .Select(line =>
+            {
+                var array = line.ToArray();
+                return new Dimension(array[0], array[1], array[2]);
+            });
+
+        private struct Dimension
+        {
+            public readonly int Length;
+            public readonly int Width;
+            public readonly int Height;
+
+            public Dimension(int length, int width, int height)
+            {
+                this.Length = length;
+                this.Width = width;
+                this.Height = height;
+            }
         }
     }
 }

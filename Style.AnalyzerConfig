@@ -1,0 +1,7 @@
+is_global = true
+
+# SA1600: Elements should be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# SA0001: Xml Comment Analysis Disabled
+dotnet_diagnostic.SA0001.severity = none

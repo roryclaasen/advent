@@ -28,6 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json" Link="stylecop.json" Visible="True"/>
+    <AdditionalFiles Include="$(MSBuildThisFileDirectory)/stylecop.json" Link="stylecop.json" Visible="False"/>
+    <GlobalAnalyzerConfigFiles Include="$(MSBuildThisFileDirectory)/Style.AnalyzerConfig" Link="Style.AnalyzerConfig" Visible="False"/>
   </ItemGroup>
 </Project>

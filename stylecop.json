@@ -1,16 +1,17 @@
 {
-    "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
-    "settings": {
-      "documentationRules": {
-        "copyrightText": "Licensed under the MIT License. See LICENSE in the project root for license information.",
-        "headerDecoration": "------------------------------------------------------------------------------",
-        "documentInternalElements": false
-      },
-      "maintainabilityRules": {
-        "topLevelTypes": [ "class", "delegate", "enum", "interface", "struct" ]
-      },
-      "layoutRules": {
-        "newlineAtEndOfFile": "require"
-      }
+  "$schema": "https://raw.githubusercontent.com/DotNetAnalyzers/StyleCopAnalyzers/master/StyleCop.Analyzers/StyleCop.Analyzers/Settings/stylecop.schema.json",
+  "settings": {
+    "documentationRules": {
+      "copyrightText": "Licensed under the MIT License. See LICENSE in the project root for license information.",
+      "companyName": "Rory Claasen",
+      "headerDecoration": "------------------------------------------------------------------------------",
+      "documentInternalElements": false
+    },
+    "maintainabilityRules": {
+      "topLevelTypes": ["class", "delegate", "enum", "interface", "struct"]
+    },
+    "layoutRules": {
+      "newlineAtEndOfFile": "require"
     }
   }
+}

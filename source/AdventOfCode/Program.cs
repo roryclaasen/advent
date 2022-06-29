@@ -1,5 +1,5 @@
-﻿// ------------------------------------------------------------------------------
-// <copyright file="Program.cs" company="PlaceholderCompany">
+// ------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------
@@ -65,14 +65,14 @@ void WriteYear(string year)
 void WriteAnswer(int part, string answer)
 {
     Console.WriteLine($"  Part {part}:");
-    foreach(var line in answer.Split(Environment.NewLine))
+    foreach (var line in answer.Split(Environment.NewLine))
     {
         Console.WriteLine($"    {line}");
     }
 }
 
-
 var allRunners = GetRunners();
+
 foreach (var year in allRunners.Keys)
 {
     WriteYear(year.ToString());
