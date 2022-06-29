@@ -2,7 +2,7 @@
 {
     using System.Threading.Tasks;
 
-    public static class Challenge
+    public static class ChallengeExtensions
     {
         public static Task<string> Answer(this IChallenge challenge, object answer) => challenge.Answer(Task.FromResult(answer));
 

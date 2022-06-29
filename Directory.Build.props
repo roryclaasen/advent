@@ -1,10 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
 <Project>
   <PropertyGroup>
-    <TargetFramework>net6.0</TargetFramework>
-  </PropertyGroup>
+    <Product>AdventOfCode</Product>
+    <Authors>Rory Claasen</Authors>
 
-  <PropertyGroup Label="Package">
+    <LangVersion>10.0</LangVersion>
+    <TargetFramework>net6.0</TargetFramework>
+
+    <Nullable>enable</Nullable>
+    <IsPublishable>false</IsPublishable>
+
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <RepositoryUrl>https://github.com/roryclaasen/advent</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
+
+    <DebugType>embedded</DebugType>
   </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup Label="Common">
+    <PackageReference Include="Nerdbank.GitVersioning" Version="3.5.107" Condition=" '$(EnableGitVersioning)' != 'false' " />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1" Condition=" '$(EnableSourceLink)' != 'false' " />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.406" />
+  </ItemGroup>
 </Project>

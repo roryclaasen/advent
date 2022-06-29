@@ -1,5 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+  </PropertyGroup>
+  
   <ItemGroup>
     <ProjectReference Include="..\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj" />
   </ItemGroup>
@@ -18,5 +21,4 @@
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
-
 </Project>

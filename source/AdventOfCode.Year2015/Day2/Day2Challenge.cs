@@ -1,10 +1,10 @@
 ﻿namespace AdventOfCode.Year2015
 {
-    using AdventOfCode.Infrastructure;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
+    using AdventOfCode.Infrastructure;
 
     public class Day2Challenge : IChallenge
     {
