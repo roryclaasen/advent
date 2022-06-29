@@ -1,5 +1,5 @@
 ﻿// ------------------------------------------------------------------------------
-// <copyright file="IChallenge.cs" company="PlaceholderCompany">
+// <copyright file="IChallenge.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------

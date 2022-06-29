@@ -1,5 +1,5 @@
-﻿// ------------------------------------------------------------------------------
-// <copyright file="Day1Tests.cs" company="PlaceholderCompany">
+// ------------------------------------------------------------------------------
+// <copyright file="Day1Tests.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
 // ------------------------------------------------------------------------------
@@ -25,7 +25,12 @@ namespace AdventOfCode.Year2015.Tests
         [DataRow(")())())", "-3")]
         public async Task SolvePart1(string input, string answer)
         {
-            var solvedAnswer = await this.challenge.SolvePart1(input).ConfigureAwait(false);
+            if (this.Challenge == null)
+            {
+                Assert.Fail();
+            }
+
+            var solvedAnswer = await this.Challenge.SolvePart1(input).ConfigureAwait(false);
             Assert.AreEqual(answer, solvedAnswer);
         }
 
@@ -34,7 +39,12 @@ namespace AdventOfCode.Year2015.Tests
         [DataRow("()())", "5")]
         public async Task SolvePart2(string input, string answer)
         {
-            var solvedAnswer = await this.challenge.SolvePart2(input).ConfigureAwait(false);
+            if (this.Challenge == null)
+            {
+                Assert.Fail();
+            }
+
+            var solvedAnswer = await this.Challenge.SolvePart2(input).ConfigureAwait(false);
             Assert.AreEqual(answer, solvedAnswer);
         }
     }
