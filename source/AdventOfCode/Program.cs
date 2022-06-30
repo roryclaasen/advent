@@ -6,10 +6,12 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Threading.Tasks;
 using AdventOfCode.Infrastructure;
 
 IEnumerable<Assembly> GetAdventAssemblies()
@@ -62,9 +64,16 @@ void WriteYear(string year)
     Console.WriteLine(yearSep);
 }
 
-void WriteAnswer(int part, string answer)
+async Task WriteAnswer(int part, Func<Task<string>> solve)
 {
-    Console.WriteLine($"  Part {part}:");
+    var stopwatch = new Stopwatch();
+    Console.Write($"  Part {part}:");
+
+    stopwatch.Start();
+    var answer = await solve().ConfigureAwait(false);
+    stopwatch.Stop();
+
+    Console.WriteLine($" ({stopwatch.ElapsedMilliseconds}ms)");
     foreach (var line in answer.Split(Environment.NewLine))
     {
         Console.WriteLine($"    {line}");
@@ -82,7 +91,7 @@ foreach (var year in allRunners.Keys)
     {
         Console.WriteLine($"Day {runner.Day}");
 
-        WriteAnswer(1, await runner.SolvePart1().ConfigureAwait(false));
-        WriteAnswer(2, await runner.SolvePart2().ConfigureAwait(false));
+        await WriteAnswer(1, runner.SolvePart1).ConfigureAwait(false);
+        await WriteAnswer(2, runner.SolvePart2).ConfigureAwait(false);
     }
 }
