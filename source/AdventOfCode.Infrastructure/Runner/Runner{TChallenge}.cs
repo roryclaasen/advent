@@ -1,4 +1,4 @@
-﻿// ------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------
 // <copyright file="Runner{TChallenge}.cs" company="Rory Claasen">
 // Licensed under the MIT License. See LICENSE in the project root for license information.
 // </copyright>
@@ -14,10 +14,15 @@ namespace AdventOfCode.Infrastructure
     {
         private readonly Lazy<TChallenge> challenge = new Lazy<TChallenge>(() => new());
 
+        /// <inheritdoc/>
         public abstract int Year { get; }
 
+        /// <inheritdoc/>
         public abstract int Day { get; }
 
+        /// <summary>
+        /// Gets the input to pass to the challenge.
+        /// </summary>
         public abstract string Input { get; }
 
         public Task<string> SolvePart1() => this.challenge.Value.SolvePart1(this.Input);
