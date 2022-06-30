@@ -15,6 +15,7 @@ const validYears = [
 const validDays = [...Array(25).keys()].map((d) => d.toString());
 
 const sourceDir = path.resolve(__dirname, "..", "source");
+const testsDir = path.resolve(__dirname, "..", "tests");
 const projectPrefix = "AdventOfCode.Year";
 
 const projects = await fs.readdir(sourceDir);
@@ -55,15 +56,19 @@ if (await fs.pathExists(dayDir)) {
     process.exit(1);
 }
 
+const fileHeader = (
+    filename
+) => `// ------------------------------------------------------------------------------
+// <copyright file="${filename}" company="Rory Claasen">
+// Licensed under the MIT License. See LICENSE in the project root for license information.
+// </copyright>
+// ------------------------------------------------------------------------------`;
+
 await fs.mkdir(dayDir);
 await fs.writeFile(path.resolve(dayDir, `Day${day}Input.txt`), ``);
 await fs.writeFile(
     path.resolve(dayDir, `Day${day}Runner.cs`),
-    `// ------------------------------------------------------------------------------
-// <copyright file="Day${day}Runner.cs" company="Rory Claasen">
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-// </copyright>
-// ------------------------------------------------------------------------------
+    `${fileHeader(`Day${day}Runner.cs`)}
 
 namespace AdventOfCode.Year2015
 {
@@ -82,11 +87,7 @@ namespace AdventOfCode.Year2015
 );
 await fs.writeFile(
     path.resolve(dayDir, `Day${day}Challenge.cs`),
-    `// ------------------------------------------------------------------------------
-// <copyright file="Day${day}Challenge.cs" company="Rory Claasen">
-// Licensed under the MIT License. See LICENSE in the project root for license information.
-// </copyright>
-// ------------------------------------------------------------------------------
+    `${fileHeader(`Day${day}Challenge.cs`)}
 
 namespace AdventOfCode.Year2015
 {
@@ -115,3 +116,68 @@ console.log(
         "Note that currently you still have to manually add the input file into the project resources."
     )
 );
+
+const tests = await question("Do you also want to create tests? (y/N) ", {
+    choices: ["y", "n"],
+});
+if (tests.toLowerCase() === "y") {
+    console.log("tests")
+    const testSolution = path.resolve(
+        testsDir,
+        `${projectPrefix}${year}.Tests`
+    );
+    if (!(await fs.pathExists(testSolution))) {
+        console.log(chalk.red(`No existing test solution for this year`));
+        process.exit(1);
+    }
+    const testDay = path.resolve(testSolution, `Day${day}Tests.cs`);
+    if (await fs.pathExists(testDay)) {
+        console.log(chalk.red(`A test already exists for day ${day}`));
+        process.exit(1);
+    }
+
+    await fs.writeFile(testDay,
+        `${fileHeader(`Day${day}Tests.cs`)}
+
+namespace AdventOfCode.Year2015.Tests
+{
+    using System.Threading.Tasks;
+    using AdventOfCode.Infrastructure.Tests;
+    using AdventOfCode.Year2015;
+
+    [TestClass]
+    public class Day${day}Tests : ChallengeTests<Day${day}Challenge>
+    {
+        [TestMethod]
+        [DataRow("input", "false")]
+        public async Task Day${day}SolvePart1(string input, string answer)
+        {
+            if (this.Challenge == null)
+            {
+                Assert.Fail();
+            }
+
+            var solvedAnswer = await this.Challenge.SolvePart1(input).ConfigureAwait(false);
+            Assert.AreEqual(answer, solvedAnswer);
+        }
+
+        [TestMethod]
+        [DataRow("input", "false")]
+        public async Task Day${day}SolvePart2(string input, string answer)
+        {
+            if (this.Challenge == null)
+            {
+                Assert.Fail();
+            }
+
+            var solvedAnswer = await this.Challenge.SolvePart2(input).ConfigureAwait(false);
+            Assert.AreEqual(answer, solvedAnswer);
+        }
+    }
+}
+
+`
+    );
+
+    console.log(chalk.green(`Created test file for day ${day}`));
+}
