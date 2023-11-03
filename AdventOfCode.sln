@@ -21,11 +21,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
 		Directory.Build.props = Directory.Build.props
+		Directory.Packages.props = Directory.Packages.props
 		NuGet.Config = NuGet.Config
 		version.json = version.json
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Shared.Tests", "tests\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj", "{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{C05E84FE-470D-4AB6-8BED-89AE46E3A942}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Events", "Events", "{DBAB2D89-876F-4F20-8366-B47DCA168519}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,8 +63,10 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{116ABC69-EE6B-480A-B2D4-83873C7061A8} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
+		{B2EB3B74-B4DC-4570-A9F9-B1BCB3F5E90D} = {C05E84FE-470D-4AB6-8BED-89AE46E3A942}
+		{116ABC69-EE6B-480A-B2D4-83873C7061A8} = {DBAB2D89-876F-4F20-8366-B47DCA168519}
 		{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
+		{DBAB2D89-876F-4F20-8366-B47DCA168519} = {2573ECE4-3D36-4424-B69B-34038BBF688B}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E90FE4B-5F43-4D51-8CD4-6C89F2FE5504}
