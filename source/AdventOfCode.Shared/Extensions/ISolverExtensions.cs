@@ -25,12 +25,12 @@ public static class ISolverExtensions
     public static int Year(Type type)
     {
         var fullName = type.FullName ?? throw new Exception($"Type.FullName is null for {type}");
-        return int.Parse(fullName.Split('.')[1]!.Substring(4));
+        return int.Parse(fullName.Split('.')[1][4..]);
     }
 
     public static int Day(Type type)
     {
         var fullName = type.FullName ?? throw new Exception($"Type.FullName is null for {type}");
-        return int.Parse(fullName.Split('.')[2].Substring(3));
+        return int.Parse(fullName.Split('.')[2][3..^8]);
     }
 }

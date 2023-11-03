@@ -2,11 +2,11 @@ using AdventOfCode;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
+using System.CommandLine;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
@@ -28,82 +28,126 @@ IEnumerable<Type> FindAllOfType<T>(IEnumerable<Assembly> assemblies)
 
     return assemblies.SelectMany(a => a.GetTypes())
          .Where(t => t.IsClass && !t.IsAbstract)
-         .Where(p => baseType.IsAssignableFrom(p));
+         .Where(baseType.IsAssignableFrom);
 }
 
-IEnumerable<ISolver> GetSolvers(params Type[] solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
-
-var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies()).ToArray();
-
-Func<Task>? Command(string[] args, string[] regexes, Func<string[], Func<Task>> parse)
+IEnumerable<ISolver> GetSolvers(int? year, int? day)
 {
-    if (args.Length != regexes.Length)
-    {
-        return null;
-    }
+    static IEnumerable<ISolver> CreateSolvers(IEnumerable<Type> solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
+    var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies());
 
-    var matches = Enumerable.Zip(args, regexes, (arg, regex) => new Regex("^" + regex + "$").Match(arg));
-    if (!matches.All(match => match.Success))
+    if (day is not null && year is not null)
     {
-        return null;
-    }
+        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year && ISolverExtensions.Day(tSolver) == day);
+        if (!solverType.Any())
+        {
+            Console.WriteLine($"There are no solutions yet for the year {year} and day {day}");
+            return Enumerable.Empty<ISolver>();
+        }
 
-    try
-    {
-        var matchedArgs = matches.SelectMany(m => m.Groups.Count > 1 ? m.Groups.Cast<Group>().Skip(1).Select(g => g.Value) : new[] { m.Value }).ToArray();
-        return parse(matchedArgs);
+        return CreateSolvers(solverType);
     }
-    catch
+    else if (day is null && year is not null)
     {
-        return null;
+        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year);
+        if (!solverType.Any())
+        {
+            Console.WriteLine($"There are no solutions yet for the year {year}");
+            return Enumerable.Empty<ISolver>();
+        }
+
+        return CreateSolvers(solverType);
+    }
+    else if (day is not null && year is null)
+    {
+        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Day(tSolver) == day);
+        if (!solverType.Any())
+        {
+            Console.WriteLine($"There are no solutions yet for the day {day}");
+            return Enumerable.Empty<ISolver>();
+        }
+
+        return CreateSolvers(solverType);
+    }
+    else
+    {
+        return CreateSolvers(allSolverTypes);
     }
 }
 
-string[] Args(params string[] regex) => regex;
+var AoCDateTime = DateTime.UtcNow.AddHours(-5);
 
-var job =
-    Command(args, Args("([0-9]+)/(Day)?([0-9]+)"), m =>
+var todayCommand = new Command("today", "Run todays solution, if the event is active.");
+todayCommand.SetHandler(() =>
+{
+    if (AoCDateTime is { Month: 12, Day: >= 1 and <= 25 })
     {
-        var year = int.Parse(m[0]);
-        var day = int.Parse(m[2]);
-        var solverType = allSolverTypes.First(tSolver => ISolverExtensions.Year(tSolver) == year && ISolverExtensions.Day(tSolver) == day);
-        return () => Runner.RunAll(GetSolvers(solverType));
-    }) ??
-    Command(args, Args("[0-9]+"), m =>
+        return Runner.RunAll(GetSolvers(AoCDateTime.Year, AoCDateTime.Day));
+    }
+
+    Console.WriteLine("Event is not active. This option works in Dec 1-25 only.");
+    Console.WriteLine("Run --help to see all available commands.");
+
+    return Task.FromResult(-1);
+
+});
+
+var yearOption = new Option<int?>
+    (aliases: new[] { "--year", "-y" },
+    description: "Run the solutions that match the year.",
+    parseArgument: result =>
     {
-        var year = int.Parse(m[0]);
-        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year).ToArray();
-        return () => Runner.RunAll(GetSolvers(solverType));
-    }) ??
-    Command(args, Args("([0-9]+)/all"), m =>
-    {
-        var year = int.Parse(m[0]);
-        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year).ToArray();
-        return () => Runner.RunAll(GetSolvers(solverType));
-    }) ??
-    Command(args, Args("all"), m =>
-    {
-        return () => Runner.RunAll(GetSolvers(allSolverTypes));
-    }) ??
-    Command(args, Args("today"), m =>
-    {
-        var dt = DateTime.UtcNow.AddHours(-5);
-        if (dt is { Month: 12, Day: >= 1 and <= 25 })
+        if (int.TryParse(result.Tokens.Single().Value, out var year))
         {
-            var solversTypesSelected = allSolverTypes.First(tsolver =>
-                ISolverExtensions.Year(tsolver) == dt.Year &&
-                ISolverExtensions.Day(tsolver) == dt.Day);
-
-            return () => Runner.RunAll(GetSolvers(solversTypesSelected));
+            var maxYear = AoCDateTime.Month == 12 ? AoCDateTime.Year : AoCDateTime.Year - 1;
+            if (year >= 2015 && year <= maxYear)
+            {
+                return year;
+            }
+            else
+            {
+                result.ErrorMessage = "Year must be between 2015 and " + maxYear;
+            }
         }
         else
         {
-            throw new Exception("Event is not active. This option works in Dec 1-25 only)");
+            result.ErrorMessage = "Year must be an integer";
         }
-    }) ??
-    (() => Task.Run(() =>
-    {
-        Console.WriteLine("Help text");
-    }));
 
-await job().ConfigureAwait(false);
+        return null;
+    });
+
+
+var dayOption = new Option<int?>
+    (aliases: new[] { "--day", "-d" },
+    description: "Run the solutions that match the day.",
+    parseArgument: result =>
+    {
+        if (int.TryParse(result.Tokens.Single().Value, out var day))
+        {
+            if (day >= 1 && day <= 25)
+            {
+                return day;
+            }
+            else
+            {
+                result.ErrorMessage = "Day must be between 1 and 25";
+            }
+        }
+        else
+        {
+            result.ErrorMessage = "Day must be an integer";
+        }
+
+        return null;
+    });
+
+var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent of Code")
+{
+    yearOption,
+    dayOption,
+    todayCommand
+};
+rootCommand.SetHandler((year, day) => Runner.RunAll(GetSolvers(year, day)), yearOption, dayOption);
+
+await rootCommand.InvokeAsync(args).ConfigureAwait(false);
