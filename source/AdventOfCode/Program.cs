@@ -31,6 +31,10 @@ IEnumerable<Type> FindAllOfType<T>(IEnumerable<Assembly> assemblies)
          .Where(p => baseType.IsAssignableFrom(p));
 }
 
+IEnumerable<ISolver> GetSolvers(params Type[] solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
+
+var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies()).ToArray();
+
 Func<Task>? Command(string[] args, string[] regexes, Func<string[], Func<Task>> parse)
 {
     if (args.Length != regexes.Length)
@@ -55,15 +59,7 @@ Func<Task>? Command(string[] args, string[] regexes, Func<string[], Func<Task>> 
     }
 }
 
-string[] Args(params string[] regex)
-{
-    return regex;
-}
-
-IEnumerable<ISolver> GetSolvers(params Type[] solverTypes)
-    => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
-
-var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies()).ToArray();
+string[] Args(params string[] regex) => regex;
 
 var job =
     Command(args, Args("([0-9]+)/(Day)?([0-9]+)"), m =>
@@ -76,13 +72,13 @@ var job =
     Command(args, Args("[0-9]+"), m =>
     {
         var year = int.Parse(m[0]);
-        var solverType = allSolverTypes.First(tSolver => ISolverExtensions.Year(tSolver) == year);
+        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year).ToArray();
         return () => Runner.RunAll(GetSolvers(solverType));
     }) ??
     Command(args, Args("([0-9]+)/all"), m =>
     {
         var year = int.Parse(m[0]);
-        var solverType = allSolverTypes.First(tSolver => ISolverExtensions.Year(tSolver) == year);
+        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year).ToArray();
         return () => Runner.RunAll(GetSolvers(solverType));
     }) ??
     Command(args, Args("all"), m =>

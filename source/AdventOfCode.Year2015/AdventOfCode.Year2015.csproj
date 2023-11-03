@@ -1,13 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <OutputType>library</OutputType>
-    </PropertyGroup>
+  <PropertyGroup>
+    <OutputType>library</OutputType>
+  </PropertyGroup>
 
-    <ItemGroup>
-        <EmbeddedResource Include="Day*\*.txt" />
-    </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Day*\*.txt" />
+  </ItemGroup>
 
-    <ItemGroup>
-        <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
-    </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
+  </ItemGroup>
 </Project>
