@@ -1,20 +1,24 @@
 {
   "profiles": {
+    "AdventOfCode": {
+      "commandName": "Project",
+      "commandLineArgs": ""
+    },
     "AdventOfCode (today)": {
       "commandName": "Project",
       "commandLineArgs": "today"
     },
-    "AdventOfCode (all)": {
-      "commandName": "Project",
-      "commandLineArgs": "all"
-    },
     "AdventOfCode (2015)": {
       "commandName": "Project",
-      "commandLineArgs": "2015"
+      "commandLineArgs": "--year 2015"
     },
     "AdventOfCode (2022)": {
       "commandName": "Project",
-      "commandLineArgs": "2022"
+      "commandLineArgs": "--year 2022"
+    },
+    "AdventOfCode help": {
+      "commandName": "Project",
+      "commandLineArgs": "--help"
     }
   }
 }
