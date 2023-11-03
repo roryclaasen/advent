@@ -29,7 +29,7 @@ public class Runner
             }
             else
             {
-                spinner.Fail($"{messagePrefix} - Incorrect, expected {result.Expected} but got {result.Actual}");
+                spinner.Fail($"{messagePrefix} - Incorrect, expected {result.Expected} but got {result.Actual ?? "NULL"}");
             }
 
             return result;
@@ -49,7 +49,7 @@ public class Runner
             {
                 await Console.Out.WriteLineAsync(partOneResult.Actual);
             }
-            var partTwoResult = await SpinnerTask(1, partTwo);
+            var partTwoResult = await SpinnerTask(2, partTwo);
             if (partTwoResult.IsCorrect)
             {
                 await Console.Out.WriteLineAsync(partTwoResult.Actual);

@@ -2,7 +2,7 @@ namespace AdventOfCode.Year2015;
 
 using AdventOfCode.Shared;
 
-[Problem(2015, 01, "Not Quite Lisp")]
+[Problem(2015, 1, "Not Quite Lisp")]
 public class Day1Solution : ISolver
 {
     public object? PartOne(string input)
