@@ -4,7 +4,7 @@
 // </copyright>
 // ------------------------------------------------------------------------------
 
-namespace AdventOfCode.Infrastructure
+namespace AdventOfCode.Shared
 {
     using System;
     using System.Collections.Generic;

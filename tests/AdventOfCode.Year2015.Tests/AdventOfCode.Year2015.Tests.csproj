@@ -1,11 +1,11 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <OutputType>library</OutputType>
     </PropertyGroup>
 
     <ItemGroup>
         <ProjectReference Include="..\..\source\AdventOfCode.Year2015\AdventOfCode.Year2015.csproj" />
-        <ProjectReference Include="..\AdventOfCode.Infrastructure.Tests\AdventOfCode.Infrastructure.Tests.csproj" />
+        <ProjectReference Include="..\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj" />
     </ItemGroup>
 
 </Project>

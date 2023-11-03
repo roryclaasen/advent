@@ -2,6 +2,9 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
   </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Kurukuru" />
+  </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AdventOfCode.Year2015\AdventOfCode.Year2015.csproj" />
