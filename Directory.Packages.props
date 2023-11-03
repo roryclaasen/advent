@@ -7,7 +7,7 @@
     <PackageVersion Include="Kurukuru" Version="1.4.2" />
     <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.0" />
   </ItemGroup>
-  <ItemGroup>
+  <ItemGroup Label="Test Packages">
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.7.2" />
     <PackageVersion Include="MSTest.TestAdapter" Version="3.1.1" />

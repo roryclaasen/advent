@@ -3,7 +3,7 @@ namespace AdventOfCode.Year2015;
 using AdventOfCode.Shared;
 using System;
 
-[Problem(2015, 06, "Probably a Fire Hazard")]
+[Problem(2015, 6, "Probably a Fire Hazard")]
 public class Day6Solution : ISolver
 {
     public object? PartOne(string input)
@@ -14,12 +14,12 @@ public class Day6Solution : ISolver
             var instructions = line.Split(' ');
             var isToggle = instructions[0] == "toggle";
             var action = isToggle ? "toggle" : instructions[1];
-            var start = StringHelper.ToPoint(instructions[isToggle ? 1 : 2]);
-            var end = StringHelper.ToPoint(instructions[isToggle ? 3 : 4]);
+            var start = instructions[isToggle ? 1 : 2].ToVector2();
+            var end = instructions[isToggle ? 3 : 4].ToVector2();
 
-            for (var x = start.X; x <= end.X; x++)
+            for (var x = (int)start.X; x <= end.X; x++)
             {
-                for (var y = start.Y; y <= end.Y; y++)
+                for (var y = (int)start.Y; y <= end.Y; y++)
                 {
                     if (isToggle)
                     {
@@ -60,12 +60,12 @@ public class Day6Solution : ISolver
             var instructions = line.Split(' ');
             var isToggle = instructions[0] == "toggle";
             var action = isToggle ? "toggle" : instructions[1];
-            var start = StringHelper.ToPoint(instructions[isToggle ? 1 : 2]);
-            var end = StringHelper.ToPoint(instructions[isToggle ? 3 : 4]);
+            var start = instructions[isToggle ? 1 : 2].ToVector2();
+            var end = instructions[isToggle ? 3 : 4].ToVector2();
 
-            for (var x = start.X; x <= end.X; x++)
+            for (var x = (int)start.X; x <= end.X; x++)
             {
-                for (var y = start.Y; y <= end.Y; y++)
+                for (var y = (int)start.Y; y <= end.Y; y++)
                 {
                     if (isToggle)
                     {
