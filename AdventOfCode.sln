@@ -5,13 +5,14 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode", "source\AdventOfCode\AdventOfCode.csproj", "{5D8AC52A-BB51-4350-A2F0-B1B2041076E0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Infrastructure", "source\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj", "{B232FAFB-322E-46C0-A369-315635E15142}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Shared", "source\AdventOfCode.Shared\AdventOfCode.Shared.csproj", "{B232FAFB-322E-46C0-A369-315635E15142}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2015", "source\AdventOfCode.Year2015\AdventOfCode.Year2015.csproj", "{B2EB3B74-B4DC-4570-A9F9-B1BCB3F5E90D}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2573ECE4-3D36-4424-B69B-34038BBF688B}"
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Build.props = tests\Directory.Build.props
+		tests\Usings.cs = tests\Usings.cs
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2015.Tests", "tests\AdventOfCode.Year2015.Tests\AdventOfCode.Year2015.Tests.csproj", "{116ABC69-EE6B-480A-B2D4-83873C7061A8}"
@@ -24,7 +25,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		version.json = version.json
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Infrastructure.Tests", "tests\AdventOfCode.Infrastructure.Tests\AdventOfCode.Infrastructure.Tests.csproj", "{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Shared.Tests", "tests\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj", "{53FC9206-FA5A-4B4C-8E81-0CE9FE021B8E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
