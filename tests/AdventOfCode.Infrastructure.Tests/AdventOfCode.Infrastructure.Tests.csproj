@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-  
-  <ItemGroup>
-    <ProjectReference Include="..\..\source\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj" />
-  </ItemGroup>
+    <PropertyGroup>
+        <OutputType>library</OutputType>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <ProjectReference Include="..\..\source\AdventOfCode.Infrastructure\AdventOfCode.Infrastructure.csproj" />
+    </ItemGroup>
+
 </Project>
