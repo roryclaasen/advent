@@ -6,66 +6,111 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-public class Runner
+public static class Runner
 {
-    private static Task<SolveResult> SpinnerTask(int part, Task<SolveResult> partTask)
-    {
-        var prefix = $"Part {part}";
-        return Spinner.StartAsync(prefix, async (spinner) =>
-        {
-            var result = await partTask;
-            var messagePrefix = $"{prefix} ({result.Elapsed.TotalMilliseconds}ms)";
-            if (result.IsCorrect)
-            {
-                spinner.Succeed(messagePrefix);
-            }
-            else if (result.Error is not null)
-            {
-                spinner.Fail($"{messagePrefix} - {result.Error.Message}");
-            }
-            else
-            {
-                spinner.Fail($"{messagePrefix} - Incorrect, expected {result.Expected} but got {result.Actual ?? "NULL"}");
-            }
-
-            return result;
-        });
-    }
-
     public static async Task RunAll(IEnumerable<ISolver> solvers)
     {
-        var runner = new Runner();
-        foreach (var solver in solvers)
+        var solversByYear = solvers.GroupBy(s => s.Year());
+        foreach (var year in solversByYear)
         {
-            var name = solver.Name();
-            await Console.Out.WriteLineAsync($"Year {solver.Year()} Day {solver.Day()}{(name is not null ? $" - {name}" : string.Empty)}");
-            var (partOne, partTwo) = await runner.Execute(solver);
-            var partOneResult = await SpinnerTask(1, partOne);
-            if (partOneResult.IsCorrect)
+            PrintHeading(year.First());
+            foreach (var solver in year)
             {
-                await Console.Out.WriteLineAsync(partOneResult.Actual);
-            }
-            var partTwoResult = await SpinnerTask(2, partTwo);
-            if (partTwoResult.IsCorrect)
-            {
-                await Console.Out.WriteLineAsync(partTwoResult.Actual);
+                await Run(solver);
             }
         }
     }
 
-    private async Task<(Task<SolveResult> PartOne, Task<SolveResult> PartTwo)> Execute(ISolver solver)
+    private static async Task Run(ISolver solver)
     {
-        var resourceFiles = await this.GetResourceFiles(solver).ConfigureAwait(false);
-        var partOne = Task.Run(() => this.Solve(() => solver.PartOne(resourceFiles.Input), resourceFiles.ExpectedPartOne));
-        var partTwo = Task.Run(() => this.Solve(() => solver.PartTwo(resourceFiles.Input), resourceFiles.ExpectedPartTwo));
-        return (partOne, partTwo);
+        Console.WriteLine($"{solver.Day()}: {solver.Name() ?? string.Empty}");
+
+        var resources = await GetResourceFiles(solver).ConfigureAwait(false);
+
+        var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
+        PrintResult(partOne);
+
+        var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
+        PrintResult(partTwo);
     }
 
-    private SolveResult Solve(Func<object?> action, string? expected)
+    private static void PrintHeading(ISolver solver)
+    {
+        var line = new string('=', 80);
+        Console.WriteLine(line);
+        Console.WriteLine($"Advent of Code {solver.Year()}");
+        Console.WriteLine(line);
+    }
+
+    private static void PrintResult(SolveResult result)
+    {
+        var actual = result.Actual?.ToString() ?? "NULL";
+        var isMultiLine = actual.Contains(Environment.NewLine);
+        if (result.IsCorrect)
+        {
+            if (isMultiLine)
+            {
+                Console.WriteLine("    Result:");
+                Console.WriteLine(actual);
+            }
+            else
+            {
+                Console.WriteLine($"    Result: {actual}");
+            }
+
+        }
+        else if (result.Error is not null)
+        {
+            Console.WriteLine(result.Error.StackTrace);
+        }
+        else if (result.Expected is not null)
+        {
+            if (isMultiLine)
+            {
+                Console.WriteLine("    Expected:");
+                Console.WriteLine(result.Expected);
+                Console.WriteLine("    Actual:");
+                Console.WriteLine(result.Actual);
+            }
+            else
+            {
+                Console.WriteLine($"    Expected: {result.Expected} Actual: {result.Actual}");
+            }
+        }
+        else
+        {
+            throw new Exception("Expected cannot be null when result is incorrect");
+        }
+
+        Console.WriteLine();
+    }
+
+    private static Task<SolveResult> SolveSpinner(string prefix, Func<object?> action, string? expected)
+        => Spinner.StartAsync(prefix, (spinner) =>
+        {
+            var result = Solve(action, expected);
+            if (result.IsCorrect)
+            {
+                spinner.Succeed($"{prefix} ({result.Elapsed.TotalMilliseconds}ms)");
+            }
+            else if (result.Error is not null)
+            {
+                spinner.Fail($"{prefix} ({result.Elapsed.TotalMilliseconds}ms) - {result.Error.Message}");
+            }
+            else
+            {
+                spinner.Fail($"{prefix} ({result.Elapsed.TotalMilliseconds}ms) - Incorrect result");
+            }
+
+            return Task.FromResult(result);
+        });
+
+    private static SolveResult Solve(Func<object?> action, string? expected)
     {
         string? actual = null;
         Exception? error = null;
@@ -84,23 +129,23 @@ public class Runner
         return new SolveResult(stopwatch.Elapsed, expected, actual, isCorrect, error);
     }
 
-    private async Task<ResourceFiles> GetResourceFiles(ISolver solver)
+    private static async Task<ResourceFiles> GetResourceFiles(ISolver solver)
     {
         var assembly = solver.GetAssembly();
         var workingDirectory = solver.GetWorkingDirectory();
 
-        var input = await this.ReadResourceFile(assembly, Path.Combine(workingDirectory, "input.txt")).ConfigureAwait(false);
-        var expectedPartOne = await this.ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected1.txt")).ConfigureAwait(false);
-        var expectedPartTwo = await this.ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected2.txt")).ConfigureAwait(false);
+        var input = await ReadResourceFile(assembly, Path.Combine(workingDirectory, "input.txt")).ConfigureAwait(false);
+        var expectedPartOne = await ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected1.txt")).ConfigureAwait(false);
+        var expectedPartTwo = await ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected2.txt")).ConfigureAwait(false);
 
         return new ResourceFiles(input, expectedPartOne, expectedPartTwo);
     }
 
-    private async Task<string?> ReadExpectedResourceFile(Assembly assembly, string inputFile)
+    private static async Task<string?> ReadExpectedResourceFile(Assembly assembly, string inputFile)
     {
         try
         {
-            var file = await this.ReadResourceFile(assembly, inputFile).ConfigureAwait(false);
+            var file = await ReadResourceFile(assembly, inputFile).ConfigureAwait(false);
             return string.IsNullOrWhiteSpace(file) ? null : file;
         }
         catch (FileNotFoundException)
@@ -109,7 +154,7 @@ public class Runner
         }
     }
 
-    private async Task<string> ReadResourceFile(Assembly assembly, string filePath)
+    private static async Task<string> ReadResourceFile(Assembly assembly, string filePath)
     {
         var input = await assembly.ReadResourceFile(filePath).ConfigureAwait(false);
         var normalized = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
