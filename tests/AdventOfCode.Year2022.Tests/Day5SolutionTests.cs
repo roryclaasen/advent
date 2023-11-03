@@ -3,23 +3,18 @@ namespace AdventOfCode.Year2022.Tests;
 using AdventOfCode.Shared.Tests;
 
 [TestClass]
-public class Day1SolutionTests : SolverBaseTests<Day1Solution>
+public class Day5SolutionTests : SolverBaseTests<Day5Solution>
 {
     [TestMethod]
-    [DataRow(@"1000
-2000
-3000
+    [DataRow(@"    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
 
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000", "24000")]
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2", "CMZ")]
     public void SolvePart1(string input, string answer)
     {
         Assert.IsNotNull(this.Solver);
@@ -29,20 +24,15 @@ public class Day1SolutionTests : SolverBaseTests<Day1Solution>
     }
 
     [TestMethod]
-    [DataRow(@"1000
-2000
-3000
+    [DataRow(@"    [D]    
+[N] [C]    
+[Z] [M] [P]
+ 1   2   3 
 
-4000
-
-5000
-6000
-
-7000
-8000
-9000
-
-10000", "45000")]
+move 1 from 2 to 1
+move 3 from 1 to 3
+move 2 from 2 to 1
+move 1 from 1 to 2", "MCD")]
     public void SolvePart2(string input, string answer)
     {
         Assert.IsNotNull(this.Solver);

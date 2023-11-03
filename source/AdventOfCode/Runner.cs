@@ -100,7 +100,8 @@ public class Runner
     {
         try
         {
-            return await this.ReadResourceFile(assembly, inputFile).ConfigureAwait(false);
+            var file = await this.ReadResourceFile(assembly, inputFile).ConfigureAwait(false);
+            return string.IsNullOrWhiteSpace(file) ? null : file;
         }
         catch (FileNotFoundException)
         {

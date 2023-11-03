@@ -11,6 +11,10 @@
     "AdventOfCode (2015)": {
       "commandName": "Project",
       "commandLineArgs": "2015"
+    },
+    "AdventOfCode (2022)": {
+      "commandName": "Project",
+      "commandLineArgs": "2022"
     }
   }
 }
