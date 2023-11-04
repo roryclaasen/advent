@@ -31,9 +31,8 @@ IEnumerable<Type> FindAllOfType<T>(IEnumerable<Assembly> assemblies)
          .Where(baseType.IsAssignableFrom);
 }
 
-IEnumerable<ISolver> GetSolvers(int? year, int? day)
+IEnumerable<Type> GetSolverTypesFor(int? year = null, int? day = null)
 {
-    static IEnumerable<ISolver> CreateSolvers(IEnumerable<Type> solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
     var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies());
 
     if (day is not null && year is not null)
@@ -42,10 +41,10 @@ IEnumerable<ISolver> GetSolvers(int? year, int? day)
         if (!solverType.Any())
         {
             Console.WriteLine($"There are no solutions yet for the year {year} and day {day}");
-            return Enumerable.Empty<ISolver>();
+            return Enumerable.Empty<Type>();
         }
 
-        return CreateSolvers(solverType);
+        return solverType;
     }
     else if (day is null && year is not null)
     {
@@ -53,10 +52,10 @@ IEnumerable<ISolver> GetSolvers(int? year, int? day)
         if (!solverType.Any())
         {
             Console.WriteLine($"There are no solutions yet for the year {year}");
-            return Enumerable.Empty<ISolver>();
+            return Enumerable.Empty<Type>();
         }
 
-        return CreateSolvers(solverType);
+        return solverType;
     }
     else if (day is not null && year is null)
     {
@@ -64,16 +63,16 @@ IEnumerable<ISolver> GetSolvers(int? year, int? day)
         if (!solverType.Any())
         {
             Console.WriteLine($"There are no solutions yet for the day {day}");
-            return Enumerable.Empty<ISolver>();
+            return Enumerable.Empty<Type>();
         }
 
-        return CreateSolvers(solverType);
+        return solverType;
     }
-    else
-    {
-        return CreateSolvers(allSolverTypes);
-    }
+
+    return allSolverTypes;
 }
+
+static IEnumerable<ISolver> CreateSolvers(IEnumerable<Type> solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
 
 var AoCDateTime = DateTime.UtcNow.AddHours(-5);
 
@@ -82,14 +81,13 @@ todayCommand.SetHandler(() =>
 {
     if (AoCDateTime is { Month: 12, Day: >= 1 and <= 25 })
     {
-        return Runner.RunAll(GetSolvers(AoCDateTime.Year, AoCDateTime.Day));
+        return Runner.RunAll(CreateSolvers(GetSolverTypesFor(AoCDateTime.Year, AoCDateTime.Day)));
     }
 
     Console.WriteLine("Event is not active. This option works in Dec 1-25 only.");
     Console.WriteLine("Run --help to see all available commands.");
 
     return Task.FromResult(-1);
-
 });
 
 var yearOption = new Option<int?>
@@ -142,12 +140,30 @@ var dayOption = new Option<int?>
         return null;
     });
 
+var lastOption = new Option<bool>
+    (aliases: new[] { "--last" },
+    description: "Run the last solution for the selected year",
+    getDefaultValue: () => false);
+
+var lastCommand = new Command("last", "Runs the last solution for each year, unless the year is specifieds.")
+{
+    yearOption
+};
+lastCommand.SetHandler((year) =>
+{
+    var solvers = GetSolverTypesFor(year)
+        .GroupBy(t => ISolverExtensions.Year(t))
+        .Select(year => year.OrderBy(s => ISolverExtensions.Day(s)).Last());
+    return Runner.RunAll(CreateSolvers(solvers));
+}, yearOption);
+
 var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent of Code")
 {
     yearOption,
     dayOption,
-    todayCommand
+    todayCommand,
+    lastCommand
 };
-rootCommand.SetHandler((year, day) => Runner.RunAll(GetSolvers(year, day)), yearOption, dayOption);
+rootCommand.SetHandler((year, day) => Runner.RunAll(CreateSolvers(GetSolverTypesFor(year, day))), yearOption, dayOption);
 
 await rootCommand.InvokeAsync(args).ConfigureAwait(false);

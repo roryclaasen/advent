@@ -16,10 +16,10 @@ public static class Runner
     public static async Task RunAll(IEnumerable<ISolver> solvers)
     {
         var solversByYear = solvers.GroupBy(s => s.Year());
-        foreach (var year in solversByYear)
+        foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
             PrintHeading(year.First());
-            foreach (var solver in year)
+            foreach (var solver in year.OrderBy(s => s.Day()))
             {
                 await Run(solver);
             }
@@ -28,15 +28,24 @@ public static class Runner
 
     public static async Task Run(ISolver solver)
     {
-        Console.WriteLine($"{solver.Day()}: {solver.Name() ?? string.Empty}");
+        try
+        {
+            await Console.Out.WriteLineAsync($"{solver.Day()}: {solver.Name() ?? string.Empty}");
 
-        var resources = await GetResourceFiles(solver).ConfigureAwait(false);
+            var resources = await GetResourceFiles(solver).ConfigureAwait(false);
 
-        var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
-        PrintResult(partOne);
+            var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
+            PrintResult(partOne);
 
-        var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
-        PrintResult(partTwo);
+            var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
+            PrintResult(partTwo);
+        }
+        catch (Exception e)
+        {
+            // TODO: Color and indent?
+            await Console.Error.WriteLineAsync(e.Message);
+            await Console.Error.WriteLineAsync(e.StackTrace);
+        }
     }
 
     private static void PrintHeading(ISolver solver)
