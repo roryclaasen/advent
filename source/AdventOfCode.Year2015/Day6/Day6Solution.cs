@@ -9,7 +9,7 @@ public class Day6Solution : ISolver
     public object? PartOne(string input)
     {
         var grid = this.MakeGrid();
-        foreach (var line in input.Split(Environment.NewLine))
+        foreach (var line in input.SplitNewLine())
         {
             var instructions = line.Split(' ');
             var isToggle = instructions[0] == "toggle";
@@ -55,7 +55,7 @@ public class Day6Solution : ISolver
     public object? PartTwo(string input)
     {
         var grid = this.MakeGrid();
-        foreach (var line in input.Split(Environment.NewLine))
+        foreach (var line in input.SplitNewLine())
         {
             var instructions = line.Split(' ');
             var isToggle = instructions[0] == "toggle";

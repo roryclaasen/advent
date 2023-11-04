@@ -26,7 +26,7 @@ public static class Runner
         }
     }
 
-    private static async Task Run(ISolver solver)
+    public static async Task Run(ISolver solver)
     {
         Console.WriteLine($"{solver.Day()}: {solver.Name() ?? string.Empty}");
 

@@ -108,7 +108,7 @@ public class Day8Solution : ISolver
 
     static GridData ParseInput(string input)
     {
-        var lines = input.Split(Environment.NewLine).ToArray();
+        var lines = input.SplitNewLine().ToArray();
         var width = lines[0].Length;
         var height = lines.Length;
 
