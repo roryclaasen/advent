@@ -12,7 +12,7 @@ public class Day7SolutionTests : SolverBaseTests<Day7Solution>
     {
         Assert.IsNotNull(this.Solver);
 
-        var input = this.Solver.ParseInput(@"123 -> x
+        var solvedAnswer = this.Solver.RunInput(@"123 -> x
 456 -> y
 x AND y -> d
 x OR y -> e
@@ -20,8 +20,6 @@ x LSHIFT 2 -> f
 y RSHIFT 2 -> g
 NOT x -> h
 NOT y -> i");
-
-        var solvedAnswer = this.Solver.RunInstructions(input.ToList());
 
         var expected = new Dictionary<string, ushort>
         {
