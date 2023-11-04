@@ -47,7 +47,7 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(margin, nameof(margin));
 
         return string.Join("\n", str
-            .Split(Environment.NewLine)
+            .SplitNewLine()
             .Select(line => Regex.Replace(line, @"^\s*" + Regex.Escape(margin), ""))
         );
     }
@@ -58,7 +58,20 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(length, nameof(length));
 
         var indent = new string(' ', length);
-        var res = string.Join(Environment.NewLine + new string(' ', length), str.Split(Environment.NewLine).Select(line => Regex.Replace(line, @"^\s*\|", "")));
+        var res = string.Join(Environment.NewLine + new string(' ', length), str.SplitNewLine().Select(line => Regex.Replace(line, @"^\s*\|", "")));
         return firstLine ? indent + res : res;
+    }
+
+    /// <summary>
+    /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by <see cref="Environment.NewLine"/>.</returns>
+    public static string[] SplitNewLine(this string str, StringSplitOptions options = StringSplitOptions.None)
+    {
+        ArgumentNullException.ThrowIfNull(str, nameof(str));
+        str.Split(Environment.NewLine, );
+        return str.Split(Environment.NewLine, options);
     }
 }

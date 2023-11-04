@@ -59,7 +59,7 @@ public class Day5Solution : ISolver
             .Replace(" ", string.Empty);
 
         var stackInput = input
-            .Split(Environment.NewLine)
+            .SplitNewLine()
             .Select(l => l.SplitInParts(3, 1).Select(TidyStackItem));
         var stackCount = stackInput.Last().Count();
         var stackData = stackInput.SkipLast(1).Reverse().Select(l => l.ToArray());
@@ -84,7 +84,7 @@ public class Day5Solution : ISolver
     {
         var regexMatch = new Regex(@"^move (\d+) from (\d+) to (\d+)$");
 
-        foreach (var line in input.Split(Environment.NewLine))
+        foreach (var line in input.SplitNewLine())
         {
             var temp = regexMatch.Match(line);
             var groups = temp?.Groups;

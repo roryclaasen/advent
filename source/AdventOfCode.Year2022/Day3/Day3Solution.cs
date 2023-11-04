@@ -34,7 +34,7 @@ public class Day3Solution : ISolver
 
     static IEnumerable<Rucksack> ParseInput(string input)
     {
-        foreach (var line in input.Split(Environment.NewLine))
+        foreach (var line in input.SplitNewLine())
         {
             var mid = line.Length / 2;
             yield return new Rucksack(line, line.Substring(0, mid), line.Substring(mid, mid));

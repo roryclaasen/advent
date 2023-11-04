@@ -49,7 +49,7 @@ public class Day2Solution : ISolver
 
     private IEnumerable<Dimension> ParseInput(string input)
         => input
-            .Split(Environment.NewLine)
+            .SplitNewLine()
             .Select(line => line.Split('x').Select(int.Parse))
             .Select(line =>
             {
