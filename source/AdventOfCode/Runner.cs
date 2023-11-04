@@ -28,24 +28,15 @@ public static class Runner
 
     public static async Task Run(ISolver solver)
     {
-        try
-        {
-            await Console.Out.WriteLineAsync($"{solver.Day()}: {solver.Name() ?? string.Empty}");
+        await Console.Out.WriteLineAsync($"{solver.Day()}: {solver.Name() ?? string.Empty}");
 
-            var resources = await GetResourceFiles(solver).ConfigureAwait(false);
+        var resources = await GetResourceFiles(solver).ConfigureAwait(false);
 
-            var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
-            PrintResult(partOne);
+        var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
+        PrintResult(partOne);
 
-            var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
-            PrintResult(partTwo);
-        }
-        catch (Exception e)
-        {
-            // TODO: Color and indent?
-            await Console.Error.WriteLineAsync(e.Message);
-            await Console.Error.WriteLineAsync(e.StackTrace);
-        }
+        var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
+        PrintResult(partTwo);
     }
 
     private static void PrintHeading(ISolver solver)
@@ -91,9 +82,13 @@ public static class Runner
                 Console.WriteLine($"    Expected: {result.Expected} Actual: {result.Actual}");
             }
         }
+        else if (result.Actual is null)
+        {
+            Console.WriteLine($"    There was no answer provided for this solution.");
+        }
         else
         {
-            throw new Exception("Expected cannot be null when result is incorrect");
+            throw new UnreachableException();
         }
 
         Console.WriteLine();
@@ -130,6 +125,9 @@ public static class Runner
         }
         catch (Exception e)
         {
+#if DEBUG
+            Debugger.Break();
+#endif
             error = e;
         }
         stopwatch.Stop();

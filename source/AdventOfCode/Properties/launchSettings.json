@@ -10,7 +10,7 @@
     },
     "AdventOfCode (2015)": {
       "commandName": "Project",
-      "commandLineArgs": "--year 2015"
+      "commandLineArgs": "last --year 2015"
     },
     "AdventOfCode (2020)": {
       "commandName": "Project",
