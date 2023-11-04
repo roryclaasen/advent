@@ -71,7 +71,6 @@ public static class StringExtensions
     public static string[] SplitNewLine(this string str, StringSplitOptions options = StringSplitOptions.None)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        str.Split(Environment.NewLine, );
         return str.Split(Environment.NewLine, options);
     }
 }
