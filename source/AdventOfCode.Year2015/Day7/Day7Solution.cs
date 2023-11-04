@@ -13,8 +13,7 @@ public partial class Day7Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var instructions = this.ParseInput(input);
-        var result = this.RunInstructions(instructions.ToList());
+        var result = this.RunInput(input);
         return result["a"];
     }
 
@@ -32,7 +31,13 @@ public partial class Day7Solution : ISolver
         return part2Result["a"];
     }
 
-    public Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
+    public Dictionary<string, ushort> RunInput(string input)
+    {
+        var instructions = this.ParseInput(input);
+        return this.RunInstructions(instructions.ToList());
+    }
+
+    Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
     {
         var wires = new Dictionary<string, ushort>();
 
@@ -107,7 +112,7 @@ public partial class Day7Solution : ISolver
         return wires;
     }
 
-    public IEnumerable<InstructionBase> ParseInput(string input)
+    IEnumerable<InstructionBase> ParseInput(string input)
     {
         foreach (var line in input.SplitNewLine())
         {
