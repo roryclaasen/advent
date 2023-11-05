@@ -4,7 +4,8 @@
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
-    <PackageVersion Include="Kurukuru" Version="1.4.2" />
+    <PackageVersion Include="Spectre.Console" Version="0.47.0" />
+    <PackageVersion Include="Spectre.Console.Analyzer" Version="0.47.0" />
     <PackageVersion Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="7.0.13" />
   </ItemGroup>

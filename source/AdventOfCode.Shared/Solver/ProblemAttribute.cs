@@ -17,4 +17,6 @@ public class ProblemAttribute : Attribute
     public int Day { get; }
 
     public string? Name { get; }
+
+    public Uri Uri => new($"https://adventofcode.com/{this.Year}/day/{this.Day}");
 }
