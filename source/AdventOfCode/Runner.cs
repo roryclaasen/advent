@@ -1,24 +1,33 @@
 namespace AdventOfCode;
 
 using AdventOfCode.Shared;
-using Kurukuru;
+using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-public static class Runner
+public static partial class Runner
 {
     public static async Task RunAll(IEnumerable<ISolver> solvers)
     {
         var solversByYear = solvers.GroupBy(s => s.Year());
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            PrintHeading(year.First());
+            var heading = new FigletText(year.First().Year().ToString())
+                .LeftJustified()
+                .Color(Color.Yellow);
+
+            AnsiConsole.Write(new Panel(heading)
+            {
+                Header = new PanelHeader("Advent of Code")
+            });
+
             foreach (var solver in year.OrderBy(s => s.Day()))
             {
                 await Run(solver);
@@ -26,93 +35,58 @@ public static class Runner
         }
     }
 
-    public static async Task Run(ISolver solver)
+    private static Task Run(ISolver solver)
+        => AnsiConsole.Status()
+        .StartAsync("Initializing solution", async ctx =>
+        {
+            var solverName = solver.Name();
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", solver.Uri().AbsoluteUri, $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+
+            ctx.Status("Loading resource files");
+            var resources = await GetResourceFiles(solver).ConfigureAwait(false);
+
+            ctx.Status("Running part 1");
+            var partOne = Solve(() => solver.PartOne(resources.Input), resources.ExpectedPartOne);
+            PrintResult(1, partOne);
+
+            ctx.Status("Running part 2");
+            var partTwo = Solve(() => solver.PartTwo(resources.Input), resources.ExpectedPartTwo);
+            PrintResult(2, partTwo);
+        });
+
+    private static void PrintResult(int part, SolveResult result)
     {
-        await Console.Out.WriteLineAsync($"{solver.Day()}: {solver.Name() ?? string.Empty}");
+        var resultEmoji = result.IsCorrect ? ":check_mark_button:" : result.IsError ? ":warning:" : ":cross_mark:";
 
-        var resources = await GetResourceFiles(solver).ConfigureAwait(false);
+        AnsiConsole.MarkupLine($"{resultEmoji} Part {part} - {result.Elapsed.TotalMilliseconds}ms");
 
-        var partOne = await SolveSpinner("  Part 1", () => solver.PartOne(resources.Input), resources.ExpectedPartOne).ConfigureAwait(false);
-        PrintResult(partOne);
-
-        var partTwo = await SolveSpinner("  Part 2", () => solver.PartTwo(resources.Input), resources.ExpectedPartTwo).ConfigureAwait(false);
-        PrintResult(partTwo);
-    }
-
-    private static void PrintHeading(ISolver solver)
-    {
-        var line = new string('=', 80);
-        Console.WriteLine(line);
-        Console.WriteLine($"Advent of Code {solver.Year()}");
-        Console.WriteLine(line);
-    }
-
-    private static void PrintResult(SolveResult result)
-    {
-        var actual = result.Actual?.ToString() ?? "NULL";
-        var isMultiLine = actual.Contains(Environment.NewLine);
-        if (result.IsCorrect)
+        if (result.IsError)
         {
-            if (isMultiLine)
-            {
-                Console.WriteLine("    Result:");
-                Console.WriteLine(actual);
-            }
-            else
-            {
-                Console.WriteLine($"    Result: {actual}");
-            }
-
-        }
-        else if (result.Error is not null)
-        {
-            Console.WriteLine(result.Error.StackTrace);
-        }
-        else if (result.Expected is not null)
-        {
-            if (isMultiLine)
-            {
-                Console.WriteLine("    Expected:");
-                Console.WriteLine(result.Expected);
-                Console.WriteLine("    Actual:");
-                Console.WriteLine(result.Actual);
-            }
-            else
-            {
-                Console.WriteLine($"    Expected: {result.Expected} Actual: {result.Actual}");
-            }
-        }
-        else if (result.Actual is null)
-        {
-            Console.WriteLine($"    There was no answer provided for this solution.");
+            AnsiConsole.WriteException(result.Error);
         }
         else
         {
-            throw new UnreachableException();
-        }
+            var actualResult = result.Actual ?? "NULL";
 
-        Console.WriteLine();
-    }
-
-    private static Task<SolveResult> SolveSpinner(string prefix, Func<object?> action, string? expected)
-        => Spinner.StartAsync(prefix, (spinner) =>
-        {
-            var result = Solve(action, expected);
+            var table = new Table();
+            table.AddColumn(new TableColumn("Result").Centered());
             if (result.IsCorrect)
             {
-                spinner.Succeed($"{prefix} ({result.Elapsed.TotalMilliseconds}ms)");
+                table.AddRow($"[green]{actualResult}[/]");
             }
-            else if (result.Error is not null)
+            else if (!string.IsNullOrWhiteSpace(result.Expected))
             {
-                spinner.Fail($"{prefix} ({result.Elapsed.TotalMilliseconds}ms) - {result.Error.Message}");
+                table.AddColumn(new TableColumn("Expected").Centered());
+                table.AddRow($"[red]{result.Actual}[/]", result.Expected);
             }
             else
             {
-                spinner.Fail($"{prefix} ({result.Elapsed.TotalMilliseconds}ms) - Incorrect result");
+                throw new UnreachableException();
             }
 
-            return Task.FromResult(result);
-        });
+            AnsiConsole.Write(new Padder(table).PadLeft(3).PadTop(0).PadRight(0));
+        }
+    }
 
     private static SolveResult Solve(Func<object?> action, string? expected)
     {
@@ -131,9 +105,7 @@ public static class Runner
             error = e;
         }
         stopwatch.Stop();
-
-        var isCorrect = error is null && actual is not null && (expected?.Equals(actual, StringComparison.Ordinal) ?? true);
-        return new SolveResult(stopwatch.Elapsed, expected, actual, isCorrect, error);
+        return new SolveResult(stopwatch.Elapsed, expected, actual, error);
     }
 
     private static async Task<ResourceFiles> GetResourceFiles(ISolver solver)
@@ -164,7 +136,7 @@ public static class Runner
     private static async Task<string> ReadResourceFile(Assembly assembly, string filePath)
     {
         var input = await assembly.ReadResourceFile(filePath).ConfigureAwait(false);
-        var normalized = Regex.Replace(input, @"\r\n|\n\r|\n|\r", Environment.NewLine);
+        var normalized = NewLineRegex().Replace(input, Environment.NewLine);
         if (normalized.EndsWith(Environment.NewLine, StringComparison.Ordinal))
         {
             normalized = normalized[..^Environment.NewLine.Length];
@@ -174,6 +146,17 @@ public static class Runner
     }
 
     private record ResourceFiles(string Input, string? ExpectedPartOne, string? ExpectedPartTwo);
+
+    [GeneratedRegex("\\r\\n|\\n\\r|\\n|\\r")]
+    private static partial Regex NewLineRegex();
 }
 
-public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, bool IsCorrect, Exception? Error);
+public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
+{
+    [MemberNotNullWhen(true, nameof(Actual))]
+    public bool IsCorrect => Error is null && !string.IsNullOrWhiteSpace(Actual) && (Expected?.Equals(Actual, StringComparison.Ordinal) ?? true);
+
+    [MemberNotNullWhen(true, nameof(Error))]
+    public bool IsError => Error is not null;
+}
+

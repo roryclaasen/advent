@@ -1,78 +1,34 @@
 using AdventOfCode;
 using AdventOfCode.Shared;
+using Spectre.Console;
 using System;
-using System.Collections.Generic;
 using System.CommandLine;
-using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-IEnumerable<Assembly> GetAdventAssemblies()
+static async Task<int> GetSolutionsAndRun(int? year = null, int? day = null)
 {
-    var directoryInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
-    var moduleFiles = directoryInfo.GetFiles("AdventOfCode.*.dll");
-
-    foreach (var file in moduleFiles)
+    try
     {
-        yield return Assembly.Load(Path.GetFileNameWithoutExtension(file.Name));
+        var solvers = SolutionFinder.GetSolvers(year, day).Select(Activator.CreateInstance).OfType<ISolver>();
+        await Runner.RunAll(solvers).ConfigureAwait(false);
     }
+    catch (SolutionMissingException ex)
+    {
+        AnsiConsole.MarkupLine($"[red]{ex.Message}[/]");
+        return -1;
+    }
+    catch(Exception ex)
+    {
+        AnsiConsole.WriteException(ex);
+        return -1;
+    }
+
+    return 0;
 }
-
-IEnumerable<Type> FindAllOfType<T>(IEnumerable<Assembly> assemblies)
-{
-    var baseType = typeof(T);
-
-    return assemblies.SelectMany(a => a.GetTypes())
-         .Where(t => t.IsClass && !t.IsAbstract)
-         .Where(baseType.IsAssignableFrom);
-}
-
-IEnumerable<Type> GetSolverTypesFor(int? year = null, int? day = null)
-{
-    var allSolverTypes = FindAllOfType<ISolver>(GetAdventAssemblies());
-
-    if (day is not null && year is not null)
-    {
-        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year && ISolverExtensions.Day(tSolver) == day);
-        if (!solverType.Any())
-        {
-            Console.WriteLine($"There are no solutions yet for the year {year} and day {day}");
-            return Enumerable.Empty<Type>();
-        }
-
-        return solverType;
-    }
-    else if (day is null && year is not null)
-    {
-        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Year(tSolver) == year);
-        if (!solverType.Any())
-        {
-            Console.WriteLine($"There are no solutions yet for the year {year}");
-            return Enumerable.Empty<Type>();
-        }
-
-        return solverType;
-    }
-    else if (day is not null && year is null)
-    {
-        var solverType = allSolverTypes.Where(tSolver => ISolverExtensions.Day(tSolver) == day);
-        if (!solverType.Any())
-        {
-            Console.WriteLine($"There are no solutions yet for the day {day}");
-            return Enumerable.Empty<Type>();
-        }
-
-        return solverType;
-    }
-
-    return allSolverTypes;
-}
-
-static IEnumerable<ISolver> CreateSolvers(IEnumerable<Type> solverTypes) => solverTypes.Select(Activator.CreateInstance).OfType<ISolver>();
 
 var AoCDateTime = DateTime.UtcNow.AddHours(-5);
 
@@ -81,11 +37,11 @@ todayCommand.SetHandler(() =>
 {
     if (AoCDateTime is { Month: 12, Day: >= 1 and <= 25 })
     {
-        return Runner.RunAll(CreateSolvers(GetSolverTypesFor(AoCDateTime.Year, AoCDateTime.Day)));
+        return GetSolutionsAndRun(AoCDateTime.Year, AoCDateTime.Day);
     }
 
-    Console.WriteLine("Event is not active. This option works in Dec 1-25 only.");
-    Console.WriteLine("Run --help to see all available commands.");
+    AnsiConsole.MarkupLine("[red]Event is not active. This option works in Dec 1-25 only.[/]");
+    AnsiConsole.MarkupLine("Run --help to see all available commands.");
 
     return Task.FromResult(-1);
 });
@@ -149,13 +105,7 @@ var lastCommand = new Command("last", "Runs the last solution for each year, unl
 {
     yearOption
 };
-lastCommand.SetHandler((year) =>
-{
-    var solvers = GetSolverTypesFor(year)
-        .GroupBy(t => ISolverExtensions.Year(t))
-        .Select(year => year.OrderBy(s => ISolverExtensions.Day(s)).Last());
-    return Runner.RunAll(CreateSolvers(solvers));
-}, yearOption);
+lastCommand.SetHandler((year) => GetSolutionsAndRun(year), yearOption);
 
 var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent of Code")
 {
@@ -164,6 +114,7 @@ var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent
     todayCommand,
     lastCommand
 };
-rootCommand.SetHandler((year, day) => Runner.RunAll(CreateSolvers(GetSolverTypesFor(year, day))), yearOption, dayOption);
+rootCommand.SetHandler(GetSolutionsAndRun, yearOption, dayOption);
 
-await rootCommand.InvokeAsync(args).ConfigureAwait(false);
+var exitCode = await rootCommand.InvokeAsync(args).ConfigureAwait(false);
+return exitCode;
