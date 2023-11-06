@@ -2,6 +2,7 @@ using AdventOfCode;
 using AdventOfCode.Shared;
 using Spectre.Console;
 using System;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.Linq;
 using System.Text;
@@ -9,11 +10,16 @@ using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-static async Task<int> GetSolutionsAndRun(int? year = null, int? day = null)
+static Task<int> GetSolutionsAndRun(int? year = null, int? day = null)
+    => RunSolverTypes(SolutionFinder.GetSolvers(year, day));
+
+static Task<int> RunSolverTypes(IEnumerable<Type> solvers)
+    => RunSolvers(solvers.Select(Activator.CreateInstance).OfType<ISolver>());
+
+static async Task<int> RunSolvers(IEnumerable<ISolver> solvers)
 {
     try
     {
-        var solvers = SolutionFinder.GetSolvers(year, day).Select(Activator.CreateInstance).OfType<ISolver>();
         await Runner.RunAll(solvers).ConfigureAwait(false);
     }
     catch (SolutionMissingException ex)
@@ -105,7 +111,7 @@ var lastCommand = new Command("last", "Runs the last solution for each year, unl
 {
     yearOption
 };
-lastCommand.SetHandler((year) => GetSolutionsAndRun(year), yearOption);
+lastCommand.SetHandler((year) => RunSolverTypes(SolutionFinder.GetLastSolvers(year)), yearOption);
 
 var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent of Code")
 {
