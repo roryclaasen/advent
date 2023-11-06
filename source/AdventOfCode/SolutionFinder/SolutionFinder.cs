@@ -67,7 +67,7 @@ public static class SolutionFinder
         return allISolversTypes;
     }
 
-    public static IEnumerable<Type> GetLastSolutions(int? year = null)
+    public static IEnumerable<Type> GetLastSolvers(int? year = null)
         => GetSolvers(year)
             .GroupBy(GetYearFromType)
             .Select(year => year.OrderBy(GetDayFromType).Last());
