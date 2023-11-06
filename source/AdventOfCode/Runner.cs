@@ -56,7 +56,7 @@ public static partial class Runner
 
     private static void PrintResult(int part, SolveResult result)
     {
-        var resultEmoji = result.IsCorrect ? ":check_mark_button:" : result.IsError ? ":warning:" : ":cross_mark:";
+        var resultEmoji = result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
 
         AnsiConsole.MarkupLine($"{resultEmoji} Part {part} - {result.Elapsed.TotalMilliseconds}ms");
 
