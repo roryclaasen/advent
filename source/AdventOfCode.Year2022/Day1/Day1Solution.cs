@@ -29,7 +29,7 @@ public class Day1Solution : ISolver
     {
         foreach (var section in input.Split(Environment.NewLine + Environment.NewLine))
         {
-            yield return new Elf(section.SplitNewLine().Select(int.Parse).Sum());
+            yield return new Elf(section.Lines().Select(int.Parse).Sum());
         }
     }
 

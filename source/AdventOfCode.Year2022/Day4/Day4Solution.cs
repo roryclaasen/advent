@@ -40,7 +40,7 @@ public class Day4Solution : ISolver
 
     static IEnumerable<ElfPair> ParseInput(string input)
     {
-        foreach (var line in input.SplitNewLine())
+        foreach (var line in input.Lines())
         {
             var parts = line
                 .Split(',')

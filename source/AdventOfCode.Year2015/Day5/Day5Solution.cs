@@ -13,7 +13,7 @@ public class Day5Solution : ISolver
     {
         var nice = 0;
 
-        foreach (var line in input.SplitNewLine())
+        foreach (var line in input.Lines())
         {
             if (line.Contains("ab") || line.Contains("cd") || line.Contains("pq") || line.Contains("xy"))
             {
@@ -54,7 +54,7 @@ public class Day5Solution : ISolver
     {
         var nice = 0;
 
-        foreach (var line in input.SplitNewLine())
+        foreach (var line in input.Lines())
         {
             var doublePair = false;
             var repeats = false;

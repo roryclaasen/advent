@@ -63,7 +63,7 @@ public class Day7Solution : ISolver
         var cmdRegex = new Regex(@"^\$ (cd|ls)(?: (\w+|..|\/))?$");
         var listRegex = new Regex(@"^(dir|\d+) (\w+\.?\w*)$");
 
-        var lines = new Queue<string>(input.SplitNewLine());
+        var lines = new Queue<string>(input.Lines());
         Directory? tree = null;
         Directory? currentDir = null;
         while (lines.Count > 0)
