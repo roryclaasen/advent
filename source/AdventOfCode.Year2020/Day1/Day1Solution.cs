@@ -23,7 +23,7 @@ public class Day1Solution : ISolver
     }
 
     static IEnumerable<int> ParseInput(string input)
-        => input.SplitNewLine().Select(int.Parse);
+        => input.Lines().Select(int.Parse);
 
     static int ProductEntriesThatSum(int target, int count, params int[] entries)
     {

@@ -110,7 +110,7 @@ public partial class Day7Solution : ISolver
 
     IEnumerable<InstructionBase> ParseInput(string input)
     {
-        foreach (var line in input.SplitNewLine())
+        foreach (var line in input.Lines())
         {
             if (this.SetValueRegex().Match(line) is Match setValueMatch && setValueMatch.Success)
             {

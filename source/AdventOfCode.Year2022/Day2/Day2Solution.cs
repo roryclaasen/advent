@@ -22,7 +22,7 @@ public class Day2Solution : ISolver
 
     static IEnumerable<RPSRound> ParseInput1(string input)
     {
-        foreach (var round in input.SplitNewLine().Select(l => l.Split(' ')))
+        foreach (var round in input.Lines().Select(l => l.Split(' ')))
         {
             var opponent = round[0] == "A" ? RPSMove.Rock : round[0] == "B" ? RPSMove.Paper : RPSMove.Scissors;
             var move = round[1] == "X" ? RPSMove.Rock : round[1] == "Y" ? RPSMove.Paper : RPSMove.Scissors;
@@ -32,7 +32,7 @@ public class Day2Solution : ISolver
 
     static IEnumerable<Strategy> ParseInput2(string input)
     {
-        foreach (var round in input.SplitNewLine().Select(l => l.Split(' ')))
+        foreach (var round in input.Lines().Select(l => l.Split(' ')))
         {
             var opponent = round[0] == "A" ? RPSMove.Rock : round[0] == "B" ? RPSMove.Paper : RPSMove.Scissors;
             var move = round[1] == "X" ? Outcome.Lose : round[1] == "Y" ? Outcome.Draw : Outcome.Win;

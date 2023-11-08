@@ -15,7 +15,7 @@ public class Day9Solution : ISolver
 
     static IEnumerable<Instruction> ParseInput(string input)
     {
-        foreach (var line in input.SplitNewLine())
+        foreach (var line in input.Lines())
         {
             var parts = line.Split(' ');
             yield return new Instruction((Direction)parts[0].ToCharArray()[0], int.Parse(parts[1]));
