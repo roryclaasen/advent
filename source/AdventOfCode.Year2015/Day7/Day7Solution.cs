@@ -11,11 +11,7 @@ using System.Text.RegularExpressions;
 [Problem(2015, 7, "Some Assembly Required")]
 public partial class Day7Solution : ISolver
 {
-    public object? PartOne(string input)
-    {
-        var result = this.RunInput(input);
-        return result["a"];
-    }
+    public object? PartOne(string input) => this.RunInput(input)["a"];
 
     public object? PartTwo(string input)
     {
