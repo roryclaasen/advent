@@ -73,4 +73,13 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(str, nameof(str));
         return str.Split(Environment.NewLine, options);
     }
+
+    /// <summary>
+    /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by <see cref="Environment.NewLine"/>.</returns>
+    public static string[] Lines(this string str, StringSplitOptions options = StringSplitOptions.None)
+        => str.SplitNewLine(options);
 }

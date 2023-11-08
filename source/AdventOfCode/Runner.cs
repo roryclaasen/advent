@@ -66,10 +66,10 @@ public static partial class Runner
         }
         else
         {
-            var actualResult = result.Actual ?? "NULL";
-
             var table = new Table();
             table.AddColumn(new TableColumn("Result").Centered());
+
+            var actualResult = result.Actual ?? "NULL";
             if (result.IsCorrect)
             {
                 table.AddRow($"[green]{actualResult}[/]");
@@ -78,6 +78,10 @@ public static partial class Runner
             {
                 table.AddColumn(new TableColumn("Expected").Centered());
                 table.AddRow($"[red]{result.Actual}[/]", result.Expected);
+            }
+            else if (string.IsNullOrWhiteSpace(actualResult))
+            {
+                table.AddRow($"[red]NULL[/]");
             }
             else
             {
