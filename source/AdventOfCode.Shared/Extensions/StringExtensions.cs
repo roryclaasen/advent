@@ -46,7 +46,7 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(str, nameof(str));
         ArgumentNullException.ThrowIfNull(margin, nameof(margin));
 
-        return string.Join("\n", str
+        return string.Join(Environment.NewLine, str
             .Lines()
             .Select(line => Regex.Replace(line, @"^\s*" + Regex.Escape(margin), ""))
         );
