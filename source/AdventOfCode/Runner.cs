@@ -79,7 +79,7 @@ public static partial class Runner
                 table.AddColumn(new TableColumn("Expected").Centered());
                 table.AddRow($"[red]{result.Actual}[/]", result.Expected);
             }
-            else if (string.IsNullOrWhiteSpace(actualResult))
+            else if (string.IsNullOrWhiteSpace(result.Actual))
             {
                 table.AddRow($"[red]NULL[/]");
             }
