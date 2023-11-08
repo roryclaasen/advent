@@ -2,11 +2,9 @@ namespace AdventOfCode.Year2015;
 
 using AdventOfCode.Shared;
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 
 [Problem(2015, 8, "Matchsticks")]
 public class Day8Solution : ISolver
@@ -45,7 +43,7 @@ public class Day8Solution : ISolver
             {
                 if (i == trimed.Length - 1)
                 {
-                    throw new Exception("Invalid escape sequence");
+                    throw new Exception("Invalid escape sequence (Out Of Bounds)");
                 }
 
                 var next = trimed[i + 1];
