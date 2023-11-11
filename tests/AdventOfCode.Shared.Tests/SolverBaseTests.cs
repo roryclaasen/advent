@@ -8,7 +8,7 @@ public abstract class SolverBaseTests<TSolver> where TSolver : ISolver, new()
 
     [TestInitialize]
     [MemberNotNull(nameof(this.Solver))]
-    public void SetUp()
+    public virtual void SetUp()
     {
         this.Solver = new TSolver();
     }
