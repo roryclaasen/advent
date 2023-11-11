@@ -27,7 +27,7 @@ public class TravellingSalesmanByRoadDistance
     public static List<string> SolveLongest(List<Road> roads, string start, string end)
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var permutations = GetPermutations(cities, start, end);
+        var permutations = Permutations.GetPermutations(cities, start, end);
         var longestPath = new List<string>();
         var longestDistance = float.MinValue;
 
@@ -56,7 +56,7 @@ public class TravellingSalesmanByRoadDistance
     public static List<string> SolveShortest(List<Road> roads, string start, string end)
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var permutations = GetPermutations(cities, start, end);
+        var permutations = Permutations.GetPermutations(cities, start, end);
         var shortestPath = new List<string>();
         var shortestDistance = float.MaxValue;
 
@@ -80,33 +80,5 @@ public class TravellingSalesmanByRoadDistance
         }
 
         return shortestPath;
-    }
-
-    private static List<List<string>> GetPermutations(List<string> cities, string start, string end)
-    {
-        var permutations = new List<List<string>>();
-        var visited = new HashSet<string> { start };
-        Permute(cities, visited, new List<string> { start }, permutations, end);
-        return permutations;
-    }
-
-    private static void Permute(List<string> cities, HashSet<string> visited, List<string> permutation, List<List<string>> permutations, string end)
-    {
-        if (permutation.Count == cities.Count && permutation.Last() == end)
-        {
-            permutations.Add(permutation);
-            return;
-        }
-
-        foreach (var city in cities)
-        {
-            if (!visited.Contains(city))
-            {
-                visited.Add(city);
-                var newPermutation = new List<string>(permutation) { city };
-                Permute(cities, visited, newPermutation, permutations, end);
-                visited.Remove(city);
-            }
-        }
     }
 }
