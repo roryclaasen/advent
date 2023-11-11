@@ -47,8 +47,7 @@ public static partial class Runner
 
             if (string.IsNullOrWhiteSpace(resources.Input))
             {
-                AnsiConsole.MarkupLine(":warning: [red]Input file empty[/]");
-                return;
+                throw new Exception("Solution input file is empty");
             }
 
             ctx.Status("Running part 1");
