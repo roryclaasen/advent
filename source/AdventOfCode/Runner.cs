@@ -45,6 +45,12 @@ public static partial class Runner
             ctx.Status("Loading resource files");
             var resources = await GetResourceFiles(solver).ConfigureAwait(false);
 
+            if (string.IsNullOrWhiteSpace(resources.Input))
+            {
+                AnsiConsole.MarkupLine(":warning: [red]Input file empty[/]");
+                return;
+            }
+
             ctx.Status("Running part 1");
             var partOne = Solve(() => solver.PartOne(resources.Input), resources.ExpectedPartOne);
             PrintResult(1, partOne);
