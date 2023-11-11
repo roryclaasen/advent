@@ -63,7 +63,7 @@ public static partial class Runner
     {
         var resultEmoji = result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
 
-        AnsiConsole.MarkupLine($"{resultEmoji} Part {part} - {result.Elapsed.TotalMilliseconds}ms");
+        AnsiConsole.MarkupLine($"{resultEmoji} Part {part} - {FormatTimeSpan(result.Elapsed)}");
 
         if (result.IsError)
         {
@@ -74,27 +74,40 @@ public static partial class Runner
             var table = new Table();
             table.AddColumn(new TableColumn("Result").Centered());
 
-            var actualResult = result.Actual ?? "NULL";
-            if (result.IsCorrect)
+            var actualColor = result.IsCorrect ? "green" : "red";
+            var actualRow = $"[{actualColor}]{result.Actual ?? "NULL"}[/]";
+
+            if (string.IsNullOrWhiteSpace(result.Expected))
             {
-                table.AddRow($"[green]{actualResult}[/]");
-            }
-            else if (!string.IsNullOrWhiteSpace(result.Expected))
-            {
-                table.AddColumn(new TableColumn("Expected").Centered());
-                table.AddRow($"[red]{result.Actual}[/]", result.Expected);
-            }
-            else if (string.IsNullOrWhiteSpace(result.Actual))
-            {
-                table.AddRow($"[red]NULL[/]");
+                table.AddRow(actualRow);
             }
             else
             {
-                throw new UnreachableException();
+                table.AddColumn(new TableColumn("Expected").Centered());
+                table.AddRow(actualRow, result.Expected);
             }
 
             AnsiConsole.Write(new Padder(table).PadLeft(3).PadTop(0).PadRight(0));
         }
+    }
+
+    private static string FormatTimeSpan(TimeSpan timeSpan)
+    {
+        var color = timeSpan.TotalMilliseconds switch
+        {
+            < 1000 => "green",
+            < 2000 => "yellow",
+            _ => "red"
+        };
+
+        var format = timeSpan.TotalMilliseconds switch
+        {
+            < 1000 => $"{timeSpan.TotalMilliseconds}ms",
+            < 1000 * 60 => $"{timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
+            _ => $"{timeSpan.Minutes}m {timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
+        };
+
+        return $"[{color}]{format}[/]";
     }
 
     private static SolveResult Solve(Func<object?> action, string? expected)
