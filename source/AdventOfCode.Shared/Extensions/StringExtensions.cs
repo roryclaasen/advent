@@ -73,4 +73,44 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(str, nameof(str));
         return str.Split(Environment.NewLine, options);
     }
+
+    /// <summary>
+    /// Reports the zero-based indexes of all the occurrences of a specified Unicode character or string within this instance.
+    /// The method returns -1 if the character or string is not found in this instance.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="value">The string to seek.</param>
+    /// <returns>An <see cref="IEnumerable{int}"/> containing all the zero-based index position of <see langword="value"/> from the start of the current instance if that string is found, or -1 if it is not.</returns>
+    public static IEnumerable<int> AllIndexesOf(this string str, string value)
+    {
+        ArgumentNullException.ThrowIfNull(str, nameof(str));
+        ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+        var minIndex = str.IndexOf(value, StringComparison.Ordinal);
+        while (minIndex != -1)
+        {
+            yield return minIndex;
+            minIndex = str.IndexOf(value, minIndex + value.Length, StringComparison.Ordinal);
+        }
+    }
+
+    /// <summary>
+    /// Reports the zero-based indexes of all the occurrences of a specified Unicode character or string within this instance.
+    /// The method returns -1 if the character or string is not found in this instance.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="value">The string to seek.</param>
+    /// <returns>An <see cref="IEnumerable{int}"/> containing all the zero-based index position of <see langword="value"/> from the start of the current instance if that string is found, or -1 if it is not.</returns>
+    public static IEnumerable<int> AllIndexesOf(this string str, char value)
+    {
+        ArgumentNullException.ThrowIfNull(str, nameof(str));
+        ArgumentNullException.ThrowIfNull(value, nameof(value));
+
+        var minIndex = str.IndexOf(value, StringComparison.Ordinal);
+        while (minIndex != -1)
+        {
+            yield return minIndex;
+            minIndex = str.IndexOf(value, minIndex + 1);
+        }
+    }
 }
