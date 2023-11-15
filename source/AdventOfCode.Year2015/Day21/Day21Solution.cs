@@ -11,18 +11,15 @@ public class Day21Solution : ISolver
     public object? PartOne(string input)
     {
         var boss = this.ParseInput(input);
-
-        var shop = this.GetShop();
         var minGold = int.MaxValue;
-
-        this.ShopLogic(items =>
+        foreach (var items in this.GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
             if (goldSpent < minGold && this.Fight(boss, items))
             {
                 minGold = Math.Min(minGold, goldSpent);
             }
-        });
+        };
 
         return minGold;
     }
@@ -30,49 +27,48 @@ public class Day21Solution : ISolver
     public object? PartTwo(string input)
     {
         var boss = this.ParseInput(input);
-
         var maxGold = int.MinValue;
-        this.ShopLogic(items =>
+        foreach (var items in this.GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
             if (goldSpent > maxGold && !this.Fight(boss, items))
             {
                 maxGold = Math.Max(maxGold, goldSpent);
             }
-        });
+        }
 
         return maxGold;
     }
 
-    void ShopLogic(Action<Item[]> fight)
+    IEnumerable<Item[]> GetAllItemCombinations()
     {
         var shop = this.GetShop();
         foreach (var weapon in shop.Where(i => i.Type == ItemType.Weapon))
         {
-            fight([weapon]);
+            yield return [weapon];
 
             foreach (var armor in shop.Where(i => i.Type == ItemType.Armor))
             {
-                fight([weapon, armor]);
+                yield return [weapon, armor];
 
                 foreach (var ring1 in shop.Where(i => i.Type == ItemType.Ring))
                 {
-                    fight([weapon, armor, ring1]);
+                    yield return [weapon, armor, ring1];
 
                     foreach (var ring2 in shop.Where(i => i.Type == ItemType.Ring && i != ring1))
                     {
-                        fight([weapon, armor, ring1, ring2]);
+                        yield return [weapon, armor, ring1, ring2];
                     }
                 }
             }
 
             foreach (var ring1 in shop.Where(i => i.Type == ItemType.Ring))
             {
-                fight([weapon, ring1]);
+                yield return [weapon, ring1];
 
                 foreach (var ring2 in shop.Where(i => i.Type == ItemType.Ring && i != ring1))
                 {
-                    fight([weapon, ring1, ring2]);
+                    yield return [weapon, ring1, ring2];
                 }
             }
         }
