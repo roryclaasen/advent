@@ -28,7 +28,7 @@ public class Day19Solution : ISolver
             currentMolecules = currentMolecules
                 .SelectMany(m => this.GetAllPreviousMolecules(m, replacements))
                 .OrderBy(step => step.Length)
-                .Take(1000)
+                .Take(500)
                 .ToHashSet();
         }
 
