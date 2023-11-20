@@ -40,7 +40,7 @@ public static partial class Runner
         .StartAsync("Initializing solution", async ctx =>
         {
             var solverName = solver.Name();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", solver.Uri().AbsoluteUri, $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", solver.Uri(), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
             ctx.Status("Loading resource files");
             var resources = await GetResourceFiles(solver).ConfigureAwait(false);
