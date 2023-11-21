@@ -56,7 +56,7 @@ public partial class Day7Solution : ISolver
             return false;
         }
 
-        while (instructions.Any())
+        while (instructions.Count != 0)
         {
             foreach (var instruction in instructions)
             {
@@ -89,7 +89,7 @@ public partial class Day7Solution : ISolver
                     {
                         Operation.And => (ushort)(a & b),
                         Operation.Or => (ushort)(a | b),
-                        Operation.Not => (ushort)~a,
+                        Operation.Not => (ushort)(~a & ushort.MaxValue),
                         Operation.LShift => (ushort)(a << b),
                         Operation.RShift => (ushort)(a >> b),
                         _ => throw new UnreachableException()
