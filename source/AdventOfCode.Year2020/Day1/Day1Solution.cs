@@ -1,7 +1,6 @@
 namespace AdventOfCode.Year2020;
 
 using AdventOfCode.Shared;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -27,14 +26,8 @@ public class Day1Solution : ISolver
 
     static int ProductEntriesThatSum(int target, int count, params int[] entries)
     {
-        var combinations = Combinations(entries, count);
+        var combinations = entries.Combinations(count);
         var matchingCombination = combinations.FirstOrDefault(c => c.Sum() == target);
         return matchingCombination?.Aggregate(1, (a, b) => a * b) ?? 0;
     }
-
-    static IEnumerable<IEnumerable<T>> Combinations<T>(IEnumerable<T> elements, int count)
-        => count == 0
-            ? new[] { Array.Empty<T>() }
-            : elements.SelectMany((e, i) =>
-                Combinations(elements.Skip(i + 1), count - 1).Select(c => (new[] { e }).Concat(c)));
 }
