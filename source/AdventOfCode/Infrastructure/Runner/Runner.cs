@@ -1,4 +1,4 @@
-namespace AdventOfCode;
+namespace AdventOfCode.Infrastructure;
 
 using AdventOfCode.Shared;
 using Spectre.Console;
@@ -6,16 +6,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
-using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-public static partial class Runner
+internal sealed partial class Runner
 {
-    public static async Task RunAll(IEnumerable<ISolver> solvers)
+    public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolver> solvers)
     {
+        var allResults = new List<SolutionResult>();
         var solversByYear = solvers.GroupBy(s => s.Year());
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
@@ -30,12 +28,15 @@ public static partial class Runner
 
             foreach (var solver in year.OrderBy(s => s.Day()))
             {
-                await Run(solver);
+                var result = await Run(solver).ConfigureAwait(false);
+                allResults.Add(result);
             }
         }
+
+        return allResults;
     }
 
-    private static Task Run(ISolver solver)
+    private Task<SolutionResult> Run(ISolver solver)
         => AnsiConsole.Status()
         .StartAsync("Initializing solution", async ctx =>
         {
@@ -57,9 +58,11 @@ public static partial class Runner
             ctx.Status("Running part 2");
             var partTwo = Solve(() => solver.PartTwo(resources.Input), resources.ExpectedPartTwo);
             PrintResult(2, partTwo);
+
+            return new SolutionResult(partOne, partTwo);
         });
 
-    private static void PrintResult(int part, SolveResult result)
+    private void PrintResult(int part, SolveResult result)
     {
         var resultEmoji = result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
 
@@ -110,7 +113,7 @@ public static partial class Runner
         return $"[{color}]{format}[/]";
     }
 
-    private static SolveResult Solve(Func<object?> action, string? expected)
+    private SolveResult Solve(Func<object?> action, string? expected)
     {
         string? actual = null;
         Exception? error = null;
@@ -129,56 +132,19 @@ public static partial class Runner
         stopwatch.Stop();
         return new SolveResult(stopwatch.Elapsed, expected, actual, error);
     }
+}
 
-    private static async Task<ResourceFiles> GetResourceFiles(ISolver solver)
-    {
-        var assembly = solver.GetAssembly();
-        var workingDirectory = solver.GetWorkingDirectory();
-
-        var input = await ReadResourceFile(assembly, Path.Combine(workingDirectory, "input.txt")).ConfigureAwait(false);
-        var expectedPartOne = await ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected1.txt")).ConfigureAwait(false);
-        var expectedPartTwo = await ReadExpectedResourceFile(assembly, Path.Combine(workingDirectory, "expected2.txt")).ConfigureAwait(false);
-
-        return new ResourceFiles(input, expectedPartOne, expectedPartTwo);
-    }
-
-    private static async Task<string?> ReadExpectedResourceFile(Assembly assembly, string inputFile)
-    {
-        try
-        {
-            var file = await ReadResourceFile(assembly, inputFile).ConfigureAwait(false);
-            return string.IsNullOrWhiteSpace(file) ? null : file;
-        }
-        catch (FileNotFoundException)
-        {
-            return null;
-        }
-    }
-
-    private static async Task<string> ReadResourceFile(Assembly assembly, string filePath)
-    {
-        var input = await assembly.ReadResourceFile(filePath).ConfigureAwait(false);
-        var normalized = NewLineRegex().Replace(input, Environment.NewLine);
-        if (normalized.EndsWith(Environment.NewLine, StringComparison.Ordinal))
-        {
-            normalized = normalized[..^Environment.NewLine.Length];
-        }
-
-        return normalized;
-    }
-
-    private record ResourceFiles(string Input, string? ExpectedPartOne, string? ExpectedPartTwo);
-
-    [GeneratedRegex("\\r\\n|\\n\\r|\\n|\\r")]
-    private static partial Regex NewLineRegex();
+public record SolutionResult(SolveResult Part1, SolveResult Part2)
+{
+    public bool HasError => this.Part1.IsError || this.Part2.IsError;
 }
 
 public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
 {
-    [MemberNotNullWhen(true, nameof(Actual))]
-    public bool IsCorrect => Error is null && !string.IsNullOrWhiteSpace(Actual) && (Expected?.Equals(Actual, StringComparison.Ordinal) ?? true);
-
     [MemberNotNullWhen(true, nameof(Error))]
-    public bool IsError => Error is not null;
+    public bool IsError => this.Error is not null;
+
+    [MemberNotNullWhen(true, nameof(Actual))]
+    public bool IsCorrect => !this.IsError && !string.IsNullOrWhiteSpace(this.Actual) && (this.Expected?.Equals(this.Actual, StringComparison.Ordinal) ?? true);
 }
 

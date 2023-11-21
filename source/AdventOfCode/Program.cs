@@ -1,126 +1,50 @@
 using AdventOfCode;
+using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console;
+using Spectre.Console.Cli;
 using System;
-using System.Collections.Generic;
-using System.CommandLine;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-static Task<int> GetSolutionsAndRun(int? year = null, int? day = null)
-    => RunSolverTypes(SolutionFinder.GetSolvers(year, day));
+var registrations = new ServiceCollection();
+registrations.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+registrations.AddSingleton<SolutionFinder>();
+registrations.AddSingleton<Runner>();
 
-static Task<int> RunSolverTypes(IEnumerable<Type> solvers)
-    => RunSolvers(solvers.Select(Activator.CreateInstance).OfType<ISolver>());
-
-static async Task<int> RunSolvers(IEnumerable<ISolver> solvers)
+foreach (var solution in AssemblyFinder.FindAllOfType<ISolver>())
 {
-    try
-    {
-        await Runner.RunAll(solvers).ConfigureAwait(false);
-    }
-    catch (SolutionMissingException ex)
-    {
-        AnsiConsole.MarkupLine($"[red]{ex.Message}[/]");
-        return -1;
-    }
-    catch(Exception ex)
-    {
-        AnsiConsole.WriteException(ex);
-        return -1;
-    }
-
-    return 0;
+    registrations.AddSingleton(typeof(ISolver), solution);
 }
 
-var AoCDateTime = DateTime.UtcNow.AddHours(-5);
-
-var todayCommand = new Command("today", "Run todays solution, if the event is active.");
-todayCommand.SetHandler(() =>
+var registrar = new TypeRegistrar(registrations);
+var app = new CommandApp<DefaultCommand>(registrar);
+app.WithDescription("Rory Claasens solutions to Advent of Code");
+app.Configure(config =>
 {
-    if (AoCDateTime is { Month: 12, Day: >= 1 and <= 25 })
+#if DEBUG
+    config.ValidateExamples();
+    config.SetExceptionHandler(ex =>
     {
-        return GetSolutionsAndRun(AoCDateTime.Year, AoCDateTime.Day);
-    }
+        AnsiConsole.WriteException(ex, ExceptionFormats.Default);
+        return -1;
+    });
+#endif
 
-    AnsiConsole.MarkupLine("[red]Event is not active. This option works in Dec 1-25 only.[/]");
-    AnsiConsole.MarkupLine("Run --help to see all available commands.");
+    config.AddExample(["--day", "1"]);
+    config.AddExample(["--year", "2015"]);
+    config.AddExample(["--year", "2020", "--day", "12"]);
 
-    return Task.FromResult(-1);
+    config.AddCommand<TodayCommand>("today")
+        .WithDescription("Run todays solution");
+
+    config.AddCommand<LastCommand>("last")
+        .WithDescription("Run the last solution for a given year")
+        .WithExample(["last"])
+        .WithExample(["last", "--year", "2022"]);
 });
 
-var yearOption = new Option<int?>
-    (aliases: new[] { "--year", "-y" },
-    description: "Run the solutions that match the year.",
-    parseArgument: result =>
-    {
-        if (int.TryParse(result.Tokens.Single().Value, out var year))
-        {
-            var maxYear = AoCDateTime.Month == 12 ? AoCDateTime.Year : AoCDateTime.Year - 1;
-            if (year >= 2015 && year <= maxYear)
-            {
-                return year;
-            }
-            else
-            {
-                result.ErrorMessage = "Year must be between 2015 and " + maxYear;
-            }
-        }
-        else
-        {
-            result.ErrorMessage = "Year must be an integer";
-        }
-
-        return null;
-    });
-
-
-var dayOption = new Option<int?>
-    (aliases: new[] { "--day", "-d" },
-    description: "Run the solutions that match the day.",
-    parseArgument: result =>
-    {
-        if (int.TryParse(result.Tokens.Single().Value, out var day))
-        {
-            if (day >= 1 && day <= 25)
-            {
-                return day;
-            }
-            else
-            {
-                result.ErrorMessage = "Day must be between 1 and 25";
-            }
-        }
-        else
-        {
-            result.ErrorMessage = "Day must be an integer";
-        }
-
-        return null;
-    });
-
-var lastOption = new Option<bool>
-    (aliases: new[] { "--last" },
-    description: "Run the last solution for the selected year",
-    getDefaultValue: () => false);
-
-var lastCommand = new Command("last", "Runs the last solution for each year, unless the year is specifieds.")
-{
-    yearOption
-};
-lastCommand.SetHandler((year) => RunSolverTypes(SolutionFinder.GetLastSolvers(year)), yearOption);
-
-var rootCommand = new RootCommand("Rory Claasens solutions and answers to Advent of Code")
-{
-    yearOption,
-    dayOption,
-    todayCommand,
-    lastCommand
-};
-rootCommand.SetHandler(GetSolutionsAndRun, yearOption, dayOption);
-
-var exitCode = await rootCommand.InvokeAsync(args).ConfigureAwait(false);
+var exitCode = await app.RunAsync(args).ConfigureAwait(false);
 return exitCode;

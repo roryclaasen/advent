@@ -1,4 +1,4 @@
-namespace AdventOfCode;
+namespace AdventOfCode.Infrastructure;
 
 using System;
 
@@ -10,8 +10,8 @@ public class SolutionMissingException : Exception
 
     public SolutionMissingException(string message, int? year = null, int? day = null) : base(message)
     {
-        this.Year = year;
-        this.Day = day;
+        Year = year;
+        Day = day;
     }
 
     public int? Year { get; private set; }
