@@ -20,6 +20,10 @@
       "commandName": "Project",
       "commandLineArgs": "--year 2022"
     },
+    "AdventOfCode (list)": {
+      "commandName": "Project",
+      "commandLineArgs": "list"
+    },
     "AdventOfCode (help)": {
       "commandName": "Project",
       "commandLineArgs": "--help"
