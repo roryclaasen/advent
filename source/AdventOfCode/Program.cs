@@ -37,6 +37,11 @@ app.Configure(config =>
     config.AddExample(["--year", "2015"]);
     config.AddExample(["--year", "2020", "--day", "12"]);
 
+    config.AddCommand<ListCommand>("list")
+        .WithDescription("List all available solutions")
+        .WithExample(["list"])
+        .WithExample(["list", "--year", "2020"]);
+
     config.AddCommand<TodayCommand>("today")
         .WithDescription("Run todays solution");
 

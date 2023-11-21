@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-[Problem(2015, 9, null)]
+[Problem(2015, 9, "All in a Single Night")]
 public partial class Day9Solution : ISolver
 {
     public object? PartOne(string input)

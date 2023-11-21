@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-[Problem(2015, 14, null)]
+[Problem(2015, 14, "Reindeer Olympics")]
 public partial class Day14Solution : ISolver
 {
     public int TotalSeconds { get; set; } = 2503;
