@@ -27,7 +27,7 @@ public class Day24Solution : ISolver
 
         for (var i = 0; i < packages.Length; i++)
         {
-            var parts = Pick(packages, i, 0, targetWeight);
+            var parts = PickPackages(packages, i, 0, targetWeight);
             if (parts.Any())
             {
                 return parts.Select(l => l.Aggregate(1L, (m, x) => m * x)).Min();
@@ -37,7 +37,7 @@ public class Day24Solution : ISolver
         throw new Exception("No solution found");
     }
 
-    IEnumerable<ImmutableList<int>> Pick(int[] packages, int count, int i, int targetWeight)
+    IEnumerable<ImmutableList<int>> PickPackages(int[] packages, int count, int i, int targetWeight)
     {
         if (targetWeight == 0)
         {
@@ -52,13 +52,13 @@ public class Day24Solution : ISolver
 
         if (packages[i] <= targetWeight)
         {
-            foreach (var x in Pick(packages, count - 1, i + 1, targetWeight - packages[i]))
+            foreach (var x in PickPackages(packages, count - 1, i + 1, targetWeight - packages[i]))
             {
                 yield return x.Add(packages[i]);
             }
         }
 
-        foreach (var x in Pick(packages, count, i + 1, targetWeight))
+        foreach (var x in PickPackages(packages, count, i + 1, targetWeight))
         {
             yield return x;
         }

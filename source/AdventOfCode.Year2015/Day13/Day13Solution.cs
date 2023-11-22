@@ -28,10 +28,10 @@ public partial class Day13Solution : ISolver
 
     private int GetOptimalHappiness(IEnumerable<GuestArrangement> guestArrangements)
     {
-        var permutations = Permutations
-            .GetPermutations(guestArrangements.Select(x => x.Guest).Distinct())
-            .ToList();
-
+        var permutations = guestArrangements
+            .Select(x => x.Guest)
+            .Distinct()
+            .Permutations();
         var totalHappiness = permutations
             .Select(x => GetTotalHappiness(x, guestArrangements))
             .ToList();

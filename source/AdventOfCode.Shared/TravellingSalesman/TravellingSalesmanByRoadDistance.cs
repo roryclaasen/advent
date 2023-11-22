@@ -27,11 +27,10 @@ public class TravellingSalesmanByRoadDistance
     public static List<string> SolveLongest(List<Road> roads, string start, string end)
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var permutations = Permutations.GetPermutations(cities, start, end);
         var longestPath = new List<string>();
         var longestDistance = float.MinValue;
 
-        foreach (var permutation in permutations)
+        foreach (var permutation in cities.Permutations(start, end))
         {
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
@@ -56,11 +55,10 @@ public class TravellingSalesmanByRoadDistance
     public static List<string> SolveShortest(List<Road> roads, string start, string end)
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var permutations = Permutations.GetPermutations(cities, start, end);
         var shortestPath = new List<string>();
         var shortestDistance = float.MaxValue;
 
-        foreach (var permutation in permutations)
+        foreach (var permutation in cities.Permutations(start, end))
         {
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
