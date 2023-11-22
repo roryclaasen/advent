@@ -26,8 +26,7 @@ public class Day1Solution : ISolver
 
     static int ProductEntriesThatSum(int target, int count, params int[] entries)
     {
-        var combinations = entries.Combinations(count);
-        var matchingCombination = combinations.FirstOrDefault(c => c.Sum() == target);
-        return matchingCombination?.Aggregate(1, (a, b) => a * b) ?? 0;
+        var matchingCombination = entries.Combinations(count).Single(c => c.Sum() == target);
+        return matchingCombination.Product();
     }
 }

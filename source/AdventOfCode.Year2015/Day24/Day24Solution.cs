@@ -30,7 +30,7 @@ public class Day24Solution : ISolver
             var parts = PickPackages(packages, i, 0, targetWeight);
             if (parts.Any())
             {
-                return parts.Select(l => l.Aggregate(1L, (m, x) => m * x)).Min();
+                return parts.Select(l => l.Product<int, long>()).Min();
             }
         }
 
