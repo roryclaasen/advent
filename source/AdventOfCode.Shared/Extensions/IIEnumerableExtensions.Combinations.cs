@@ -13,8 +13,21 @@ public static partial class IIEnumerableExtensions
     /// <param name="values">The values to find combinations.</param>
     /// <param name="count">The size of each combination.</param>
     /// <returns>An enumerable contianing all the subsequent combinations of the values provided.</returns>
-    public static IEnumerable<IEnumerable<T>> Combinations<T>(this IEnumerable<T> values, int count)
-        => count == 0
-            ? new[] { Array.Empty<T>() }
-            : values.SelectMany((e, i) => values.Skip(i + 1).Combinations(count - 1).Select(c => (new[] { e }).Concat(c)));
+    public static IEnumerable<T[]> Combinations<T>(this IEnumerable<T> values, int count)
+    {
+        if (count == 0)
+        {
+            yield return Array.Empty<T>();
+            yield break;
+        }
+
+        var i = 0;
+        foreach (var value in values)
+        {
+            foreach (var combination in values.Skip(++i).Combinations(count - 1))
+            {
+                yield return new[] { value }.Concat(combination).ToArray();
+            }
+        }
+    }
 }
