@@ -9,9 +9,7 @@ on:
 jobs:
   test:
     name: Test
-
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout Code
         uses: actions/checkout@v3
@@ -33,3 +31,21 @@ jobs:
         with:
           name: test-results
           path: ./tests/TestResult/*.trx
+
+  test-report:
+    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' && github.repository == 'roryclaasen/advent' }}
+    name: Test Report
+    needs: test
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
+    steps:
+      - name: Generate Report
+        uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: Dotnet Tests
+          path: "*.trx"
+          reporter: dotnet-trx
