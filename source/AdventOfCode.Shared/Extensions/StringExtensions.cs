@@ -68,11 +68,7 @@ public static class StringExtensions
     /// <param name="str">The input string</param>
     /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
     /// <returns>An array whose elements contain the substrings from this instance that are delimited by <see cref="Environment.NewLine"/>.</returns>
-    public static string[] Lines(this string str, StringSplitOptions options = StringSplitOptions.None)
-    {
-        ArgumentNullException.ThrowIfNull(str, nameof(str));
-        return str.Split(Environment.NewLine, options);
-    }
+    public static string[] Lines(this string str, StringSplitOptions options = StringSplitOptions.None) => str.Lines(1, options);
 
     /// <summary>
     /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter concatenate <see langword="count"/> times.
