@@ -82,7 +82,7 @@ public class Day4Solution : ISolver
 
     IEnumerable<Passport> ParseInput(string input)
     {
-        foreach (var passportInput in input.Split(Environment.NewLine + Environment.NewLine))
+        foreach (var passportInput in input.DoubleLines())
         {
             var parts = passportInput
                 .Replace(Environment.NewLine, " ")
