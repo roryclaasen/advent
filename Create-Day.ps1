@@ -14,6 +14,41 @@ if ($Day -lt 1 -or $Day -gt 25) {
     throw "Day must be between 1 and 25"
 }
 
+function Get-SessionCookie {
+    $cookie = Get-Content (Join-Path $PSScriptRoot "session.txt")
+    if (-not $cookie) {
+        throw "Could not find session.txt"
+    }
+
+    return $cookie
+}
+
+function Get-DayInput {
+    $cookie = Get-SessionCookie
+    $content = Invoke-WebRequest "https://adventofcode.com/$Year/day/$Day/input" -Headers @{ Cookie = "session=$cookie" }
+    if ($content.StatusCode -ne 200) {
+        throw "Could not find input for day $Day for year $Year"
+    }
+
+    return $content.Content
+}
+
+function Get-DayTitle {
+    $content = Invoke-WebRequest "https://adventofcode.com/$Year/day/$Day"
+    if ($content.StatusCode -ne 200) {
+        throw "Could not find day $Day for year $Year"
+    }
+
+    $titleRegex = '<article class="day-desc"><h2>--- Day \d+: (.+) ---<\/h2>'
+
+    $title = $content.Content | Select-String -Pattern $titleRegex | ForEach-Object { $_.Matches.Groups[1].Value }
+    if (-not $title) {
+        throw "Could not find title for day $Day for year $Year"
+    }
+
+    return $title
+}
+
 $ProjectName = "AdventOfCode.Year$Year"
 $SolutionFile = Join-Path $PSScriptRoot "AdventOfCode.sln"
 $SourceFolder = Join-Path $PSScriptRoot "source"
@@ -52,17 +87,36 @@ if (-not (Test-Path $ProjectFolder)) {
 }
 
 if (-not (Test-path DayFolder)) {
-    New-Item -Path $DayFolder -ItemType Directory
+    New-Item -Path $DayFolder -ItemType Directory -ErrorAction SilentlyContinue
     New-Item -Path (Join-Path $DayFolder "input.txt") -ItemType File
     New-Item -Path (Join-Path $DayFolder "expected1.txt") -ItemType File
     New-Item -Path (Join-Path $DayFolder "expected2.txt") -ItemType File
+
+    try {
+        $dayInput = Get-DayInput
+        Set-Content -Path (Join-Path $DayFolder "input.txt") -Value $dayInput
+    } catch {
+        Write-Warning "Could not find input for day $Day for year $Year"
+    }
+
+    function Get-DayTitleOrNull {
+        try {
+            $dayTitle = Get-DayTitle
+            return "`"${dayTitle}`""
+        } catch {
+            Write-Warning "Could not find title for day $Day for year $Year"
+            return "null"
+        }
+    }
+
+    $title = Get-DayTitleOrNull
 
     Set-Content -Path $CsFile -Value @"
 namespace AdventOfCode.Year${Year};
 
 using AdventOfCode.Shared;
 
-[Problem(${Year}, ${Day}, null)]
+[Problem(${Year}, ${Day}, ${title})]
 public class Day${Day}Solution : ISolver
 {
     public object? PartOne(string input)
