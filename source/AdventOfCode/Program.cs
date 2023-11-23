@@ -26,11 +26,7 @@ app.Configure(config =>
 {
 #if DEBUG
     config.ValidateExamples();
-    config.SetExceptionHandler(ex =>
-    {
-        AnsiConsole.WriteException(ex, ExceptionFormats.Default);
-        return -1;
-    });
+    config.PropagateExceptions();
 #endif
 
     config.AddExample(["--day", "1"]);

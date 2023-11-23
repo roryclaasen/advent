@@ -30,6 +30,8 @@ internal sealed partial class Runner
             {
                 var result = await Run(solver).ConfigureAwait(false);
                 allResults.Add(result);
+
+                PrintResult(result);
             }
         }
 
@@ -53,45 +55,52 @@ internal sealed partial class Runner
 
             ctx.Status("Running part 1");
             var partOne = Solve(() => solver.PartOne(resources.Input), resources.ExpectedPartOne);
-            PrintResult(1, partOne);
+
+            AnsiConsole.MarkupLine($"{this.GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
+            if (partOne.IsError)
+            {
+                AnsiConsole.WriteException(partOne.Error);
+            }
 
             ctx.Status("Running part 2");
             var partTwo = Solve(() => solver.PartTwo(resources.Input), resources.ExpectedPartTwo);
-            PrintResult(2, partTwo);
+
+            AnsiConsole.MarkupLine($"{this.GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
+            if (partTwo.IsError)
+            {
+                AnsiConsole.WriteException(partTwo.Error);
+            }
 
             return new SolutionResult(partOne, partTwo);
         });
 
-    private void PrintResult(int part, SolveResult result)
+    private string GetResultEmoji(SolveResult result)
+        => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
+
+    private void PrintResult(SolutionResult result)
     {
-        var resultEmoji = result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
-
-        AnsiConsole.MarkupLine($"{resultEmoji} Part {part} - {FormatTimeSpan(result.Elapsed)}");
-
-        if (result.IsError)
+        var table = new Table
         {
-            AnsiConsole.WriteException(result.Error);
-        }
-        else
-        {
-            var table = new Table();
-            table.AddColumn(new TableColumn("Result").Centered());
+            Border = TableBorder.Rounded
+        };
 
-            var actualColor = result.IsCorrect ? "green" : "red";
-            var actualRow = $"[{actualColor}]{result.Actual ?? "NULL"}[/]";
+        table.AddColumn(new TableColumn("Part").Centered());
+        table.AddColumn(new TableColumn("Result").Centered());
+        table.AddColumn(new TableColumn("Expected").Centered());
 
-            if (string.IsNullOrWhiteSpace(result.Expected))
-            {
-                table.AddRow(actualRow);
-            }
-            else
-            {
-                table.AddColumn(new TableColumn("Expected").Centered());
-                table.AddRow(actualRow, result.Expected);
-            }
+        var partOneColor = result.Part1.IsCorrect ? "green" : "red";
+        var partOneRow = $"[{partOneColor}]{(result.Part1.IsError ? "ERROR" : result.Part1.Actual ?? "NULL")}[/]";
+        var partOneExpected = $"[{partOneColor}]{result.Part1.Expected ?? "NULL"}[/]";
+        table.AddRow("1", partOneRow, partOneExpected);
 
-            AnsiConsole.Write(new Padder(table).PadLeft(3).PadTop(0).PadRight(0));
-        }
+        table.AddEmptyRow();
+
+        var partTwoColor = result.Part2.IsCorrect ? "green" : "red";
+        var partTwoRow = $"[{partTwoColor}]{(result.Part2.IsError ? "ERROR" : result.Part2.Actual ?? "NULL")}[/]";
+        var partTwoExpected = $"[{partTwoColor}]{result.Part2.Expected ?? "NULL"}[/]";
+        table.AddRow("2", partTwoRow, partTwoExpected);
+
+        AnsiConsole.Write(table);
     }
 
     private static string FormatTimeSpan(TimeSpan timeSpan)
@@ -124,10 +133,10 @@ internal sealed partial class Runner
         }
         catch (Exception e)
         {
-#if DEBUG
-            Debugger.Break();
-#endif
             error = e;
+#if DEBUG
+            throw;
+#endif
         }
         stopwatch.Stop();
         return new SolveResult(stopwatch.Elapsed, expected, actual, error);
