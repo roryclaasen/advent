@@ -75,6 +75,18 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// Splits a string into substrings based on two <see cref="Environment.NewLine"/> delimiters.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by 2 <see cref="Environment.NewLine"/>.</returns>
+    public static string[] DoubleLines(this string str, StringSplitOptions options = StringSplitOptions.None)
+    {
+        ArgumentNullException.ThrowIfNull(str, nameof(str));
+        return str.Split(Environment.NewLine + Environment.NewLine, options);
+    }
+
+    /// <summary>
     /// Reports the zero-based indexes of all the occurrences of a specified Unicode character or string within this instance.
     /// The method returns -1 if the character or string is not found in this instance.
     /// </summary>

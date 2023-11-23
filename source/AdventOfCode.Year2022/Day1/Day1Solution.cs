@@ -27,7 +27,7 @@ public class Day1Solution : ISolver
 
     private IEnumerable<Elf> ParseInput(string input)
     {
-        foreach (var section in input.Split(Environment.NewLine + Environment.NewLine))
+        foreach (var section in input.DoubleLines())
         {
             yield return new Elf(section.Lines().Select(int.Parse).Sum());
         }
