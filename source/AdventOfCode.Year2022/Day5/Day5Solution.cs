@@ -47,7 +47,7 @@ public class Day5Solution : ISolver
 
     static IputData ParseInput(string input)
     {
-        var data = input.DoubleLines();
+        var data = input.Lines(2);
         return new IputData(ParseStack(data[0]).ToArray(), PasrseInstruction(data[1]));
     }
 

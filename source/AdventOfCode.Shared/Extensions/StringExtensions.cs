@@ -75,15 +75,18 @@ public static class StringExtensions
     }
 
     /// <summary>
-    /// Splits a string into substrings based on two <see cref="Environment.NewLine"/> delimiters.
+    /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter concatenate <see langword="count"/> times.
     /// </summary>
     /// <param name="str">The input string</param>
+    /// <param name="count">The number of times to concatenate <see cref="Environment.NewLine"/>.</param>
     /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
-    /// <returns>An array whose elements contain the substrings from this instance that are delimited by 2 <see cref="Environment.NewLine"/>.</returns>
-    public static string[] DoubleLines(this string str, StringSplitOptions options = StringSplitOptions.None)
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by <see cref="Environment.NewLine"/>.</returns>
+    public static string[] Lines(this string str, int count, StringSplitOptions options = StringSplitOptions.None)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        return str.Split(Environment.NewLine + Environment.NewLine, options);
+        ArgumentNullException.ThrowIfNull(count, nameof(count));
+        var separator = string.Concat(Enumerable.Repeat(Environment.NewLine, count));
+        return str.Split(separator, options);
     }
 
     /// <summary>

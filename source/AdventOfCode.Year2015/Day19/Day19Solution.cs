@@ -67,7 +67,7 @@ public class Day19Solution : ISolver
 
     (string Molecule, IEnumerable<Replacement> Replacements) ParseInput(string input)
     {
-        var parts = input.DoubleLines();
+        var parts = input.Lines(2);
         return (parts[1], ParseReplacements(parts[0]));
     }
 
