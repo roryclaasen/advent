@@ -12,6 +12,9 @@
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <EnableSourceLink>false</EnableSourceLink>
+
+    <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
+    <VSTestResultsDirectory>$(MSBuildThisFileDirectory)/TestResult</VSTestResultsDirectory>
   </PropertyGroup>
 
   <ItemGroup>
