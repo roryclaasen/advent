@@ -37,6 +37,11 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
                 var uri = solver.Uri();
                 table.AddRow(year, day, name, $"[link={uri}]{uri}[/]");
             }
+
+            if (yearSolvers.Key != solvers.Last().Key)
+            {
+                table.AddEmptyRow();
+            }
         }
 
         AnsiConsole.Write(table);
