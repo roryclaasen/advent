@@ -42,10 +42,13 @@ jobs:
       actions: read
       checks: write
     steps:
+      - name: Download Test Results
+        uses: actions/download-artifact@v2
+        with:
+          name: test-results
       - name: Generate Report
         uses: dorny/test-reporter@v1
         with:
-          artifact: test-results
-          name: Dotnet Tests
-          path: "*.trx"
+          name: Advent of Code Tests
+          path: "**/*.trx"
           reporter: dotnet-trx
