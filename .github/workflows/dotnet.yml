@@ -54,3 +54,4 @@ jobs:
           name: Advent of Code Tests
           path: "**/*.trx"
           reporter: dotnet-trx
+          list-tests: 'failed'
