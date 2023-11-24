@@ -32,7 +32,7 @@ jobs:
 
   test-report:
     if: ${{ github.repository == 'roryclaasen/advent' }}
-    name: Test Report
+    name: Generate Test Report
     needs: test
     runs-on: ubuntu-latest
     permissions:
