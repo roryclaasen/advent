@@ -2,7 +2,6 @@ using AdventOfCode;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
 using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console;
 using Spectre.Console.Cli;
 using System;
 using System.Text;
@@ -11,6 +10,7 @@ Console.OutputEncoding = Encoding.UTF8;
 
 var registrations = new ServiceCollection();
 registrations.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+registrations.AddSingleton<UriHelper>();
 registrations.AddSingleton<SolutionFinder>();
 registrations.AddSingleton<Runner>();
 

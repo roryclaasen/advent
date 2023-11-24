@@ -3,20 +3,11 @@ namespace AdventOfCode.Shared;
 using System;
 
 [AttributeUsage(AttributeTargets.Class)]
-public class ProblemAttribute : Attribute
+public class ProblemAttribute(int year, int day, string? name = null) : Attribute
 {
-    public ProblemAttribute(int year, int day, string? name = null)
-    {
-        this.Year = year;
-        this.Day = day;
-        this.Name = name;
-    }
+    public int Year { get; } = year;
 
-    public int Year { get; }
+    public int Day { get; } = day;
 
-    public int Day { get; }
-
-    public string? Name { get; }
-
-    public Uri Uri => new($"https://adventofcode.com/{this.Year}/day/{this.Day}");
+    public string? Name { get; } = name;
 }
