@@ -5,14 +5,9 @@ using System.Reflection;
 using System.Threading.Tasks;
 using Microsoft.Extensions.FileProviders;
 
-internal class InputReader
+internal class InputReader(Assembly assembly)
 {
-    private readonly EmbeddedFileProvider fileProvider;
-
-    public InputReader(Assembly assembly)
-    {
-        this.fileProvider = new EmbeddedFileProvider(assembly);
-    }
+    private readonly EmbeddedFileProvider fileProvider = new(assembly);
 
     public Task<string> ReadFile(string filePath)
     {

@@ -10,6 +10,8 @@
     <IsPublishable>false</IsPublishable>
     <IsPackable>false</IsPackable>
 
+    <Nullable>annotations</Nullable>
+
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <EnableSourceLink>false</EnableSourceLink>
 

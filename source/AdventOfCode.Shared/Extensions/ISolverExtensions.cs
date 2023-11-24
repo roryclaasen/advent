@@ -22,9 +22,6 @@ public static class ISolverExtensions
     public static string? Name(this ISolver solver)
         => solver.GetProblemAttribute().Name;
 
-    public static Uri Uri(this ISolver solver)
-        => solver.GetProblemAttribute().Uri;
-
     public static string GetWorkingDirectory(this ISolver solver)
         => $"Day{solver.Day()}";
 

@@ -8,7 +8,7 @@ using System.Linq;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
 
-internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder) : Command<ListCommand.Settings>
+internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, UriHelper uriHelper) : Command<ListCommand.Settings>
 {
     internal sealed class Settings : CommandSettings
     {
@@ -31,11 +31,11 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
         {
             foreach (var solver in yearSolvers.OrderBy(s => s.Day()))
             {
-                var year = solver.Year().ToString();
-                var day = solver.Day().ToString();
+                var year = solver.Year();
+                var day = solver.Day();
                 var name = solver.Name() ?? string.Empty;
-                var uri = solver.Uri();
-                table.AddRow(year, day, name, $"[link={uri}]{uri}[/]");
+                var uri = uriHelper.Get(year, day);
+                table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
 
             if (yearSolvers.Key != solvers.Last().Key)
