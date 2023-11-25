@@ -88,17 +88,21 @@ internal sealed partial class Runner(AdventUri uriHelper)
         table.AddColumn(new TableColumn("Result").Centered());
         table.AddColumn(new TableColumn("Expected").Centered());
 
-        var partOneColor = result.Part1.IsCorrect ? "green" : "red";
-        var partOneRow = $"[{partOneColor}]{(result.Part1.IsError ? "ERROR" : result.Part1.Actual ?? "NULL")}[/]";
-        var partOneExpected = $"[{partOneColor}]{result.Part1.Expected ?? "NULL"}[/]";
-        table.AddRow("1", partOneRow, partOneExpected);
+        {
+            var part1 = result.Part1;
+            var partOneRow = $"[{part1.ActualColor}]{(part1.IsError ? "ERROR" : part1.Actual ?? "NULL")}[/]";
+            var partOneExpected = $"[{part1.ExpectedColor}]{part1.Expected ?? "NULL"}[/]";
+            table.AddRow("1", partOneRow, partOneExpected);
+        }
 
         table.AddEmptyRow();
 
-        var partTwoColor = result.Part2.IsCorrect ? "green" : "red";
-        var partTwoRow = $"[{partTwoColor}]{(result.Part2.IsError ? "ERROR" : result.Part2.Actual ?? "NULL")}[/]";
-        var partTwoExpected = $"[{partTwoColor}]{result.Part2.Expected ?? "NULL"}[/]";
-        table.AddRow("2", partTwoRow, partTwoExpected);
+        {
+            var part2 = result.Part2;
+            var partTwoRow = $"[{part2.ActualColor}]{(part2.IsError ? "ERROR" : part2.Actual ?? "NULL")}[/]";
+            var partTwoExpected = $"[{part2.ExpectedColor}]{part2.Expected ?? "NULL"}[/]";
+            table.AddRow("2", partTwoRow, partTwoExpected);
+        }
 
         AnsiConsole.Write(table);
     }
@@ -155,5 +159,9 @@ public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, Ex
 
     [MemberNotNullWhen(true, nameof(Actual))]
     public bool IsCorrect => !this.IsError && !string.IsNullOrWhiteSpace(this.Actual) && (this.Expected?.Equals(this.Actual, StringComparison.Ordinal) ?? true);
+
+    public string ActualColor => this.IsCorrect ? "green" : "red";
+
+    public string ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? "yellow" : this.ActualColor;
 }
 
