@@ -8,7 +8,7 @@ using System.Linq;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
 
-internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, UriHelper uriHelper) : Command<ListCommand.Settings>
+internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, AdventUri uriHelper) : Command<ListCommand.Settings>
 {
     internal sealed class Settings : CommandSettings
     {
@@ -34,7 +34,7 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
                 var year = solver.Year();
                 var day = solver.Day();
                 var name = solver.Name() ?? string.Empty;
-                var uri = uriHelper.Get(year, day);
+                var uri = uriHelper.Build(year, day);
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
 

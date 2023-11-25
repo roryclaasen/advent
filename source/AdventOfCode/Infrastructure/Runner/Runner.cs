@@ -9,7 +9,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-internal sealed partial class Runner(UriHelper uriHelper)
+internal sealed partial class Runner(AdventUri uriHelper)
 {
     public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolver> solvers)
     {
@@ -43,7 +43,7 @@ internal sealed partial class Runner(UriHelper uriHelper)
         .StartAsync("Initializing solution", async ctx =>
         {
             var solverName = solver.Name();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", uriHelper.Get(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", uriHelper.Build(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
             ctx.Status("Loading resource files");
             var resources = await GetResourceFiles(solver).ConfigureAwait(false);
