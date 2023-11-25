@@ -10,7 +10,7 @@ Console.OutputEncoding = Encoding.UTF8;
 
 var registrations = new ServiceCollection();
 registrations.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-registrations.AddSingleton<UriHelper>();
+registrations.AddSingleton<AdventUri>();
 registrations.AddSingleton<SolutionFinder>();
 registrations.AddSingleton<Runner>();
 

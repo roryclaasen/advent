@@ -2,9 +2,9 @@ namespace AdventOfCode.Shared;
 
 using System;
 
-public class UriHelper(IDateTimeProvider dateTimeProvider)
+public class AdventUri(IDateTimeProvider dateTimeProvider)
 {
-    public Uri Get(int year)
+    public Uri Build(int year)
     {
         if (year < 2015 || year > dateTimeProvider.Now.Year)
         {
@@ -14,7 +14,7 @@ public class UriHelper(IDateTimeProvider dateTimeProvider)
         return new($"https://adventofcode.com/{year}");
     }
 
-    public Uri Get(int year, int day)
+    public Uri Build(int year, int day)
     {
         if (year < 2015 || year > dateTimeProvider.Now.Year)
         {
