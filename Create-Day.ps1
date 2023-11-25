@@ -14,8 +14,28 @@ if ($Day -lt 1 -or $Day -gt 25) {
     throw "Day must be between 1 and 25"
 }
 
+# Paths
+
+$SessionFile = Join-Path $PSScriptRoot "session.txt"
+
+$SourceFolder = Join-Path $PSScriptRoot "source"
+$TestsFolder = Join-Path $PSScriptRoot "tests"
+$SolutionFile = Join-Path $PSScriptRoot "AdventOfCode.sln"
+
+$ProjectName = "AdventOfCode.Year$Year"
+$ProjectFolder = Join-Path $SourceFolder $ProjectName
+$ProjectFile = Join-Path $ProjectFolder "$ProjectName.csproj"
+$TestProjectFolder = Join-Path $TestsFolder "$ProjectName.Tests"
+$TestProjectFile = Join-Path $TestProjectFolder "$ProjectName.Tests.csproj"
+
+$DayFolder = Join-Path $ProjectFolder "Day$Day"
+$CsFile = Join-Path $DayFolder "Day${Day}Solution.cs"
+$TestCsFile = Join-Path $TestProjectFolder "Day${Day}SolutionTests.cs"
+
+# Functions
+
 function Get-SessionCookie {
-    $cookie = Get-Content (Join-Path $PSScriptRoot "session.txt")
+    $cookie = Get-Content $SessionFile
     if (-not $cookie) {
         throw "Could not find session.txt"
     }
@@ -49,19 +69,7 @@ function Get-DayTitle {
     return $title
 }
 
-$ProjectName = "AdventOfCode.Year$Year"
-$SolutionFile = Join-Path $PSScriptRoot "AdventOfCode.sln"
-$SourceFolder = Join-Path $PSScriptRoot "source"
-$TestsFolder = Join-Path $PSScriptRoot "tests"
-$ProjectFolder = Join-Path $SourceFolder $ProjectName
-$ProjectFile = Join-Path $ProjectFolder "$ProjectName.csproj"
-$TestProjectFolder = Join-Path $TestsFolder "$ProjectName.Tests"
-$TestProjectFile = Join-Path $TestProjectFolder "$ProjectName.Tests.csproj"
-
-$DayFolder = Join-Path $ProjectFolder "Day$Day"
-$CsFile = Join-Path $DayFolder "Day${Day}Solution.cs"
-$TestCsFile = Join-Path $TestProjectFolder "Day${Day}SolutionTests.cs"
-
+# Main
 Write-Host "Creating day $Day for year $Year"
 
 if (-not (Test-Path $ProjectFolder)) {
@@ -84,6 +92,8 @@ if (-not (Test-Path $ProjectFolder)) {
   </ItemGroup>
 </Project>
 "@
+
+    write-host "You still need to add the project to the core project"
 }
 
 if (-not (Test-path DayFolder)) {
@@ -94,8 +104,9 @@ if (-not (Test-path DayFolder)) {
 
     try {
         $dayInput = Get-DayInput
-        Set-Content -Path (Join-Path $DayFolder "input.txt") -Value $dayInput
-    } catch {
+        Set-Content -Path (Join-Path $DayFolder "input.txt") -Value $dayInput -NoNewline
+    }
+    catch {
         Write-Warning "Could not find input for day $Day for year $Year"
     }
 
@@ -103,7 +114,8 @@ if (-not (Test-path DayFolder)) {
         try {
             $dayTitle = Get-DayTitle
             return "`"${dayTitle}`""
-        } catch {
+        }
+        catch {
             Write-Warning "Could not find title for day $Day for year $Year"
             return "null"
         }
