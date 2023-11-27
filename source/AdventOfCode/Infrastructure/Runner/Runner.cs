@@ -110,8 +110,8 @@ internal sealed partial class Runner(AdventUri adventUri)
         var color = timeSpan.TotalMilliseconds switch
         {
             < 500 => Color.Green,
-            < 1000 => Color.Yellow,
-            < 2000 => Color.Orange1,
+            < 2 * 1000 => Color.Yellow,
+            < 5 * 1000 => Color.Orange1,
             _ => Color.Red
         };
 
