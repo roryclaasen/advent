@@ -52,7 +52,7 @@ internal sealed partial class Runner(AdventUri adventUri)
             }
 
             ctx.Status("Running part 1");
-            var partOne = Solve(() => solver.PartOne(resources.Input), resources.ExpectedPartOne);
+            var partOne = Solve(solver.PartOne, resources.Input, resources.ExpectedPartOne);
 
             AnsiConsole.MarkupLine($"{this.GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
             if (partOne.IsError)
@@ -61,7 +61,7 @@ internal sealed partial class Runner(AdventUri adventUri)
             }
 
             ctx.Status("Running part 2");
-            var partTwo = Solve(() => solver.PartTwo(resources.Input), resources.ExpectedPartTwo);
+            var partTwo = Solve(solver.PartTwo, resources.Input, resources.ExpectedPartTwo);
 
             AnsiConsole.MarkupLine($"{this.GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
             if (partTwo.IsError)
@@ -125,14 +125,14 @@ internal sealed partial class Runner(AdventUri adventUri)
         return $"[{color}]{format}[/]";
     }
 
-    private SolveResult Solve(Func<object?> action, string? expected)
+    private SolveResult Solve(Func<string, object?> part, string input, string? expected)
     {
         string? actual = null;
         Exception? error = null;
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            actual = action()?.ToString();
+            actual = part(input)?.ToString();
         }
         catch (Exception e)
         {
