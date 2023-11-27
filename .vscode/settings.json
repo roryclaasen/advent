@@ -3,5 +3,10 @@
     "**/bin": true,
     "**/obj": true,
     "**/TestResults": true,
-  }
+  },
+
+  "[plaintext]": {
+    "files.insertFinalNewline": false,
+    "files.trimFinalNewlines": true
+  },
 }
