@@ -50,7 +50,7 @@ function Get-DayInput {
         throw "Could not find input for day $Day for year $Year"
     }
 
-    return $content.Content
+    return $content.Content.TrimEnd("`n")
 }
 
 function Get-DayTitle {
