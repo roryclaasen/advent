@@ -13,19 +13,15 @@ internal sealed partial class Runner(AdventUri adventUri)
 {
     public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolver> solvers)
     {
-        var figlet = new FigletText("Advent of Code")
-            .LeftJustified()
-            .Color(Color.Yellow);
+        AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
         var allResults = new List<SolutionResult>();
         var solversByYear = solvers.GroupBy(s => s.Year());
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            AnsiConsole.Write(figlet);
-
             var yearNumber = year.First().Year();
-            var rule = new Rule($"[white][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
-            rule.RuleStyle("green");
+            var rule = new Rule($"[{Color.White}][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
+            rule.RuleStyle(Color.Olive);
             AnsiConsole.Write(rule);
 
             foreach (var solver in year.OrderBy(s => s.Day()))
@@ -113,14 +109,15 @@ internal sealed partial class Runner(AdventUri adventUri)
     {
         var color = timeSpan.TotalMilliseconds switch
         {
-            < 1000 => "green",
-            < 2000 => "yellow",
-            _ => "red"
+            < 500 => Color.Green,
+            < 1000 => Color.Yellow,
+            < 2000 => Color.Orange1,
+            _ => Color.Red
         };
 
         var format = timeSpan.TotalMilliseconds switch
         {
-            < 1000 => $"{timeSpan.TotalMilliseconds}ms",
+            < 1000 => $"{(int)timeSpan.TotalMilliseconds}ms",
             < 1000 * 60 => $"{timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
             _ => $"{timeSpan.Minutes}m {timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
         };
@@ -162,8 +159,8 @@ public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, Ex
     [MemberNotNullWhen(true, nameof(Actual))]
     public bool IsCorrect => !this.IsError && !string.IsNullOrWhiteSpace(this.Actual) && (this.Expected?.Equals(this.Actual, StringComparison.Ordinal) ?? true);
 
-    public string ActualColor => this.IsCorrect ? "green" : "red";
+    public Color ActualColor => this.IsCorrect ? Color.Green : Color.Red;
 
-    public string ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? "yellow" : this.ActualColor;
+    public Color ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? Color.Yellow : this.ActualColor;
 }
 

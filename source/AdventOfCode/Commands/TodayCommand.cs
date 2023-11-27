@@ -21,7 +21,7 @@ internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, SolutionF
             return isError ? -1 : 0;
         }
 
-        AnsiConsole.MarkupLine("[red]Error:[/] Event is not active. This option works in Dec 1-25 only.");
+        AnsiConsole.MarkupLine($"[{Color.Red}]Error:[/] Event is not active. This option works in Dec 1-25 only.");
         AnsiConsole.MarkupLine("Run --help to see all available commands.");
 
         return -1;
