@@ -9,22 +9,24 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Threading.Tasks;
 
-internal sealed partial class Runner(AdventUri uriHelper)
+internal sealed partial class Runner(AdventUri adventUri)
 {
     public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolver> solvers)
     {
+        var figlet = new FigletText("Advent of Code")
+            .LeftJustified()
+            .Color(Color.Yellow);
+
         var allResults = new List<SolutionResult>();
         var solversByYear = solvers.GroupBy(s => s.Year());
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            var heading = new FigletText(year.First().Year().ToString())
-                .LeftJustified()
-                .Color(Color.Yellow);
+            AnsiConsole.Write(figlet);
 
-            AnsiConsole.Write(new Panel(heading)
-            {
-                Header = new PanelHeader("Advent of Code")
-            });
+            var yearNumber = year.First().Year();
+            var rule = new Rule($"[white][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
+            rule.RuleStyle("green");
+            AnsiConsole.Write(rule);
 
             foreach (var solver in year.OrderBy(s => s.Day()))
             {
@@ -43,7 +45,7 @@ internal sealed partial class Runner(AdventUri uriHelper)
         .StartAsync("Initializing solution", async ctx =>
         {
             var solverName = solver.Name();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", uriHelper.Build(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
             ctx.Status("Loading resource files");
             var resources = await GetResourceFiles(solver).ConfigureAwait(false);
