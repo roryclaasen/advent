@@ -6,8 +6,6 @@ using System.Linq;
 [Problem(2023, 1, "Trebuchet?!")]
 public class Day1Solution : ISolver
 {
-    private readonly string[] NumberWords = ["one", "two", "three", "four", "five", "six", "seven", "eight", "nine"];
-
     public object? PartOne(string input)
     {
         var sum = 0;
@@ -24,70 +22,30 @@ public class Day1Solution : ISolver
     public object? PartTwo(string input)
     {
         var sum = 0;
-        foreach (var line in input.Lines())
+        foreach (var line in input.Lines().Select(RewriteLine))
         {
-            var first = FindFirstNumber(line);
-            var last = FindLastNumber(line);
-            var number = $"{first}{last}";
+            var digits = line.Where(char.IsDigit);
+            var number = $"{digits.First()}{digits.Last()}";
             sum += int.Parse(number);
         }
 
         return sum;
     }
 
-    int FindFirstNumber(string input)
-    {
-        int? value = null;
-        int? currentIndex = null;
-        foreach (var (number, numberIndex) in NumberWords.WithIndex())
-        {
-            var index = input.IndexOf(number);
-            if (index == -1)
-            {
-                continue;
-            }
-
-            if (currentIndex is null || index < currentIndex)
-            {
-                currentIndex = index;
-                value = numberIndex + 1;
-            }
-        }
-
-        var digitIndex = input.IndexOfAny("123456789".ToCharArray());
-        if (value is null || currentIndex is null || (digitIndex != -1 && currentIndex > digitIndex))
-        {
-            return int.Parse(input[digitIndex].ToString());
-        }
-
-        return value.Value;
-    }
-
-    int FindLastNumber(string input)
-    {
-        int? value = null;
-        int? currentIndex = null;
-        foreach (var (number, numberIndex) in NumberWords.WithIndex())
-        {
-            var index = input.LastIndexOf(number);
-            if (index == -1)
-            {
-                continue;
-            }
-
-            if (currentIndex is null || index > currentIndex)
-            {
-                currentIndex = index;
-                value = numberIndex + 1;
-            }
-        }
-
-        var digitIndex = input.LastIndexOfAny("0123456789".ToCharArray());
-        if (value is null || currentIndex is null || (digitIndex != -1 && currentIndex < digitIndex))
-        {
-            return int.Parse(input[digitIndex].ToString());
-        }
-
-        return value.Value;
-    }
+    string RewriteLine(string line) => line
+        .Replace("eightwo", "82")
+        .Replace("oneight", "18")
+        .Replace("threeight", "38")
+        .Replace("fiveight", "58")
+        .Replace("sevenine", "79")
+        .Replace("twone", "21")
+        .Replace("one", "1")
+        .Replace("two", "2")
+        .Replace("three", "3")
+        .Replace("four", "4")
+        .Replace("five", "5")
+        .Replace("six", "6")
+        .Replace("seven", "7")
+        .Replace("eight", "8")
+        .Replace("nine", "9");
 }
