@@ -16,6 +16,18 @@
       "commandName": "Project",
       "commandLineArgs": "last --year 2016"
     },
+    "AdventOfCode (2017)": {
+      "commandName": "Project",
+      "commandLineArgs": "last --year 2017"
+    },
+    "AdventOfCode (2018)": {
+      "commandName": "Project",
+      "commandLineArgs": "last --year 2018"
+    },
+    "AdventOfCode (2019)": {
+      "commandName": "Project",
+      "commandLineArgs": "last --year 2019"
+    },
     "AdventOfCode (2020)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2020"
