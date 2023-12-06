@@ -1,11 +1,8 @@
 namespace AdventOfCode.Shared;
 
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using System.Runtime.CompilerServices;
 
 public static partial class IIEnumerableExtensions
 {
@@ -35,7 +32,7 @@ public static partial class IIEnumerableExtensions
         return result;
     }
 
-    public static IEnumerable<(T, int)> WithIndex<T>(this IEnumerable<T> source)
+    public static IEnumerable<(T Item, int Index)> WithIndex<T>(this IEnumerable<T> source)
     {
         var materialized = source.ToList();
         for (var i = 0; i < materialized.Count; i++)
