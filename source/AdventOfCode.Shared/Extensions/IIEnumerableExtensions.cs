@@ -33,11 +33,5 @@ public static partial class IIEnumerableExtensions
     }
 
     public static IEnumerable<(T Item, int Index)> WithIndex<T>(this IEnumerable<T> source)
-    {
-        var materialized = source.ToList();
-        for (var i = 0; i < materialized.Count; i++)
-        {
-            yield return (materialized[i], i);
-        }
-    }
+        => source.Select((item, index) => (item, index));
 }
