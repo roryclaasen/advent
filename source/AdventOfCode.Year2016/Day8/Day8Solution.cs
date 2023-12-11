@@ -3,8 +3,6 @@ namespace AdventOfCode.Year2016;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 [Problem(2016, 8, "Two-Factor Authentication")]
 public class Day8Solution : ISolver
@@ -33,21 +31,7 @@ public class Day8Solution : ISolver
     {
         var instructions = this.ParseInput(input);
         var screen = this.RunInstructions(instructions);
-        var sb = new StringBuilder();
-        for (var y = 0; y < screen.GetLength(0); y++)
-        {
-            for (var x = 0; x < screen.GetLength(1); x++)
-            {
-                sb.Append(screen[y, x] ? '#' : ' ');
-            }
-
-            if (y < screen.GetLength(0) - 1)
-            {
-                sb.AppendLine();
-            }
-        }
-
-        return sb.ToString();
+        return screen.Render();
     }
 
     bool[,] RunInstructions(IEnumerable<Instruction> instructions)
