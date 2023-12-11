@@ -55,13 +55,13 @@ public class Day18Solution : ISolver
             {
                 var neighbours = this.CountNeighbours(grid, x, y);
 
-                if (grid[x, y])
+                if (grid[y, x])
                 {
-                    newGrid[x, y] = neighbours == 2 || neighbours == 3;
+                    newGrid[y, x] = neighbours == 2 || neighbours == 3;
                 }
                 else
                 {
-                    newGrid[x, y] = neighbours == 3;
+                    newGrid[y, x] = neighbours == 3;
                 }
             }
         }
@@ -90,7 +90,7 @@ public class Day18Solution : ISolver
                     continue;
                 }
 
-                if (grid[nx, ny])
+                if (grid[ny, nx])
                 {
                     count++;
                 }
@@ -112,7 +112,7 @@ public class Day18Solution : ISolver
 
             for (var x = 0; x < GridSize; x++)
             {
-                grid[x, y] = line[x] == '#';
+                grid[y, x] = line[x] == '#';
             }
         }
 

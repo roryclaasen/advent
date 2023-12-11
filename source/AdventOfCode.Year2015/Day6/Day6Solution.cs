@@ -37,19 +37,7 @@ public class Day6Solution : ISolver
             }
         }
 
-        var lightsOn = 0;
-        for (var x = 0; x < 1000; x++)
-        {
-            for (var y = 0; y < 1000; y++)
-            {
-                if (grid[x, y] == 1)
-                {
-                    lightsOn++;
-                }
-            }
-        }
-
-        return lightsOn;
+        return grid.Count(l => l == 1);
     }
 
     public object? PartTwo(string input)
