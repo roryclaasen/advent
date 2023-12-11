@@ -46,7 +46,7 @@ public class Day3Solution : ISolver
         return validTriangles;
     }
 
-    bool IsValidTriangle(int[] sides)
+    private bool IsValidTriangle(int[] sides)
         => sides[0] + sides[1] > sides[2] &&
                sides[1] + sides[2] > sides[0] &&
                sides[2] + sides[0] > sides[1];

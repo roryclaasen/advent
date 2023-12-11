@@ -91,7 +91,7 @@ public partial class Day16Solution : ISolver
         throw new Exception("No aunt found");
     }
 
-    IEnumerable<AuntSue> ParseInput(string input)
+    private IEnumerable<AuntSue> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -109,7 +109,7 @@ public partial class Day16Solution : ISolver
         }
     }
 
-    record AuntSue(int Number, Dictionary<string, int> Properties);
+    private record AuntSue(int Number, Dictionary<string, int> Properties);
 
     [GeneratedRegex("Sue (\\d+): (.*)")]
     private static partial Regex AuntRegex();

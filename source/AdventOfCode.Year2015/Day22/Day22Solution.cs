@@ -123,7 +123,7 @@ public class Day22Solution : ISolver
         return minManaSpent;
     }
 
-    (int HitPoints, int Damage) ParseInput(string input)
+    private (int HitPoints, int Damage) ParseInput(string input)
     {
         var lines = input.Lines();
         var hitPoints = int.Parse(lines[0]["Hit Points: ".Length..]);
@@ -131,7 +131,7 @@ public class Day22Solution : ISolver
         return new(hitPoints, damage);
     }
 
-    IEnumerable<Fight> GetNextFights(IEnumerable<Fight> fights)
+    private IEnumerable<Fight> GetNextFights(IEnumerable<Fight> fights)
     {
         foreach(var fight in fights)
         {
@@ -250,7 +250,7 @@ public class Day22Solution : ISolver
         }
     }
 
-    enum Spell
+    private enum Spell
     {
         MagicMissile,
         Drain,

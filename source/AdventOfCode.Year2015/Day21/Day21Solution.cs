@@ -40,7 +40,7 @@ public class Day21Solution : ISolver
         return maxGold;
     }
 
-    IEnumerable<Item[]> GetAllItemCombinations()
+    private IEnumerable<Item[]> GetAllItemCombinations()
     {
         var shop = this.GetShop();
         foreach (var weapon in shop.Where(i => i.Type == ItemType.Weapon))
@@ -74,7 +74,7 @@ public class Day21Solution : ISolver
         }
     }
 
-    bool Fight(BossStats boss, IEnumerable<Item> playerItems)
+    private bool Fight(BossStats boss, IEnumerable<Item> playerItems)
     {
         var playerDamage = playerItems.Sum(i => i.Damage);
         var playerArmor = playerItems.Sum(i => i.Armor);
@@ -90,7 +90,7 @@ public class Day21Solution : ISolver
         return playerHitPoints > 0;
     }
 
-    List<Item> GetShop() => new()
+    private List<Item> GetShop() => new()
     {
         // Weapons
         new Item("Dagger", 8, 4, 0, ItemType.Weapon),
@@ -115,16 +115,16 @@ public class Day21Solution : ISolver
         new Item("Defense +3", 80, 0, 3, ItemType.Ring)
     };
 
-    record Item(string Name, int Cost, int Damage, int Armor, ItemType Type);
+    private record Item(string Name, int Cost, int Damage, int Armor, ItemType Type);
 
-    enum ItemType
+    private enum ItemType
     {
         Weapon,
         Armor,
         Ring
     }
 
-    BossStats ParseInput(string input)
+    private BossStats ParseInput(string input)
     {
         var hitPoints = 0;
         var damage = 0;
@@ -148,5 +148,5 @@ public class Day21Solution : ISolver
         return new BossStats(hitPoints, damage, armor);
     }
 
-    record BossStats(int HitPoints, int Damage, int Armor);
+    private record BossStats(int HitPoints, int Damage, int Armor);
 }

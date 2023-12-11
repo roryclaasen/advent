@@ -22,7 +22,7 @@ public class Day3Solution : ISolver
         return r1d1 * r3d1 * r5d1 * r7d1 * r1d2;
     }
 
-    int Navigate(string[] map, int xSlope, int ySlope)
+    private int Navigate(string[] map, int xSlope, int ySlope)
     {
         var x = 0;
         var y = 0;

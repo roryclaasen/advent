@@ -35,7 +35,7 @@ public class Day19Solution : ISolver
         return step;
     }
 
-    HashSet<string> GetAllNewMolecules(string molecule, IEnumerable<Replacement> replacements)
+    private HashSet<string> GetAllNewMolecules(string molecule, IEnumerable<Replacement> replacements)
     {
         var molecules = new HashSet<string>();
         foreach (var replacement in replacements)
@@ -50,7 +50,7 @@ public class Day19Solution : ISolver
         return molecules;
     }
 
-    HashSet<string> GetAllPreviousMolecules(string molecule, IEnumerable<Replacement> replacements)
+    private HashSet<string> GetAllPreviousMolecules(string molecule, IEnumerable<Replacement> replacements)
     {
         var molecules = new HashSet<string>();
         foreach (var replacement in replacements)
@@ -65,13 +65,13 @@ public class Day19Solution : ISolver
         return molecules;
     }
 
-    (string Molecule, IEnumerable<Replacement> Replacements) ParseInput(string input)
+    private (string Molecule, IEnumerable<Replacement> Replacements) ParseInput(string input)
     {
         var parts = input.Lines(2);
         return (parts[1], ParseReplacements(parts[0]));
     }
 
-    IEnumerable<Replacement> ParseReplacements(string input)
+    private IEnumerable<Replacement> ParseReplacements(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -80,5 +80,5 @@ public class Day19Solution : ISolver
         }
     }
 
-    record Replacement(string From, string To);
+    private record Replacement(string From, string To);
 }

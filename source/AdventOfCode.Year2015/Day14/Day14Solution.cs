@@ -48,7 +48,7 @@ public partial class Day14Solution : ISolver
         return distance;
     }
 
-    static IEnumerable<Reindeer> Parse(string input)
+    private static IEnumerable<Reindeer> Parse(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -64,7 +64,7 @@ public partial class Day14Solution : ISolver
         }
     }
 
-    record Reindeer(string Name, int Speed, int FlyTime, int RestTime);
+    private record Reindeer(string Name, int Speed, int FlyTime, int RestTime);
 
     [GeneratedRegex("(?<Name>\\w+) can fly (?<Speed>\\d+) km/s for (?<FlyTime>\\d+) seconds, but then must rest for (?<RestTime>\\d+) seconds\\.")]
     private static partial Regex ReindeerRegex();

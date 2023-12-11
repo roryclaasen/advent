@@ -26,14 +26,14 @@ public partial class Day4Solution : ISolver
         throw new Exception("Failed to find room");
     }
 
-    bool IsRealRoom(Room room)
+    private bool IsRealRoom(Room room)
     {
         var letterCounts = room.Name.Where(c => c != '-').GroupBy(c => c).Select(g => (g.Key, g.Count())).OrderByDescending(g => g.Item2).ThenBy(g => g.Key).Take(5).ToArray();
         var checksum = new string(letterCounts.Select(g => g.Key).ToArray());
         return checksum == room.Checksum;
     }
 
-    string RotateRoomName(string name, int sectorId)
+    private string RotateRoomName(string name, int sectorId)
     {
         var rotated = new char[name.Length];
         for (var i = 0; i < name.Length; i++)
@@ -53,7 +53,7 @@ public partial class Day4Solution : ISolver
         return new string(rotated);
     }
 
-    IEnumerable<Room> ParseRooms(string input)
+    private IEnumerable<Room> ParseRooms(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -61,7 +61,7 @@ public partial class Day4Solution : ISolver
         }
     }
 
-    partial record Room(string Name, int SectorId, string Checksum)
+    private partial record Room(string Name, int SectorId, string Checksum)
     {
         public static Room Parse(string input)
         {

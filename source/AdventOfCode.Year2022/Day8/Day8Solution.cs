@@ -106,7 +106,7 @@ public class Day8Solution : ISolver
         return scores.Max();
     }
 
-    static GridData ParseInput(string input)
+    private static GridData ParseInput(string input)
     {
         var lines = input.Lines().ToArray();
         var width = lines[0].Length;
@@ -126,7 +126,7 @@ public class Day8Solution : ISolver
         return new GridData(width, height, grid);
     }
 
-    List<Cell> GetInputLine(GridData grid, int x, int y, Direction direction)
+    private List<Cell> GetInputLine(GridData grid, int x, int y, Direction direction)
     {
         var results = new List<Cell>();
 
@@ -152,7 +152,7 @@ public class Day8Solution : ISolver
         return results;
     }
 
-    record GridData(int Width, int Height, Cell[,] Grid);
+    private record GridData(int Width, int Height, Cell[,] Grid);
 
-    record Cell(int X, int Y, int Value);
+    private record Cell(int X, int Y, int Value);
 }

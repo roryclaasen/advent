@@ -34,7 +34,7 @@ public class Day8Solution : ISolver
         return screen.Render();
     }
 
-    bool[,] RunInstructions(IEnumerable<Instruction> instructions)
+    private bool[,] RunInstructions(IEnumerable<Instruction> instructions)
     {
         var screen = new bool[6, 50];
         foreach (var ins in instructions)
@@ -82,7 +82,7 @@ public class Day8Solution : ISolver
         return screen;
     }
 
-    IEnumerable<Instruction> ParseInput(string input)
+    private IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -113,5 +113,5 @@ public class Day8Solution : ISolver
         }
     }
 
-    record Instruction(string Operation, int A, int B);
+    private record Instruction(string Operation, int A, int B);
 }

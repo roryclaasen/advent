@@ -29,7 +29,7 @@ public class Day10Solution : ISolver
                 .Select(line => new string(line).TrimEnd())
             );
 
-    static IEnumerable<(int Cycle, int X)> RunProgram(IEnumerable<Instruction> instructions)
+    private static IEnumerable<(int Cycle, int X)> RunProgram(IEnumerable<Instruction> instructions)
     {
         var (cycle, x) = (1, 1);
         foreach (var ins in instructions)
@@ -50,7 +50,7 @@ public class Day10Solution : ISolver
         }
     }
 
-    IEnumerable<Instruction> ParseInput(string input)
+    private IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

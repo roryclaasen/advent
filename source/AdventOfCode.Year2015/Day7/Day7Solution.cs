@@ -33,7 +33,7 @@ public partial class Day7Solution : ISolver
         return this.RunInstructions(instructions.ToList());
     }
 
-    Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
+    private Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
     {
         var wires = new Dictionary<string, ushort>();
 
@@ -108,7 +108,7 @@ public partial class Day7Solution : ISolver
         return wires;
     }
 
-    IEnumerable<InstructionBase> ParseInput(string input)
+    private IEnumerable<InstructionBase> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -153,11 +153,11 @@ public partial class Day7Solution : ISolver
 
     public abstract record InstructionBase(string Output);
 
-    record SetValueInstruction(string Output, ushort Value) : InstructionBase(Output);
+    private record SetValueInstruction(string Output, ushort Value) : InstructionBase(Output);
 
-    record SetValueFromWireInstruction(string Output, string A) : InstructionBase(Output);
+    private record SetValueFromWireInstruction(string Output, string A) : InstructionBase(Output);
 
-    enum Operation
+    private enum Operation
     {
         And,
         Or,
@@ -166,7 +166,7 @@ public partial class Day7Solution : ISolver
         RShift
     }
 
-    record BitWiseInstruction(string Output, Operation Operation, string A, string? B = null) : InstructionBase(Output);
+    private record BitWiseInstruction(string Output, Operation Operation, string A, string? B = null) : InstructionBase(Output);
 
     [GeneratedRegex("^(?:(?<Value>\\d+)|(?<A>\\w+)) -> (?<Output>\\w+)$", RegexOptions.Singleline)]
     private partial Regex SetValueRegex();

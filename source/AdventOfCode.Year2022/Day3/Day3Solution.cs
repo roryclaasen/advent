@@ -32,7 +32,7 @@ public class Day3Solution : ISolver
         return score;
     }
 
-    static IEnumerable<Rucksack> ParseInput(string input)
+    private static IEnumerable<Rucksack> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -41,11 +41,11 @@ public class Day3Solution : ISolver
         }
     }
 
-    static int Priority(char item)
+    private static int Priority(char item)
     {
         var id = Convert.ToInt32(item);
         return id >= 97 ? id - 96 : id - 38;
     }
 
-    record Rucksack(string Everything, string Compartment1, string Compartment2);
+    private record Rucksack(string Everything, string Compartment1, string Compartment2);
 }

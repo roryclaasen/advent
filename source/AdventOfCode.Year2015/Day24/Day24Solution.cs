@@ -21,7 +21,7 @@ public class Day24Solution : ISolver
         return FindBestQE(packages, 4);
     }
 
-    long FindBestQE(int[] packages, int groups)
+    private long FindBestQE(int[] packages, int groups)
     {
         var targetWeight = packages.Sum() / groups;
 
@@ -37,7 +37,7 @@ public class Day24Solution : ISolver
         throw new Exception("No solution found");
     }
 
-    IEnumerable<ImmutableList<int>> PickPackages(int[] packages, int count, int i, int targetWeight)
+    private IEnumerable<ImmutableList<int>> PickPackages(int[] packages, int count, int i, int targetWeight)
     {
         if (targetWeight == 0)
         {
@@ -64,7 +64,7 @@ public class Day24Solution : ISolver
         }
     }
 
-    IEnumerable<int> ParseInput(string input)
+    private IEnumerable<int> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

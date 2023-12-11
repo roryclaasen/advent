@@ -23,7 +23,7 @@ public class Day7Solution : ISolver
             .Select((h, i) => h.BidAmount * (i + 1))
             .Sum();
 
-    IEnumerable<Hand> ParseInput(string input)
+    private IEnumerable<Hand> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -70,7 +70,7 @@ public class Day7Solution : ISolver
     }
 
     [DebuggerDisplay("Hand {string.Join(string.Empty, CamelCards)} {BidAmount}")]
-    record Hand(char[] CamelCards, int BidAmount)
+    private record Hand(char[] CamelCards, int BidAmount)
     {
         public int PairType() => GetPairType(this.CamelCards);
 

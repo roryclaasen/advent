@@ -29,7 +29,7 @@ public class Day17Solution : ISolver
         return combinations.MinBy(c => c.Length)?.Length;
     }
 
-    List<int[]> FindAllCombinations(Dictionary<int, int> numbers, int target)
+    private List<int[]> FindAllCombinations(Dictionary<int, int> numbers, int target)
     {
         var combinations = new List<int[]>();
 

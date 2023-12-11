@@ -38,7 +38,7 @@ public class Day4Solution : ISolver
         return count;
     }
 
-    static IEnumerable<ElfPair> ParseInput(string input)
+    private static IEnumerable<ElfPair> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -55,7 +55,7 @@ public class Day4Solution : ISolver
         }
     }
 
-    record Assignment(int Start, int End);
+    private record Assignment(int Start, int End);
 
-    record ElfPair(Assignment Elf1, Assignment Elf2);
+    private record ElfPair(Assignment Elf1, Assignment Elf2);
 }

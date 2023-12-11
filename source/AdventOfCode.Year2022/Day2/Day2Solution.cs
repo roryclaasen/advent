@@ -20,7 +20,7 @@ public class Day2Solution : ISolver
         }));
     }
 
-    static IEnumerable<RPSRound> ParseInput1(string input)
+    private static IEnumerable<RPSRound> ParseInput1(string input)
     {
         foreach (var round in input.Lines().Select(l => l.Split(' ')))
         {
@@ -30,7 +30,7 @@ public class Day2Solution : ISolver
         }
     }
 
-    static IEnumerable<Strategy> ParseInput2(string input)
+    private static IEnumerable<Strategy> ParseInput2(string input)
     {
         foreach (var round in input.Lines().Select(l => l.Split(' ')))
         {
@@ -40,7 +40,7 @@ public class Day2Solution : ISolver
         }
     }
 
-    static int CalculateScore(IEnumerable<RPSRound> rounds)
+    private static int CalculateScore(IEnumerable<RPSRound> rounds)
     {
         var totalScore = 0;
         foreach (var round in rounds)
@@ -57,7 +57,7 @@ public class Day2Solution : ISolver
         return totalScore;
     }
 
-    static Outcome PlayGame(RPSMove a, RPSMove b)
+    private static Outcome PlayGame(RPSMove a, RPSMove b)
     {
         if (a == b)
         {
@@ -73,9 +73,11 @@ public class Day2Solution : ISolver
         };
     }
 
-    enum RPSMove : int { Rock = 1, Paper = 2, Scissors = 3 }
-    enum Outcome { Win, Lose, Draw }
+    private enum RPSMove : int { Rock = 1, Paper = 2, Scissors = 3 }
 
-    record RPSRound(RPSMove Move, RPSMove Opponent);
-    record Strategy(Outcome Result, RPSMove Opponent);
+    private enum Outcome { Win, Lose, Draw }
+
+    private record RPSRound(RPSMove Move, RPSMove Opponent);
+
+    private record Strategy(Outcome Result, RPSMove Opponent);
 }

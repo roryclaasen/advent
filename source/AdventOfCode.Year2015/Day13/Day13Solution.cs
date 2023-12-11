@@ -73,7 +73,7 @@ public partial class Day13Solution : ISolver
         }
     }
 
-    record GuestArrangement(string Guest, string Neighbor, int Happiness);
+    private record GuestArrangement(string Guest, string Neighbor, int Happiness);
 
     [GeneratedRegex("(?<Guest>\\w+) would (?<gain>lose|gain) (?<happiness>\\d+) happiness units by sitting next to (?<Neighbor>\\w+)\\.")]
     private static partial Regex GuestArrangementRegex();

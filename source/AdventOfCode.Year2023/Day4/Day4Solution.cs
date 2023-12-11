@@ -47,7 +47,7 @@ public partial class Day4Solution : ISolver
         return totalCount.Values.Sum();
     }
 
-    IEnumerable<ScratchCard> ParseInput(string input)
+    private IEnumerable<ScratchCard> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -66,7 +66,7 @@ public partial class Day4Solution : ISolver
         }
     }
 
-    record ScratchCard(int Id, IReadOnlyCollection<int> WinningNumbers, IReadOnlyCollection<int> PickedNumbers)
+    private record ScratchCard(int Id, IReadOnlyCollection<int> WinningNumbers, IReadOnlyCollection<int> PickedNumbers)
     {
         private bool IsWinningNumber(int number) => WinningNumbers.Contains(number);
 

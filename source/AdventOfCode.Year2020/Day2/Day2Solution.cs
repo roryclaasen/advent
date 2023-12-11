@@ -20,7 +20,7 @@ public partial class Day2Solution : ISolver
         return policies.Count(p => p.Password[p.Min - 1] == p.Character ^ p.Password[p.Max - 1] == p.Character);
     }
 
-    IEnumerable<PasswordPolicy> ParseInput(string input)
+    private IEnumerable<PasswordPolicy> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -37,7 +37,7 @@ public partial class Day2Solution : ISolver
         }
     }
 
-    record PasswordPolicy(int Min, int Max, char Character, string Password);
+    private record PasswordPolicy(int Min, int Max, char Character, string Password);
 
     [GeneratedRegex("(?<Min>\\d+)-(?<Max>\\d+) (?<Character>\\w): (?<Password>\\w+)")]
     private static partial Regex PasswordPolicyRegex();
