@@ -45,13 +45,13 @@ public class Day5Solution : ISolver
         return string.Join(string.Empty, stacks.Select(s => s.First().ToString()));
     }
 
-    static IputData ParseInput(string input)
+    private static IputData ParseInput(string input)
     {
         var data = input.Lines(2);
         return new IputData(ParseStack(data[0]).ToArray(), PasrseInstruction(data[1]));
     }
 
-    static IEnumerable<Stack<char>> ParseStack(string input)
+    private static IEnumerable<Stack<char>> ParseStack(string input)
     {
         static string TidyStackItem(string stack) => stack
             .Replace("[", string.Empty)
@@ -80,7 +80,7 @@ public class Day5Solution : ISolver
         }
     }
 
-    static IEnumerable<Instruction> PasrseInstruction(string input)
+    private static IEnumerable<Instruction> PasrseInstruction(string input)
     {
         var regexMatch = new Regex(@"^move (\d+) from (\d+) to (\d+)$");
 
@@ -97,7 +97,7 @@ public class Day5Solution : ISolver
         }
     }
 
-    record IputData(Stack<char>[] Stacks, IEnumerable<Instruction> Instructions);
+    private record IputData(Stack<char>[] Stacks, IEnumerable<Instruction> Instructions);
 
-    record Instruction(int Count, int From, int To);
+    private record Instruction(int Count, int From, int To);
 }

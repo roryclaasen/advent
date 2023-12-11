@@ -26,7 +26,7 @@ public partial class Day9Solution : ISolver
         return routes.Max();
     }
 
-    static IEnumerable<List<TravellingSalesmanByRoadDistance.Road>> FindAllRoutes(
+    private static IEnumerable<List<TravellingSalesmanByRoadDistance.Road>> FindAllRoutes(
         List<TravellingSalesmanByRoadDistance.Road> roads,
         Func<List<TravellingSalesmanByRoadDistance.Road>, string, string, List<string>> algorithm)
     {
@@ -39,7 +39,7 @@ public partial class Day9Solution : ISolver
         return routes;
     }
 
-    static IEnumerable<TravellingSalesmanByRoadDistance.Road> ParseInput(string input)
+    private static IEnumerable<TravellingSalesmanByRoadDistance.Road> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

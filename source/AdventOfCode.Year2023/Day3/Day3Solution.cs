@@ -76,7 +76,7 @@ public partial class Day3Solution : ISolver
         return sum;
     }
 
-    char GetTile(string[] grid, Vector2 position)
+    private char GetTile(string[] grid, Vector2 position)
     {
         if (position.Y < 0 || position.Y >= grid.Length)
         {

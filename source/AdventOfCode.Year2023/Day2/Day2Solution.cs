@@ -30,7 +30,7 @@ public partial class Day2Solution : ISolver
         return games.Sum();
     }
 
-    IEnumerable<Game> ParseInput(string input)
+    private IEnumerable<Game> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -41,7 +41,7 @@ public partial class Day2Solution : ISolver
         }
     }
 
-    partial record class GameReveal(int Red, int Blue, int Green)
+    private partial record class GameReveal(int Red, int Blue, int Green)
     {
         [GeneratedRegex("(?<amount>\\d+) (?<color>red|blue|green)")]
         private static partial Regex ColorRegex();
@@ -79,5 +79,5 @@ public partial class Day2Solution : ISolver
         }
     }
 
-    record Game(int Id, IEnumerable<GameReveal> Reveals);
+    private record Game(int Id, IEnumerable<GameReveal> Reveals);
 }

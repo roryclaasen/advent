@@ -24,7 +24,7 @@ public partial class Day23Solution : ISolver
         return result["b"];
     }
 
-    Dictionary<string, uint> RunInstructions(IEnumerable<Instruction> instructions, Dictionary<string, uint>? sartingRegister = null)
+    private Dictionary<string, uint> RunInstructions(IEnumerable<Instruction> instructions, Dictionary<string, uint>? sartingRegister = null)
     {
         var register = sartingRegister ?? new Dictionary<string, uint> { { "a", 0 }, { "b", 0 } };
 
@@ -77,7 +77,7 @@ public partial class Day23Solution : ISolver
         return register;
     }
 
-    IEnumerable<Instruction> ParseInput(string input)
+    private IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -95,7 +95,7 @@ public partial class Day23Solution : ISolver
         }
     }
 
-    record Instruction(string Operation, string Register, int Offset);
+    private record Instruction(string Operation, string Register, int Offset);
 
     [GeneratedRegex("^(?<operation>\\w+) (?<register>[ab])?(, )?(?<offset>[+-]\\d+)?$")]
     private static partial Regex InstructionRegex();

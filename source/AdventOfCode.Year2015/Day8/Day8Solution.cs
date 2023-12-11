@@ -27,7 +27,7 @@ public class Day8Solution : ISolver
         return parsedLength - rawLength;
     }
 
-    static string Decode(string input)
+    private static string Decode(string input)
     {
         if (!input.StartsWith('"') || !input.EndsWith('"'))
         {
@@ -74,7 +74,7 @@ public class Day8Solution : ISolver
         return sb.ToString();
     }
 
-    static string Encode(string input)
+    private static string Encode(string input)
     {
         var sb = new StringBuilder();
         sb.Append('"');
@@ -93,5 +93,5 @@ public class Day8Solution : ISolver
         return sb.ToString();
     }
 
-    record Entry(string Raw, string Parsed);
+    private record Entry(string Raw, string Parsed);
 }

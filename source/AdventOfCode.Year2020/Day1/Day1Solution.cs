@@ -21,10 +21,10 @@ public class Day1Solution : ISolver
         return ProductEntriesThatSum(Target, 3, entries.ToArray());
     }
 
-    static IEnumerable<int> ParseInput(string input)
+    private static IEnumerable<int> ParseInput(string input)
         => input.Lines().Select(int.Parse);
 
-    static int ProductEntriesThatSum(int target, int count, params int[] entries)
+    private static int ProductEntriesThatSum(int target, int count, params int[] entries)
     {
         var matchingCombination = entries.Combinations(count).Single(c => c.Sum() == target);
         return matchingCombination.Product();

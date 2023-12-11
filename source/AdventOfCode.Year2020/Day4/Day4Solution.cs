@@ -80,7 +80,7 @@ public class Day4Solution : ISolver
         return valid;
     }
 
-    IEnumerable<Passport> ParseInput(string input)
+    private IEnumerable<Passport> ParseInput(string input)
     {
         foreach (var passportInput in input.Lines(2))
         {
@@ -104,7 +104,7 @@ public class Day4Solution : ISolver
         }
     }
 
-    record Passport
+    private record Passport
     {
         public string? BirthYear { get; init; }
         public string? IssueYear { get; init; }

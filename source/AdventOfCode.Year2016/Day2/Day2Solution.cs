@@ -99,6 +99,6 @@ public class Day2Solution : ISolver
         return sb.ToString();
     }
 
-    static IEnumerable<IEnumerable<Direction>> ParseInput(string input)
+    private static IEnumerable<IEnumerable<Direction>> ParseInput(string input)
         => input.Lines().Select(l => l.Select(c => (Direction)c));
 }

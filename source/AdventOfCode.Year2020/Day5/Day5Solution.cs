@@ -29,7 +29,7 @@ public class Day5Solution : ISolver
         throw new Exception("Seat not found");
     }
 
-    IEnumerable<BoardingPass> ParseInput(string input)
+    private IEnumerable<BoardingPass> ParseInput(string input)
     {
         foreach (var line in input.Split(Environment.NewLine))
         {
@@ -37,7 +37,7 @@ public class Day5Solution : ISolver
         }
     }
 
-    record BoardingPass(int Row, int Column, int SeatId)
+    private record BoardingPass(int Row, int Column, int SeatId)
     {
         public static BoardingPass Parse(string input)
         {

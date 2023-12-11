@@ -23,7 +23,7 @@ public partial class Day15Solution : ISolver
         return GetBestScore(ingredients.ToArray(), (capacity, durability, flavor, texture, calories) => calories == 500 ? capacity * durability * flavor * texture : 0);
     }
 
-    int GetBestScore(Ingredient[] ingredients, Func<int, int, int, int, int, int> bestScore)
+    private int GetBestScore(Ingredient[] ingredients, Func<int, int, int, int, int, int> bestScore)
     {
         var best = 0;
 
@@ -48,7 +48,7 @@ public partial class Day15Solution : ISolver
         return best;
     }
 
-    IEnumerable<Ingredient> ParseInput(string input)
+    private IEnumerable<Ingredient> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -69,7 +69,7 @@ public partial class Day15Solution : ISolver
         }
     }
 
-    record class Ingredient(string Name, int Capacity, int Durability, int Flavor, int Texture, int Calories);
+    private record class Ingredient(string Name, int Capacity, int Durability, int Flavor, int Texture, int Calories);
 
     [GeneratedRegex("(?<name>\\w+): capacity (?<capacity>-?\\d+), durability (?<durability>-?\\d+), flavor (?<flavor>-?\\d+), texture (?<texture>-?\\d+), calories (?<calories>-?\\d+)")]
     private static partial Regex IngredientRegex();

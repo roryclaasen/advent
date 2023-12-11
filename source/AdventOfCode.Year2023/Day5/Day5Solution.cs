@@ -58,7 +58,7 @@ public class Day5Solution : ISolver
             .Min(n => n.Start);
     }
 
-    Input ParseInput(string input)
+    private Input ParseInput(string input)
     {
         var parts = input.Lines(2);
         var seeds = parts[0].Replace("seeds: ", string.Empty).Split(" ").Select(long.Parse).ToArray();
@@ -82,7 +82,7 @@ public class Day5Solution : ISolver
         ]);
     }
 
-    IEnumerable<MapRange> ParseMapRanges(string input, string header)
+    private IEnumerable<MapRange> ParseMapRanges(string input, string header)
     {
         var lines = input.Lines();
         if (lines[0] != header)
@@ -129,7 +129,7 @@ public class Day5Solution : ISolver
         }
     }
 
-    record Input(long[] Seeds, List<List<MapRange>> Maps);
+    private record Input(long[] Seeds, List<List<MapRange>> Maps);
 
     internal class TreeNode(long Start, long End, int Depth = 0)
     {

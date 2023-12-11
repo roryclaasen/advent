@@ -32,7 +32,7 @@ public class Day1Solution : ISolver
         return sum;
     }
 
-    string RewriteLine(string line) => line
+    private string RewriteLine(string line) => line
         .Replace("eightwo", "82")
         .Replace("oneight", "18")
         .Replace("threeight", "38")

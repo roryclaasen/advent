@@ -74,7 +74,7 @@ public class Day1Solution : ISolver
         throw new Exception("No location visited twice");
     }
 
-    IEnumerable<Instruction> ParseInput(string input)
+    private IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var instruction in input.Split(", "))
         {
@@ -82,5 +82,5 @@ public class Day1Solution : ISolver
         }
     }
 
-    record Instruction(char Direction, int Distance);
+    private record Instruction(char Direction, int Distance);
 }

@@ -13,7 +13,7 @@ public class Day9Solution : ISolver
 
     public object? PartTwo(string input) => GetTailMovements(10, ParseInput(input));
 
-    static IEnumerable<Instruction> ParseInput(string input)
+    private static IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -22,7 +22,7 @@ public class Day9Solution : ISolver
         }
     }
 
-    static int GetTailMovements(int numberOfKnots, IEnumerable<Instruction> instructions)
+    private static int GetTailMovements(int numberOfKnots, IEnumerable<Instruction> instructions)
     {
         Vector2[] knots = new Vector2[numberOfKnots];
 
@@ -69,7 +69,7 @@ public class Day9Solution : ISolver
         return tailPositions.Distinct().Count();
     }
 
-    static Vector2 MoveKnot(Vector2 head, Vector2 tail)
+    private static Vector2 MoveKnot(Vector2 head, Vector2 tail)
     {
         if (head.X != tail.X)
         {
@@ -98,5 +98,5 @@ public class Day9Solution : ISolver
         return tail;
     }
 
-    record Instruction(Direction Direction, int Steps);
+    private record Instruction(Direction Direction, int Steps);
 }

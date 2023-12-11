@@ -11,7 +11,7 @@ public class Day6Solution : ISolver
 
     public object? PartTwo(string input) => FindMarker(input, 14);
 
-    static int FindMarker(string input, int length)
+    private static int FindMarker(string input, int length)
     {
         for (var i = 0; i < input.Length - length - 1; i++)
         {

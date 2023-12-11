@@ -45,7 +45,7 @@ public class Day7Solution : ISolver
         return possibleDirs.OrderBy(d => d.Size).First().Size;
     }
 
-    static void DirectoryIterator(Directory dir, Action<Directory> action)
+    private static void DirectoryIterator(Directory dir, Action<Directory> action)
     {
         foreach (var (_, node) in dir.Nodes)
         {
@@ -58,7 +58,7 @@ public class Day7Solution : ISolver
         action(dir);
     }
 
-    static Directory ParseInput(string input)
+    private static Directory ParseInput(string input)
     {
         var cmdRegex = new Regex(@"^\$ (cd|ls)(?: (\w+|..|\/))?$");
         var listRegex = new Regex(@"^(dir|\d+) (\w+\.?\w*)$");
@@ -160,12 +160,12 @@ public class Day7Solution : ISolver
         return tree;
     }
 
-    record Node(Node Parent, string Name, int Size)
+    private record Node(Node Parent, string Name, int Size)
     {
         public virtual int Size { get; init; } = Size;
     }
 
-    record Directory(Node Parent, string Name) : Node(Parent, Name, default)
+    private record Directory(Node Parent, string Name) : Node(Parent, Name, default)
     {
         public Dictionary<string, Node> Nodes { get; private set; } = new();
 

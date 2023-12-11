@@ -45,7 +45,7 @@ public class Day18Solution : ISolver
         return grid.OfType<bool>().Count(b => b == true);
     }
 
-    bool[,] ProcessGrid(bool[,] grid)
+    private bool[,] ProcessGrid(bool[,] grid)
     {
         var newGrid = new bool[GridSize, GridSize];
 
@@ -69,7 +69,7 @@ public class Day18Solution : ISolver
         return newGrid;
     }
 
-    int CountNeighbours(bool[,] grid, int x, int y)
+    private int CountNeighbours(bool[,] grid, int x, int y)
     {
         var count = 0;
 
@@ -100,7 +100,7 @@ public class Day18Solution : ISolver
         return count;
     }
 
-    bool[,] ParseInput(string input)
+    private bool[,] ParseInput(string input)
     {
         var grid = new bool[GridSize, GridSize];
 
