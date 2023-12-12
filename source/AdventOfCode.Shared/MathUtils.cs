@@ -31,7 +31,7 @@ public static class MathUtils
     /// <param name="b">The second number.</param>
     /// <returns>The least common multiple.</returns>
     public static TNumber Lcm<TNumber>(TNumber a, TNumber b) where TNumber : struct, INumber<TNumber>
-        => (a * b) / Gcd(a, b);
+        => checked(a * b) / Gcd(a, b);
 
     /// <summary>
     /// Returns the least common multiple of a collection of numbers.
