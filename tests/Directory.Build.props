@@ -5,7 +5,8 @@
   <PropertyGroup>
     <Product>AdventOfCode.Tests</Product>
 
-    <OutputType>Library</OutputType>
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+    <OutputType>Exe</OutputType>
 
     <IsPublishable>false</IsPublishable>
     <IsPackable>false</IsPackable>
@@ -20,9 +21,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.NET.Test.Sdk" />
-    <PackageReference Include="MSTest.TestAdapter" />
-    <PackageReference Include="MSTest.TestFramework" />
+    <PackageReference Include="MSTest" />
   </ItemGroup>
 
   <ItemGroup>
