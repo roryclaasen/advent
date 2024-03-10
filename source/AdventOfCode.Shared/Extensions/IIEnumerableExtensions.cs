@@ -16,7 +16,7 @@ public static partial class IIEnumerableExtensions
 
     public static decimal Product(this IEnumerable<decimal> x) => Product<decimal, decimal>(x);
 
-    public static TResult Product<TSource, TResult>(this IEnumerable<TSource> x)
+    private static TResult Product<TSource, TResult>(this IEnumerable<TSource> x)
         where TSource : struct, INumber<TSource>
         where TResult : struct, INumber<TResult>
     {

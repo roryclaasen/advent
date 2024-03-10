@@ -30,18 +30,18 @@ public class Day24Solution : ISolver
             var parts = PickPackages(packages, i, 0, targetWeight);
             if (parts.Any())
             {
-                return parts.Select(l => l.Product<int, long>()).Min();
+                return parts.Select(l => l.Product()).Min();
             }
         }
 
         throw new Exception("No solution found");
     }
 
-    private IEnumerable<ImmutableList<int>> PickPackages(int[] packages, int count, int i, int targetWeight)
+    private IEnumerable<ImmutableList<long>> PickPackages(int[] packages, int count, int i, int targetWeight)
     {
         if (targetWeight == 0)
         {
-            yield return ImmutableList.Create<int>();
+            yield return ImmutableList.Create<long>();
             yield break;
         }
 
