@@ -8,11 +8,11 @@
     <PackageVersion Include="Spectre.Console" Version="0.48.0" />
     <PackageVersion Include="Spectre.Console.Analyzer" Version="0.48.0" />
     <PackageVersion Include="Spectre.Console.Cli" Version="0.48.0" />
-    <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.1" />
+    <PackageVersion Include="Microsoft.Extensions.FileProviders.Embedded" Version="8.0.2" />
   </ItemGroup>
   <ItemGroup Label="Test Packages">
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
-    <PackageVersion Include="MSTest" Version="3.2.0" />
+    <PackageVersion Include="MSTest" Version="3.2.2" />
   </ItemGroup>
 </Project>
