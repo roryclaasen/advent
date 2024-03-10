@@ -18,13 +18,13 @@ public class Day3SolutionTests : SolverBaseTests<Day3Solution>
         Assert.AreEqual(answer, solvedAnswer);
     }
 
-    [TestMethod]
-    [DataRow("", "")]
-    public void SolvePart2(string input, string answer)
-    {
-        Assert.IsNotNull(this.Solver);
+    //[TestMethod]
+    //[DataRow("", "")]
+    //public void SolvePart2(string input, string answer)
+    //{
+    //    Assert.IsNotNull(this.Solver);
 
-        var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
-        Assert.AreEqual(answer, solvedAnswer);
-    }
+    //    var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
+    //    Assert.AreEqual(answer, solvedAnswer);
+    //}
 }

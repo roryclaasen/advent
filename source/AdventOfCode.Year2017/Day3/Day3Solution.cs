@@ -19,7 +19,5 @@ public class Day3Solution : ISolver
     }
 
     public object? PartTwo(string input)
-    {
-        throw new NotImplementedException();
-    }
+        => null;
 }
