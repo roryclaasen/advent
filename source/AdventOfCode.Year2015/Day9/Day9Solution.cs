@@ -26,9 +26,9 @@ public partial class Day9Solution : ISolver
         return routes.Max();
     }
 
-    private static IEnumerable<List<TravellingSalesmanByRoadDistance.Road>> FindAllRoutes(
-        List<TravellingSalesmanByRoadDistance.Road> roads,
-        Func<List<TravellingSalesmanByRoadDistance.Road>, string, string, List<string>> algorithm)
+    private static IEnumerable<List<TravellingSalesmanByRoadDistance.Road<string>>> FindAllRoutes(
+        List<TravellingSalesmanByRoadDistance.Road<string>> roads,
+        Func<List<TravellingSalesmanByRoadDistance.Road<string>>, string, string, List<string>> algorithm)
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct();
         var routes = cities
@@ -39,7 +39,7 @@ public partial class Day9Solution : ISolver
         return routes;
     }
 
-    private static IEnumerable<TravellingSalesmanByRoadDistance.Road> ParseInput(string input)
+    private static IEnumerable<TravellingSalesmanByRoadDistance.Road<string>> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {
@@ -52,8 +52,8 @@ public partial class Day9Solution : ISolver
             var from = match.Groups["From"].Value;
             var to = match.Groups["To"].Value;
             var distance = int.Parse(match.Groups["Distance"].Value);
-            yield return new TravellingSalesmanByRoadDistance.Road(from, to, distance);
-            yield return new TravellingSalesmanByRoadDistance.Road(to, from, distance);
+            yield return new TravellingSalesmanByRoadDistance.Road<string>(from, to, distance);
+            yield return new TravellingSalesmanByRoadDistance.Road<string>(to, from, distance);
         }
     }
 
