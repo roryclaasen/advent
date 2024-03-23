@@ -6,28 +6,29 @@ using System.Linq;
 
 public class TravellingSalesmanByRoadDistance
 {
-    public record Road(string From, string To, float Distance);
+    public record Road<T>(T From, T To, float Distance) where T : class;
 
-    public static List<Road> CityRouteToRoadRoute(List<string> route, List<Road> roads)
+    public static List<Road<T>> CityRouteToRoadRoute<T>(List<T> route, List<Road<T>> roads) where T : class
     {
-        var result = new List<Road>();
+        var result = new List<Road<T>>();
         for (int i = 0; i < route.Count - 1; i++)
         {
-            var road = roads.FirstOrDefault(r => r.From == route[i] && r.To == route[i + 1]);
+            var road = roads.FirstOrDefault(r => r.From.Equals(route[i]) && r.To.Equals(route[i + 1]));
             if (road is null)
             {
                 throw new ArgumentException($"No road found between {route[i]} and {route[i + 1]}");
             }
+
             result.Add(road);
         }
 
         return result;
     }
 
-    public static List<string> SolveLongest(List<Road> roads, string start, string end)
+    public static List<T> SolveLongest<T>(List<Road<T>> roads, T start, T end) where T : class
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var longestPath = new List<string>();
+        var longestPath = new List<T>();
         var longestDistance = float.MinValue;
 
         foreach (var permutation in cities.Permutations(start, end))
@@ -35,13 +36,15 @@ public class TravellingSalesmanByRoadDistance
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
             {
-                var road = roads.FirstOrDefault(r => r.From == permutation[i] && r.To == permutation[i + 1]);
+                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]));
                 if (road is null)
                 {
                     throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
                 }
+
                 distance += road.Distance;
             }
+
             if (distance > longestDistance)
             {
                 longestDistance = distance;
@@ -52,10 +55,10 @@ public class TravellingSalesmanByRoadDistance
         return longestPath;
     }
 
-    public static List<string> SolveShortest(List<Road> roads, string start, string end)
+    public static List<T> SolveShortest<T>(List<Road<T>> roads, T start, T end) where T : class
     {
         var cities = roads.SelectMany(r => new[] { r.From, r.To }).Distinct().ToList();
-        var shortestPath = new List<string>();
+        var shortestPath = new List<T>();
         var shortestDistance = float.MaxValue;
 
         foreach (var permutation in cities.Permutations(start, end))
@@ -63,13 +66,15 @@ public class TravellingSalesmanByRoadDistance
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
             {
-                var road = roads.FirstOrDefault(r => r.From == permutation[i] && r.To == permutation[i + 1]);
+                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]));
                 if (road is null)
                 {
                     throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
                 }
+
                 distance += road.Distance;
             }
+
             if (distance < shortestDistance)
             {
                 shortestDistance = distance;
