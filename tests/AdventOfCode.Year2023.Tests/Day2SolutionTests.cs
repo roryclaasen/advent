@@ -18,8 +18,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", "8")]
     [DataRow("Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", "5")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -37,8 +35,6 @@ Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", "2286")]
     [DataRow("Game 5: 6 red, 1 blue, 3 green; 2 blue, 1 red, 2 green", "36")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

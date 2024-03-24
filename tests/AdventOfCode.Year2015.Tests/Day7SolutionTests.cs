@@ -10,8 +10,6 @@ public class Day7SolutionTests : SolverBaseTests<Day7Solution>
     [TestMethod]
     public void SolvePart1()
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.RunInput(@"123 -> x
 456 -> y
 x AND y -> d

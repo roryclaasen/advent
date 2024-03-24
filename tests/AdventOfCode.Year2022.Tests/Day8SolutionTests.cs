@@ -13,8 +13,6 @@ public class Day8SolutionTests : SolverBaseTests<Day8Solution>
 35390", "21")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -27,8 +25,6 @@ public class Day8SolutionTests : SolverBaseTests<Day8Solution>
 35390", "8")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

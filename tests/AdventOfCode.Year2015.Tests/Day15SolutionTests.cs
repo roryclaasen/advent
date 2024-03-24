@@ -12,8 +12,6 @@ Fake: capacity 0, durability 0, flavor 0, texture 0, calories 0
 Fake: capacity 0, durability 0, flavor 0, texture 0, calories 0", "62842880")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -25,8 +23,6 @@ Fake: capacity 0, durability 0, flavor 0, texture 0, calories 0
 Fake: capacity 0, durability 0, flavor 0, texture 0, calories 0", "57600000")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

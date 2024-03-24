@@ -13,8 +13,6 @@ public class Day1SolutionTests : SolverBaseTests<Day1Solution>
     [DataRow("-1, -2, -3", "-6")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input.Replace(", ", Environment.NewLine))?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -27,8 +25,6 @@ public class Day1SolutionTests : SolverBaseTests<Day1Solution>
     [DataRow("+7, +7, -2, -7, -4", "14")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input.Replace(", ", Environment.NewLine))?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

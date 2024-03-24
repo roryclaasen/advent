@@ -13,8 +13,6 @@ public class Day6SolutionTests : SolverBaseTests<Day6Solution>
     [DataRow("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", "11")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -27,8 +25,6 @@ public class Day6SolutionTests : SolverBaseTests<Day6Solution>
     [DataRow("zcfzfwzzqfrljwzlrfnpqdbhtmscgvjw", "26")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

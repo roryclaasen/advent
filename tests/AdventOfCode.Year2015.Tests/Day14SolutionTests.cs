@@ -18,8 +18,6 @@ public class Day14SolutionTests : SolverBaseTests<Day14Solution>
 Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.", "1120")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -29,8 +27,6 @@ Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.", "11
 Dancer can fly 16 km/s for 11 seconds, but then must rest for 162 seconds.", "689")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
