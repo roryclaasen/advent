@@ -34,8 +34,6 @@ dvrsen
 enarar", "easter")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -59,8 +57,6 @@ dvrsen
 enarar", "advent")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

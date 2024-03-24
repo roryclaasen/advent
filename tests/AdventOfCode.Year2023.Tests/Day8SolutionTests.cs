@@ -22,8 +22,6 @@ BBB = (AAA, ZZZ)
 ZZZ = (ZZZ, ZZZ)", "6")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -41,8 +39,6 @@ ZZZ = (ZZZ, ZZZ)", "6")]
 XXX = (XXX, XXX)", "6")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

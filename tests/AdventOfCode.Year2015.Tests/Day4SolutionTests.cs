@@ -10,8 +10,6 @@ public class Day4SolutionTests : SolverBaseTests<Day4Solution>
     [DataRow("pqrstuv", "1048970")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

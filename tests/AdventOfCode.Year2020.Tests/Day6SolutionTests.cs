@@ -26,8 +26,6 @@ a
 b", "11")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -50,8 +48,6 @@ a
 b", "6")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

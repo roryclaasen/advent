@@ -12,8 +12,6 @@ public class Day1SolutionTests : SolverBaseTests<Day1Solution>
     [DataRow("91212129", "9")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -26,8 +24,6 @@ public class Day1SolutionTests : SolverBaseTests<Day1Solution>
     [DataRow("12131415", "4")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

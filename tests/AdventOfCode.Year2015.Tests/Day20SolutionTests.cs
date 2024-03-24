@@ -16,8 +16,6 @@ public class Day20SolutionTests : SolverBaseTests<Day20Solution>
     [DataRow("100", "6")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

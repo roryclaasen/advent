@@ -12,8 +12,6 @@ public class Day3SolutionTests : SolverBaseTests<Day3Solution>
 3 4 5", "1")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -27,8 +25,6 @@ public class Day3SolutionTests : SolverBaseTests<Day3Solution>
 203 403 603", "6")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

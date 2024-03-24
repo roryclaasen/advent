@@ -13,8 +13,6 @@ public class Day10SolutionTests : SolverBaseTests<Day10Solution>
     [DataRow("111221", "312211")]
     public void LookAndSay(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.LookAndSay(input);
         Assert.AreEqual(answer, solvedAnswer);
     }

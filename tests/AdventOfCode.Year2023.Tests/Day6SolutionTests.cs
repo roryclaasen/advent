@@ -10,8 +10,6 @@ public class Day6SolutionTests : SolverBaseTests<Day6Solution>
 Distance:  9  40  200", "288")]
     public void SolvePart1(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartOne(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }
@@ -21,8 +19,6 @@ Distance:  9  40  200", "288")]
 Distance:  9  40  200", "71503")]
     public void SolvePart2(string input, string answer)
     {
-        Assert.IsNotNull(this.Solver);
-
         var solvedAnswer = this.Solver.PartTwo(input)?.ToString();
         Assert.AreEqual(answer, solvedAnswer);
     }

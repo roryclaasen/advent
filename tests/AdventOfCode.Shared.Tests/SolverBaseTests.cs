@@ -4,7 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 
 public abstract class SolverBaseTests<TSolver> where TSolver : ISolver, new()
 {
-    protected TSolver? Solver { get; private set; }
+    protected TSolver Solver { get; private set; }
 
     [TestInitialize]
     [MemberNotNull(nameof(this.Solver))]
