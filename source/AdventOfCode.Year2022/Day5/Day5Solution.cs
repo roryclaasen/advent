@@ -69,6 +69,11 @@ public class Day5Solution : ISolver
             var stack = new Stack<char>();
             foreach (var line in stackData)
             {
+                if (i >= line.Length)
+                {
+                    continue;
+                }
+
                 var character = line[i];
                 if (!string.IsNullOrWhiteSpace(character))
                 {
