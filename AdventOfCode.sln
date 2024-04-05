@@ -39,25 +39,25 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2020", "so
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2020.Tests", "tests\AdventOfCode.Year2020.Tests\AdventOfCode.Year2020.Tests.csproj", "{B11E25C5-03FC-48AA-B7BF-F62984385B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2016", "source\AdventOfCode.Year2016\AdventOfCode.Year2016.csproj", "{E095CE40-63BB-4EFB-B5AD-ACC7B9C7B20F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2016", "source\AdventOfCode.Year2016\AdventOfCode.Year2016.csproj", "{E095CE40-63BB-4EFB-B5AD-ACC7B9C7B20F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2016.Tests", "tests\AdventOfCode.Year2016.Tests\AdventOfCode.Year2016.Tests.csproj", "{BDE670C3-9316-46CC-B306-D65D8F26AA39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2016.Tests", "tests\AdventOfCode.Year2016.Tests\AdventOfCode.Year2016.Tests.csproj", "{BDE670C3-9316-46CC-B306-D65D8F26AA39}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2023", "source\AdventOfCode.Year2023\AdventOfCode.Year2023.csproj", "{9695BDA9-7A77-42E2-8CF9-6CA7CFCA9639}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2023", "source\AdventOfCode.Year2023\AdventOfCode.Year2023.csproj", "{9695BDA9-7A77-42E2-8CF9-6CA7CFCA9639}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2023.Tests", "tests\AdventOfCode.Year2023.Tests\AdventOfCode.Year2023.Tests.csproj", "{D9026F24-E112-4BE1-8371-3C038607BB3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2023.Tests", "tests\AdventOfCode.Year2023.Tests\AdventOfCode.Year2023.Tests.csproj", "{D9026F24-E112-4BE1-8371-3C038607BB3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2017", "source\AdventOfCode.Year2017\AdventOfCode.Year2017.csproj", "{DA0A2219-1778-4746-A7C0-F2EA74C57852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2017", "source\AdventOfCode.Year2017\AdventOfCode.Year2017.csproj", "{DA0A2219-1778-4746-A7C0-F2EA74C57852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2017.Tests", "tests\AdventOfCode.Year2017.Tests\AdventOfCode.Year2017.Tests.csproj", "{77C81B8E-9BFB-49E7-AD5D-B33442710EC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2017.Tests", "tests\AdventOfCode.Year2017.Tests\AdventOfCode.Year2017.Tests.csproj", "{77C81B8E-9BFB-49E7-AD5D-B33442710EC4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2018", "source\AdventOfCode.Year2018\AdventOfCode.Year2018.csproj", "{51BFBEFF-3BA9-40F0-82DB-810E7A6183B0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2018", "source\AdventOfCode.Year2018\AdventOfCode.Year2018.csproj", "{51BFBEFF-3BA9-40F0-82DB-810E7A6183B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2018.Tests", "tests\AdventOfCode.Year2018.Tests\AdventOfCode.Year2018.Tests.csproj", "{133EA9F3-42B2-41C8-B2FA-00D17080A19D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2018.Tests", "tests\AdventOfCode.Year2018.Tests\AdventOfCode.Year2018.Tests.csproj", "{133EA9F3-42B2-41C8-B2FA-00D17080A19D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2019", "source\AdventOfCode.Year2019\AdventOfCode.Year2019.csproj", "{0FB88A00-9316-4A73-8F36-53708EDBC28E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2019", "source\AdventOfCode.Year2019\AdventOfCode.Year2019.csproj", "{0FB88A00-9316-4A73-8F36-53708EDBC28E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AdventOfCode.Year2019.Tests", "tests\AdventOfCode.Year2019.Tests\AdventOfCode.Year2019.Tests.csproj", "{E4FC8D79-150D-4D97-BC8D-3FBFA326ECC4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2019.Tests", "tests\AdventOfCode.Year2019.Tests\AdventOfCode.Year2019.Tests.csproj", "{E4FC8D79-150D-4D97-BC8D-3FBFA326ECC4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
