@@ -13,6 +13,6 @@
   <ItemGroup Label="Test Packages">
     <PackageVersion Include="coverlet.collector" Version="6.0.0" />
     <PackageVersion Include="NSubstitute" Version="5.1.0" />
-    <PackageVersion Include="MSTest" Version="3.2.2" />
+    <PackageVersion Include="MSTest" Version="3.3.1" />
   </ItemGroup>
 </Project>
