@@ -86,21 +86,16 @@ internal sealed partial class Runner(AdventUri adventUri)
         table.AddColumn(new TableColumn("Result").Centered());
         table.AddColumn(new TableColumn("Expected").Centered());
 
+        void AddTableRow(int partNumber, SolveResult part)
         {
-            var part1 = result.Part1;
-            var partOneRow = $"[{part1.ActualColor}]{(part1.IsError ? "ERROR" : part1.Actual ?? "NULL")}[/]";
-            var partOneExpected = $"[{part1.ExpectedColor}]{part1.Expected ?? "NULL"}[/]";
-            table.AddRow("1", partOneRow, partOneExpected);
+            var partRow = $"[{part.ActualColor}]{(part.IsError ? "ERROR" : part.Actual ?? "NULL")}[/]";
+            var partExpected = $"[{part.ExpectedColor}]{part.Expected ?? "NULL"}[/]";
+            table.AddRow(partNumber.ToString(), partRow, partExpected);
         }
 
+        AddTableRow(1, result.Part1);
         table.AddEmptyRow();
-
-        {
-            var part2 = result.Part2;
-            var partTwoRow = $"[{part2.ActualColor}]{(part2.IsError ? "ERROR" : part2.Actual ?? "NULL")}[/]";
-            var partTwoExpected = $"[{part2.ExpectedColor}]{part2.Expected ?? "NULL"}[/]";
-            table.AddRow("2", partTwoRow, partTwoExpected);
-        }
+        AddTableRow(2, result.Part2);
 
         AnsiConsole.Write(table);
     }
