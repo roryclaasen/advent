@@ -26,9 +26,13 @@ public class Day1Solution : ISolver
         var right = new List<int>();
         foreach (var line in input.Lines())
         {
-            var parts = line.Split(' ', StringSplitOptions.RemoveEmptyEntries);
-            left.Add(int.Parse(parts[0]));
-            right.Add(int.Parse(parts[1]));
+            (var leftNumber, var rightNumber) = line
+                .Split(' ', StringSplitOptions.RemoveEmptyEntries)
+                .Select(int.Parse)
+                .ToArray();
+
+            left.Add(leftNumber);
+            right.Add(rightNumber);
         }
         left.Sort();
         right.Sort();
