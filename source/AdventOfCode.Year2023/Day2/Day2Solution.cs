@@ -30,7 +30,7 @@ public partial class Day2Solution : ISolver
         return games.Sum();
     }
 
-    private IEnumerable<Game> ParseInput(string input)
+    private static IEnumerable<Game> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

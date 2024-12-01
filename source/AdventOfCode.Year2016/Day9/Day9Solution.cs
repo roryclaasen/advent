@@ -10,7 +10,7 @@ public class Day9Solution : ISolver
 
     public object? PartTwo(string input) => ExpandLength(input, 0, input.Length, true);
 
-    private long ExpandLength(string input, int index, int length, bool recursive)
+    private static long ExpandLength(string input, int index, int length, bool recursive)
     {
         var result = 0L;
         while (index < length)

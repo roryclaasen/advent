@@ -44,7 +44,7 @@ public class Day7Solution : ISolver
         return CountBags("shiny gold");
     }
 
-    private IEnumerable<Bag> ParseInput(string input)
+    private static IEnumerable<Bag> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

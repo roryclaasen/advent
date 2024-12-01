@@ -33,7 +33,7 @@ public class Day3Solution : ISolver
             .Min();
     }
 
-    private IEnumerable<Vector3> GetPath(IEnumerable<Instruction> instructions)
+    private static IEnumerable<Vector3> GetPath(IEnumerable<Instruction> instructions)
     {
         var current = Vector3.Zero;
 
@@ -55,7 +55,7 @@ public class Day3Solution : ISolver
         }
     }
 
-    private IEnumerable<Instruction>[] ParseInput(string input)
+    private static IEnumerable<Instruction>[] ParseInput(string input)
     {
         static IEnumerable<Instruction> ParseLine(string line) => line
             .Split(',')

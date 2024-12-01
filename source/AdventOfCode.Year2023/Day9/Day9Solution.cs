@@ -10,9 +10,9 @@ public class Day9Solution : ISolver
     public object? PartOne(string input)
     {
         var total = 0;
-        foreach (var numbers in this.ParseInput(input))
+        foreach (var numbers in ParseInput(input))
         {
-            var diffs = this.GetDiffs(numbers);
+            var diffs = GetDiffs(numbers);
 
             for (var i = diffs.Count - 1; i > 0; i--)
             {
@@ -28,9 +28,9 @@ public class Day9Solution : ISolver
     public object? PartTwo(string input)
     {
         var total = 0;
-        foreach (var numbers in this.ParseInput(input))
+        foreach (var numbers in ParseInput(input))
         {
-            var diffs = this.GetDiffs(numbers);
+            var diffs = GetDiffs(numbers);
 
             for (var i = diffs.Count - 1; i > 0; i--)
             {
@@ -43,7 +43,7 @@ public class Day9Solution : ISolver
         return total;
     }
 
-    private List<List<int>> GetDiffs(List<int> input)
+    private static List<List<int>> GetDiffs(List<int> input)
     {
         var diffs = new List<List<int>> { input };
 
@@ -64,7 +64,7 @@ public class Day9Solution : ISolver
         return diffs;
     }
 
-    private IEnumerable<List<int>> ParseInput(string input)
+    private static IEnumerable<List<int>> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

@@ -17,7 +17,7 @@ public partial class Day8Solution : ISolver
         do
         {
             var direction = directions[steps % directions.Length];
-            current = this.GetNextKey(current, mappings, direction);
+            current = GetNextKey(current, mappings, direction);
             steps++;
         } while (current != "ZZZ");
         return steps;
@@ -25,7 +25,7 @@ public partial class Day8Solution : ISolver
 
     public object? PartTwo(string input)
     {
-        var (directions, mappings) = this.ParseInput(input);
+        var (directions, mappings) = ParseInput(input);
 
         var allPaths = new List<long>();
         foreach (var node in mappings.Keys.Where(s => s.EndsWith('A')))
@@ -35,7 +35,7 @@ public partial class Day8Solution : ISolver
             do
             {
                 var direction = directions[steps % directions.Length];
-                current = this.GetNextKey(current, mappings, direction);
+                current = GetNextKey(current, mappings, direction);
                 steps++;
             } while (!current.EndsWith('Z'));
             allPaths.Add(steps);
@@ -43,14 +43,14 @@ public partial class Day8Solution : ISolver
         return MathUtils.Lcm(allPaths);
     }
 
-    private string GetNextKey(string current, Dictionary<string, (string Left, string Right)> mappings, Direction direction) => direction switch
+    private static string GetNextKey(string current, Dictionary<string, (string Left, string Right)> mappings, Direction direction) => direction switch
     {
         Direction.Left => mappings[current].Left,
         Direction.Right => mappings[current].Right,
         _ => throw new Exception("Invalid direction")
     };
 
-    private (Direction[] Directions, Dictionary<string, (string Left, string Right)> Mapping) ParseInput(string input)
+    private static (Direction[] Directions, Dictionary<string, (string Left, string Right)> Mapping) ParseInput(string input)
     {
         var parts = input.Lines(2);
         var directions = parts[0].ToCharArray().Select(c => (Direction)c);

@@ -16,24 +16,24 @@ public partial class Day7Solution : ISolver
     public object? PartTwo(string input)
     {
         var instructions = this.ParseInput(input);
-        var part1Result = this.RunInstructions(new List<InstructionBase>(instructions));
+        var part1Result = RunInstructions(new List<InstructionBase>(instructions));
         var aValue = part1Result["a"];
 
         var partTwoIns = new List<InstructionBase>(instructions);
         partTwoIns.RemoveAll(i => i.Output == "b");
         partTwoIns.Add(new SetValueInstruction("b", aValue));
 
-        var part2Result = this.RunInstructions(partTwoIns);
+        var part2Result = RunInstructions(partTwoIns);
         return part2Result["a"];
     }
 
     public Dictionary<string, ushort> RunInput(string input)
     {
         var instructions = this.ParseInput(input);
-        return this.RunInstructions(instructions.ToList());
+        return RunInstructions(instructions.ToList());
     }
 
-    private Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
+    private static Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)
     {
         var wires = new Dictionary<string, ushort>();
 

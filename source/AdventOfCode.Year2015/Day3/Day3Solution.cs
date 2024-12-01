@@ -18,7 +18,7 @@ public class Day3Solution : ISolver
 
         foreach (var dir in input)
         {
-            santa = this.MovePoint(santa, dir);
+            santa = MovePoint(santa, dir);
 
             if (!delivered.ContainsKey(santa.ToString()))
             {
@@ -48,7 +48,7 @@ public class Day3Solution : ISolver
 
         foreach (var dir in input)
         {
-            var point = this.MovePoint(isSanta ? santa : robot, dir);
+            var point = MovePoint(isSanta ? santa : robot, dir);
 
             if (!delivered.ContainsKey(point.ToString()))
             {
@@ -74,7 +74,7 @@ public class Day3Solution : ISolver
         return delivered.Count;
     }
 
-    private Point MovePoint(Point point, char dir)
+    private static Point MovePoint(Point point, char dir)
     {
         if (dir == '^')
         {

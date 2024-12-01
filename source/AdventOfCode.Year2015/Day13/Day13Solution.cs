@@ -39,7 +39,7 @@ public partial class Day13Solution : ISolver
         return totalHappiness.Max();
     }
 
-    private int GetTotalHappiness(IEnumerable<string> guests, IEnumerable<GuestArrangement> guestArrangements)
+    private static int GetTotalHappiness(IEnumerable<string> guests, IEnumerable<GuestArrangement> guestArrangements)
     {
         var totalHappiness = 0;
         var totalGuests = guests.Count();
@@ -54,7 +54,7 @@ public partial class Day13Solution : ISolver
         return totalHappiness;
     }
 
-    private IEnumerable<GuestArrangement> ParseInput(string input)
+    private static IEnumerable<GuestArrangement> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

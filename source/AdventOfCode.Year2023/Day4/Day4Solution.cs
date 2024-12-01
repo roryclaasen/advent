@@ -47,7 +47,7 @@ public partial class Day4Solution : ISolver
         return totalCount.Values.Sum();
     }
 
-    private IEnumerable<ScratchCard> ParseInput(string input)
+    private static IEnumerable<ScratchCard> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

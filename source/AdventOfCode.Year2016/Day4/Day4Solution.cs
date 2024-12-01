@@ -33,7 +33,7 @@ public partial class Day4Solution : ISolver
         return checksum == room.Checksum;
     }
 
-    private string RotateRoomName(string name, int sectorId)
+    private static string RotateRoomName(string name, int sectorId)
     {
         var rotated = new char[name.Length];
         for (var i = 0; i < name.Length; i++)
@@ -53,7 +53,7 @@ public partial class Day4Solution : ISolver
         return new string(rotated);
     }
 
-    private IEnumerable<Room> ParseRooms(string input)
+    private static IEnumerable<Room> ParseRooms(string input)
     {
         foreach (var line in input.Lines())
         {

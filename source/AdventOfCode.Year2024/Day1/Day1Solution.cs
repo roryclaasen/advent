@@ -20,7 +20,7 @@ public class Day1Solution : ISolver
         return Left.Sum(n => n * Right.Count(x => x == n));
     }
 
-    private (List<int> Left, List<int> Right) ParseInput(string input)
+    private static (List<int> Left, List<int> Right) ParseInput(string input)
     {
         var left = new List<int>();
         var right = new List<int>();

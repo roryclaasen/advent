@@ -14,7 +14,7 @@ public class Day17Solution : ISolver
         var index = 0;
         var containers = input.Lines().Select(int.Parse).ToDictionary(_ => index++, i => i);
 
-        var combinations = this.FindAllCombinations(containers, this.MaxLiters);
+        var combinations = FindAllCombinations(containers, this.MaxLiters);
 
         return combinations.Count;
     }
@@ -24,12 +24,12 @@ public class Day17Solution : ISolver
         var index = 0;
         var containers = input.Lines().Select(int.Parse).ToDictionary(_ => index++, i => i);
 
-        var combinations = this.FindAllCombinations(containers, this.MaxLiters);
+        var combinations = FindAllCombinations(containers, this.MaxLiters);
 
         return combinations.MinBy(c => c.Length)?.Length;
     }
 
-    private List<int[]> FindAllCombinations(Dictionary<int, int> numbers, int target)
+    private static List<int[]> FindAllCombinations(Dictionary<int, int> numbers, int target)
     {
         var combinations = new List<int[]>();
 
@@ -44,7 +44,7 @@ public class Day17Solution : ISolver
             else if (remaining > 0)
             {
                 var remainingNumbers = numbers.Where(n => n.Key > number.Key).ToDictionary(n => n.Key, n => n.Value);
-                var remainingCombinations = this.FindAllCombinations(remainingNumbers, remaining);
+                var remainingCombinations = FindAllCombinations(remainingNumbers, remaining);
 
                 foreach (var combination in remainingCombinations)
                 {

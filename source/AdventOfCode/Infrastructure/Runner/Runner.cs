@@ -52,18 +52,18 @@ internal sealed partial class Runner(AdventUri adventUri)
             }
 
             ctx.Status("Running part 1");
-            var partOne = this.Solve(solver.PartOne, resources.Input, resources.ExpectedPartOne);
+            var partOne = Solve(solver.PartOne, resources.Input, resources.ExpectedPartOne);
 
-            AnsiConsole.MarkupLine($"{this.GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
+            AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
             if (partOne.IsError)
             {
                 AnsiConsole.WriteException(partOne.Error);
             }
 
             ctx.Status("Running part 2");
-            var partTwo = this.Solve(solver.PartTwo, resources.Input, resources.ExpectedPartTwo);
+            var partTwo = Solve(solver.PartTwo, resources.Input, resources.ExpectedPartTwo);
 
-            AnsiConsole.MarkupLine($"{this.GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
+            AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
             if (partTwo.IsError)
             {
                 AnsiConsole.WriteException(partTwo.Error);
@@ -72,10 +72,10 @@ internal sealed partial class Runner(AdventUri adventUri)
             return new SolutionResult(partOne, partTwo);
         });
 
-    private string GetResultEmoji(SolveResult result)
+    private static string GetResultEmoji(SolveResult result)
         => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
 
-    private void PrintResult(SolutionResult result)
+    private static void PrintResult(SolutionResult result)
     {
         var table = new Table
         {
@@ -120,7 +120,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         return $"[{color}]{format}[/]";
     }
 
-    private SolveResult Solve(Func<string, object?> part, string input, string? expected)
+    private static SolveResult Solve(Func<string, object?> part, string input, string? expected)
     {
         string? actual = null;
         Exception? error = null;

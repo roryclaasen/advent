@@ -20,7 +20,7 @@ public class Day11Solution : ISolver
         return newPassword;
     }
 
-    private string IncrementPassword(string password)
+    private static string IncrementPassword(string password)
     {
         var newPassword = password.ToCharArray();
         for (var i = newPassword.Length - 1; i >= 0; i--)
@@ -39,7 +39,7 @@ public class Day11Solution : ISolver
         return new string(newPassword);
     }
 
-    private bool IsPasswordValid(string password)
+    private static bool IsPasswordValid(string password)
     {
         if (password.Contains('i') || password.Contains('o') || password.Contains('l'))
         {

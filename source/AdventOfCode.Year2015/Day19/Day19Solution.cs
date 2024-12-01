@@ -12,7 +12,7 @@ public class Day19Solution : ISolver
     {
         var (molecule, replacements) = this.ParseInput(input);
 
-        var molecules = this.GetAllNewMolecules(molecule, replacements);
+        var molecules = GetAllNewMolecules(molecule, replacements);
         return molecules.Count;
     }
 
@@ -26,7 +26,7 @@ public class Day19Solution : ISolver
         {
             step++;
             currentMolecules = currentMolecules
-                .SelectMany(m => this.GetAllPreviousMolecules(m, replacements))
+                .SelectMany(m => GetAllPreviousMolecules(m, replacements))
                 .OrderBy(step => step.Length)
                 .Take(500)
                 .ToHashSet();
@@ -35,7 +35,7 @@ public class Day19Solution : ISolver
         return step;
     }
 
-    private HashSet<string> GetAllNewMolecules(string molecule, IEnumerable<Replacement> replacements)
+    private static HashSet<string> GetAllNewMolecules(string molecule, IEnumerable<Replacement> replacements)
     {
         var molecules = new HashSet<string>();
         foreach (var replacement in replacements)
@@ -50,7 +50,7 @@ public class Day19Solution : ISolver
         return molecules;
     }
 
-    private HashSet<string> GetAllPreviousMolecules(string molecule, IEnumerable<Replacement> replacements)
+    private static HashSet<string> GetAllPreviousMolecules(string molecule, IEnumerable<Replacement> replacements)
     {
         var molecules = new HashSet<string>();
         foreach (var replacement in replacements)
@@ -71,7 +71,7 @@ public class Day19Solution : ISolver
         return (parts[1], ParseReplacements(parts[0]));
     }
 
-    private IEnumerable<Replacement> ParseReplacements(string input)
+    private static IEnumerable<Replacement> ParseReplacements(string input)
     {
         foreach (var line in input.Lines())
         {

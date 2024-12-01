@@ -23,7 +23,7 @@ public partial class Day15Solution : ISolver
         return GetBestScore(ingredients.ToArray(), (capacity, durability, flavor, texture, calories) => calories == 500 ? capacity * durability * flavor * texture : 0);
     }
 
-    private int GetBestScore(Ingredient[] ingredients, Func<int, int, int, int, int, int> bestScore)
+    private static int GetBestScore(Ingredient[] ingredients, Func<int, int, int, int, int, int> bestScore)
     {
         var best = 0;
 
@@ -48,7 +48,7 @@ public partial class Day15Solution : ISolver
         return best;
     }
 
-    private IEnumerable<Ingredient> ParseInput(string input)
+    private static IEnumerable<Ingredient> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

@@ -9,8 +9,8 @@ public class Day8Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var instructions = this.ParseInput(input);
-        var screen = this.RunInstructions(instructions);
+        var instructions = ParseInput(input);
+        var screen = RunInstructions(instructions);
 
         var count = 0;
         for (var y = 0; y < screen.GetLength(0); y++)
@@ -29,12 +29,12 @@ public class Day8Solution : ISolver
 
     public object? PartTwo(string input)
     {
-        var instructions = this.ParseInput(input);
-        var screen = this.RunInstructions(instructions);
+        var instructions = ParseInput(input);
+        var screen = RunInstructions(instructions);
         return screen.Render();
     }
 
-    private bool[,] RunInstructions(IEnumerable<Instruction> instructions)
+    private static bool[,] RunInstructions(IEnumerable<Instruction> instructions)
     {
         var screen = new bool[6, 50];
         foreach (var ins in instructions)
@@ -82,7 +82,7 @@ public class Day8Solution : ISolver
         return screen;
     }
 
-    private IEnumerable<Instruction> ParseInput(string input)
+    private static IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

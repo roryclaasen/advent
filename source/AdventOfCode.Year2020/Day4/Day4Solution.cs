@@ -80,7 +80,7 @@ public class Day4Solution : ISolver
         return valid;
     }
 
-    private IEnumerable<Passport> ParseInput(string input)
+    private static IEnumerable<Passport> ParseInput(string input)
     {
         foreach (var passportInput in input.Lines(2))
         {

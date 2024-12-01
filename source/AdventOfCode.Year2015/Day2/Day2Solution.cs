@@ -10,7 +10,7 @@ public class Day2Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var parsed = this.ParseInput(input);
+        var parsed = ParseInput(input);
         var total = 0;
         foreach (var box in parsed)
         {
@@ -29,7 +29,7 @@ public class Day2Solution : ISolver
 
     public object? PartTwo(string input)
     {
-        var parsed = this.ParseInput(input);
+        var parsed = ParseInput(input);
         var total = 0;
         foreach (var box in parsed)
         {
@@ -47,7 +47,7 @@ public class Day2Solution : ISolver
         return total;
     }
 
-    private IEnumerable<Dimension> ParseInput(string input)
+    private static IEnumerable<Dimension> ParseInput(string input)
         => input
             .Lines()
             .Select(line => line.Split('x').Select(int.Parse))

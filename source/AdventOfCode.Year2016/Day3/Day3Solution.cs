@@ -51,7 +51,7 @@ public class Day3Solution : ISolver
                sides[1] + sides[2] > sides[0] &&
                sides[2] + sides[0] > sides[1];
 
-    private IEnumerable<int[]> ParseInput(string input)
+    private static IEnumerable<int[]> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

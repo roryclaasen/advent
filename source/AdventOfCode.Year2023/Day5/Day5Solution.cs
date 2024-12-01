@@ -82,7 +82,7 @@ public class Day5Solution : ISolver
         ]);
     }
 
-    private IEnumerable<MapRange> ParseMapRanges(string input, string header)
+    private static IEnumerable<MapRange> ParseMapRanges(string input, string header)
     {
         var lines = input.Lines();
         if (lines[0] != header)
