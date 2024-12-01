@@ -23,7 +23,7 @@ public class Day7Solution : ISolver
             .Select((h, i) => h.BidAmount * (i + 1))
             .Sum();
 
-    private IEnumerable<Hand> ParseInput(string input)
+    private static IEnumerable<Hand> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

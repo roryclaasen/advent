@@ -40,7 +40,7 @@ public class Day2Solution : ISolver
         return sum;
     }
 
-    IEnumerable<int[]> ParseInput(string input)
+    static IEnumerable<int[]> ParseInput(string input)
     {
         foreach(var line in input.Replace('\t', ' ').Lines())
         {

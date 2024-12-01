@@ -126,7 +126,7 @@ public class Day8Solution : ISolver
         return new GridData(width, height, grid);
     }
 
-    private List<Cell> GetInputLine(GridData grid, int x, int y, Direction direction)
+    private static List<Cell> GetInputLine(GridData grid, int x, int y, Direction direction)
     {
         var results = new List<Cell>();
 

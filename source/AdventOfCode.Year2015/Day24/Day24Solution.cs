@@ -37,7 +37,7 @@ public class Day24Solution : ISolver
         throw new Exception("No solution found");
     }
 
-    private IEnumerable<ImmutableList<long>> PickPackages(int[] packages, int count, int i, int targetWeight)
+    private static IEnumerable<ImmutableList<long>> PickPackages(int[] packages, int count, int i, int targetWeight)
     {
         if (targetWeight == 0)
         {
@@ -64,7 +64,7 @@ public class Day24Solution : ISolver
         }
     }
 
-    private IEnumerable<int> ParseInput(string input)
+    private static IEnumerable<int> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

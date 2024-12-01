@@ -38,7 +38,7 @@ public class Day22Solution : ISolver
                 }
             }
 
-            currentFights = this.GetNextFights(currentFights.Where(IsGameRunning)).ToList();
+            currentFights = GetNextFights(currentFights.Where(IsGameRunning)).ToList();
 
             foreach (var fight in currentFights.Where(IsGameRunning))
             {
@@ -97,7 +97,7 @@ public class Day22Solution : ISolver
                 }
             }
 
-            currentFights = this.GetNextFights(currentFights.Where(IsGameRunning)).ToList();
+            currentFights = GetNextFights(currentFights.Where(IsGameRunning)).ToList();
 
             foreach (var fight in currentFights.Where(IsGameRunning))
             {
@@ -123,7 +123,7 @@ public class Day22Solution : ISolver
         return minManaSpent;
     }
 
-    private (int HitPoints, int Damage) ParseInput(string input)
+    private static (int HitPoints, int Damage) ParseInput(string input)
     {
         var lines = input.Lines();
         var hitPoints = int.Parse(lines[0]["Hit Points: ".Length..]);
@@ -131,7 +131,7 @@ public class Day22Solution : ISolver
         return new(hitPoints, damage);
     }
 
-    private IEnumerable<Fight> GetNextFights(IEnumerable<Fight> fights)
+    private static IEnumerable<Fight> GetNextFights(IEnumerable<Fight> fights)
     {
         foreach(var fight in fights)
         {

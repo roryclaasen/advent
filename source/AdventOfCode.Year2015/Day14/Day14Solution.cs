@@ -12,7 +12,7 @@ public partial class Day14Solution : ISolver
 
     public object? PartOne(string input)
         => Parse(input)
-            .Select(r => this.DistanceTraveled(r, this.TotalSeconds))
+            .Select(r => DistanceTraveled(r, this.TotalSeconds))
             .Max();
 
     public object? PartTwo(string input)
@@ -21,7 +21,7 @@ public partial class Day14Solution : ISolver
         var scores = new Dictionary<Reindeer, int>();
         for (var i = 1; i <= this.TotalSeconds; i++)
         {
-            var distances = reindeer.Select(r => (Reindeer: r, Distance: this.DistanceTraveled(r, i)));
+            var distances = reindeer.Select(r => (Reindeer: r, Distance: DistanceTraveled(r, i)));
             var maxDistance = distances.Max(x => x.Distance);
             foreach (var (Reindeer, Distance) in distances.Where(x => x.Distance == maxDistance))
             {
@@ -31,7 +31,7 @@ public partial class Day14Solution : ISolver
         return scores.Values.Max();
     }
 
-    private int DistanceTraveled(Reindeer reindeer, int seconds)
+    private static int DistanceTraveled(Reindeer reindeer, int seconds)
     {
         var cycleTime = reindeer.FlyTime + reindeer.RestTime;
         var cycles = seconds / cycleTime;

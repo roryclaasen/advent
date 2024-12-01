@@ -10,14 +10,14 @@ public class Day1Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var elves = this.ParseInput(input);
+        var elves = ParseInput(input);
         var max = elves.MaxBy(e => e.Calories);
         return max?.Calories;
     }
 
     public object? PartTwo(string input)
     {
-        var elves = this.ParseInput(input);
+        var elves = ParseInput(input);
         return elves
             .Select(e => e.Calories)
             .Order()
@@ -25,7 +25,7 @@ public class Day1Solution : ISolver
             .Sum();
     }
 
-    private IEnumerable<Elf> ParseInput(string input)
+    private static IEnumerable<Elf> ParseInput(string input)
     {
         foreach (var section in input.Lines(2))
         {

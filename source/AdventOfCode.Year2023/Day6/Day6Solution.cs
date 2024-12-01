@@ -110,7 +110,7 @@ public class Day6Solution : ISolver
         return (start, end);
     }
 
-    private long Search(long time, Func<long, int> comparer)
+    private static long Search(long time, Func<long, int> comparer)
     {
         long high, low, mid;
         high = time - 1;

@@ -10,13 +10,13 @@ public class Day5Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var passes = this.ParseInput(input);
+        var passes = ParseInput(input);
         return passes.Max(p => p.SeatId);
     }
 
     public object? PartTwo(string input)
     {
-        var passes = this.ParseInput(input);
+        var passes = ParseInput(input);
         var seatIds = passes.Select(p => p.SeatId).OrderBy(id => id).ToArray();
         for (var i = 0; i < seatIds.Length - 1; i++)
         {
@@ -29,7 +29,7 @@ public class Day5Solution : ISolver
         throw new Exception("Seat not found");
     }
 
-    private IEnumerable<BoardingPass> ParseInput(string input)
+    private static IEnumerable<BoardingPass> ParseInput(string input)
     {
         foreach (var line in input.Split(Environment.NewLine))
         {

@@ -12,7 +12,7 @@ public partial class Day7Solution : ISolver
 
     public object? PartTwo(string input) => ParseInput(input).Count(ipv7 => ipv7.SupportsSSL());
 
-    private IEnumerable<IPv7Address> ParseInput(string input)
+    private static IEnumerable<IPv7Address> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

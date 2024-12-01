@@ -74,7 +74,7 @@ public class Day1Solution : ISolver
         throw new Exception("No location visited twice");
     }
 
-    private IEnumerable<Instruction> ParseInput(string input)
+    private static IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var instruction in input.Split(", "))
         {

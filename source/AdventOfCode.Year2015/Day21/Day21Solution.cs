@@ -10,12 +10,12 @@ public class Day21Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var boss = this.ParseInput(input);
+        var boss = ParseInput(input);
         var minGold = int.MaxValue;
         foreach (var items in this.GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
-            if (goldSpent < minGold && this.Fight(boss, items))
+            if (goldSpent < minGold && Fight(boss, items))
             {
                 minGold = Math.Min(minGold, goldSpent);
             }
@@ -26,12 +26,12 @@ public class Day21Solution : ISolver
 
     public object? PartTwo(string input)
     {
-        var boss = this.ParseInput(input);
+        var boss = ParseInput(input);
         var maxGold = int.MinValue;
         foreach (var items in this.GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
-            if (goldSpent > maxGold && !this.Fight(boss, items))
+            if (goldSpent > maxGold && !Fight(boss, items))
             {
                 maxGold = Math.Max(maxGold, goldSpent);
             }
@@ -42,7 +42,7 @@ public class Day21Solution : ISolver
 
     private IEnumerable<Item[]> GetAllItemCombinations()
     {
-        var shop = this.GetShop();
+        var shop = GetShop();
         foreach (var weapon in shop.Where(i => i.Type == ItemType.Weapon))
         {
             yield return [weapon];
@@ -74,7 +74,7 @@ public class Day21Solution : ISolver
         }
     }
 
-    private bool Fight(BossStats boss, IEnumerable<Item> playerItems)
+    private static bool Fight(BossStats boss, IEnumerable<Item> playerItems)
     {
         var playerDamage = playerItems.Sum(i => i.Damage);
         var playerArmor = playerItems.Sum(i => i.Armor);
@@ -90,7 +90,7 @@ public class Day21Solution : ISolver
         return playerHitPoints > 0;
     }
 
-    private List<Item> GetShop() => new()
+    private static List<Item> GetShop() => new()
     {
         // Weapons
         new Item("Dagger", 8, 4, 0, ItemType.Weapon),
@@ -124,7 +124,7 @@ public class Day21Solution : ISolver
         Ring
     }
 
-    private BossStats ParseInput(string input)
+    private static BossStats ParseInput(string input)
     {
         var hitPoints = 0;
         var damage = 0;

@@ -8,7 +8,7 @@ public class Day6Solution : ISolver
 {
     public object? PartOne(string input)
     {
-        var grid = this.MakeGrid();
+        var grid = MakeGrid();
         foreach (var line in input.Lines())
         {
             var instructions = line.Split(' ');
@@ -42,7 +42,7 @@ public class Day6Solution : ISolver
 
     public object? PartTwo(string input)
     {
-        var grid = this.MakeGrid();
+        var grid = MakeGrid();
         foreach (var line in input.Lines())
         {
             var instructions = line.Split(' ');
@@ -84,5 +84,5 @@ public class Day6Solution : ISolver
     }
 
 
-    private int[,] MakeGrid() => new int[1000, 1000];
+    private static int[,] MakeGrid() => new int[1000, 1000];
 }

@@ -24,7 +24,7 @@ public partial class Day23Solution : ISolver
         return result["b"];
     }
 
-    private Dictionary<string, uint> RunInstructions(IEnumerable<Instruction> instructions, Dictionary<string, uint>? sartingRegister = null)
+    private static Dictionary<string, uint> RunInstructions(IEnumerable<Instruction> instructions, Dictionary<string, uint>? sartingRegister = null)
     {
         var register = sartingRegister ?? new Dictionary<string, uint> { { "a", 0 }, { "b", 0 } };
 
@@ -77,7 +77,7 @@ public partial class Day23Solution : ISolver
         return register;
     }
 
-    private IEnumerable<Instruction> ParseInput(string input)
+    private static IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

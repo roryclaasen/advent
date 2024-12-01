@@ -13,7 +13,7 @@ public class Day10SolutionTests : SolverBaseTests<Day10Solution>
     [DataRow("111221", "312211")]
     public void LookAndSay(string input, string answer)
     {
-        var solvedAnswer = this.Solver.LookAndSay(input);
+        var solvedAnswer = Day10Solution.LookAndSay(input);
         Assert.AreEqual(answer, solvedAnswer);
     }
 }

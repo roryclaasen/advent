@@ -50,7 +50,7 @@ public class Day10Solution : ISolver
         }
     }
 
-    private IEnumerable<Instruction> ParseInput(string input)
+    private static IEnumerable<Instruction> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

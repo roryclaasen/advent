@@ -91,7 +91,7 @@ public partial class Day16Solution : ISolver
         throw new Exception("No aunt found");
     }
 
-    private IEnumerable<AuntSue> ParseInput(string input)
+    private static IEnumerable<AuntSue> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

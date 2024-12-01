@@ -20,7 +20,7 @@ public partial class Day2Solution : ISolver
         return policies.Count(p => p.Password[p.Min - 1] == p.Character ^ p.Password[p.Max - 1] == p.Character);
     }
 
-    private IEnumerable<PasswordPolicy> ParseInput(string input)
+    private static IEnumerable<PasswordPolicy> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

@@ -26,7 +26,7 @@ public class Day10Solution : ISolver
         return input.Length;
     }
 
-    public string LookAndSay(string input)
+    public static string LookAndSay(string input)
     {
         var finalString = new StringBuilder();
 

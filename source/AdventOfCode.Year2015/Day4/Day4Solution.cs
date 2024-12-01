@@ -16,7 +16,7 @@ public class Day4Solution : ISolver
             var secret = $"{input}{inputNumber}";
 
             var hashBytes = MD5.HashData(Encoding.ASCII.GetBytes(secret));
-            var hash = this.MakeHashReadable(hashBytes);
+            var hash = MakeHashReadable(hashBytes);
             if (hash.StartsWith("00000"))
             {
                 number = inputNumber;
@@ -38,7 +38,7 @@ public class Day4Solution : ISolver
             var secret = $"{input}{inputNumber}";
 
             var hashBytes = MD5.HashData(Encoding.ASCII.GetBytes(secret));
-            var hash = this.MakeHashReadable(hashBytes);
+            var hash = MakeHashReadable(hashBytes);
             if (hash.StartsWith("000000"))
             {
                 number = inputNumber;
@@ -51,7 +51,7 @@ public class Day4Solution : ISolver
         return number;
     }
 
-    private string MakeHashReadable(byte[] input)
+    private static string MakeHashReadable(byte[] input)
     {
         var sOutput = new StringBuilder(input.Length);
         for (var i = 0; i < input.Length; i++)
