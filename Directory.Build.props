@@ -4,7 +4,7 @@
     <Product>AdventOfCode</Product>
     <Authors>Rory Claasen</Authors>
 
-    <TargetFramework>net8.0</TargetFramework>
+    <TargetFramework>net9.0</TargetFramework>
 
     <Nullable>enable</Nullable>
     <IsPublishable>false</IsPublishable>
