@@ -1,10 +1,8 @@
 namespace AdventOfCode.Analyzers;
 
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using System.Linq;
 using System.Text;
 
 [Generator]
