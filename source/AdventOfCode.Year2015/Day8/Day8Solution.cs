@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 
 [Problem(2015, 8, "Matchsticks")]
-public class Day8Solution : ISolver
+public partial class Day8Solution : ISolver
 {
     public object? PartOne(string input)
     {

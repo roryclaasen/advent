@@ -9,7 +9,7 @@ using System.Numerics;
 using System.Runtime.InteropServices;
 
 [Problem(2015, 22, "Wizard Simulator 20XX")]
-public class Day22Solution : ISolver
+public partial class Day22Solution : ISolver
 {
     public object? PartOne(string input)
     {

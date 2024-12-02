@@ -11,20 +11,20 @@ using System.Threading.Tasks;
 
 internal sealed partial class Runner(AdventUri adventUri)
 {
-    public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolver> solvers)
+    public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolverWithDetails> solvers)
     {
         AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
         var allResults = new List<SolutionResult>();
-        var solversByYear = solvers.GroupBy(s => s.Year());
+        var solversByYear = solvers.GroupBy(s => s.Year);
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            var yearNumber = year.First().Year();
+            var yearNumber = year.First().Year;
             var rule = new Rule($"[{Color.White}][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
             rule.RuleStyle(Color.Olive);
             AnsiConsole.Write(rule);
 
-            foreach (var solver in year.OrderBy(s => s.Day()))
+            foreach (var solver in year.OrderBy(s => s.Day))
             {
                 var result = await Run(solver).ConfigureAwait(false);
                 allResults.Add(result);
@@ -36,12 +36,12 @@ internal sealed partial class Runner(AdventUri adventUri)
         return allResults;
     }
 
-    private Task<SolutionResult> Run(ISolver solver)
+    private Task<SolutionResult> Run(ISolverWithDetails solver)
         => AnsiConsole.Status()
         .StartAsync("Initializing solution", async ctx =>
         {
-            var solverName = solver.Name();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            var solverName = solver.Name;
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), $"Day {solver.Day}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
             ctx.Status("Loading resource files");
             var resources = await GetResourceFiles(solver).ConfigureAwait(false);

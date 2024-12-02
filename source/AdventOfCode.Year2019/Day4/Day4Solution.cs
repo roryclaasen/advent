@@ -7,7 +7,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 
 [Problem(2019, 4, "Secure Container")]
-public class Day4Solution : ISolver
+public partial class Day4Solution : ISolver
 {
     public object? PartOne(string input)
         => ParseInput(input).Count(IsValidPassword);

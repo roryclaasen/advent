@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 [Problem(2016, 1, "No Time for a Taxicab")]
-public class Day1Solution : ISolver
+public partial class Day1Solution : ISolver
 {
     public object? PartOne(string input)
     {

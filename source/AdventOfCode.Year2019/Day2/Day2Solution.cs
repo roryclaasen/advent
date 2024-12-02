@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.Linq;
 
 [Problem(2019, 2, "1202 Program Alarm")]
-public class Day2Solution : ISolver
+public partial class Day2Solution : ISolver
 {
     public object? PartOne(string input)
     {

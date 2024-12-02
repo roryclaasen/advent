@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Linq;
 
 [Problem(2023, 7, "Camel Cards")]
-public class Day7Solution : ISolver
+public partial class Day7Solution : ISolver
 {
     public object? PartOne(string input)
         => ParseInput(input)

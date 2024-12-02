@@ -14,9 +14,9 @@ registrations.AddSingleton<AdventUri>();
 registrations.AddSingleton<SolutionFinder>();
 registrations.AddSingleton<Runner>();
 
-foreach (var solution in AssemblyFinder.FindAllOfType<ISolver>())
+foreach (var solution in AssemblyFinder.FindAllOfType<ISolverWithDetails>())
 {
-    registrations.AddSingleton(typeof(ISolver), solution);
+    registrations.AddSingleton(typeof(ISolverWithDetails), solution);
 }
 
 var registrar = new TypeRegistrar(registrations);

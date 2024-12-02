@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2015, 17, "No Such Thing as Too Much")]
-public class Day17Solution : ISolver
+public partial class Day17Solution : ISolver
 {
     public int MaxLiters { get; set; } = 150;
 

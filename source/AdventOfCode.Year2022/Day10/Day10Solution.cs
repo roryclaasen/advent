@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2022, 10, "Cathode-Ray Tube")]
-public class Day10Solution : ISolver
+public partial class Day10Solution : ISolver
 {
     public object? PartOne(string input)
     {

@@ -5,7 +5,7 @@ using System.Data;
 using System.Linq;
 
 [Problem(2020, 3, "Toboggan Trajectory")]
-public class Day3Solution : ISolver
+public partial class Day3Solution : ISolver
 {
     public object? PartOne(string input) => Navigate([.. input.Lines()], 3, 1);
 

@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 [Problem(2022, 8, "Treetop Tree House")]
-public class Day8Solution : ISolver
+public partial class Day8Solution : ISolver
 {
     public object? PartOne(string input)
     {

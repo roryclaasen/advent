@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System;
 
 [Problem(2015, 11, "Corporate Policy")]
-public class Day11Solution : ISolver
+public partial class Day11Solution : ISolver
 {
     public object? PartOne(string input) => this.FindNextPassword(input);
 

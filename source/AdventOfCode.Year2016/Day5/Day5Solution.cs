@@ -7,7 +7,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 [Problem(2016, 5, "How About a Nice Game of Chess?")]
-public class Day5Solution : ISolver
+public partial class Day5Solution : ISolver
 {
     private readonly Dictionary<string, string> hashCache = [];
 

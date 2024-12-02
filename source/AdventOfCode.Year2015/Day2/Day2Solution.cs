@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 [Problem(2015, 2, "I Was Told There Would Be No Math")]
-public class Day2Solution : ISolver
+public partial class Day2Solution : ISolver
 {
     public object? PartOne(string input)
     {

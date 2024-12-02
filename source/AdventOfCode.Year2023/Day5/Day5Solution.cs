@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 [Problem(2023, 5, "If You Give A Seed A Fertilizer")]
-public class Day5Solution : ISolver
+public partial class Day5Solution : ISolver
 {
     public object? PartOne(string input)
     {

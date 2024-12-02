@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2015, 21, "RPG Simulator 20XX")]
-public class Day21Solution : ISolver
+public partial class Day21Solution : ISolver
 {
     public object? PartOne(string input)
     {

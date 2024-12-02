@@ -12,7 +12,7 @@ internal sealed partial class Runner
     [GeneratedRegex("\\r\\n|\\n\\r|\\n|\\r")]
     private partial Regex NewLineRegex();
 
-    private async Task<ResourceFiles> GetResourceFiles(ISolver solver)
+    private async Task<ResourceFiles> GetResourceFiles(ISolverWithDetails solver)
     {
         var assembly = solver.GetAssembly();
         var workingDirectory = solver.GetWorkingDirectory();

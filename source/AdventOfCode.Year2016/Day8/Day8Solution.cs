@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 
 [Problem(2016, 8, "Two-Factor Authentication")]
-public class Day8Solution : ISolver
+public partial class Day8Solution : ISolver
 {
     public object? PartOne(string input)
     {
