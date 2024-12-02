@@ -28,7 +28,6 @@ public static class StringExtensions
     public static IEnumerable<string> SplitInParts(this string str, int partLength, int skip = 0)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        ArgumentNullException.ThrowIfNull(partLength, nameof(partLength));
 
         if (partLength <= 0)
         {
@@ -55,7 +54,6 @@ public static class StringExtensions
     public static string Indent(this string str, int length, bool firstLine = false)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        ArgumentNullException.ThrowIfNull(length, nameof(length));
 
         var indent = new string(' ', length);
         var res = string.Join(Environment.NewLine + new string(' ', length), str.Lines().Select(line => Regex.Replace(line, @"^\s*\|", "")));
@@ -80,7 +78,6 @@ public static class StringExtensions
     public static string[] Lines(this string str, int count, StringSplitOptions options = StringSplitOptions.None)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        ArgumentNullException.ThrowIfNull(count, nameof(count));
         var separator = string.Concat(Enumerable.Repeat(Environment.NewLine, count));
         return str.Split(separator, options);
     }
@@ -115,7 +112,6 @@ public static class StringExtensions
     public static IEnumerable<int> AllIndexesOf(this string str, char value)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
-        ArgumentNullException.ThrowIfNull(value, nameof(value));
 
         var minIndex = str.IndexOf(value, StringComparison.Ordinal);
         while (minIndex != -1)
