@@ -27,7 +27,6 @@ public class ProblemGenerator : IIncrementalGenerator
             {
                 var containingClass = context.TargetSymbol;
                 var attribute = context.Attributes[0];
-                var name = attribute.NamedArguments.FirstOrDefault(a => a.Key == "name").Value.ToCSharpString();
                 return new ProblemInfo(
                     containingClass.ContainingNamespace.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)),
                     containingClass.Name,
