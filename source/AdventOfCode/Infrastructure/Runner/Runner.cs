@@ -7,11 +7,10 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 
 internal sealed partial class Runner(AdventUri adventUri)
 {
-    public async Task<IReadOnlyList<SolutionResult>> RunAll(IEnumerable<ISolverWithDetails> solvers)
+    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<ISolverWithDetails> solvers)
     {
         AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
@@ -26,7 +25,7 @@ internal sealed partial class Runner(AdventUri adventUri)
 
             foreach (var solver in year.OrderBy(s => s.Day))
             {
-                var result = await Run(solver).ConfigureAwait(false);
+                var result = Run(solver);
                 allResults.Add(result);
 
                 PrintResult(result);
@@ -36,23 +35,15 @@ internal sealed partial class Runner(AdventUri adventUri)
         return allResults;
     }
 
-    private Task<SolutionResult> Run(ISolverWithDetails solver)
+    private SolutionResult Run(ISolverWithDetails solver)
         => AnsiConsole.Status()
-        .StartAsync("Initializing solution", async ctx =>
+        .Start("Initializing solution", ctx =>
         {
             var solverName = solver.Name;
             AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), $"Day {solver.Day}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
-            ctx.Status("Loading resource files");
-            var resources = await GetResourceFiles(solver).ConfigureAwait(false);
-
-            if (string.IsNullOrWhiteSpace(resources.Input))
-            {
-                throw new Exception("Solution input file is empty");
-            }
-
             ctx.Status("Running part 1");
-            var partOne = Solve(solver.PartOne, resources.Input, resources.ExpectedPartOne);
+            var partOne = Solve(solver.PartOne, solver.GetExpectedResultPart1());
 
             AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
             if (partOne.IsError)
@@ -61,7 +52,7 @@ internal sealed partial class Runner(AdventUri adventUri)
             }
 
             ctx.Status("Running part 2");
-            var partTwo = Solve(solver.PartTwo, resources.Input, resources.ExpectedPartTwo);
+            var partTwo = Solve(solver.PartTwo, solver.GetExpectedResultPart2());
 
             AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
             if (partTwo.IsError)
@@ -120,14 +111,14 @@ internal sealed partial class Runner(AdventUri adventUri)
         return $"[{color}]{format}[/]";
     }
 
-    private static SolveResult Solve(Func<string, object?> part, string input, string? expected)
+    private static SolveResult Solve(Func<object?> part, string? expected)
     {
         string? actual = null;
         Exception? error = null;
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            actual = part(input)?.ToString();
+            actual = part.Invoke()?.ToString();
         }
         catch (Exception e)
         {

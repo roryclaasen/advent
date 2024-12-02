@@ -5,11 +5,10 @@ using Spectre.Console;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
 
-internal sealed class LastCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : AsyncCommand<LastCommand.Settings>
+internal sealed class LastCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command<LastCommand.Settings>
 {
     internal sealed class Settings : CommandSettings
     {
@@ -18,10 +17,10 @@ internal sealed class LastCommand(IDateTimeProvider dateTimeProvider, SolutionFi
         public int? Year { get; init; }
     }
 
-    public override async Task<int> ExecuteAsync([NotNull] CommandContext context, [NotNull] Settings settings)
+    public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
     {
         var solver = solutionFinder.GetLastSolver(settings.Year);
-        var allResults = await solutionRunner.RunAll([solver]).ConfigureAwait(false);
+        var allResults = solutionRunner.RunAll([solver]);
         var isError = allResults.Any(r => r.HasError);
         return isError ? -1 : 0;
     }

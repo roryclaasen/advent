@@ -1,10 +1,12 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>library</OutputType>
+
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Day*\*.txt" />
+    <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>
 
   <ItemGroup>

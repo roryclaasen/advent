@@ -2,7 +2,7 @@ namespace AdventOfCode.Shared;
 
 public interface ISolver
 {
-    public object? PartOne(string input);
+    public object? PartOne();
 
-    public object? PartTwo(string input) => null;
+    public object? PartTwo() => null;
 }

@@ -8,19 +8,19 @@ using System.Linq;
 [Problem(2024, 1, "Historian Hysteria")]
 public partial class Day1Solution : ISolver
 {
-    public object? PartOne(string input)
+    public object? PartOne()
     {
-        var (Left, Right) = ParseInput(input);
+        var (Left, Right) = ParseInput();
         return Left.WithIndex().Sum(i => Math.Abs(Right[i.Index] - i.Item));
     }
 
-    public object? PartTwo(string input)
+    public object? PartTwo()
     {
-        var (Left, Right) = ParseInput(input);
+        var (Left, Right) = ParseInput();
         return Left.Sum(n => n * Right.Count(x => x == n));
     }
 
-    private static (List<int> Left, List<int> Right) ParseInput(string input)
+    private static (List<int> Left, List<int> Right) ParseInput()
     {
         var left = new List<int>();
         var right = new List<int>();
