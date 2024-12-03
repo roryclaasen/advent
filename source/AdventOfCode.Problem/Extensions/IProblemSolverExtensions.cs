@@ -2,6 +2,7 @@ namespace AdventOfCode.Problem;
 
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 public static class IIProblemSolverExtensions
 {
@@ -13,6 +14,25 @@ public static class IIProblemSolverExtensions
 
     public static string? GetName(this IProblemSolver solver)
         => solver is IProblemDetails problem ? problem.Name : null;
+
+    public static string GetDisplayName(this IProblemSolver solver, bool includeYear = false)
+    {
+        var sb = new StringBuilder();
+        if (includeYear)
+        {
+            sb.Append($"Year {solver.GetYear()} ");
+        }
+
+        sb.Append($"Day {solver.GetDay()}");
+
+        var name = solver.GetName();
+        if (!string.IsNullOrWhiteSpace(name))
+        {
+            sb.Append($" - {name}");
+        }
+
+        return sb.ToString();
+    }
 
     public static IOrderedEnumerable<IProblemSolver> OrderByYearAndDay(this IEnumerable<IProblemSolver> solvers)
         => solvers.OrderBy(s => s.GetYear()).ThenBy(s => s.GetDay());

@@ -41,7 +41,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         .Start("Initializing solution", ctx =>
         {
             var solverName = solver.GetName();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), $"Day {solver.GetDay()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
 
             ctx.Status("Running part 1");
             var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
