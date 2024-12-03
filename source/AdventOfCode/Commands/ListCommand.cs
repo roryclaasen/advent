@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AdventOfCode.Infrastructure;
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 
 internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, AdventUri adventUri) : Command<ListCommand.Settings>
