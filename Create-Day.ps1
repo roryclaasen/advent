@@ -84,7 +84,7 @@ if (-not (Test-Path $ProjectFolder)) {
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Day*\*.txt" />
+    <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>
 
   <ItemGroup>
