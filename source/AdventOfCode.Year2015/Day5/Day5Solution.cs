@@ -1,7 +1,7 @@
 namespace AdventOfCode.Year2015;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 5, "Doesn't He Have Intern-Elves For This?")]

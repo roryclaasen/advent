@@ -1,12 +1,10 @@
 namespace AdventOfCode.Year2015;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
-using System.Numerics;
-using System.Runtime.InteropServices;
 
 [Problem(2015, 22, "Wizard Simulator 20XX")]
 public partial class Day22Solution : IProblemSolver

@@ -1,8 +1,8 @@
 namespace AdventOfCode.Year2022;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 
 [Problem(2022, 1, "Calorie Counting")]

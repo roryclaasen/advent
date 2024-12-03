@@ -1,5 +1,6 @@
 namespace AdventOfCode.Analyzers;
 
+using AdventOfCode.Problem;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System;
@@ -78,9 +79,9 @@ public readonly record struct ResourceInfo
 
     public string Interface => this.FileName switch
     {
-        "Input" => "AdventOfCode.Shared.IProblemInput",
-        "Expected1" => "AdventOfCode.Shared.IProblemExpectedResultPart1",
-        "Expected2" => "AdventOfCode.Shared.IProblemExpectedResultPart2",
+        "Input" => typeof(IProblemInput).FullName,
+        "Expected1" => typeof(IProblemExpectedResultPart1).FullName,
+        "Expected2" => typeof(IProblemExpectedResultPart2).FullName,
         _ => throw new NotImplementedException()
     };
 

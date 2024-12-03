@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2019;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System;
 using System.Diagnostics;
 using System.Linq;

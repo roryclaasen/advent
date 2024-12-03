@@ -1,8 +1,8 @@
 namespace AdventOfCode.Year2020;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2020, 6, "Custom Customs")]

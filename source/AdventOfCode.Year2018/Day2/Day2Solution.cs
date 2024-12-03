@@ -1,5 +1,6 @@
 namespace AdventOfCode.Year2018;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Linq;
 

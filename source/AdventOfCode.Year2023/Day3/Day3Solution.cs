@@ -1,5 +1,6 @@
 namespace AdventOfCode.Year2023;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;

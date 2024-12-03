@@ -1,7 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
-using System;
+using AdventOfCode.Problem;
 
 [Problem(2015, 11, "Corporate Policy")]
 public partial class Day11Solution : IProblemSolver

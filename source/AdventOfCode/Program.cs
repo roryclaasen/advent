@@ -1,5 +1,6 @@
 using AdventOfCode;
 using AdventOfCode.Infrastructure;
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Microsoft.Extensions.DependencyInjection;
 using Spectre.Console.Cli;
