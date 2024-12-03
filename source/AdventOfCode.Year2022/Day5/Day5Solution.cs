@@ -1,5 +1,6 @@
 namespace AdventOfCode.Year2022;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;

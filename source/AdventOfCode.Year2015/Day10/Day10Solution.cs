@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Text;
 
 [Problem(2015, 10, "Elves Look, Elves Say")]

@@ -1,10 +1,7 @@
 namespace AdventOfCode.Year2017;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Numerics;
 
 [Problem(2017, 3, "Spiral Memory")]
 public partial class Day3Solution : IProblemSolver

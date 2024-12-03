@@ -1,6 +1,6 @@
 namespace AdventOfCode.Infrastructure;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Linq;
 

@@ -1,4 +1,4 @@
-namespace AdventOfCode.Shared;
+namespace AdventOfCode.Problem;
 
 public interface IProblemDetails
 {

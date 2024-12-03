@@ -1,5 +1,6 @@
 namespace AdventOfCode.Shared.Tests;
 
+using AdventOfCode.Problem;
 using System.Diagnostics.CodeAnalysis;
 
 public abstract class SolverBaseTests<TSolver> where TSolver : IProblemSolver, new()

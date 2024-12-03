@@ -15,4 +15,8 @@
     <PackageReference Include="Microsoft.CodeAnalysis.CSharp" PrivateAssets="all" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" />
+  </ItemGroup>
+
 </Project>

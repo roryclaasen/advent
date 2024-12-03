@@ -1,5 +1,6 @@
 namespace AdventOfCode.Year2016;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
@@ -34,7 +35,7 @@ public partial class Day6Solution : IProblemSolver
 
         var message = new char[this.CharacterCount];
         for(var i = 0; i < this.CharacterCount; i++)
-        { 
+        {
             message[i] = charDict[i].MaxBy(x => x.Value).Key;
         }
 

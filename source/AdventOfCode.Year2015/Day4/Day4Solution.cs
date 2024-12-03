@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Security.Cryptography;
 using System.Text;
 

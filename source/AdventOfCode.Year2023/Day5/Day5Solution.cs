@@ -1,5 +1,6 @@
 namespace AdventOfCode.Year2023;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
@@ -70,7 +71,7 @@ public partial class Day5Solution : IProblemSolver
             return range;
         }
 
-        return new InputRecord(seeds, 
+        return new InputRecord(seeds,
         [
             GetRange(1, "seed-to-soil map:"),
             GetRange(2, "soil-to-fertilizer map:"),

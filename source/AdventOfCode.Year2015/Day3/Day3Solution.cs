@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Drawing;
 

@@ -1,6 +1,6 @@
 namespace AdventOfCode;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Linq;
 

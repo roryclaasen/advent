@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Text.RegularExpressions;
 using System.Linq;
 

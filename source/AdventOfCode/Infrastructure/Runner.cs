@@ -1,5 +1,6 @@
 namespace AdventOfCode.Infrastructure;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Spectre.Console;
 using System;

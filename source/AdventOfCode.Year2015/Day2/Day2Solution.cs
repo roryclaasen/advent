@@ -1,8 +1,8 @@
 namespace AdventOfCode.Year2015;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Collections.Generic;
-using System;
 using System.Linq;
 
 [Problem(2015, 2, "I Was Told There Would Be No Math")]

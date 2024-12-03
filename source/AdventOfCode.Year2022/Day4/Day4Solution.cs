@@ -1,9 +1,9 @@
 namespace AdventOfCode.Year2022;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 
 [Problem(2022, 4, "Camp Cleanup")]
 public partial class Day4Solution : IProblemSolver

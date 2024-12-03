@@ -1,7 +1,7 @@
 namespace AdventOfCode.Year2020;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Data;
 using System.Linq;
 
 [Problem(2020, 3, "Toboggan Trajectory")]

@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;

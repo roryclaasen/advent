@@ -1,10 +1,10 @@
 namespace AdventOfCode.Year2019;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 
 [Problem(2019, 4, "Secure Container")]
 public partial class Day4Solution : IProblemSolver

@@ -1,7 +1,7 @@
 namespace AdventOfCode.Year2015;
 
+using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using Microsoft.VisualBasic;
 using System;
 using System.Collections.Generic;
 using System.Linq;

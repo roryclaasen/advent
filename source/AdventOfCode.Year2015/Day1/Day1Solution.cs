@@ -1,6 +1,6 @@
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 
 [Problem(2015, 1, "Not Quite Lisp")]
 public partial class Day1Solution : IProblemSolver

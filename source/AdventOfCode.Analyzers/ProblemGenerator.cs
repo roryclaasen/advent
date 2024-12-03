@@ -1,5 +1,6 @@
 namespace AdventOfCode.Analyzers;
 
+using AdventOfCode.Problem;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
@@ -18,9 +19,8 @@ public class ProblemGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-
         var pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
-            "AdventOfCode.Shared.ProblemAttribute",
+            typeof(ProblemAttribute).FullName,
             predicate: static (syntaxNode, _) => syntaxNode is ClassDeclarationSyntax,
             transform: static (context, ct) =>
             {
@@ -40,7 +40,7 @@ public class ProblemGenerator : IIncrementalGenerator
             namespace {{model.Namespace}}
             {
                 [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
-                public partial class {{model.ClassName}} : AdventOfCode.Shared.IProblemDetails
+                public partial class {{model.ClassName}} : {{typeof(IProblemDetails).FullName}}
                 {
                     public int Year => {{model.Year}};
                     public int Day => {{model.Day}};
