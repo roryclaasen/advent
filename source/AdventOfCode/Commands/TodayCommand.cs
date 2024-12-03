@@ -4,19 +4,18 @@ using Spectre.Console.Cli;
 using Spectre.Console;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using System.Threading.Tasks;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
 
-internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : AsyncCommand
+internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command
 {
-    public override async Task<int> ExecuteAsync([NotNull] CommandContext context)
+    public override int Execute([NotNull] CommandContext context)
     {
         var now = dateTimeProvider.AoCNow;
         if (now is { Month: 12, Day: >= 1 and <= 25 })
         {
             var solvers = solutionFinder.GetSolversFor(now.Year, now.Day);
-            var allResults = await solutionRunner.RunAll(solvers).ConfigureAwait(false);
+            var allResults = solutionRunner.RunAll(solvers);
             var isError = allResults.Any(r => r.HasError);
             return isError ? -1 : 0;
         }

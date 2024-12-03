@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 13, "Knights of the Dinner Table")]
-public partial class Day13Solution : ISolver
+public partial class Day13Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

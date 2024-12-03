@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2020, 5, "Binary Boarding")]
-public class Day5Solution : ISolver
+public partial class Day5Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

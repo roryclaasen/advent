@@ -63,7 +63,6 @@ public static class MatrixExtensions
     public static T[] GetRow<T>(this T[,] source, int rowIndex)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(rowIndex, nameof(rowIndex));
 
         return Enumerable.Range(0, source.GetLength(1))
             .Select(x => source[rowIndex, x])
@@ -73,7 +72,6 @@ public static class MatrixExtensions
     public static T[] GetColumn<T>(this T[,] source, int columnIndex)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
-        ArgumentNullException.ThrowIfNull(columnIndex, nameof(columnIndex));
 
         return Enumerable.Range(0, source.GetLength(0))
             .Select(x => source[x, columnIndex])

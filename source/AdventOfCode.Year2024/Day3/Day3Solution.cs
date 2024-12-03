@@ -5,7 +5,7 @@ using System.Text.RegularExpressions;
 using System.Linq;
 
 [Problem(2024, 3, "Mull It Over")]
-public partial class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => SequenceRegex()

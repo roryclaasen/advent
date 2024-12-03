@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Drawing;
 
 [Problem(2015, 03, "Perfectly Spherical Houses in a Vacuum")]
-public class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

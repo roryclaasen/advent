@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2016, 7, "Internet Protocol Version 7")]
-public partial class Day7Solution : ISolver
+public partial class Day7Solution : IProblemSolver
 {
     public object? PartOne(string input) => ParseInput(input).Count(ipv7 => ipv7.SupportsTLS());
 

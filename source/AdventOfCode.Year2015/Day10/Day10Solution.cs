@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System.Text;
 
 [Problem(2015, 10, "Elves Look, Elves Say")]
-public class Day10Solution : ISolver
+public partial class Day10Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

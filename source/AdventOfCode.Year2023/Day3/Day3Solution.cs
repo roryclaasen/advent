@@ -8,7 +8,7 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 
 [Problem(2023, 3, "Gear Ratios")]
-public partial class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 [Problem(2023, 5, "If You Give A Seed A Fertilizer")]
-public class Day5Solution : ISolver
+public partial class Day5Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
@@ -58,7 +58,7 @@ public class Day5Solution : ISolver
             .Min(n => n.Start);
     }
 
-    private Input ParseInput(string input)
+    private InputRecord ParseInput(string input)
     {
         var parts = input.Lines(2);
         var seeds = parts[0].Replace("seeds: ", string.Empty).Split(" ").Select(long.Parse).ToArray();
@@ -70,7 +70,7 @@ public class Day5Solution : ISolver
             return range;
         }
 
-        return new Input(seeds, 
+        return new InputRecord(seeds, 
         [
             GetRange(1, "seed-to-soil map:"),
             GetRange(2, "soil-to-fertilizer map:"),
@@ -129,7 +129,7 @@ public class Day5Solution : ISolver
         }
     }
 
-    private record Input(long[] Seeds, List<List<MapRange>> Maps);
+    private record InputRecord(long[] Seeds, List<List<MapRange>> Maps);
 
     internal class TreeNode(long Start, long End, int Depth = 0)
     {

@@ -6,7 +6,7 @@ using System.Linq;
 using System;
 
 [Problem(2022, 4, "Camp Cleanup")]
-public class Day4Solution : ISolver
+public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

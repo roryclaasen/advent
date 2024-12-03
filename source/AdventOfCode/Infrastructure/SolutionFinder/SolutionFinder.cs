@@ -4,11 +4,11 @@ using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
+internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
 {
-    public IEnumerable<ISolver> GetSolvers() => GetSolversFor(null, null);
+    public IEnumerable<IProblemSolver> GetSolvers() => GetSolversFor(null, null);
 
-    public IEnumerable<ISolver> GetSolversFor(int? year = null, int? day = null)
+    public IEnumerable<IProblemSolver> GetSolversFor(int? year = null, int? day = null)
     {
         if (!solvers.Any())
         {
@@ -17,7 +17,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
 
         if (day is not null && year is not null)
         {
-            var validSolvers = solvers.Where(s => s.Year() == year && s.Day() == day);
+            var validSolvers = solvers.Where(s => s.GetYear() == year && s.GetDay() == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -27,7 +27,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         }
         else if (day is null && year is not null)
         {
-            var validSolvers = solvers.Where(s => s.Year() == year);
+            var validSolvers = solvers.Where(s => s.GetYear() == year);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -37,7 +37,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         }
         else if (day is not null && year is null)
         {
-            var validSolvers = solvers.Where(s => s.Day() == day);
+            var validSolvers = solvers.Where(s => s.GetYear() == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -49,6 +49,6 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         return solvers.OrderByYearAndDay();
     }
 
-    public ISolver GetLastSolver(int? year = null)
+    public IProblemSolver GetLastSolver(int? year = null)
         => GetSolversFor(year).GroupByYear().Select(g => g.OrderByYearAndDay().Last()).Last();
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Numerics;
 
 [Problem(2019, 3, "Crossed Wires")]
-public class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

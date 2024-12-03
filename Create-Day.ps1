@@ -84,10 +84,11 @@ if (-not (Test-Path $ProjectFolder)) {
   </PropertyGroup>
 
   <ItemGroup>
-    <EmbeddedResource Include="Day*\*.txt" />
+    <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Analyzers\AdventOfCode.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
   </ItemGroup>
 </Project>
@@ -98,13 +99,13 @@ if (-not (Test-Path $ProjectFolder)) {
 
 if (-not (Test-path DayFolder)) {
     New-Item -Path $DayFolder -ItemType Directory -ErrorAction SilentlyContinue
-    New-Item -Path (Join-Path $DayFolder "input.txt") -ItemType File
-    New-Item -Path (Join-Path $DayFolder "expected1.txt") -ItemType File
-    New-Item -Path (Join-Path $DayFolder "expected2.txt") -ItemType File
+    New-Item -Path (Join-Path $DayFolder "Input.txt") -ItemType File
+    New-Item -Path (Join-Path $DayFolder "Expected1.txt") -ItemType File
+    New-Item -Path (Join-Path $DayFolder "Expected2.txt") -ItemType File
 
     try {
         $dayInput = Get-DayInput
-        Set-Content -Path (Join-Path $DayFolder "input.txt") -Value $dayInput -NoNewline
+        Set-Content -Path (Join-Path $DayFolder "Input.txt") -Value $dayInput -NoNewline
     }
     catch {
         Write-Warning "Could not find input for day $Day for year $Year"

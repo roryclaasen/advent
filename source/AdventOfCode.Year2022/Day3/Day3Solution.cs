@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 [Problem(2022, 3, "Rucksack Reorganization")]
-public class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => ParseInput(input)

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2023, 6, "Wait For It")]
-public class Day6Solution : ISolver
+public partial class Day6Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

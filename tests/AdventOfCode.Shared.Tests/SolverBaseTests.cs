@@ -2,7 +2,7 @@ namespace AdventOfCode.Shared.Tests;
 
 using System.Diagnostics.CodeAnalysis;
 
-public abstract class SolverBaseTests<TSolver> where TSolver : ISolver, new()
+public abstract class SolverBaseTests<TSolver> where TSolver : IProblemSolver, new()
 {
     protected TSolver Solver { get; private set; }
 

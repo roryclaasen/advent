@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2024, 2, "Red-Nosed Reports")]
-public class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => ParseInput(input).Count(AreLevelsSafe);
