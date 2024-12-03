@@ -15,6 +15,13 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
             throw new SolutionMissingException("There are no solutions yet");
         }
 
+#if DEBUG
+        if (solvers.All(p => p.GetDay() == 0 && p.GetYear() == 0))
+        {
+            throw new SolutionMissingException("Looks like the solution data didn't generate. Try rebuilding the solution.");
+        }
+#endif
+
         if (day is not null && year is not null)
         {
             var validSolvers = solvers.Where(s => s.GetYear() == year && s.GetDay() == day);
