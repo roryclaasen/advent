@@ -10,20 +10,20 @@ using System.Linq;
 
 internal sealed partial class Runner(AdventUri adventUri)
 {
-    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<ISolverWithDetails> solvers)
+    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<ISolver> solvers)
     {
         AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
         var allResults = new List<SolutionResult>();
-        var solversByYear = solvers.GroupBy(s => s.Year);
+        var solversByYear = solvers.GroupBy(s => s.Year());
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            var yearNumber = year.First().Year;
+            var yearNumber = year.First().Year();
             var rule = new Rule($"[{Color.White}][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
             rule.RuleStyle(Color.Olive);
             AnsiConsole.Write(rule);
 
-            foreach (var solver in year.OrderBy(s => s.Day))
+            foreach (var solver in year.OrderBy(s => s.Day()))
             {
                 var result = Run(solver);
                 allResults.Add(result);
@@ -35,12 +35,12 @@ internal sealed partial class Runner(AdventUri adventUri)
         return allResults;
     }
 
-    private SolutionResult Run(ISolverWithDetails solver)
+    private SolutionResult Run(ISolver solver)
         => AnsiConsole.Status()
         .Start("Initializing solution", ctx =>
         {
-            var solverName = solver.Name;
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), $"Day {solver.Day}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
+            var solverName = solver.Name();
+            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year(), solver.Day()), $"Day {solver.Day()}{(!string.IsNullOrWhiteSpace(solverName) ? $" - {solverName}" : string.Empty)}");
 
             ctx.Status("Running part 1");
             var partOne = Solve(solver.PartOne, solver.GetExpectedResultPart1());
@@ -111,14 +111,15 @@ internal sealed partial class Runner(AdventUri adventUri)
         return $"[{color}]{format}[/]";
     }
 
-    private static SolveResult Solve(Func<object?> part, string? expected)
+    private static SolveResult Solve(Func<string, object?> part, string? expected)
     {
         string? actual = null;
         Exception? error = null;
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            actual = part.Invoke()?.ToString();
+            //part.Input();
+            actual = part.Invoke(string.Empty)?.ToString();
         }
         catch (Exception e)
         {

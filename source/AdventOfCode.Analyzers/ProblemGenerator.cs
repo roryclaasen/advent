@@ -42,7 +42,7 @@ public class ProblemGenerator : IIncrementalGenerator
 
             namespace {{model.Namespace}}
             {
-                public partial class {{model.ClassName}} : AdventOfCode.Shared.ISolverWithDetails
+                public partial class {{model.ClassName}} : AdventOfCode.Shared.IProblemDetails
                 {
                     public int Year => {{model.Year}};
                     public int Day => {{model.Day}};

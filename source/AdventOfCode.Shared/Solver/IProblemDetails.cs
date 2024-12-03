@@ -1,6 +1,6 @@
 namespace AdventOfCode.Shared;
 
-public interface ISolverWithDetails : ISolver
+public interface IProblemDetails
 {
     public int Year { get; }
 

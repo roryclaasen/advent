@@ -8,10 +8,10 @@ using System.Linq;
 [Problem(2024, 2, "Red-Nosed Reports")]
 public partial class Day2Solution : ISolver
 {
-    public object? PartOne()
-        => ParseInput().Count(AreLevelsSafe);
+    public object? PartOne(string input)
+        => ParseInput(input).Count(AreLevelsSafe);
 
-    public object? PartTwo()
+    public object? PartTwo(string input)
     {
         static bool PartTwoSafe(IEnumerable<int> report)
         {
@@ -33,10 +33,10 @@ public partial class Day2Solution : ISolver
             return false;
         }
 
-        return ParseInput().Count(PartTwoSafe);
+        return ParseInput(input).Count(PartTwoSafe);
     }
 
-    private static IEnumerable<IEnumerable<int>> ParseInput()
+    private static IEnumerable<IEnumerable<int>> ParseInput(string input)
     {
         foreach (var line in input.Lines())
         {

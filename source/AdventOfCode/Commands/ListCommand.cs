@@ -29,11 +29,11 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
 
         foreach (var yearSolvers in solvers.OrderBy(y => y.Key))
         {
-            foreach (var solver in yearSolvers.OrderBy(s => s.Day))
+            foreach (var solver in yearSolvers.OrderBy(s => s.Day()))
             {
-                var year = solver.Year;
-                var day = solver.Day;
-                var name = solver.Name;
+                var year = solver.Year();
+                var day = solver.Day();
+                var name = solver.Name() ?? string.Empty;
                 var uri = adventUri.Build(year, day);
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
