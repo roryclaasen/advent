@@ -31,7 +31,7 @@ internal class PickCommand(IDateTimeProvider dateTimeProvider, SolutionFinder so
 
         if (settings.Year is null)
         {
-            foreach (var year in solutionFinder.GetSolvers().GroupByYear())
+            foreach (var year in solutionFinder.GetSolvers().GroupByYear().OrderByDescending(g => g.Key))
             {
                 prompt.AddChoiceGroup(new YearPlaceHolder(year.Key), year.OrderByYearAndDay());
             }
