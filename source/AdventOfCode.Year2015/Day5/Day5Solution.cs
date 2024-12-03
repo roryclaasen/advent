@@ -5,7 +5,7 @@ using System;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 5, "Doesn't He Have Intern-Elves For This?")]
-public partial class Day5Solution : ISolver
+public partial class Day5Solution : IProblemSolver
 {
     private const string Vowels = "aeiou";
 

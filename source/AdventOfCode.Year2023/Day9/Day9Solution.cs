@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2023, 9, "Mirage Maintenance")]
-public partial class Day9Solution : ISolver
+public partial class Day9Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

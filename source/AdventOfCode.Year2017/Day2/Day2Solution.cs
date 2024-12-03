@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2017, 2, "Corruption Checksum")]
-public partial class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

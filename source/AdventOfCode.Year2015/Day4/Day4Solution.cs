@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 [Problem(2015, 4, "The Ideal Stocking Stuffer")]
-public partial class Day4Solution : ISolver
+public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

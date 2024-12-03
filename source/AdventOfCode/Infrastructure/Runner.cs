@@ -10,7 +10,7 @@ using System.Linq;
 
 internal sealed partial class Runner(AdventUri adventUri)
 {
-    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<ISolver> solvers)
+    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
     {
         AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
@@ -35,7 +35,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         return allResults;
     }
 
-    private SolutionResult Run(ISolver solver)
+    private SolutionResult Run(IProblemSolver solver)
         => AnsiConsole.Status()
         .Start("Initializing solution", ctx =>
         {

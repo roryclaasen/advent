@@ -14,14 +14,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <!--<ProjectReference Include="..\AdventOfCode.Year2015\AdventOfCode.Year2015.csproj" />
+    <ProjectReference Include="..\AdventOfCode.Year2015\AdventOfCode.Year2015.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2016\AdventOfCode.Year2016.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2017\AdventOfCode.Year2017.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2018\AdventOfCode.Year2018.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2019\AdventOfCode.Year2019.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2020\AdventOfCode.Year2020.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2022\AdventOfCode.Year2022.csproj" />
-    <ProjectReference Include="..\AdventOfCode.Year2023\AdventOfCode.Year2023.csproj" />-->
+    <ProjectReference Include="..\AdventOfCode.Year2023\AdventOfCode.Year2023.csproj" />
     <ProjectReference Include="..\AdventOfCode.Year2024\AdventOfCode.Year2024.csproj" />
   </ItemGroup>
 </Project>

@@ -3,7 +3,7 @@ namespace AdventOfCode.Year2017;
 using AdventOfCode.Shared;
 
 [Problem(2017, 1, "Inverse Captcha")]
-public partial class Day1Solution : ISolver
+public partial class Day1Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

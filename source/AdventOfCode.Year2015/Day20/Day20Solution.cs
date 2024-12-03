@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System.Linq;
 
 [Problem(2015, 20, "Infinite Elves and Infinite Houses")]
-public partial class Day20Solution : ISolver
+public partial class Day20Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

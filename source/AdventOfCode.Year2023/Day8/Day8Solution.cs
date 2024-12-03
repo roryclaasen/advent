@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2023, 8, "Haunted Wasteland")]
-public partial class Day8Solution : ISolver
+public partial class Day8Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

@@ -7,7 +7,7 @@ using System.Collections.Immutable;
 using System.Linq;
 
 [Problem(2015, 24, "It Hangs in the Balance")]
-public partial class Day24Solution : ISolver
+public partial class Day24Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

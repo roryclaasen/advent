@@ -1,6 +1,6 @@
 namespace AdventOfCode.Shared;
 
-public interface ISolver
+public interface IProblemSolver
 {
     public object? PartOne(string input);
 

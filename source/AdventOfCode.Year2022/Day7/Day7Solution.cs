@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2022, 7, "No Space Left On Device")]
-public partial class Day7Solution : ISolver
+public partial class Day7Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

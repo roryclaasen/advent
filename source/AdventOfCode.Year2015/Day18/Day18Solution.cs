@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 
 [Problem(2015, 18, "Like a GIF For Your Yard")]
-public partial class Day18Solution : ISolver
+public partial class Day18Solution : IProblemSolver
 {
     public int GridSize { get; set; } = 100;
 

@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 [Problem(2022, 2, "Rock Paper Scissors")]
-public partial class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input) => CalculateScore(ParseInput1(input));
 

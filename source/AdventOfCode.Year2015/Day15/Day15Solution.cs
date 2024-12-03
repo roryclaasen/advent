@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 15, "Science for Hungry People")]
-public partial class Day15Solution : ISolver
+public partial class Day15Solution : IProblemSolver
 {
     private static int MaxTeaspoons = 100;
 

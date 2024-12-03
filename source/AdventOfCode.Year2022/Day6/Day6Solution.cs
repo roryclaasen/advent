@@ -5,7 +5,7 @@ using System.Linq;
 using System;
 
 [Problem(2022, 6, "Tuning Trouble")]
-public partial class Day6Solution : ISolver
+public partial class Day6Solution : IProblemSolver
 {
     public object? PartOne(string input) => FindMarker(input, 4);
 

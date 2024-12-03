@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2020, 1, "Report Repair")]
-public partial class Day1Solution : ISolver
+public partial class Day1Solution : IProblemSolver
 {
     private static readonly int Target = 2020;
 

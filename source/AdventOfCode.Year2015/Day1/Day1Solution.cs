@@ -3,7 +3,7 @@ namespace AdventOfCode.Year2015;
 using AdventOfCode.Shared;
 
 [Problem(2015, 1, "Not Quite Lisp")]
-public partial class Day1Solution : ISolver
+public partial class Day1Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

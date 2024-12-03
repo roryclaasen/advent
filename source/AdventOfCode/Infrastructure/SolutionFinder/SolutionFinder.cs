@@ -4,11 +4,11 @@ using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 
-internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
+internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
 {
-    public IEnumerable<ISolver> GetSolvers() => GetSolversFor(null, null);
+    public IEnumerable<IProblemSolver> GetSolvers() => GetSolversFor(null, null);
 
-    public IEnumerable<ISolver> GetSolversFor(int? year = null, int? day = null)
+    public IEnumerable<IProblemSolver> GetSolversFor(int? year = null, int? day = null)
     {
         if (!solvers.Any())
         {
@@ -49,6 +49,6 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         return solvers.OrderByYearAndDay();
     }
 
-    public ISolver GetLastSolver(int? year = null)
+    public IProblemSolver GetLastSolver(int? year = null)
         => GetSolversFor(year).GroupByYear().Select(g => g.OrderByYearAndDay().Last()).Last();
 }

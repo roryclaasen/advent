@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System.Linq;
 
 [Problem(2018, 2, "Inventory Management System")]
-public partial class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

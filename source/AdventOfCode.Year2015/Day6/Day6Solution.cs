@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System;
 
 [Problem(2015, 6, "Probably a Fire Hazard")]
-public partial class Day6Solution : ISolver
+public partial class Day6Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

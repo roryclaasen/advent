@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2016, 6, "Signals and Noise")]
-public partial class Day6Solution : ISolver
+public partial class Day6Solution : IProblemSolver
 {
     public int CharacterCount { get; set; } = 8;
 

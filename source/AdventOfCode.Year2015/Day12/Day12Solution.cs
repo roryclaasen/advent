@@ -7,7 +7,7 @@ using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 12, "JSAbacusFramework.io")]
-public partial class Day12Solution : ISolver
+public partial class Day12Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
