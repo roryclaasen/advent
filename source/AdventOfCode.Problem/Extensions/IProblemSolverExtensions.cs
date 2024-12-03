@@ -1,10 +1,9 @@
-namespace AdventOfCode;
+namespace AdventOfCode.Problem;
 
-using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Linq;
 
-public static class ISolverExtensions
+public static class IIProblemSolverExtensions
 {
     public static int GetYear(this IProblemSolver solver)
         => solver is IProblemDetails problem ? problem.Year : 0;
