@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2020, 2, "Password Philosophy")]
-public partial class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

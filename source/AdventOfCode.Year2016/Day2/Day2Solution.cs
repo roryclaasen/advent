@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 
 [Problem(2016, 2, "Bathroom Security")]
-public class Day2Solution : ISolver
+public partial class Day2Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

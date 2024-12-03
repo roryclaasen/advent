@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System.Linq;
 
 [Problem(2019, 1, "The Tyranny of the Rocket Equation")]
-public class Day1Solution : ISolver
+public partial class Day1Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => input.Lines().Select(int.Parse).Sum(Fuel);

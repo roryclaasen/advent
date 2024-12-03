@@ -6,7 +6,7 @@ using System;
 using System.Linq;
 
 [Problem(2022, 1, "Calorie Counting")]
-public class Day1Solution : ISolver
+public partial class Day1Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

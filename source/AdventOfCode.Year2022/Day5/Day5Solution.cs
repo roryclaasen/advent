@@ -7,7 +7,7 @@ using System;
 using System.Linq;
 
 [Problem(2022, 5, "Supply Stacks")]
-public class Day5Solution : ISolver
+public partial class Day5Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

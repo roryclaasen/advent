@@ -7,7 +7,7 @@ using System.Linq;
 using System.Numerics;
 
 [Problem(2022, 9, "Rope Bridge")]
-public class Day9Solution : ISolver
+public partial class Day9Solution : IProblemSolver
 {
     public object? PartOne(string input) => GetTailMovements(2, ParseInput(input));
 

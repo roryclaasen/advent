@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 23, "Opening the Turing Lock")]
-public partial class Day23Solution : ISolver
+public partial class Day23Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

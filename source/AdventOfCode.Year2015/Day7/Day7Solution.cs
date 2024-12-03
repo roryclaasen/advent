@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2015, 7, "Some Assembly Required")]
-public partial class Day7Solution : ISolver
+public partial class Day7Solution : IProblemSolver
 {
     public object? PartOne(string input) => this.RunInput(input)["a"];
 

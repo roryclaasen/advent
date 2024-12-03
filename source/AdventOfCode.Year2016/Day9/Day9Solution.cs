@@ -4,7 +4,7 @@ using AdventOfCode.Shared;
 using System.Linq;
 
 [Problem(2016, 9, "Explosives in Cyberspace")]
-public class Day9Solution : ISolver
+public partial class Day9Solution : IProblemSolver
 {
     public object? PartOne(string input) => ExpandLength(input, 0, input.Length, false);
 

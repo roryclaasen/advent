@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Numerics;
 
 [Problem(2017, 3, "Spiral Memory")]
-public class Day3Solution : ISolver
+public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 [Problem(2016, 4, "Security Through Obscurity")]
-public partial class Day4Solution : ISolver
+public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => ParseRooms(input).Where(IsRealRoom).Sum(r => r.SectorId);

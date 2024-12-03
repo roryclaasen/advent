@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2015, 19, "Medicine for Rudolph")]
-public class Day19Solution : ISolver
+public partial class Day19Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {

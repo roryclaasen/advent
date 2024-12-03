@@ -7,7 +7,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 [Problem(2020, 4, "Passport Processing")]
-public class Day4Solution : ISolver
+public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input) => ParseInput(input).Count(p => p.HasNonNullValues());
 
