@@ -1,6 +1,42 @@
 {
   "profiles": {
-    "AdventOfCode Generator (2024)": {
+    "Debug Generator (2015)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2015\\AdventOfCode.Year2015.csproj"
+    },
+    "Debug Generator (2016)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2016\\AdventOfCode.Year2016.csproj"
+    },
+    "Debug Generator (2017)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2017\\AdventOfCode.Year2017.csproj"
+    },
+    "Debug Generator (2018)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2018\\AdventOfCode.Year2018.csproj"
+    },
+    "Debug Generator (2019)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2019\\AdventOfCode.Year2019.csproj"
+    },
+    "Debug Generator (2020)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2020\\AdventOfCode.Year2020.csproj"
+    },
+    "Debug Generator (2021)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2021\\AdventOfCode.Year2021.csproj"
+    },
+    "Debug Generator (2022)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2022\\AdventOfCode.Year2022.csproj"
+    },
+    "Debug Generator (2023)": {
+      "commandName": "DebugRoslynComponent",
+      "targetProject": "..\\AdventOfCode.Year2023\\AdventOfCode.Year2023.csproj"
+    },
+    "Debug Generator (2024)": {
       "commandName": "DebugRoslynComponent",
       "targetProject": "..\\AdventOfCode.Year2024\\AdventOfCode.Year2024.csproj"
     }
