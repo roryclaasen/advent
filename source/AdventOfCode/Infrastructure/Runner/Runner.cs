@@ -6,7 +6,6 @@ using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 
 internal sealed partial class Runner(AdventUri adventUri)
@@ -36,35 +35,33 @@ internal sealed partial class Runner(AdventUri adventUri)
         return allResults;
     }
 
-    private SolutionResult Run(IProblemSolver solver)
-        => AnsiConsole.Status()
-        .Start("Initializing solution", ctx =>
+    private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
+    {
+        var solverName = solver.GetName();
+        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
+
+        ctx.Status("Running part 1");
+        var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
+
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
+        if (partOne.IsError)
         {
-            var solverName = solver.GetName();
-            AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
+            AnsiConsole.WriteException(partOne.Error);
+        }
 
-            ctx.Status("Running part 1");
-            var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
+        ctx.Status("Running part 2");
+        var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
 
-            AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
-            if (partOne.IsError)
-            {
-                AnsiConsole.WriteException(partOne.Error);
-            }
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
+        if (partTwo.IsError)
+        {
+            AnsiConsole.WriteException(partTwo.Error);
+        }
 
-            ctx.Status("Running part 2");
-            var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
+        return new SolutionResult(partOne, partTwo);
+    });
 
-            AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
-            if (partTwo.IsError)
-            {
-                AnsiConsole.WriteException(partTwo.Error);
-            }
-
-            return new SolutionResult(partOne, partTwo);
-        });
-
-    private static string GetResultEmoji(SolveResult result)
+    private static string GetResultEmoji(ProblemPartResult result)
         => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
 
     private static void PrintResult(SolutionResult result)
@@ -78,7 +75,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         table.AddColumn(new TableColumn("Result").Centered());
         table.AddColumn(new TableColumn("Expected").Centered());
 
-        void AddTableRow(int partNumber, SolveResult part)
+        void AddTableRow(int partNumber, ProblemPartResult part)
         {
             var partRow = $"[{part.ActualColor}]{(part.IsError ? "ERROR" : part.Actual ?? "NULL")}[/]";
             var partExpected = $"[{part.ExpectedColor}]{part.Expected ?? "NULL"}[/]";
@@ -112,7 +109,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         return $"[{color}]{format}[/]";
     }
 
-    private static SolveResult Solve(Func<string, object?> part, string? input, string? expected)
+    private static ProblemPartResult Solve(Func<string, object?> part, string? input, string? expected)
     {
         string? actual = null;
         Exception? error = null;
@@ -130,25 +127,6 @@ internal sealed partial class Runner(AdventUri adventUri)
 #endif
         }
         stopwatch.Stop();
-        return new SolveResult(stopwatch.Elapsed, expected, actual, error);
+        return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
 }
-
-public record SolutionResult(SolveResult Part1, SolveResult Part2)
-{
-    public bool HasError => this.Part1.IsError || this.Part2.IsError;
-}
-
-public record SolveResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
-{
-    [MemberNotNullWhen(true, nameof(Error))]
-    public bool IsError => this.Error is not null;
-
-    [MemberNotNullWhen(true, nameof(Actual))]
-    public bool IsCorrect => !this.IsError && !string.IsNullOrWhiteSpace(this.Actual) && (this.Expected?.Equals(this.Actual, StringComparison.Ordinal) ?? true);
-
-    public Color ActualColor => this.IsCorrect ? Color.Green : Color.Red;
-
-    public Color ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? Color.Yellow : this.ActualColor;
-}
-
