@@ -50,6 +50,11 @@ app.Configure(config =>
         .WithDescription("Run the last solution for a given year")
         .WithExample(["last"])
         .WithExample(["last", "--year", "2022"]);
+
+    config.AddCommand<PickCommand>("pick")
+        .WithDescription("Pick solutions to run")
+        .WithExample(["pick"])
+        .WithExample(["pick", "--year", "2024"]);
 });
 
 var exitCode = await app.RunAsync(args).ConfigureAwait(false);

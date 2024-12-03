@@ -44,6 +44,10 @@
       "commandName": "Project",
       "commandLineArgs": "last --year 2024"
     },
+    "AdventOfCode (pick)": {
+      "commandName": "Project",
+      "commandLineArgs": "pick"
+    },
     "AdventOfCode (list)": {
       "commandName": "Project",
       "commandLineArgs": "list"
