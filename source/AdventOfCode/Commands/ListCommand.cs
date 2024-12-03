@@ -20,15 +20,18 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
 
     public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        var solvers = solutionFinder.GetSolversFor(settings.Year).GroupByYear();
-
         var table = new Table();
         table.AddColumn("Year");
         table.AddColumn("Day");
         table.AddColumn("Name");
         table.AddColumn("Link");
 
-        foreach (var yearSolvers in solvers.OrderBy(y => y.Key))
+        var sortedSolvers = solutionFinder
+            .GetSolversFor(settings.Year)
+            .GroupByYear()
+            .OrderByDescending(y => y.Key);
+
+        foreach (var yearSolvers in sortedSolvers)
         {
             foreach (var solver in yearSolvers.OrderBy(s => s.GetDay()))
             {
@@ -39,7 +42,7 @@ internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFi
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
 
-            if (yearSolvers.Key != solvers.Last().Key)
+            if (yearSolvers.Key != sortedSolvers.Last().Key)
             {
                 table.AddEmptyRow();
             }
