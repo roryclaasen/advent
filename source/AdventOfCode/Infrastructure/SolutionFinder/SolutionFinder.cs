@@ -17,7 +17,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
 
         if (day is not null && year is not null)
         {
-            var validSolvers = solvers.Where(s => s.Year() == year && s.Day() == day);
+            var validSolvers = solvers.Where(s => s.GetYear() == year && s.GetDay() == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -27,7 +27,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         }
         else if (day is null && year is not null)
         {
-            var validSolvers = solvers.Where(s => s.Year() == year);
+            var validSolvers = solvers.Where(s => s.GetYear() == year);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -37,7 +37,7 @@ internal sealed class SolutionFinder(IEnumerable<ISolver> solvers)
         }
         else if (day is not null && year is null)
         {
-            var validSolvers = solvers.Where(s => s.Year() == day);
+            var validSolvers = solvers.Where(s => s.GetYear() == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();

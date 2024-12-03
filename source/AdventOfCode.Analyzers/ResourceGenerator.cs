@@ -3,6 +3,7 @@ namespace AdventOfCode.Analyzers;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -20,8 +21,15 @@ public class ResourceGenerator : IIncrementalGenerator
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
+        static bool IsResourceFileValid(string path)
+        {
+            HashSet<string> ValidFiles = ["Input", "Expected1", "Expected2"];
+            var fileName = Path.GetFileNameWithoutExtension(path);
+            return ValidFiles.Contains(fileName);
+        }
+
         var resourcePipeline = context.AdditionalTextsProvider
-            .Where(static f => f.Path.EndsWith(".txt"))
+            .Where(static f => f.Path.EndsWith(".txt") && IsResourceFileValid(f.Path))
             .Select(static (f, ct) =>
             {
                 // TODO: A bit hacky but can't think of a better way to do this right now
@@ -43,7 +51,7 @@ public class ResourceGenerator : IIncrementalGenerator
             {
                 public partial class {{model.ClassName}} : {{model.Interface}}
                 {
-                    public const string {{model.FileName}} => @"{{model.Contents}}";
+                    public string {{model.FileName}} => @"{{model.Contents}}";
                 }
             }
             """, Encoding.UTF8)));
@@ -67,7 +75,9 @@ public readonly record struct ResourceInfo
 
     public string Interface => this.FileName switch
     {
-        "input" => "AdventOfCode.Shared.IProblemInput",
+        "Input" => "AdventOfCode.Shared.IProblemInput",
+        "Expected1" => "AdventOfCode.Shared.IProblemExpectedResultPart1",
+        "Expected2" => "AdventOfCode.Shared.IProblemExpectedResultPart2",
         _ => throw new NotImplementedException()
     };
 }

@@ -39,11 +39,14 @@ public class ProblemGenerator : IIncrementalGenerator
 
             namespace {{model.Namespace}}
             {
+                [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
                 public partial class {{model.ClassName}} : AdventOfCode.Shared.IProblemDetails
                 {
                     public int Year => {{model.Year}};
                     public int Day => {{model.Day}};
                     public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
+
+                    public override string ToString() => $"Year {this.Year} Day {this.Day} - {this.Name}";
                 }
             }
             """, Encoding.UTF8)));
