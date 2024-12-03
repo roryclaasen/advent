@@ -1,13 +1,13 @@
 namespace AdventOfCode.Commands;
 
-using Spectre.Console.Cli;
-using Spectre.Console;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using Spectre.Console;
+using Spectre.Console.Cli;
+using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 internal sealed class ListCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, AdventUri adventUri) : Command<ListCommand.Settings>
 {

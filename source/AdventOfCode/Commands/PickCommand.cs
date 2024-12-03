@@ -1,14 +1,14 @@
 namespace AdventOfCode.Commands;
 
 using AdventOfCode.Infrastructure;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System.Linq;
-using AdventOfCode.Problem;
 using System;
 using System.ComponentModel;
-using AdventOfCode.Shared;
 using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 internal class PickCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command<PickCommand.Settings>
 {

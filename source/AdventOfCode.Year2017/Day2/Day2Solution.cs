@@ -11,7 +11,7 @@ public partial class Day2Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var sum = 0;
-        foreach(var row in ParseInput(input))
+        foreach (var row in ParseInput(input))
         {
             sum += row.Max() - row.Min();
         }
@@ -22,13 +22,13 @@ public partial class Day2Solution : IProblemSolver
     public object? PartTwo(string input)
     {
         var sum = 0;
-        foreach(var row in ParseInput(input))
+        foreach (var row in ParseInput(input))
         {
-            for(var i = 0; i < row.Length; i++)
+            for (var i = 0; i < row.Length; i++)
             {
-                for(var j = 0; j < row.Length; j++)
+                for (var j = 0; j < row.Length; j++)
                 {
-                    if(i == j) continue;
+                    if (i == j) continue;
 
                     if (row[i] % row[j] == 0)
                     {
@@ -43,7 +43,7 @@ public partial class Day2Solution : IProblemSolver
 
     static IEnumerable<int[]> ParseInput(string input)
     {
-        foreach(var line in input.Replace('\t', ' ').Lines())
+        foreach (var line in input.Replace('\t', ' ').Lines())
         {
             yield return line.Split(' ').Select(int.Parse).ToArray();
         }

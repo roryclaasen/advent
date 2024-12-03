@@ -12,7 +12,7 @@ public partial class Day2Solution : IProblemSolver
         var twos = 0;
         var threes = 0;
 
-        foreach(var line in input.Lines())
+        foreach (var line in input.Lines())
         {
             var counts = line.GroupBy(c => c).Select(g => g.Count()).ToArray();
             if (counts.Contains(2))

@@ -26,7 +26,7 @@ public partial class Day22Solution : IProblemSolver
         while (currentFights.Any(IsGameRunning))
         {
             // Player turn
-            foreach(var fight in currentFights.Where(IsGameRunning))
+            foreach (var fight in currentFights.Where(IsGameRunning))
             {
                 fight.ApplyEffects();
                 if (fight.IsBossDead)
@@ -131,7 +131,7 @@ public partial class Day22Solution : IProblemSolver
 
     private static IEnumerable<Fight> GetNextFights(IEnumerable<Fight> fights)
     {
-        foreach(var fight in fights)
+        foreach (var fight in fights)
         {
             var spells = Enum.GetValues<Spell>().Where(s => !fight.ActiveEffects.ContainsKey(s));
             foreach (var spell in spells)

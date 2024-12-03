@@ -48,7 +48,7 @@ public partial class Day5Solution : IProblemSolver
         var bag = new TreeNode(0, long.MaxValue);
         for (var i = 0; i < seeds.Length; i += 2)
         {
-            var node  = new TreeNode(seeds[i], seeds[i] + seeds[i + 1] - 1);
+            var node = new TreeNode(seeds[i], seeds[i] + seeds[i + 1] - 1);
             node.Populate(parsedInput.Maps);
             bag.Children.Add(node);
         }
