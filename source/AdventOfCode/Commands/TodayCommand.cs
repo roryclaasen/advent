@@ -1,4 +1,4 @@
-namespace AdventOfCode;
+namespace AdventOfCode.Commands;
 
 using Spectre.Console.Cli;
 using Spectre.Console;
