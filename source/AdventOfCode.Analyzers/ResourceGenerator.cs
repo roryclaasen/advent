@@ -41,20 +41,23 @@ public class ResourceGenerator : IIncrementalGenerator
 
                 var Namespace = pathParts.First();
                 var className = $"{pathParts.Skip(1).First()}Solution";
-                return new ResourceInfo(Namespace, className, fileName, f.GetText(ct));
+                return new ResourceInfo(Namespace, className, fileName, f.GetText(ct)?.ToString());
             });
 
-        context.RegisterSourceOutput(resourcePipeline, static (context, model) => context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From($$"""
+        context.RegisterSourceOutput(resourcePipeline, static (context, model) => context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From($$""""
             {{FileHeaderComment}}
 
             namespace {{model.Namespace}}
             {
                 public partial class {{model.ClassName}} : {{model.Interface}}
                 {
-                    public string {{model.FileName}} => @"{{model.Contents}}";
+                    public string {{model.FileName}} =>
+                        """
+                        {{model.PadContents(12)}}
+                        """;
                 }
             }
-            """, Encoding.UTF8)));
+            """", Encoding.UTF8)));
     }
 }
 
@@ -63,9 +66,9 @@ public readonly record struct ResourceInfo
     public readonly string Namespace;
     public readonly string ClassName;
     public readonly string FileName;
-    public readonly SourceText? Contents;
+    public readonly string? Contents;
 
-    public ResourceInfo(string Namespace, string className, string fileName, SourceText? contents)
+    public ResourceInfo(string Namespace, string className, string fileName, string? contents)
     {
         this.Namespace = Namespace;
         this.ClassName = className;
@@ -80,4 +83,33 @@ public readonly record struct ResourceInfo
         "Expected2" => "AdventOfCode.Shared.IProblemExpectedResultPart2",
         _ => throw new NotImplementedException()
     };
+
+    public string PadContents(int padding = 0, bool skipFirstLine = true)
+    {
+        if (this.Contents is null)
+        {
+            return string.Empty;
+        }
+
+        var sb = new StringBuilder();
+
+        var lines = this.Contents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
+        var length = lines.Length - 1;
+        for (int i = 0; i < lines.Length; i++)
+        {
+            if ((i == 0 && !skipFirstLine) || i != 0)
+            {
+                sb.Append(new string(' ', padding));
+            }
+            if (i == length)
+            {
+                sb.Append(lines[i]);
+            }
+            else
+            {
+                sb.AppendLine(lines[i]);
+            }
+        }
+        return sb.ToString();
+    }
 }
