@@ -58,7 +58,7 @@ public partial class Day5Solution : IProblemSolver
             .Min(n => n.Start);
     }
 
-    private Input ParseInput(string input)
+    private InputRecord ParseInput(string input)
     {
         var parts = input.Lines(2);
         var seeds = parts[0].Replace("seeds: ", string.Empty).Split(" ").Select(long.Parse).ToArray();
@@ -70,7 +70,7 @@ public partial class Day5Solution : IProblemSolver
             return range;
         }
 
-        return new Input(seeds, 
+        return new InputRecord(seeds, 
         [
             GetRange(1, "seed-to-soil map:"),
             GetRange(2, "soil-to-fertilizer map:"),
@@ -129,7 +129,7 @@ public partial class Day5Solution : IProblemSolver
         }
     }
 
-    private record Input(long[] Seeds, List<List<MapRange>> Maps);
+    private record InputRecord(long[] Seeds, List<List<MapRange>> Maps);
 
     internal class TreeNode(long Start, long End, int Depth = 0)
     {
