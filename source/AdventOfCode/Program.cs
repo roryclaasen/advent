@@ -25,6 +25,9 @@ var app = new CommandApp<DefaultCommand>(registrar);
 app.WithDescription("Rory Claasens solutions to Advent of Code");
 app.Configure(config =>
 {
+    config.SetApplicationName(ThisAssembly.AssemblyName + ".exe");
+    config.SetApplicationVersion(ThisAssembly.AssemblyVersion);
+
 #if DEBUG
     config.ValidateExamples();
     config.PropagateExceptions();
