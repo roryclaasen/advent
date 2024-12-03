@@ -1,12 +1,12 @@
 namespace AdventOfCode.Commands;
 
-using Spectre.Console.Cli;
+using AdventOfCode.Infrastructure;
+using AdventOfCode.Shared;
 using Spectre.Console;
+using Spectre.Console.Cli;
 using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
-using AdventOfCode.Infrastructure;
-using AdventOfCode.Shared;
 
 internal sealed class DefaultCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command<DefaultCommand.Settings>
 {

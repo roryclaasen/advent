@@ -2,10 +2,10 @@ namespace AdventOfCode.Year2022;
 
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Collections.Generic;
-using System.Text.RegularExpressions;
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 [Problem(2022, 5, "Supply Stacks")]
 public partial class Day5Solution : IProblemSolver

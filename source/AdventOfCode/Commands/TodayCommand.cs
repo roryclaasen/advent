@@ -1,11 +1,11 @@
 namespace AdventOfCode.Commands;
 
-using Spectre.Console.Cli;
-using Spectre.Console;
-using System.Diagnostics.CodeAnalysis;
-using System.Linq;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Shared;
+using Spectre.Console;
+using Spectre.Console.Cli;
+using System.Diagnostics.CodeAnalysis;
+using System.Linq;
 
 internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command
 {

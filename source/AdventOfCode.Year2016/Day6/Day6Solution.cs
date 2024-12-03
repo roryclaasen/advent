@@ -34,7 +34,7 @@ public partial class Day6Solution : IProblemSolver
         }
 
         var message = new char[this.CharacterCount];
-        for(var i = 0; i < this.CharacterCount; i++)
+        for (var i = 0; i < this.CharacterCount; i++)
         {
             message[i] = charDict[i].MaxBy(x => x.Value).Key;
         }

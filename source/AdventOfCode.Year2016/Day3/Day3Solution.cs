@@ -18,7 +18,7 @@ public partial class Day3Solution : IProblemSolver
         var inputArray = ParseInput(input).ToArray();
 
         var validTriangles = 0;
-        for(var i = 0; i < inputArray.Length; i += 3)
+        for (var i = 0; i < inputArray.Length; i += 3)
         {
             var triangle1 = new int[3]
             {

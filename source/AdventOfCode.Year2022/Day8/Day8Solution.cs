@@ -2,8 +2,8 @@ namespace AdventOfCode.Year2022;
 
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 
 [Problem(2022, 8, "Treetop Tree House")]

@@ -13,7 +13,7 @@ public partial class Day4Solution : IProblemSolver
         => ParseInput(input).Count(IsValidPassword);
 
     public object? PartTwo(string input)
-        => ParseInput(input).Where(IsValidPassword).Count(p => p.GroupBy(c=>c).Any(g => g.Count() == 2));
+        => ParseInput(input).Where(IsValidPassword).Count(p => p.GroupBy(c => c).Any(g => g.Count() == 2));
 
     private bool IsValidPassword(string password)
     {

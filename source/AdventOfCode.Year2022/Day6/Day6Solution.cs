@@ -2,8 +2,8 @@ namespace AdventOfCode.Year2022;
 
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Linq;
 using System;
+using System.Linq;
 
 [Problem(2022, 6, "Tuning Trouble")]
 public partial class Day6Solution : IProblemSolver

@@ -120,7 +120,7 @@ public partial class Day4Solution : IProblemSolver
         public bool HasNonNullValues()
         {
             if (this.BirthYear is null) return false;
-            if (this.IssueYear is null)  return false;
+            if (this.IssueYear is null) return false;
             if (this.ExpirationYear is null) return false;
             if (this.Height is null) return false;
             if (this.HairColor is null) return false;

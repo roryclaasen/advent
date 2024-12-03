@@ -1,9 +1,9 @@
 namespace AdventOfCode.Year2024;
 
 using AdventOfCode.Problem;
-using System.Text.RegularExpressions;
-using System.Linq;
 using System;
+using System.Linq;
+using System.Text.RegularExpressions;
 
 [Problem(2024, 3, "Mull It Over")]
 public partial class Day3Solution : IProblemSolver
