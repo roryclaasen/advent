@@ -43,10 +43,12 @@ public class ProblemGenerator : IIncrementalGenerator
                 public partial class {{model.ClassName}} : {{typeof(IProblemDetails).FullName}}
                 {
                     public int Year => {{model.Year}};
+
                     public int Day => {{model.Day}};
+
                     public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
 
-                    public override string ToString() => $"Year {this.Year} Day {this.Day} - {this.Name}";
+                    public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
                 }
             }
             """, Encoding.UTF8)));
