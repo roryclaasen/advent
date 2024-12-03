@@ -3,6 +3,7 @@ namespace AdventOfCode.Year2024;
 using AdventOfCode.Problem;
 using System.Text.RegularExpressions;
 using System.Linq;
+using System;
 
 [Problem(2024, 3, "Mull It Over")]
 public partial class Day3Solution : IProblemSolver
@@ -10,7 +11,7 @@ public partial class Day3Solution : IProblemSolver
     public object? PartOne(string input)
         => SequenceRegex()
             .Matches(input)
-            .Where(m => m.Groups[0].Value.StartsWith("mul"))
+            .Where(m => m.Groups[0].Value.StartsWith("mul", StringComparison.Ordinal))
             .Select(m => (int.Parse(m.Groups[1].ValueSpan), int.Parse(m.Groups[2].ValueSpan)))
             .Sum(m => m.Item1 * m.Item2);
 
@@ -20,11 +21,11 @@ public partial class Day3Solution : IProblemSolver
         var total = 0;
         foreach (var match in SequenceRegex().Matches(input).Select(s => s))
         {
-            if (match.Groups[0].Value.Equals("do()"))
+            if (match.Groups[0].Value.Equals("do()", StringComparison.Ordinal))
             {
                 enabled = true;
             }
-            else if (match.Groups[0].Value.Equals("don't()"))
+            else if (match.Groups[0].Value.Equals("don't()", StringComparison.Ordinal))
             {
                 enabled = false;
             }
