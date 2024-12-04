@@ -127,10 +127,10 @@ if (-not (Test-path DayFolder)) {
     Set-Content -Path $CsFile -Value @"
 namespace AdventOfCode.Year${Year};
 
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 
 [Problem(${Year}, ${Day}, ${title})]
-public class Day${Day}Solution : ISolver
+public partial class Day${Day}Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
