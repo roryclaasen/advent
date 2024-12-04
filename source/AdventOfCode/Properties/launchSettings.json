@@ -1,6 +1,6 @@
 {
   "profiles": {
-    "AdventOfCode (all)": {
+    "AdventOfCode (pick)": {
       "commandName": "Project",
       "commandLineArgs": ""
     },
@@ -44,9 +44,9 @@
       "commandName": "Project",
       "commandLineArgs": "last --year 2024"
     },
-    "AdventOfCode (pick)": {
+    "AdventOfCode (all)": {
       "commandName": "Project",
-      "commandLineArgs": "pick"
+      "commandLineArgs": "all"
     },
     "AdventOfCode (list)": {
       "commandName": "Project",

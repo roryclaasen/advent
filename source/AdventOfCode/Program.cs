@@ -33,9 +33,8 @@ app.Configure(config =>
     config.PropagateExceptions();
 #endif
 
-    config.AddExample(["--day", "1"]);
+    config.AddExample([]);
     config.AddExample(["--year", "2015"]);
-    config.AddExample(["--year", "2020", "--day", "12"]);
 
     config.AddCommand<ListCommand>("list")
         .WithDescription("List all available solutions")
@@ -50,10 +49,12 @@ app.Configure(config =>
         .WithExample(["last"])
         .WithExample(["last", "--year", "2022"]);
 
-    config.AddCommand<PickCommand>("pick")
-        .WithDescription("Pick solutions to run")
-        .WithExample(["pick"])
-        .WithExample(["pick", "--year", "2024"]);
+    config.AddCommand<AllCommand>("all")
+        .WithDescription("Run all the solutions")
+        .WithExample(["all"])
+        .WithExample(["all", "--day", "1"])
+        .WithExample(["all", "--year", "2024"])
+        .WithExample(["all", "--year", "2020", "--day", "12"]);
 });
 
 var exitCode = await app.RunAsync(args).ConfigureAwait(false);

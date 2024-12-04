@@ -1,52 +1,65 @@
 namespace AdventOfCode.Commands;
 
 using AdventOfCode.Infrastructure;
-using AdventOfCode.Shared;
+using AdventOfCode.Problem;
 using Spectre.Console;
 using Spectre.Console.Cli;
-using System.ComponentModel;
-using System.Diagnostics.CodeAnalysis;
+using System;
 using System.Linq;
 
-internal sealed class DefaultCommand(IDateTimeProvider dateTimeProvider, SolutionFinder solutionFinder, Runner solutionRunner) : Command<DefaultCommand.Settings>
+internal class DefaultCommand(SolutionFinder solutionFinder, Runner solutionRunner) : Command<YearAndDaySettings>
 {
-    internal sealed class Settings : CommandSettings
+    public override int Execute(CommandContext context, YearAndDaySettings settings)
     {
-        [Description("The year of the available puzzles to run.")]
-        [CommandOption("-y|--year")]
-        public int? Year { get; init; }
+        if (settings.Year is not null && settings.Day is not null)
+        {
+            var solver = solutionFinder.GetSolversFor(settings.Year, settings.Day);
+            return solutionRunner.RunAll(solver).Any(r => r.HasError) ? -1 : 0;
+        }
 
-        [Description("The day of the the available puzzles to run.")]
-        [CommandOption("-d|--day")]
-        public int? Day { get; init; }
-    }
+        var prompt = new MultiSelectionPrompt<IProblemSolver>()
+            .Title("Which puzzles do you want to run?")
+            .UseConverter(this.SolverNameConverter)
+            .Required()
+            .PageSize(20)
+            .MoreChoicesText("[grey](Move up and down to reveal more puzzles)[/]")
+            .InstructionsText("[grey](Press [blue]<space>[/] to toggle a puzzle to run, [green]<enter>[/] to accept)[/]");
 
-    public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
-    {
-        var solvers = solutionFinder.GetSolversFor(settings.Year, settings.Day);
-        var allResults = solutionRunner.RunAll(solvers);
+        if (settings.Year is null)
+        {
+            foreach (var year in solutionFinder.GetSolvers().GroupByYear().OrderByDescending(g => g.Key))
+            {
+                prompt.AddChoiceGroup(new YearPlaceHolder(year.Key), year.OrderByYearAndDay());
+            }
+        }
+        else
+        {
+            prompt.AddChoiceGroup(new YearPlaceHolder(settings.Year.Value), solutionFinder.GetSolversFor(settings.Year).OrderByYearAndDay());
+        }
+
+        var pickedSolvers = AnsiConsole.Prompt(prompt);
+
+        var allResults = solutionRunner.RunAll(pickedSolvers.Where(s => s is not YearPlaceHolder));
         var isError = allResults.Any(r => r.HasError);
         return isError ? -1 : 0;
     }
 
-    public override ValidationResult Validate([NotNull] CommandContext context, [NotNull] Settings settings)
+    private string SolverNameConverter(IProblemSolver solver)
     {
-        if (settings.Year is not null)
+        if (solver is YearPlaceHolder yearPlaceHolder)
         {
-            if (settings.Year < 2015 || settings.Year > dateTimeProvider.Now.Year)
-            {
-                return ValidationResult.Error("Year must be between 2015 and current year.");
-            }
+            return $"Year {yearPlaceHolder.Year}";
         }
 
-        if (settings.Day is not null)
-        {
-            if (settings.Day < 1 || settings.Day > 25)
-            {
-                return ValidationResult.Error("Day must be between 1 and 25.");
-            }
-        }
+        return solver.GetDisplayName();
+    }
 
-        return base.Validate(context, settings);
+    private sealed class YearPlaceHolder(int year) : IProblemSolver
+    {
+        public int Year => year;
+
+        public object? PartOne(string input) => throw new NotImplementedException();
+
+        public object? PartTwo(string input) => throw new NotImplementedException();
     }
 }
