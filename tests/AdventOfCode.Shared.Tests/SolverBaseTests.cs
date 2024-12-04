@@ -13,10 +13,4 @@ public abstract class SolverBaseTests<TSolver> where TSolver : IProblemSolver, n
     {
         this.Solver = new TSolver();
     }
-
-    [TestMethod]
-    public void CanCreateChallenge()
-    {
-        Assert.IsNotNull(this.Solver);
-    }
 }
