@@ -2,7 +2,12 @@
   <PropertyGroup>
     <OutputType>library</OutputType>
   </PropertyGroup>
+
   <ItemGroup>
     <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="CommunityToolkit.HighPerformance" />
   </ItemGroup>
 </Project>
