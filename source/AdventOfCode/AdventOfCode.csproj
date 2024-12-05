@@ -5,7 +5,6 @@
   
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.DependencyInjection" />
-    <PackageReference Include="Spectre.Console" />
     <PackageReference Include="Spectre.Console.Analyzer">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
