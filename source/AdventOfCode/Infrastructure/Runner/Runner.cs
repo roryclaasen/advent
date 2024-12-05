@@ -43,7 +43,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         ctx.Status("Running part 1");
         var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
 
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)} Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
         if (partOne.IsError)
         {
             AnsiConsole.WriteException(partOne.Error);
@@ -52,7 +52,7 @@ internal sealed partial class Runner(AdventUri adventUri)
         ctx.Status("Running part 2");
         var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
 
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)} Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
         if (partTwo.IsError)
         {
             AnsiConsole.WriteException(partTwo.Error);
