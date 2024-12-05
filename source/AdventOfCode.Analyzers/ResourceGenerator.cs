@@ -60,57 +60,57 @@ public class ResourceGenerator : IIncrementalGenerator
             }
             """", Encoding.UTF8)));
     }
-}
 
-public readonly record struct ResourceInfo
-{
-    public readonly string Namespace;
-    public readonly string ClassName;
-    public readonly string FileName;
-    public readonly string? Contents;
-
-    public ResourceInfo(string Namespace, string className, string fileName, string? contents)
+    private readonly record struct ResourceInfo
     {
-        this.Namespace = Namespace;
-        this.ClassName = className;
-        this.FileName = fileName;
-        this.Contents = contents;
-    }
+        public readonly string Namespace;
+        public readonly string ClassName;
+        public readonly string FileName;
+        public readonly string? Contents;
 
-    public string Interface => this.FileName switch
-    {
-        "Input" => typeof(IProblemInput).FullName,
-        "Expected1" => typeof(IProblemExpectedResultPart1).FullName,
-        "Expected2" => typeof(IProblemExpectedResultPart2).FullName,
-        _ => throw new NotImplementedException()
-    };
-
-    public string PadContents(int padding = 0, bool skipFirstLine = true)
-    {
-        if (this.Contents is null)
+        public ResourceInfo(string Namespace, string className, string fileName, string? contents)
         {
-            return string.Empty;
+            this.Namespace = Namespace;
+            this.ClassName = className;
+            this.FileName = fileName;
+            this.Contents = contents;
         }
 
-        var sb = new StringBuilder();
-
-        var lines = this.Contents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
-        var length = lines.Length - 1;
-        for (int i = 0; i < lines.Length; i++)
+        public string Interface => this.FileName switch
         {
-            if ((i == 0 && !skipFirstLine) || i != 0)
+            "Input" => typeof(IProblemInput).FullName,
+            "Expected1" => typeof(IProblemExpectedResultPart1).FullName,
+            "Expected2" => typeof(IProblemExpectedResultPart2).FullName,
+            _ => throw new NotImplementedException()
+        };
+
+        public string PadContents(int padding = 0, bool skipFirstLine = true)
+        {
+            if (this.Contents is null)
             {
-                sb.Append(new string(' ', padding));
+                return string.Empty;
             }
-            if (i == length)
+
+            var sb = new StringBuilder();
+
+            var lines = this.Contents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
+            var length = lines.Length - 1;
+            for (int i = 0; i < lines.Length; i++)
             {
-                sb.Append(lines[i]);
+                if ((i == 0 && !skipFirstLine) || i != 0)
+                {
+                    sb.Append(new string(' ', padding));
+                }
+                if (i == length)
+                {
+                    sb.Append(lines[i]);
+                }
+                else
+                {
+                    sb.AppendLine(lines[i]);
+                }
             }
-            else
-            {
-                sb.AppendLine(lines[i]);
-            }
+            return sb.ToString();
         }
-        return sb.ToString();
     }
 }

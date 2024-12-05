@@ -53,22 +53,22 @@ public class ProblemGenerator : IIncrementalGenerator
             }
             """, Encoding.UTF8)));
     }
-}
 
-public readonly record struct ProblemInfo
-{
-    public readonly string Namespace;
-    public readonly string ClassName;
-    public readonly int Year;
-    public readonly int Day;
-    public readonly string? Name;
-
-    public ProblemInfo(string Namespace, string className, int year, int day, string? name)
+    private readonly record struct ProblemInfo
     {
-        this.Namespace = Namespace;
-        this.ClassName = className;
-        this.Year = year;
-        this.Day = day;
-        this.Name = name;
+        public readonly string Namespace;
+        public readonly string ClassName;
+        public readonly int Year;
+        public readonly int Day;
+        public readonly string? Name;
+
+        public ProblemInfo(string Namespace, string className, int year, int day, string? name)
+        {
+            this.Namespace = Namespace;
+            this.ClassName = className;
+            this.Year = year;
+            this.Day = day;
+            this.Name = name;
+        }
     }
 }
