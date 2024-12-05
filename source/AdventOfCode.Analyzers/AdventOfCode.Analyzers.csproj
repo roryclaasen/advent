@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" />
   </ItemGroup>
-
+  
 </Project>
