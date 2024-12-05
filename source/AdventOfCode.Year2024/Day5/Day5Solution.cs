@@ -10,22 +10,19 @@ using System.Linq;
 [Problem(2024, 5, "Print Queue")]
 public partial class Day5Solution : IProblemSolver
 {
+    // Caching "input.Rules.Where(r => r.After == page)" as it can save around ~200ms
+    private readonly Dictionary<int, PageOrderingRule[]> SearchCache = [];
+
     public object? PartOne(string input)
-    {
-        var inputData = ParseInput(input);
-        return AddMiddleNumbers(GetOrderValidity(inputData).Valid);
-    }
+        => AddMiddleNumbers(this.GetOrderValidity(ParseInput(input)).Valid);
 
     public object? PartTwo(string input)
     {
         var inputData = ParseInput(input);
-        return AddMiddleNumbers(FixOrder(inputData, GetOrderValidity(inputData).Invalid));
+        return AddMiddleNumbers(this.FixOrder(inputData, this.GetOrderValidity(inputData).Invalid));
     }
 
-    private static int AddMiddleNumbers(IEnumerable<int[]> numbers)
-        => numbers.Sum(r => r[(int)Math.Floor(r.Length / 2.0)]);
-
-    private static IEnumerable<int[]> FixOrder(InputData input, IEnumerable<int[]> orders)
+    private IEnumerable<int[]> FixOrder(InputData input, IEnumerable<int[]> orders)
     {
         foreach (var order in orders)
         {
@@ -33,11 +30,13 @@ public partial class Day5Solution : IProblemSolver
 
             foreach (var page in order)
             {
-                var newIndex = input.Rules
-                    .Where(r => r.After == page)
-                    .Where(r => order.Contains(r.Before))
-                    .Count();
+                if (!this.SearchCache.TryGetValue(page, out var rules))
+                {
+                    rules = input.Rules.Where(r => r.After == page).ToArray();
+                    this.SearchCache[page] = rules;
+                }
 
+                var newIndex = rules.Count(r => order.Contains(r.Before));
                 newOrder[newIndex] = page;
             }
 
@@ -45,7 +44,7 @@ public partial class Day5Solution : IProblemSolver
         }
     }
 
-    private static (IEnumerable<int[]> Valid, IEnumerable<int[]> Invalid) GetOrderValidity(InputData input)
+    private (IEnumerable<int[]> Valid, IEnumerable<int[]> Invalid) GetOrderValidity(InputData input)
     {
         var valid = new List<int[]>();
         var invalid = new List<int[]>();
@@ -55,11 +54,13 @@ public partial class Day5Solution : IProblemSolver
             var printedPages = new List<int>();
             foreach (var page in order)
             {
-                var canPrintPage = !input.Rules
-                    .Where(r => r.After == page)
-                    .Where(r => order.Contains(r.Before))
-                    .Any(r => !printedPages.Contains(r.Before));
+                if (!this.SearchCache.TryGetValue(page, out var rules))
+                {
+                    rules = input.Rules.Where(r => r.After == page).ToArray();
+                    this.SearchCache[page] = rules;
+                }
 
+                var canPrintPage = !rules.Any(r => order.Contains(r.Before) && !printedPages.Contains(r.Before));
                 if (canPrintPage)
                 {
                     printedPages.Add(page);
@@ -79,19 +80,22 @@ public partial class Day5Solution : IProblemSolver
         return (valid, invalid);
     }
 
+    private static int AddMiddleNumbers(IEnumerable<int[]> numbers)
+        => numbers.Sum(r => r[(int)Math.Floor(r.Length / 2.0)]);
+
     private static InputData ParseInput(string input)
     {
         var inputInParts = input.Lines(2);
         var rules = inputInParts
             .First()
             .Lines()
-            .Select(l => l.Split('|', 2).Select(int.Parse))
-            .Select(r => new PageOrderingRule(r.First(), r.Last()));
+            .Select(l => l.Split('|', 2).Select(int.Parse).ToArray())
+            .Select(r => new PageOrderingRule(r[0], r[1]));
         var ordering = inputInParts
             .Last()
             .Lines()
             .Select(l => l.Split(',').Select(int.Parse).ToArray());
-        return new (rules, ordering);
+        return new(rules, ordering);
     }
 
     private record struct InputData(IEnumerable<PageOrderingRule> Rules, IEnumerable<int[]> Ordering);
