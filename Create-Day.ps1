@@ -88,6 +88,7 @@ if (-not (Test-Path $ProjectFolder)) {
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" OutputItemType="Analyzer" />
     <ProjectReference Include="..\AdventOfCode.Analyzers\AdventOfCode.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
     <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
   </ItemGroup>
