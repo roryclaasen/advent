@@ -30,20 +30,20 @@ public partial class Day6Solution : IProblemSolver
         var (_, initalVisitedLocations, initialGuardInfo) = Simulate(map, guard);
 
         var totalLoops = 0;
+
+        //var width = map.GetLength(1);
+        //var height = map.GetLength(0);
         //foreach (var initGuard in initialGuardInfo)
         //{
-        //    var y = (int)initGuard.Position.Y;
-        //    var x = (int)initGuard.Position.X;
-
-        //    if (map[y,x] != '.')
+        //    var next = initGuard.Direction.ToVector() + initGuard.Position;
+        //    if (next.X < 0 || next.X >= width || next.Y < 0 || next.Y >= height)
         //    {
         //        continue;
         //    }
 
-
         //    var mapCopy = (char[,])map.Clone();
-        //    mapCopy[y, x] = 'O';
-        //    var (completed, _, _) = Simulate(mapCopy, initialGuardInfo.ElementAt(index - 1));
+        //    mapCopy[(int)next.Y, (int)next.X] = 'O';
+        //    var (completed, _, _) = Simulate(mapCopy, initGuard);
         //    if (!completed)
         //    {
         //        totalLoops++;
@@ -74,7 +74,7 @@ public partial class Day6Solution : IProblemSolver
             visitedLocations.Add(guard.Position);
             visitedGuardInfo.Add(new(guard.Position, guard.Direction));
 
-            var next = guard.Position + GetOffset(guard.Direction);
+            var next = guard.Position + guard.Direction.ToVector();
             if (next.X < 0 || next.X >= map.Width || next.Y < 0 || next.Y >= map.Height)
             {
                 break;
@@ -82,15 +82,7 @@ public partial class Day6Solution : IProblemSolver
 
             if (map[(int)next.Y, (int)next.X] != '.')
             {
-                guard.Direction = guard.Direction switch
-                {
-                    Direction.Up => Direction.Right,
-                    Direction.Right => Direction.Down,
-                    Direction.Down => Direction.Left,
-                    Direction.Left => Direction.Up,
-                    _ => throw new NotImplementedException()
-                };
-
+                guard.Direction = guard.Direction.Rotate();
                 continue;
             }
 
@@ -131,15 +123,6 @@ public partial class Day6Solution : IProblemSolver
 
         throw new InvalidOperationException("No guard found");
     }
-
-    private static Vector2 GetOffset(Direction direction) => direction switch
-    {
-        Direction.Up => new Vector2(0, -1),
-        Direction.Right => new Vector2(1, 0),
-        Direction.Down => new Vector2(0, 1),
-        Direction.Left => new Vector2(-1, 0),
-        _ => throw new NotImplementedException()
-    };
 
     private record struct GuardInfo(Vector2 Position, Direction Direction);
 
