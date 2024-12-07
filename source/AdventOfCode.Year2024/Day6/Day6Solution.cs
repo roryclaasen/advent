@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Threading.Tasks;
 
 [Problem(2024, 6, "Guard Gallivant")]
 public partial class Day6Solution : IProblemSolver
@@ -15,7 +16,7 @@ public partial class Day6Solution : IProblemSolver
     {
         var (map, guard) = ParseInput(input);
 
-        var (completed, visited, _) = Simulate(map, guard);
+        var (completed, visited) = Simulate(map, guard);
         if (!completed)
         {
             throw new Exception("Guard did not complete the simulation");
@@ -27,44 +28,17 @@ public partial class Day6Solution : IProblemSolver
     public object? PartTwo(string input)
     {
         var (map, guard) = ParseInput(input);
-        var (_, initalVisitedLocations, initialGuardInfo) = Simulate(map, guard);
+        var (_, visitedLocations) = Simulate(map, guard);
 
-        var totalLoops = 0;
-
-        //var width = map.GetLength(1);
-        //var height = map.GetLength(0);
-        //foreach (var initGuard in initialGuardInfo)
-        //{
-        //    var next = initGuard.Direction.ToVector() + initGuard.Position;
-        //    if (next.X < 0 || next.X >= width || next.Y < 0 || next.Y >= height)
-        //    {
-        //        continue;
-        //    }
-
-        //    var mapCopy = (char[,])map.Clone();
-        //    mapCopy[(int)next.Y, (int)next.X] = 'O';
-        //    var (completed, _, _) = Simulate(mapCopy, initGuard);
-        //    if (!completed)
-        //    {
-        //        totalLoops++;
-        //    }
-        //}
-
-        foreach (var visitedLoc in initalVisitedLocations)
+        return Task.WhenAll(visitedLocations.Select(loc => Task.Run(() =>
         {
             var mapCopy = (char[,])map.Clone();
-            mapCopy[(int)visitedLoc.Y, (int)visitedLoc.X] = 'O';
-            var (completed, _, _) = Simulate(mapCopy, guard);
-            if (!completed)
-            {
-                totalLoops++;
-            }
-        }
-
-        return totalLoops;
+            mapCopy[(int)loc.Y, (int)loc.X] = 'O';
+            return Simulate(mapCopy, guard).Completed;
+        }))).Result.Count(result => !result);
     }
 
-    private (bool Completed, IReadOnlySet<Vector2> VisitedLocations, IReadOnlySet<GuardInfo>) Simulate(ReadOnlySpan2D<char> map, GuardInfo guard)
+    private static (bool Completed, IReadOnlySet<Vector2> VisitedLocations) Simulate(ReadOnlySpan2D<char> map, GuardInfo guard)
     {
         var visitedLocations = new HashSet<Vector2>();
         var visitedGuardInfo = new HashSet<GuardInfo>();
@@ -90,11 +64,11 @@ public partial class Day6Solution : IProblemSolver
 
             if (visitedGuardInfo.Contains(new(guard.Position, guard.Direction)))
             {
-                return (false, visitedLocations, visitedGuardInfo);
+                return (false, visitedLocations);
             }
         }
 
-        return (true, visitedLocations, visitedGuardInfo);
+        return (true, visitedLocations);
     }
 
     private static InputData ParseInput(string input)
