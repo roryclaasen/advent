@@ -16,6 +16,7 @@
     <DebugType>embedded</DebugType>
 
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
