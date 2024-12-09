@@ -12,12 +12,14 @@ public static partial class IIEnumerableExtensions
     /// <typeparam name="T">The type of the values.</typeparam>
     /// <param name="values">The values to find combinations.</param>
     /// <param name="count">The size of each combination.</param>
-    /// <returns>An enumerable contianing all the subsequent combinations of the values provided.</returns>
+    /// <returns>An enumerable containing all the subsequent combinations of the values provided.</returns>
     public static IEnumerable<T[]> Combinations<T>(this IEnumerable<T> values, int count)
     {
+        ArgumentOutOfRangeException.ThrowIfNegative(count, nameof(count));
+
         if (count == 0)
         {
-            yield return Array.Empty<T>();
+            yield return [];
             yield break;
         }
 
@@ -26,7 +28,7 @@ public static partial class IIEnumerableExtensions
         {
             foreach (var combination in values.Skip(++i).Combinations(count - 1))
             {
-                yield return new[] { value }.Concat(combination).ToArray();
+                yield return [value, .. combination];
             }
         }
     }
