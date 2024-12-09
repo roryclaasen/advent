@@ -20,7 +20,6 @@ public partial class Day7Solution : IProblemSolver
         return 0;
     });
 
-
     public object? PartTwo(string input) => Task.WhenAll(ParseInput(input).Select(e => Task.Run(() =>
     {
         var results = GetAllPossibleResults(true, e.Values.First(), e.Values.Skip(1));
