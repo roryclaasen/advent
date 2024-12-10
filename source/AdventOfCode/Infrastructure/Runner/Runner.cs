@@ -101,7 +101,8 @@ internal sealed partial class Runner(AdventUri adventUri)
 
         var format = timeSpan.TotalMilliseconds switch
         {
-            < 1000 => $"{(int)timeSpan.TotalMilliseconds}ms",
+            < 10 => $"{timeSpan.TotalMilliseconds:F2}ms",
+            < 1000 => $"{timeSpan.TotalMilliseconds:F0}ms",
             < 1000 * 60 => $"{timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
             _ => $"{timeSpan.Minutes}m {timeSpan.Seconds}s {timeSpan.Milliseconds}ms",
         };
