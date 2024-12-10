@@ -35,7 +35,7 @@ public partial class Day8Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        var (antentas, width, height) = ParseInput(input);
+        var (antennas, width, height) = ParseInput(input);
 
         var antinodes = new HashSet<Vector2>();
         void AddAntinodes(Vector2 a, Vector2 b)
@@ -49,7 +49,7 @@ public partial class Day8Solution : IProblemSolver
             } while (IsInsideBounds(b, width, height));
         }
 
-        foreach (var (a, b) in antentas.Select(a => a.Combinations(2)).SelectMany(s => s))
+        foreach (var (a, b) in antennas.Select(a => a.Combinations(2)).SelectMany(s => s))
         {
             AddAntinodes(a, b);
             AddAntinodes(b, a);
