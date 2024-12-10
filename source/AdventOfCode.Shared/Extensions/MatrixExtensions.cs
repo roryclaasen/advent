@@ -31,7 +31,7 @@ public static class MatrixExtensions
     }
 
     public static int[,] ToMatrixInt(this IEnumerable<string> source)
-        => ToMatrix(source, c => int.Parse(c.ToString()));
+        => ToMatrix(source, c => c - '0');
 
     public static bool[,] ToMatrixBool(this IEnumerable<string> source, char trueChar = '#')
         => ToMatrix(source, c => c == trueChar);
