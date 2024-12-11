@@ -83,6 +83,27 @@ public static class StringExtensions
     }
 
     /// <summary>
+    /// Splits a string into substrings based on a space delimiter concatenate <see langword="count"/> times.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="count">The number of times to concatenate a space.</param>
+    /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by a space.</returns>
+    public static string[] Spaces(this string str, int count, StringSplitOptions options = StringSplitOptions.None)
+    {
+        ArgumentNullException.ThrowIfNull(str, nameof(str));
+        return str.Split(new string(' ', count), options);
+    }
+
+    /// <summary>
+    /// Splits a string into substrings based on a space delimiter.
+    /// </summary>
+    /// <param name="str">The input string</param>
+    /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
+    /// <returns>An array whose elements contain the substrings from this instance that are delimited by a space.</returns>
+    public static string[] Spaces(this string str, StringSplitOptions options = StringSplitOptions.None) => str.Spaces(1, options);
+
+    /// <summary>
     /// Reports the zero-based indexes of all the occurrences of a specified Unicode character or string within this instance.
     /// The method returns -1 if the character or string is not found in this instance.
     /// </summary>
