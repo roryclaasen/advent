@@ -36,7 +36,7 @@ public partial class Day22Solution : IProblemSolver
                 }
             }
 
-            currentFights = GetNextFights(currentFights.Where(IsGameRunning)).ToList();
+            currentFights = [.. GetNextFights(currentFights.Where(IsGameRunning))];
 
             foreach (var fight in currentFights.Where(IsGameRunning))
             {
@@ -95,7 +95,7 @@ public partial class Day22Solution : IProblemSolver
                 }
             }
 
-            currentFights = GetNextFights(currentFights.Where(IsGameRunning)).ToList();
+            currentFights = [.. GetNextFights(currentFights.Where(IsGameRunning))];
 
             foreach (var fight in currentFights.Where(IsGameRunning))
             {

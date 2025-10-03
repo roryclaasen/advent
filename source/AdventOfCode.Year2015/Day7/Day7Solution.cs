@@ -31,7 +31,7 @@ public partial class Day7Solution : IProblemSolver
     public Dictionary<string, ushort> RunInput(string input)
     {
         var instructions = this.ParseInput(input);
-        return RunInstructions(instructions.ToList());
+        return RunInstructions([.. instructions]);
     }
 
     private static Dictionary<string, ushort> RunInstructions(List<InstructionBase> instructions)

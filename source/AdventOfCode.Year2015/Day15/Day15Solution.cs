@@ -15,13 +15,13 @@ public partial class Day15Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var ingredients = ParseInput(input);
-        return GetBestScore(ingredients.ToArray(), (capacity, durability, flavor, texture, _) => capacity * durability * flavor * texture);
+        return GetBestScore([.. ingredients], (capacity, durability, flavor, texture, _) => capacity * durability * flavor * texture);
     }
 
     public object? PartTwo(string input)
     {
         var ingredients = ParseInput(input);
-        return GetBestScore(ingredients.ToArray(), (capacity, durability, flavor, texture, calories) => calories == 500 ? capacity * durability * flavor * texture : 0);
+        return GetBestScore([.. ingredients], (capacity, durability, flavor, texture, calories) => calories == 500 ? capacity * durability * flavor * texture : 0);
     }
 
     private static int GetBestScore(Ingredient[] ingredients, Func<int, int, int, int, int, int> bestScore)

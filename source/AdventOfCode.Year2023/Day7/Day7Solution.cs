@@ -83,7 +83,7 @@ public partial class Day7Solution : IProblemSolver
             }
 
             static char[] ReplaceJoker(char newCard, char[] cards)
-                => cards.Select(c => c == 'J' ? newCard : c).ToArray();
+                => [.. cards.Select(c => c == 'J' ? newCard : c)];
 
             return this.CamelCards
                 .Where(c => c != 'J')

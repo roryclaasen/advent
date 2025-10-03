@@ -30,7 +30,7 @@ public partial class Day4Solution : IProblemSolver
     private bool IsRealRoom(Room room)
     {
         var letterCounts = room.Name.Where(c => c != '-').GroupBy(c => c).Select(g => (g.Key, g.Count())).OrderByDescending(g => g.Item2).ThenBy(g => g.Key).Take(5).ToArray();
-        var checksum = new string(letterCounts.Select(g => g.Key).ToArray());
+        var checksum = new string([.. letterCounts.Select(g => g.Key)]);
         return checksum == room.Checksum;
     }
 

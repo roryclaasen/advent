@@ -62,7 +62,7 @@ public partial class Day3Solution : IProblemSolver
             .Split(',')
             .Select(ins => new Instruction((Direction)ins[0], int.Parse(ins[1..])));
 
-        return input.Lines().Select(ParseLine).ToArray();
+        return [.. input.Lines().Select(ParseLine)];
     }
 
     record Instruction(Direction Direction, int Distance);
