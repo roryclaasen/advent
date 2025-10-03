@@ -6,6 +6,8 @@
     <Product>AdventOfCode.Tests</Product>
 
     <EnableMSTestRunner>true</EnableMSTestRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+    
     <OutputType>Exe</OutputType>
 
     <IsPublishable>false</IsPublishable>
@@ -15,13 +17,10 @@
 
     <GenerateDocumentationFile>false</GenerateDocumentationFile>
     <EnableSourceLink>false</EnableSourceLink>
-
-    <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
-    <VSTestResultsDirectory>$(MSBuildThisFileDirectory)/TestResult</VSTestResultsDirectory>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="MSTest" />
+    <PackageReference Include="NSubstitute" />
   </ItemGroup>
 
   <ItemGroup>

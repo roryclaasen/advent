@@ -1,8 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-
+<Project Sdk="MSTest.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\source\AdventOfCode.Year2018\AdventOfCode.Year2018.csproj" />
     <ProjectReference Include="..\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj" />

@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="MSTest.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\source\AdventOfCode.Year2023\AdventOfCode.Year2023.csproj" />
     <ProjectReference Include="..\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj" />
