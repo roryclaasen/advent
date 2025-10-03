@@ -1,8 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>

@@ -79,10 +79,6 @@ if (-not (Test-Path $ProjectFolder)) {
 
     Set-Content -Path $ProjectFile -Value @"
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>
