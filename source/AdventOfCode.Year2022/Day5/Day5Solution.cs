@@ -49,7 +49,7 @@ public partial class Day5Solution : IProblemSolver
     private static IputData ParseInput(string input)
     {
         var data = input.Lines(2);
-        return new IputData(ParseStack(data[0]).ToArray(), PasrseInstruction(data[1]));
+        return new IputData([.. ParseStack(data[0])], PasrseInstruction(data[1]));
     }
 
     private static IEnumerable<Stack<char>> ParseStack(string input)

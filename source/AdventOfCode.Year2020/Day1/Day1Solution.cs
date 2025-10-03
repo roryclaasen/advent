@@ -13,13 +13,13 @@ public partial class Day1Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var entries = ParseInput(input);
-        return ProductEntriesThatSum(Target, 2, entries.ToArray());
+        return ProductEntriesThatSum(Target, 2, [.. entries]);
     }
 
     public object? PartTwo(string input)
     {
         var entries = ParseInput(input);
-        return ProductEntriesThatSum(Target, 3, entries.ToArray());
+        return ProductEntriesThatSum(Target, 3, [.. entries]);
     }
 
     private static IEnumerable<int> ParseInput(string input)

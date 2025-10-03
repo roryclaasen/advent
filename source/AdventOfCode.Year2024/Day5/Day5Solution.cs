@@ -32,7 +32,7 @@ public partial class Day5Solution : IProblemSolver
             {
                 if (!this.SearchCache.TryGetValue(page, out var rules))
                 {
-                    rules = input.Rules.Where(r => r.After == page).ToArray();
+                    rules = [.. input.Rules.Where(r => r.After == page)];
                     this.SearchCache[page] = rules;
                 }
 
@@ -56,7 +56,7 @@ public partial class Day5Solution : IProblemSolver
             {
                 if (!this.SearchCache.TryGetValue(page, out var rules))
                 {
-                    rules = input.Rules.Where(r => r.After == page).ToArray();
+                    rules = [.. input.Rules.Where(r => r.After == page)];
                     this.SearchCache[page] = rules;
                 }
 

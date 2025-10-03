@@ -64,18 +64,14 @@ public static class MatrixExtensions
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
 
-        return Enumerable.Range(0, source.GetLength(1))
-            .Select(x => source[rowIndex, x])
-            .ToArray();
+        return [.. Enumerable.Range(0, source.GetLength(1)).Select(x => source[rowIndex, x])];
     }
 
     public static T[] GetColumn<T>(this T[,] source, int columnIndex)
     {
         ArgumentNullException.ThrowIfNull(source, nameof(source));
 
-        return Enumerable.Range(0, source.GetLength(0))
-            .Select(x => source[x, columnIndex])
-            .ToArray();
+        return [.. Enumerable.Range(0, source.GetLength(0)).Select(x => source[x, columnIndex])];
     }
 
     public static T[,] Rotate<T>(this T[,] source, bool clockwise = true)

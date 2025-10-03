@@ -6,22 +6,16 @@ using System.Numerics;
 
 public static partial class IIEnumerableExtensions
 {
-    public static int Product(this IEnumerable<int> x) => Product<int, int>(x);
+    public static TNumber Product<TNumber>(this IEnumerable<TNumber> source)
+        where TNumber : struct, INumber<TNumber>
+        => Product<TNumber, TNumber>(source);
 
-    public static long Product(this IEnumerable<long> x) => Product<long, long>(x);
-
-    public static float Product(this IEnumerable<float> x) => Product<float, float>(x);
-
-    public static double Product(this IEnumerable<double> x) => Product<double, double>(x);
-
-    public static decimal Product(this IEnumerable<decimal> x) => Product<decimal, decimal>(x);
-
-    private static TResult Product<TSource, TResult>(this IEnumerable<TSource> x)
+    public static TResult Product<TSource, TResult>(this IEnumerable<TSource> source)
         where TSource : struct, INumber<TSource>
         where TResult : struct, INumber<TResult>
     {
         TResult result = TResult.One;
-        foreach (var item in x)
+        foreach (var item in source)
         {
             checked
             {

@@ -31,7 +31,7 @@ public class AdventUriTests
     [DataRow(2021)]
     public void BuildUriForYearThrowsWhenYearsOutOfRange(int year)
     {
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => this.adventUri.Build(year));
+        Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => this.adventUri.Build(year));
     }
 
     [TestMethod]
@@ -47,7 +47,7 @@ public class AdventUriTests
     [DataRow(2021)]
     public void BuildUriUriForDayThrowsWhenYearIsOutOfRange(int year)
     {
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => this.adventUri.Build(year, 1));
+        Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => this.adventUri.Build(year, 1));
     }
 
     [TestMethod]
@@ -55,6 +55,6 @@ public class AdventUriTests
     [DataRow(26)]
     public void BuildUriUriForDayThrowsWhenDayIsOutOfRange(int day)
     {
-        Assert.ThrowsException<ArgumentOutOfRangeException>(() => this.adventUri.Build(2020, day));
+        Assert.ThrowsExactly<ArgumentOutOfRangeException>(() => this.adventUri.Build(2020, day));
     }
 }
