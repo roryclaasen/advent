@@ -1,8 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">  
-  <ItemGroup>
-    <PackageReference Include="NSubstitute" />
-  </ItemGroup>
-
+<Project Sdk="MSTest.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\source\AdventOfCode.Problem\AdventOfCode.Problem.csproj" />
     <ProjectReference Include="..\..\source\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
