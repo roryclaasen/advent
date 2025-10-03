@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
-VisualStudioVersion = 18.0.11018.127 d18.0
+VisualStudioVersion = 18.0.11018.127
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode", "source\AdventOfCode\AdventOfCode.csproj", "{5D8AC52A-BB51-4350-A2F0-B1B2041076E0}"
 EndProject
@@ -12,6 +12,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{2573ECE4-3D36-4424-B69B-34038BBF688B}"
 	ProjectSection(SolutionItems) = preProject
 		tests\Directory.Build.props = tests\Directory.Build.props
+		tests\MSTestSettings.cs = tests\MSTestSettings.cs
 		tests\Usings.cs = tests\Usings.cs
 	EndProjectSection
 EndProject
@@ -20,6 +21,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0DD4A664-01FD-477E-9DE9-C19F3BBEF1D2}"
 	ProjectSection(SolutionItems) = preProject
 		.editorconfig = .editorconfig
+		Create-Day.ps1 = Create-Day.ps1
 		Directory.Build.props = Directory.Build.props
 		Directory.Packages.props = Directory.Packages.props
 		global.json = global.json
@@ -70,6 +72,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{A5645B90-98F5-4161-ACF6-A75B07550283}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Problem", "source\AdventOfCode.Problem\AdventOfCode.Problem.csproj", "{285A5757-AEE7-4BA3-8A19-7C830E7F3408}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2025", "source\AdventOfCode.Year2025\AdventOfCode.Year2025.csproj", "{17BBE97E-D644-4B6A-F7DB-91669360CC64}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Year2025.Tests", "tests\AdventOfCode.Year2025.Tests\AdventOfCode.Year2025.Tests.csproj", "{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -169,6 +175,14 @@ Global
 		{285A5757-AEE7-4BA3-8A19-7C830E7F3408}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{285A5757-AEE7-4BA3-8A19-7C830E7F3408}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{285A5757-AEE7-4BA3-8A19-7C830E7F3408}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17BBE97E-D644-4B6A-F7DB-91669360CC64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17BBE97E-D644-4B6A-F7DB-91669360CC64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17BBE97E-D644-4B6A-F7DB-91669360CC64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17BBE97E-D644-4B6A-F7DB-91669360CC64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -199,6 +213,8 @@ Global
 		{EEC3441E-8BD8-4C0C-836E-D99C9655CC67} = {DBAB2D89-876F-4F20-8366-B47DCA168519}
 		{76F5E752-41C8-4D58-AD15-B6449016DA9C} = {A5645B90-98F5-4161-ACF6-A75B07550283}
 		{285A5757-AEE7-4BA3-8A19-7C830E7F3408} = {A5645B90-98F5-4161-ACF6-A75B07550283}
+		{17BBE97E-D644-4B6A-F7DB-91669360CC64} = {C05E84FE-470D-4AB6-8BED-89AE46E3A942}
+		{BF1A71CD-CE7B-F5AC-EADB-4B493B1A87EB} = {DBAB2D89-876F-4F20-8366-B47DCA168519}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7E90FE4B-5F43-4D51-8CD4-6C89F2FE5504}

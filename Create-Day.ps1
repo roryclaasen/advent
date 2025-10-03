@@ -79,10 +79,6 @@ if (-not (Test-Path $ProjectFolder)) {
 
     Set-Content -Path $ProjectFile -Value @"
 <Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-
   <ItemGroup>
     <AdditionalFiles Include="Day*\*.txt" />
   </ItemGroup>
@@ -150,8 +146,7 @@ if (-not (Test-Path $TestProjectFolder)) {
     dotnet new mstest -o $TestProjectFolder --no-restore
     dotnet sln $SolutionFile add $TestProjectFolder --solution-folder "Tests\Events"
 
-    Remove-Item (Join-Path $TestProjectFolder "GlobalUsings.cs")
-    Remove-Item (Join-Path $TestProjectFolder "UnitTest1.cs")
+    Remove-Item (Join-Path $TestProjectFolder "Test1.cs")
 
     Set-Content -Path $TestProjectFile -Value @"
 <Project Sdk="MSTest.Sdk">
