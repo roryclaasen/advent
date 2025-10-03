@@ -154,11 +154,7 @@ if (-not (Test-Path $TestProjectFolder)) {
     Remove-Item (Join-Path $TestProjectFolder "UnitTest1.cs")
 
     Set-Content -Path $TestProjectFile -Value @"
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>library</OutputType>
-  </PropertyGroup>
-
+<Project Sdk="MSTest.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\..\source\$ProjectName\$ProjectName.csproj" />
     <ProjectReference Include="..\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj" />
