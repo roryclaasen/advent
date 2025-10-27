@@ -19,11 +19,19 @@
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
   </PropertyGroup>
 
-  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
-    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
-  </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" />
+    <PackageReference Include="StyleCop.Analyzers" />
+  </ItemGroup>
+
+  <PropertyGroup Label="Code Quality">
+    <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+  </PropertyGroup>
+
+  <ItemGroup Label="Code Quality">
+    <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
   </ItemGroup>
 </Project>
