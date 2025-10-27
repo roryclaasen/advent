@@ -4,13 +4,33 @@ using AdventOfCode.Infrastructure;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Spectre.Console;
-using Spectre.Console.Cli;
-using System.Diagnostics.CodeAnalysis;
+using System;
+using System.CommandLine;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
 
-internal sealed class ListCommand( SolutionFinder solutionFinder, AdventUri adventUri) : Command<YearSettings>
+internal sealed class ListCommand : BaseCommand
 {
-    public override int Execute([NotNull] CommandContext context, [NotNull] YearSettings settings)
+    private readonly Options commandOptions;
+    private readonly SolutionFinder solutionFinder;
+    private readonly AdventUri adventUri;
+
+    public ListCommand(Options options, SolutionFinder solutionFinder, AdventUri adventUri)
+        : base("list", "List all available solutions")
+    {
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(solutionFinder);
+        ArgumentNullException.ThrowIfNull(adventUri);
+
+        this.commandOptions = options;
+        this.solutionFinder = solutionFinder;
+        this.adventUri = adventUri;
+
+        this.Options.Add(options.Year);
+    }
+
+    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var table = new Table();
         table.AddColumn("Year");
@@ -18,8 +38,8 @@ internal sealed class ListCommand( SolutionFinder solutionFinder, AdventUri adve
         table.AddColumn("Name");
         table.AddColumn("Link");
 
-        var sortedSolvers = solutionFinder
-            .GetSolversFor(settings.Year)
+        var sortedSolvers = this.solutionFinder
+            .GetSolversFor(parseResult.GetValue(this.commandOptions.Year))
             .GroupByYear()
             .OrderByDescending(y => y.Key);
 
@@ -41,6 +61,6 @@ internal sealed class ListCommand( SolutionFinder solutionFinder, AdventUri adve
         }
 
         AnsiConsole.Write(table);
-        return 0;
+        return Task.FromResult(0);
     }
 }

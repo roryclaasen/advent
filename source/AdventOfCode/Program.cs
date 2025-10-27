@@ -2,60 +2,65 @@ using AdventOfCode.Commands;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Spectre.Console.Cli;
+using Microsoft.Extensions.DependencyInjection.Extensions;
+using Microsoft.Extensions.Hosting;
 using System;
+using System.CommandLine;
 using System.Text;
+using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-var registrations = new ServiceCollection();
-registrations.AddSingleton<IDateTimeProvider, DateTimeProvider>();
-registrations.AddSingleton<AdventUri>();
-registrations.AddSingleton<SolutionFinder>();
-registrations.AddSingleton<Runner>();
+using var app = BuildApplicationAsync(args);
 
-foreach (var solution in AssemblyFinder.FindAllOfType<IProblemSolver>())
+await app.StartAsync().ConfigureAwait(false);
+
+var rootCommand = app.Services.GetRequiredService<AdventOfCode.Commands.RootCommand>();
+var invokeConfig = new InvocationConfiguration()
 {
-    registrations.AddSingleton(typeof(IProblemSolver), solution);
-}
-
-var registrar = new TypeRegistrar(registrations);
-var app = new CommandApp<DefaultCommand>(registrar);
-app.WithDescription("Rory Claasens solutions to Advent of Code");
-app.Configure(config =>
-{
-    config.SetApplicationName(ThisAssembly.AssemblyName + ".exe");
-    config.SetApplicationVersion(ThisAssembly.AssemblyVersion);
-
 #if DEBUG
-    config.ValidateExamples();
-    config.PropagateExceptions();
+    EnableDefaultExceptionHandler = !System.Diagnostics.Debugger.IsAttached
+#else
+    EnableDefaultExceptionHandler = true
 #endif
+};
 
-    config.AddExample([]);
-    config.AddExample(["--year", "2015"]);
+var exitCode = await rootCommand.Parse(args).InvokeAsync(invokeConfig);
 
-    config.AddCommand<ListCommand>("list")
-        .WithDescription("List all available solutions")
-        .WithExample(["list"])
-        .WithExample(["list", "--year", "2020"]);
+await app.StopAsync().ConfigureAwait(false);
 
-    config.AddCommand<TodayCommand>("today")
-        .WithDescription("Run todays solution");
-
-    config.AddCommand<LastCommand>("last")
-        .WithDescription("Run the last solution for a given year")
-        .WithExample(["last"])
-        .WithExample(["last", "--year", "2022"]);
-
-    config.AddCommand<AllCommand>("all")
-        .WithDescription("Run all the solutions")
-        .WithExample(["all"])
-        .WithExample(["all", "--day", "1"])
-        .WithExample(["all", "--year", "2024"])
-        .WithExample(["all", "--year", "2020", "--day", "12"]);
-});
-
-var exitCode = await app.RunAsync(args).ConfigureAwait(false);
 return exitCode;
+
+static IHost BuildApplicationAsync(string[] args)
+{
+    var settings = new HostApplicationBuilderSettings
+    {
+        Configuration = new ConfigurationManager()
+    };
+    settings.Configuration.AddEnvironmentVariables();
+
+    var builder = Host.CreateEmptyApplicationBuilder(settings);
+    builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
+    builder.Services.AddSingleton<AdventUri>();
+    builder.Services.AddSingleton<SolutionFinder>();
+    builder.Services.AddSingleton<Runner>();
+
+    foreach (var solution in AssemblyFinder.FindAllOfType<IProblemSolver>())
+    {
+        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IProblemSolver), solution));
+    }
+
+    builder.Services.AddSingleton<Options>();
+
+    builder.Services.AddTransient<AdventOfCode.Commands.RootCommand>();
+    builder.Services.AddTransient<ListCommand>();
+    builder.Services.AddTransient<AllCommand>();
+    builder.Services.AddTransient<TodayCommand>();
+    builder.Services.AddTransient<LastCommand>();
+    builder.Services.AddTransient<PickCommand>();
+
+    var app = builder.Build();
+    return app;
+}

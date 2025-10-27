@@ -1,0 +1,51 @@
+namespace AdventOfCode.Commands;
+
+using AdventOfCode.Shared;
+using System;
+using System.CommandLine;
+
+internal sealed class Options(IDateTimeProvider dateTimeProvider)
+{
+    private readonly Lazy<Option<int>> lazyYear = new(() =>
+    {
+        var argument = new Option<int>("year")
+        {
+            Description = "The year of the available puzzles."
+        };
+
+        argument.Validators.Add(result =>
+        {
+            var year = result.GetRequiredValue(argument);
+            if (year < 2015 || year > dateTimeProvider.Now.Year)
+            {
+                result.AddError("Year must be between 2015 and current year.");
+            }
+        });
+
+        return argument;
+
+    });
+
+    private readonly Lazy<Option<int>> lazyDay = new(() =>
+    {
+        var argument = new Option<int>("day")
+        {
+            Description = "The day of the available puzzle (1-25)."
+        };
+
+        argument.Validators.Add(result =>
+        {
+            var day = result.GetRequiredValue(argument);
+            if (day < 1 || day > 25)
+            {
+                result.AddError("Day must be between 1 and 25.");
+            }
+        });
+
+        return argument;
+    });
+
+    internal Option<int> Year => lazyYear.Value;
+
+    internal Option<int> Day => lazyDay.Value;
+}

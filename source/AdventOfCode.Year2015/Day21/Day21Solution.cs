@@ -20,7 +20,8 @@ public partial class Day21Solution : IProblemSolver
             {
                 minGold = Math.Min(minGold, goldSpent);
             }
-        };
+        }
+        ;
 
         return minGold;
     }

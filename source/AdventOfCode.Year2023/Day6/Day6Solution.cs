@@ -66,7 +66,8 @@ public partial class Day6Solution : IProblemSolver
             }
 
             return result;
-        };
+        }
+        ;
 
         var start = Search(time, (current) =>
         {

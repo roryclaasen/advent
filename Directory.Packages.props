@@ -7,10 +7,11 @@
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="3.11.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="4.14.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection" Version="9.0.9" />
+    <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.0-rc.2.25502.107" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.8.118" />
     <PackageVersion Include="Spectre.Console.Analyzer" Version="1.0.0" />
-    <PackageVersion Include="Spectre.Console.Cli" Version="0.51.1" />
+    <PackageVersion Include="Spectre.Console" Version="0.51.1" />
+    <PackageVersion Include="System.CommandLine" Version="2.0.0-rc.2.25502.107" />
   </ItemGroup>
   <ItemGroup Label="Test Packages">
     <PackageVersion Include="Microsoft.Testing.Extensions.TrxReport" Version="1.9.0" />

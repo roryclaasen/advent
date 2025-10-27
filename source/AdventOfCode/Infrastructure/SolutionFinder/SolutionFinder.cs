@@ -10,6 +10,17 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
 
     public IEnumerable<IProblemSolver> GetSolversFor(int? year = null, int? day = null)
     {
+        // TODO: Remove nullable
+        if (year == 0)
+        {
+            year = null;
+        }
+
+        if (day == 0)
+        {
+            day = null;
+        }
+
         if (!solvers.Any())
         {
             throw new SolutionMissingException("There are no solutions yet");

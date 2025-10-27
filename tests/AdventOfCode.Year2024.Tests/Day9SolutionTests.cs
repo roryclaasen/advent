@@ -1,8 +1,6 @@
 namespace AdventOfCode.Year2024.Tests;
 
-using AdventOfCode.Shared;
 using AdventOfCode.Shared.Tests;
-using CommunityToolkit.HighPerformance;
 
 [TestClass]
 public class Day9SolutionTests : SolverBaseTests<Day9Solution>

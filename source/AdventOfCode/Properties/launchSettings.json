@@ -2,7 +2,7 @@
   "profiles": {
     "AdventOfCode (pick)": {
       "commandName": "Project",
-      "commandLineArgs": ""
+      "commandLineArgs": "pick"
     },
     "AdventOfCode (today)": {
       "commandName": "Project",
