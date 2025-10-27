@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2016;
 
 using AdventOfCode.Problem;
@@ -54,11 +57,11 @@ public partial class Day2Solution : IProblemSolver
     {
         var keypad = new char?[5, 5]
         {
-            { null, null, '1', null, null},
+            { null, null, '1', null, null },
             { null, '2', '3', '4', null },
             { '5', '6', '7', '8', '9' },
             { null, 'A', 'B', 'C', null },
-            { null, null, 'D', null, null},
+            { null, null, 'D', null, null },
         };
 
         var sb = new StringBuilder();

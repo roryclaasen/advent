@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Infrastructure;
 
 using AdventOfCode.Problem;
@@ -25,7 +28,7 @@ internal sealed partial class Runner(AdventUri adventUri)
 
             foreach (var solver in year.OrderBy(s => s.GetDay()))
             {
-                var result = Run(solver);
+                var result = this.Run(solver);
                 allResults.Add(result);
 
                 PrintResult(result);
@@ -59,10 +62,10 @@ internal sealed partial class Runner(AdventUri adventUri)
         }
 
         return new SolutionResult(partOne, partTwo);
-    });
 
-    private static string GetResultEmoji(ProblemPartResult result)
-        => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
+        static string GetResultEmoji(ProblemPartResult result)
+            => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
+    });
 
     private static void PrintResult(SolutionResult result)
     {
@@ -127,6 +130,7 @@ internal sealed partial class Runner(AdventUri adventUri)
             throw;
 #endif
         }
+
         stopwatch.Stop();
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }

@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2016;
 
 using AdventOfCode.Problem;
@@ -17,7 +20,7 @@ public partial class Day5Solution : IProblemSolver
         var index = 0;
         while (password.Length < 8)
         {
-            var hashString = GetHash($"{input}{index}");
+            var hashString = this.GetHash($"{input}{index}");
             if (hashString.StartsWith("00000"))
             {
                 password.Append(hashString[5]);
@@ -36,7 +39,7 @@ public partial class Day5Solution : IProblemSolver
         var chars = new char[8];
         while (found < 8)
         {
-            var hashString = GetHash($"{input}{index}");
+            var hashString = this.GetHash($"{input}{index}");
             if (hashString.StartsWith("00000"))
             {
                 var position = hashString[5] - '0';
@@ -55,14 +58,14 @@ public partial class Day5Solution : IProblemSolver
 
     private string GetHash(string input)
     {
-        if (hashCache.TryGetValue(input, out var hashString))
+        if (this.hashCache.TryGetValue(input, out var hashString))
         {
             return hashString;
         }
 
         var hash = MD5.HashData(Encoding.ASCII.GetBytes(input));
         hashString = BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
-        hashCache.Add(input, hashString);
+        this.hashCache.Add(input, hashString);
         return hashString;
     }
 }

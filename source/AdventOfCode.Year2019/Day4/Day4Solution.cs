@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2019;
 
 using AdventOfCode.Problem;
@@ -10,10 +13,10 @@ using System.Linq;
 public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
-        => ParseInput(input).Count(IsValidPassword);
+        => ParseInput(input).Count(this.IsValidPassword);
 
     public object? PartTwo(string input)
-        => ParseInput(input).Where(IsValidPassword).Count(p => p.GroupBy(c => c).Any(g => g.Count() == 2));
+        => ParseInput(input).Where(this.IsValidPassword).Count(p => p.GroupBy(c => c).Any(g => g.Count() == 2));
 
     private bool IsValidPassword(string password)
     {

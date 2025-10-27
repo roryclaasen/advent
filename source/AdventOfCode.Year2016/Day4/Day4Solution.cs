@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2016;
 
 using AdventOfCode.Problem;
@@ -11,11 +14,11 @@ using System.Text.RegularExpressions;
 public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
-        => ParseRooms(input).Where(IsRealRoom).Sum(r => r.SectorId);
+        => ParseRooms(input).Where(this.IsRealRoom).Sum(r => r.SectorId);
 
     public object? PartTwo(string input)
     {
-        foreach (var room in ParseRooms(input).Where(IsRealRoom))
+        foreach (var room in ParseRooms(input).Where(this.IsRealRoom))
         {
             var rotatedName = RotateRoomName(room.Name, room.SectorId);
             if (rotatedName.Contains("northpole"))

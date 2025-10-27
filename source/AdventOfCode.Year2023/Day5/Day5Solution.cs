@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2023;
 
 using AdventOfCode.Problem;
@@ -12,7 +15,7 @@ public partial class Day5Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
-        var parsedInput = ParseInput(input);
+        var parsedInput = this.ParseInput(input);
 
         long GetLocation(long source)
         {
@@ -42,7 +45,7 @@ public partial class Day5Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        var parsedInput = ParseInput(input);
+        var parsedInput = this.ParseInput(input);
         var seeds = parsedInput.Seeds;
 
         var bag = new TreeNode(0, long.MaxValue);
@@ -99,7 +102,7 @@ public partial class Day5Solution : IProblemSolver
 
     internal record class MapRange(long Destination, long Source, long Length) : IComparable<MapRange>
     {
-        public long MaxStart => Source + Length;
+        public long MaxStart => this.Source + this.Length;
 
         public int CompareTo(MapRange? other)
         {
@@ -119,13 +122,13 @@ public partial class Day5Solution : IProblemSolver
 
         internal bool TryGetDestination(long source, [NotNullWhen(true)] out long? destination)
         {
-            if (source < Source || source > Source + Length)
+            if (source < this.Source || source > this.Source + this.Length)
             {
                 destination = null;
                 return false;
             }
 
-            destination = Destination + (source - Source);
+            destination = this.Destination + (source - this.Source);
             return true;
         }
     }
@@ -174,14 +177,14 @@ public partial class Day5Solution : IProblemSolver
 
             foreach (var (start, end) in mapped)
             {
-                var node = new TreeNode(start, end, Depth + 1);
+                var node = new TreeNode(start, end, this.Depth + 1);
                 node.Populate(maps);
                 this.Children.Add(node);
             }
 
             foreach (var (start, end) in unmapped)
             {
-                var node = new TreeNode(start, end, Depth + 1);
+                var node = new TreeNode(start, end, this.Depth + 1);
                 node.Populate(maps);
                 this.Children.Add(node);
             }

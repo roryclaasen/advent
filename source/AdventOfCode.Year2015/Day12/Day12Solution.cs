@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2015;
 
 using AdventOfCode.Problem;
@@ -20,7 +23,7 @@ public partial class Day12Solution : IProblemSolver
     public object? PartTwo(string input)
     {
         var jsonObject = JsonNode.Parse(input) ?? throw new JsonException("Failed to parse input");
-        return CountNumbersWithoutRed(jsonObject);
+        return this.CountNumbersWithoutRed(jsonObject);
     }
 
     private int CountNumbersWithoutRed(JsonNode? node) => node switch

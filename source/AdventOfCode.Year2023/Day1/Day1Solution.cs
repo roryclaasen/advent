@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2023;
 
 using AdventOfCode.Problem;
@@ -23,7 +26,7 @@ public partial class Day1Solution : IProblemSolver
     public object? PartTwo(string input)
     {
         var sum = 0;
-        foreach (var line in input.Lines().Select(RewriteLine))
+        foreach (var line in input.Lines().Select(this.RewriteLine))
         {
             var digits = line.Where(char.IsDigit);
             var number = $"{digits.First()}{digits.Last()}";

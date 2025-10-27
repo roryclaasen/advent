@@ -27,6 +27,8 @@
   <PropertyGroup Label="Code Quality">
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
+
+    <NoWarn>$(NoWarn);SA1600;SA1601;SA1313;SA1208;SA1413</NoWarn>
   </PropertyGroup>
 
   <ItemGroup Label="Code Quality">

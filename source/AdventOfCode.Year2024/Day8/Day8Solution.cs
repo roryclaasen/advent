@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2024;
 
 using AdventOfCode.Problem;
@@ -10,6 +13,8 @@ using System.Numerics;
 [Problem(2024, 8, "Resonant Collinearity")]
 public partial class Day8Solution : IProblemSolver
 {
+    private record struct InputData(ILookup<char, Vector2> Antennas, int Width, int Height);
+
     public object? PartOne(string input)
     {
         var (antentas, width, height) = ParseInput(input);
@@ -83,7 +88,4 @@ public partial class Day8Solution : IProblemSolver
         var lines = input.Lines();
         return new InputData(GetAntennas(lines).ToLookup(a => a.Frequency, a => a.Position), lines.Length, lines.First().Length);
     }
-
-    private record struct InputData(ILookup<char, Vector2> Antennas, int Width, int Height);
 }
-

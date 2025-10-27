@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2023;
 
 using AdventOfCode.Problem;
@@ -24,7 +27,7 @@ public partial class Day6Solution : IProblemSolver
         var winningRanges = new List<long>();
         for (var i = 0; i < lines[0].Length; i++)
         {
-            var possibleWins = NumberOfWinsPossible(int.Parse(lines[0][i]), int.Parse(lines[1][i]));
+            var possibleWins = this.NumberOfWinsPossible(int.Parse(lines[0][i]), int.Parse(lines[1][i]));
             winningRanges.Add(possibleWins);
         }
 
@@ -39,12 +42,12 @@ public partial class Day6Solution : IProblemSolver
             .Select(long.Parse)
             .ToArray();
 
-        return NumberOfWinsPossible(time, distance);
+        return this.NumberOfWinsPossible(time, distance);
     }
 
     private long NumberOfWinsPossible(long time, long distance)
     {
-        var result = FindStartAndEnd(time, distance);
+        var result = this.FindStartAndEnd(time, distance);
         if (!result.HasValue)
         {
             return 0;

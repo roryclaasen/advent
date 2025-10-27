@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2015;
 
 using AdventOfCode.Problem;
@@ -48,7 +51,7 @@ public partial class Day18Solution : IProblemSolver
 
     private bool[,] ProcessGrid(bool[,] grid)
     {
-        var newGrid = new bool[GridSize, GridSize];
+        var newGrid = new bool[this.GridSize, this.GridSize];
 
         for (var y = 0; y < this.GridSize; y++)
         {
@@ -86,7 +89,7 @@ public partial class Day18Solution : IProblemSolver
                 var nx = x + dx;
                 var ny = y + dy;
 
-                if (nx < 0 || nx >= GridSize || ny < 0 || ny >= GridSize)
+                if (nx < 0 || nx >= this.GridSize || ny < 0 || ny >= this.GridSize)
                 {
                     continue;
                 }
@@ -103,15 +106,15 @@ public partial class Day18Solution : IProblemSolver
 
     private bool[,] ParseInput(string input)
     {
-        var grid = new bool[GridSize, GridSize];
+        var grid = new bool[this.GridSize, this.GridSize];
 
         var lines = input.Lines();
 
-        for (var y = 0; y < GridSize; y++)
+        for (var y = 0; y < this.GridSize; y++)
         {
             var line = lines[y];
 
-            for (var x = 0; x < GridSize; x++)
+            for (var x = 0; x < this.GridSize; x++)
             {
                 grid[y, x] = line[x] == '#';
             }

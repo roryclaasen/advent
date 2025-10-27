@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2023;
 
 using AdventOfCode.Problem;
@@ -69,9 +72,9 @@ public partial class Day4Solution : IProblemSolver
 
     private record ScratchCard(int Id, IReadOnlyCollection<int> WinningNumbers, IReadOnlyCollection<int> PickedNumbers)
     {
-        private bool IsWinningNumber(int number) => WinningNumbers.Contains(number);
+        private bool IsWinningNumber(int number) => this.WinningNumbers.Contains(number);
 
-        public IReadOnlyCollection<int> NumbersThatWon => PickedNumbers.Where(IsWinningNumber).ToList();
+        public IReadOnlyCollection<int> NumbersThatWon => this.PickedNumbers.Where(this.IsWinningNumber).ToList();
     }
 
     [GeneratedRegex(@"Card +(?<Id>\d+):(?<Winning>(?: +\d+)+) \|(?<Picked>(?: +\d+)+)")]

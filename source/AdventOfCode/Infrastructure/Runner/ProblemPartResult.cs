@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Infrastructure;
 
 using Spectre.Console;
@@ -16,4 +19,3 @@ internal record struct ProblemPartResult(TimeSpan Elapsed, string? Expected, str
 
     public readonly Color ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? Color.Yellow : this.ActualColor;
 }
-

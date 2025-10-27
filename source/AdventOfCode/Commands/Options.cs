@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Commands;
 
 using AdventOfCode.Shared;
@@ -23,7 +26,6 @@ internal sealed class Options(IDateTimeProvider dateTimeProvider)
         });
 
         return argument;
-
     });
 
     private readonly Lazy<Option<int>> lazyDay = new(() =>
@@ -45,7 +47,7 @@ internal sealed class Options(IDateTimeProvider dateTimeProvider)
         return argument;
     });
 
-    internal Option<int> Year => lazyYear.Value;
+    internal Option<int> Year => this.lazyYear.Value;
 
-    internal Option<int> Day => lazyDay.Value;
+    internal Option<int> Day => this.lazyDay.Value;
 }

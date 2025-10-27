@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Commands;
 
 using AdventOfCode.Infrastructure;
@@ -50,7 +53,7 @@ internal sealed class ListCommand : BaseCommand
                 var year = solver.GetYear();
                 var day = solver.GetDay();
                 var name = solver.GetName() ?? string.Empty;
-                var uri = adventUri.Build(year, day);
+                var uri = this.adventUri.Build(year, day);
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
 

@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2015;
 
 using AdventOfCode.Problem;
@@ -13,13 +16,13 @@ public partial class Day24Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var packages = ParseInput(input).ToArray();
-        return FindBestQE(packages, 3);
+        return this.FindBestQE(packages, 3);
     }
 
     public object? PartTwo(string input)
     {
         var packages = ParseInput(input).ToArray();
-        return FindBestQE(packages, 4);
+        return this.FindBestQE(packages, 4);
     }
 
     private long FindBestQE(int[] packages, int groups)

@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2016;
 
 using AdventOfCode.Problem;
@@ -32,21 +35,21 @@ public partial class Day7Solution : IProblemSolver
     {
         public bool SupportsTLS()
         {
-            var addressABBA = Address.Any(ContainsABBA);
-            var hypernetABBA = HypernetSequence.Any(ContainsABBA);
+            var addressABBA = this.Address.Any(this.ContainsABBA);
+            var hypernetABBA = this.HypernetSequence.Any(this.ContainsABBA);
             return addressABBA && !hypernetABBA;
         }
 
         public bool SupportsSSL()
         {
-            foreach (var sequence in Address)
+            foreach (var sequence in this.Address)
             {
                 for (var i = 0; i < sequence.Length - 2; i++)
                 {
                     if (sequence[i] == sequence[i + 2] && sequence[i] != sequence[i + 1])
                     {
                         var bab = $"{sequence[i + 1]}{sequence[i]}{sequence[i + 1]}";
-                        if (HypernetSequence.Any(hypernet => hypernet.Contains(bab)))
+                        if (this.HypernetSequence.Any(hypernet => hypernet.Contains(bab)))
                         {
                             return true;
                         }

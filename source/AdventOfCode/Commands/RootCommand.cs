@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Commands;
 
 using System;
@@ -11,7 +14,8 @@ internal sealed class RootCommand : BaseRootCommand
         AllCommand allCommand,
         TodayCommand todayCommand,
         LastCommand lastCommand,
-        PickCommand pickCommand) : base("Rory Claasens solutions to Advent of Code")
+        PickCommand pickCommand)
+        : base("Rory Claasens solutions to Advent of Code")
     {
         ArgumentNullException.ThrowIfNull(listCommand);
         ArgumentNullException.ThrowIfNull(allCommand);

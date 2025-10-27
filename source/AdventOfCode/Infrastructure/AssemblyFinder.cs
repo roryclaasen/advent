@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Infrastructure;
 
 using System;
@@ -8,6 +11,16 @@ using System.Reflection;
 
 internal sealed class AssemblyFinder
 {
+    public static IEnumerable<Type> FindAllOfType<T>()
+    {
+        var baseType = typeof(T);
+
+        return GetAdventAssemblies()
+            .SelectMany(a => a.GetTypes())
+            .Where(t => t.IsClass && !t.IsAbstract)
+            .Where(baseType.IsAssignableFrom);
+    }
+
     private static IEnumerable<Assembly> GetAdventAssemblies()
     {
         var directoryInfo = new DirectoryInfo(AppDomain.CurrentDomain.BaseDirectory);
@@ -17,15 +30,5 @@ internal sealed class AssemblyFinder
         {
             yield return Assembly.Load(Path.GetFileNameWithoutExtension(file.Name));
         }
-    }
-
-    public static IEnumerable<Type> FindAllOfType<T>()
-    {
-        var baseType = typeof(T);
-
-        return GetAdventAssemblies()
-            .SelectMany(a => a.GetTypes())
-            .Where(t => t.IsClass && !t.IsAbstract)
-            .Where(baseType.IsAssignableFrom);
     }
 }

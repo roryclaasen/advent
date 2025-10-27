@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2015.Tests;
 
 using AdventOfCode.Shared.Tests;
@@ -21,14 +24,14 @@ NOT y -> i");
 
         var expected = new Dictionary<string, ushort>
         {
-            {"d", 72},
-            {"e", 507},
-            {"f", 492},
-            {"g", 114},
-            {"h", 65412},
-            {"i", 65079},
-            {"x", 123},
-            {"y", 456}
+            { "d", 72 },
+            { "e", 507 },
+            { "f", 492 },
+            { "g", 114 },
+            { "h", 65412 },
+            { "i", 65079 },
+            { "x", 123 },
+            { "y", 456 }
         };
 
         Assert.AreEqual(ToAssertableString(expected), ToAssertableString(solvedAnswer));

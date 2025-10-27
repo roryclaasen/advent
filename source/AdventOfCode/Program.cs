@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 using AdventOfCode.Commands;
 using AdventOfCode.Infrastructure;
 using AdventOfCode.Problem;
@@ -9,7 +12,6 @@ using Microsoft.Extensions.Hosting;
 using System;
 using System.CommandLine;
 using System.Text;
-using System.Threading.Tasks;
 
 Console.OutputEncoding = Encoding.UTF8;
 

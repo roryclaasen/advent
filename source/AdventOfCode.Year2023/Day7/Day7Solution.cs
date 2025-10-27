@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year2023;
 
 using AdventOfCode.Problem;
@@ -48,8 +51,8 @@ public partial class Day7Solution : IProblemSolver
 
             for (var i = 0; i < x.CamelCards.Length; i++)
             {
-                var thisCard = GetCardValue(x.CamelCards[i]);
-                var otherCard = GetCardValue(y.CamelCards[i]);
+                var thisCard = this.GetCardValue(x.CamelCards[i]);
+                var otherCard = this.GetCardValue(y.CamelCards[i]);
 
                 var result = thisCard.CompareTo(otherCard);
                 if (result != 0)

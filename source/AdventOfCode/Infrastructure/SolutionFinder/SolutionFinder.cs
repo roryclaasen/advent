@@ -1,3 +1,6 @@
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Infrastructure;
 
 using AdventOfCode.Problem;
@@ -6,7 +9,7 @@ using System.Linq;
 
 internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
 {
-    public IEnumerable<IProblemSolver> GetSolvers() => GetSolversFor(null, null);
+    public IEnumerable<IProblemSolver> GetSolvers() => this.GetSolversFor(null, null);
 
     public IEnumerable<IProblemSolver> GetSolversFor(int? year = null, int? day = null)
     {
@@ -68,5 +71,5 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
     }
 
     public IProblemSolver GetLastSolver(int? year = null)
-        => GetSolversFor(year).GroupByYear().Select(g => g.OrderByYearAndDay().Last()).Last();
+        => this.GetSolversFor(year).GroupByYear().Select(g => g.OrderByYearAndDay().Last()).Last();
 }
