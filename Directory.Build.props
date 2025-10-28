@@ -21,7 +21,6 @@
 
   <ItemGroup>
     <PackageReference Include="Nerdbank.GitVersioning" />
-    <PackageReference Include="StyleCop.Analyzers" />
   </ItemGroup>
 
   <PropertyGroup Label="Code Quality">
@@ -32,8 +31,7 @@
   </PropertyGroup>
 
   <ItemGroup Label="Code Quality">
-    <AdditionalFiles Include="$(SolutionDir)\stylecop.json">
-      <Link>stylecop.json</Link>
-    </AdditionalFiles>
+    <PackageReference Include="StyleCop.Analyzers" />
+    <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
 </Project>
