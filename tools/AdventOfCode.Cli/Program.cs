@@ -22,6 +22,7 @@ using var app = BuildApplicationAsync(args);
 await app.StartAsync().ConfigureAwait(false);
 
 var rootCommand = app.Services.GetRequiredService<AdventOfCode.Cli.Commands.RootCommand>();
+
 var invokeConfig = new InvocationConfiguration()
 {
 #if DEBUG
