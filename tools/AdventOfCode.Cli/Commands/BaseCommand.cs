@@ -12,8 +12,8 @@ internal abstract class BaseCommand : Command
     public BaseCommand(string name, string? description = null)
         : base(name, description)
     {
-        this.SetAction(this.ExecuteAsync);
+        this.SetAction(async (parseResult, cancellationToken) => await this.ExecuteAsync(parseResult, cancellationToken));
     }
 
-    protected abstract Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken);
+    protected abstract ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken);
 }

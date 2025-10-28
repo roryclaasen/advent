@@ -33,7 +33,7 @@ internal sealed class ListCommand : BaseCommand
         this.Options.Add(options.Year);
     }
 
-    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var table = new Table();
         table.AddColumn("Year");
@@ -64,6 +64,6 @@ internal sealed class ListCommand : BaseCommand
         }
 
         AnsiConsole.Write(table);
-        return Task.FromResult(0);
+        return ValueTask.FromResult(0);
     }
 }

@@ -21,7 +21,7 @@ internal class PickCommand : BaseSolutionCommand
         this.Options.Add(options.Day);
     }
 
-    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var selectedYear = parseResult.GetValue(this.CommandOptions.Year);
         var selectedDay = parseResult.GetValue(this.CommandOptions.Day);
@@ -30,7 +30,7 @@ internal class PickCommand : BaseSolutionCommand
         {
             var solver = this.SolutionFinder.GetSolversFor(selectedYear, selectedDay);
             var exitCode = this.SolutionRunner.RunAll(solver).Any(r => r.HasError) ? -1 : 0;
-            return Task.FromResult(exitCode);
+            return ValueTask.FromResult(exitCode);
         }
 
         var prompt = new MultiSelectionPrompt<IProblemSolver>()
@@ -57,7 +57,7 @@ internal class PickCommand : BaseSolutionCommand
 
         var allResults = this.SolutionRunner.RunAll(pickedSolvers.Where(s => s is not YearPlaceHolder));
         var isError = allResults.Any(r => r.HasError);
-        return Task.FromResult(isError ? -1 : 0);
+        return ValueTask.FromResult(isError ? -1 : 0);
     }
 
     private string SolverNameConverter(IProblemSolver solver)

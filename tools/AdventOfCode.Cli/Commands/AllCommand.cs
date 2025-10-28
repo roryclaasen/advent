@@ -18,7 +18,7 @@ internal sealed class AllCommand : BaseSolutionCommand
         this.Options.Add(options.Day);
     }
 
-    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var year = parseResult.GetValue(this.CommandOptions.Year);
         var day = parseResult.GetValue(this.CommandOptions.Day);
@@ -26,6 +26,6 @@ internal sealed class AllCommand : BaseSolutionCommand
         var solvers = this.SolutionFinder.GetSolversFor(year, day);
         var allResults = this.SolutionRunner.RunAll(solvers);
         var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
-        return Task.FromResult(exitCode);
+        return ValueTask.FromResult(exitCode);
     }
 }

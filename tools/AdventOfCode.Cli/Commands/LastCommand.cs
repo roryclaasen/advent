@@ -17,11 +17,11 @@ internal sealed class LastCommand : BaseSolutionCommand
         this.Options.Add(options.Year);
     }
 
-    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var solver = this.SolutionFinder.GetLastSolver(parseResult.GetValue(this.CommandOptions.Year));
         var allResults = this.SolutionRunner.RunAll([solver]);
         var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
-        return Task.FromResult(exitCode);
+        return ValueTask.FromResult(exitCode);
     }
 }

@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 internal sealed class TodayCommand(Options options, IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
     : BaseSolutionCommand(options, solutionFinder, solutionRunner, "today", "Run todays solution")
 {
-    protected override Task<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var now = dateTimeProvider.AoCNow;
         if (now is { Month: 12, Day: >= 1 and <= 25 })
@@ -22,12 +22,12 @@ internal sealed class TodayCommand(Options options, IDateTimeProvider dateTimePr
             var solvers = this.SolutionFinder.GetSolversFor(now.Year, now.Day);
             var allResults = this.SolutionRunner.RunAll(solvers);
             var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
-            return Task.FromResult(exitCode);
+            return ValueTask.FromResult(exitCode);
         }
 
         AnsiConsole.MarkupLine($"[{Color.Red}]Error:[/] Event is not active. This option works in Dec 1-25 only.");
         AnsiConsole.MarkupLine("Run --help to see all available commands.");
 
-        return Task.FromResult(-1);
+        return ValueTask.FromResult(-1);
     }
 }
