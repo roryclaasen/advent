@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 18
 VisualStudioVersion = 18.0.11018.127
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode", "tools\AdventOfCode\AdventOfCode.csproj", "{5D8AC52A-BB51-4350-A2F0-B1B2041076E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Cli", "tools\AdventOfCode.Cli\AdventOfCode.Cli.csproj", "{5D8AC52A-BB51-4350-A2F0-B1B2041076E0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AdventOfCode.Shared", "source\AdventOfCode.Shared\AdventOfCode.Shared.csproj", "{B232FAFB-322E-46C0-A369-315635E15142}"
 EndProject

@@ -1,9 +1,10 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Commands;
+namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Infrastructure;
+using AdventOfCode.Cli.Infrastructure.Runner;
+using AdventOfCode.Cli.Infrastructure.SolutionFinder;
 using System;
 
 internal abstract class BaseSolutionCommand : BaseCommand

@@ -1,58 +1,58 @@
 {
   "profiles": {
-    "AdventOfCode (pick)": {
+    "AdventOfCode.Cli (pick)": {
       "commandName": "Project",
       "commandLineArgs": "pick"
     },
-    "AdventOfCode (today)": {
+    "AdventOfCode.Cli (today)": {
       "commandName": "Project",
       "commandLineArgs": "today"
     },
-    "AdventOfCode (2015)": {
+    "AdventOfCode.Cli (2015)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2015"
     },
-    "AdventOfCode (2016)": {
+    "AdventOfCode.Cli (2016)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2016"
     },
-    "AdventOfCode (2017)": {
+    "AdventOfCode.Cli (2017)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2017"
     },
-    "AdventOfCode (2018)": {
+    "AdventOfCode.Cli (2018)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2018"
     },
-    "AdventOfCode (2019)": {
+    "AdventOfCode.Cli (2019)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2019"
     },
-    "AdventOfCode (2020)": {
+    "AdventOfCode.Cli (2020)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2020"
     },
-    "AdventOfCode (2022)": {
+    "AdventOfCode.Cli (2022)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2022"
     },
-    "AdventOfCode (2023)": {
+    "AdventOfCode.Cli (2023)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2023"
     },
-    "AdventOfCode (2024)": {
+    "AdventOfCode.Cli (2024)": {
       "commandName": "Project",
       "commandLineArgs": "last --year 2024"
     },
-    "AdventOfCode (all)": {
+    "AdventOfCode.Cli (all)": {
       "commandName": "Project",
       "commandLineArgs": "all"
     },
-    "AdventOfCode (list)": {
+    "AdventOfCode.Cli (list)": {
       "commandName": "Project",
       "commandLineArgs": "list"
     },
-    "AdventOfCode (help)": {
+    "AdventOfCode.Cli (help)": {
       "commandName": "Project",
       "commandLineArgs": "--help"
     }

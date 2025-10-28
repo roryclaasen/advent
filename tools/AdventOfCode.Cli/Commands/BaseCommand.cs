@@ -1,7 +1,7 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Commands;
+namespace AdventOfCode.Cli.Commands;
 
 using System.CommandLine;
 using System.Threading;

@@ -1,9 +1,9 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Commands;
+namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Infrastructure;
+using AdventOfCode.Cli.Infrastructure.SolutionFinder;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Spectre.Console;

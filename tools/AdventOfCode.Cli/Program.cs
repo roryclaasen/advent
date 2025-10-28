@@ -1,8 +1,10 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-using AdventOfCode.Commands;
-using AdventOfCode.Infrastructure;
+using AdventOfCode.Cli.Commands;
+using AdventOfCode.Cli.Infrastructure;
+using AdventOfCode.Cli.Infrastructure.Runner;
+using AdventOfCode.Cli.Infrastructure.SolutionFinder;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +21,7 @@ using var app = BuildApplicationAsync(args);
 
 await app.StartAsync().ConfigureAwait(false);
 
-var rootCommand = app.Services.GetRequiredService<AdventOfCode.Commands.RootCommand>();
+var rootCommand = app.Services.GetRequiredService<AdventOfCode.Cli.Commands.RootCommand>();
 var invokeConfig = new InvocationConfiguration()
 {
 #if DEBUG
@@ -56,7 +58,7 @@ static IHost BuildApplicationAsync(string[] args)
 
     builder.Services.AddSingleton<Options>();
 
-    builder.Services.AddTransient<AdventOfCode.Commands.RootCommand>();
+    builder.Services.AddTransient<AdventOfCode.Cli.Commands.RootCommand>();
     builder.Services.AddTransient<ListCommand>();
     builder.Services.AddTransient<AllCommand>();
     builder.Services.AddTransient<TodayCommand>();
