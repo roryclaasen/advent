@@ -5,18 +5,10 @@
 	<PropertyGroup>
 		<Product>AdventOfCode.Tests</Product>
 
-		<EnableMSTestRunner>true</EnableMSTestRunner>
-		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
-
-		<OutputType>Exe</OutputType>
-
-		<IsPublishable>false</IsPublishable>
-		<IsPackable>false</IsPackable>
+    <EnableMSTestRunner>true</EnableMSTestRunner>
+    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 
 		<Nullable>annotations</Nullable>
-
-		<GenerateDocumentationFile>false</GenerateDocumentationFile>
-		<EnableSourceLink>false</EnableSourceLink>
 
 		<NoWarn>$(NoWarn);SA1116;SA1117;SA1118</NoWarn>
 	</PropertyGroup>

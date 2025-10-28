@@ -11,10 +11,12 @@
   
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
-
     <Nullable>enable</Nullable>
-    <IsPublishable>false</IsPublishable>
+    
     <DebugType>embedded</DebugType>
+
+    <IsPublishable>false</IsPublishable>
+    <IsPackable>false</IsPackable>
 
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
