@@ -3,8 +3,7 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Infrastructure.Runner;
-using AdventOfCode.Cli.Infrastructure.SolutionFinder;
+using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
 using Spectre.Console;
 using System;
@@ -15,7 +14,7 @@ using System.Threading.Tasks;
 
 internal class PickCommand : BaseSolutionCommand
 {
-    public PickCommand(Options options, SolutionFinder solutionFinder, Runner solutionRunner)
+    public PickCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
         : base(options, solutionFinder, solutionRunner, "pick", "Runs selected puzzles.")
     {
         this.Options.Add(options.Year);

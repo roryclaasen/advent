@@ -3,8 +3,7 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Infrastructure.Runner;
-using AdventOfCode.Cli.Infrastructure.SolutionFinder;
+using AdventOfCode.Cli.Services;
 using System.CommandLine;
 using System.Linq;
 using System.Threading;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 internal sealed class AllCommand : BaseSolutionCommand
 {
-    public AllCommand(Options options, SolutionFinder solutionFinder, Runner solutionRunner)
+    public AllCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
         : base(options, solutionFinder, solutionRunner, "all", "Run all the solutions")
     {
         this.Options.Add(options.Year);

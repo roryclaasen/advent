@@ -3,7 +3,7 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Infrastructure.SolutionFinder;
+using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Spectre.Console;
@@ -16,10 +16,10 @@ using System.Threading.Tasks;
 internal sealed class ListCommand : BaseCommand
 {
     private readonly Options commandOptions;
-    private readonly SolutionFinder solutionFinder;
+    private readonly ISolutionFinder solutionFinder;
     private readonly AdventUri adventUri;
 
-    public ListCommand(Options options, SolutionFinder solutionFinder, AdventUri adventUri)
+    public ListCommand(Options options, ISolutionFinder solutionFinder, AdventUri adventUri)
         : base("list", "List all available solutions")
     {
         ArgumentNullException.ThrowIfNull(options);

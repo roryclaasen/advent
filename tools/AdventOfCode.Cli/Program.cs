@@ -2,9 +2,9 @@
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
 using AdventOfCode.Cli.Commands;
-using AdventOfCode.Cli.Infrastructure;
-using AdventOfCode.Cli.Infrastructure.Runner;
-using AdventOfCode.Cli.Infrastructure.SolutionFinder;
+using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli.Services.Finder;
+using AdventOfCode.Cli.Services.Runner;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Microsoft.Extensions.Configuration;
@@ -48,8 +48,8 @@ static IHost BuildApplicationAsync(string[] args)
     var builder = Host.CreateEmptyApplicationBuilder(settings);
     builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
     builder.Services.AddSingleton<AdventUri>();
-    builder.Services.AddSingleton<SolutionFinder>();
-    builder.Services.AddSingleton<Runner>();
+    builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();
+    builder.Services.AddSingleton<ISolutionRunner, SolutionRunner>();
 
     foreach (var solution in AssemblyFinder.FindAllOfType<IProblemSolver>())
     {

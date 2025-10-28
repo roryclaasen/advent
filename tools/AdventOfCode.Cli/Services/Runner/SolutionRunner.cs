@@ -1,8 +1,9 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Cli.Infrastructure.Runner;
+namespace AdventOfCode.Cli.Services.Runner;
 
+using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using Spectre.Console;
@@ -11,7 +12,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-internal sealed partial class Runner(AdventUri adventUri)
+internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRunner
 {
     public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
     {

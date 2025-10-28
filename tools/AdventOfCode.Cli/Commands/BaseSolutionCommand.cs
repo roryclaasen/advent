@@ -3,13 +3,12 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Infrastructure.Runner;
-using AdventOfCode.Cli.Infrastructure.SolutionFinder;
+using AdventOfCode.Cli.Services;
 using System;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {
-    public BaseSolutionCommand(Options options, SolutionFinder solutionFinder, Runner solutionRunner, string name, string? description = null)
+    public BaseSolutionCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner, string name, string? description = null)
         : base(name, description)
     {
         ArgumentNullException.ThrowIfNull(options);
@@ -23,7 +22,7 @@ internal abstract class BaseSolutionCommand : BaseCommand
 
     protected Options CommandOptions { get; private init; }
 
-    protected SolutionFinder SolutionFinder { get; private init; }
+    protected ISolutionFinder SolutionFinder { get; private init; }
 
-    protected Runner SolutionRunner { get; init; }
+    protected ISolutionRunner SolutionRunner { get; init; }
 }
