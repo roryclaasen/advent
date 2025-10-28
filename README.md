@@ -1,17 +1,10 @@
-  Advent of Code Solutions (2015–2025)
-
-# 🎄 Advent of Code Solutions (2015–2025)
-
-This repository contains my solutions for the [Advent of Code](https://adventofcode.com) programming puzzles — an annual event of daily coding challenges that run each December from **2015 to 2025**.
-
-Each folder corresponds to a specific year’s puzzles, implemented using a modular, testable architecture built on **.NET**.
+## Advent of Code Solutions (2015–2025)
+![Project Banner](assets/christmas.jpg)
 
 - - -
-
-## 📚 Overview
+# 📚 Overview
 
 **Advent of Code (AoC)** is a yearly series of programming puzzles that challenge problem-solving, algorithmic thinking, and creativity.
-
 
 
 This repository documents my journey through multiple editions, featuring:
@@ -20,6 +13,14 @@ This repository documents my journey through multiple editions, featuring:
 *   Centralized shared utilities and analyzers
 *   Automated testing for every solution
 *   A custom **CLI tool** for running and managing daily challenges
+
+- - -
+
+## 🎄 Advent of Code Solutions (2015–2025)
+
+This repository contains my solutions for the [Advent of Code](https://adventofcode.com) programming puzzles — an annual event of daily coding challenges that run each December from **2015 to 2025**.
+
+Each folder corresponds to a specific year’s puzzles, implemented using a modular, testable architecture built on **.NET**.
 
 - - -
 
