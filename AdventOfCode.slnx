@@ -1,0 +1,44 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path="Create-Day.ps1" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+    <File Path="global.json" />
+    <File Path="version.json" />
+  </Folder>
+  <Folder Name="/Source/">
+    <File Path="source/Source.Build.props" />
+    <Project Path="source/AdventOfCode.Analyzers/AdventOfCode.Analyzers.csproj" />
+    <Project Path="source/AdventOfCode.Problem/AdventOfCode.Problem.csproj" />
+    <Project Path="source/AdventOfCode.Shared/AdventOfCode.Shared.csproj" />
+    <Project Path="source/AdventOfCode.Year2015/AdventOfCode.Year2015.csproj" />
+    <Project Path="source/AdventOfCode.Year2016/AdventOfCode.Year2016.csproj" />
+    <Project Path="source/AdventOfCode.Year2017/AdventOfCode.Year2017.csproj" />
+    <Project Path="source/AdventOfCode.Year2018/AdventOfCode.Year2018.csproj" />
+    <Project Path="source/AdventOfCode.Year2019/AdventOfCode.Year2019.csproj" />
+    <Project Path="source/AdventOfCode.Year2020/AdventOfCode.Year2020.csproj" />
+    <Project Path="source/AdventOfCode.Year2022/AdventOfCode.Year2022.csproj" />
+    <Project Path="source/AdventOfCode.Year2023/AdventOfCode.Year2023.csproj" />
+    <Project Path="source/AdventOfCode.Year2024/AdventOfCode.Year2024.csproj" />
+    <Project Path="source/AdventOfCode.Year2025/AdventOfCode.Year2025.csproj" />
+  </Folder>
+  <Folder Name="/Tests/">
+    <File Path="tests/Tests.Build.props" />
+    <Project Path="tests/AdventOfCode.Shared.Tests/AdventOfCode.Shared.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2015.Tests/AdventOfCode.Year2015.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2016.Tests/AdventOfCode.Year2016.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2017.Tests/AdventOfCode.Year2017.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2018.Tests/AdventOfCode.Year2018.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2019.Tests/AdventOfCode.Year2019.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2020.Tests/AdventOfCode.Year2020.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2022.Tests/AdventOfCode.Year2022.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2023.Tests/AdventOfCode.Year2023.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2024.Tests/AdventOfCode.Year2024.Tests.csproj" />
+    <Project Path="tests/AdventOfCode.Year2025.Tests/AdventOfCode.Year2025.Tests.csproj" />
+  </Folder>
+  <Folder Name="/Tools/">
+    <File Path="tools/Tools.Build.props" />
+    <Project Path="tools/AdventOfCode.Cli/AdventOfCode.Cli.csproj" />
+  </Folder>
+</Solution>
