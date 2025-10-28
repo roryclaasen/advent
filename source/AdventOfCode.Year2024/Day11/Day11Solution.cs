@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 
 [Problem(2024, 11, "Plutonian Pebbles")]
 public partial class Day11Solution : IProblemSolver

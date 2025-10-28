@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 
 [Problem(2023, 6, "Wait For It")]
 public partial class Day6Solution : IProblemSolver

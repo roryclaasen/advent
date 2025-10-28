@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 
 [Problem(2024, 7, "Bridge Repair")]
 public partial class Day7Solution : IProblemSolver

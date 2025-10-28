@@ -5,7 +5,7 @@ namespace AdventOfCode.Year2016;
 
 using System.Linq;
 using AdventOfCode.Problem;
-using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 
 [Problem(2016, 9, "Explosives in Cyberspace")]
 public partial class Day9Solution : IProblemSolver

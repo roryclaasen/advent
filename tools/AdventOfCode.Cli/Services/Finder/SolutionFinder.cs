@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
+using AdventOfCode.Problem.Extensions;
 
 internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISolutionFinder
 {

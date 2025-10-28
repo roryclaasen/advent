@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Threading.Tasks;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 using CommunityToolkit.HighPerformance;
 
 [Problem(2024, 6, "Guard Gallivant")]

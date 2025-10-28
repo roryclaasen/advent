@@ -9,6 +9,7 @@ using System.Diagnostics;
 using System.Linq;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
+using AdventOfCode.Problem.Extensions;
 using AdventOfCode.Shared;
 using Spectre.Console;
 

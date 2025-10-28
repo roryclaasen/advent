@@ -10,6 +10,7 @@ using System.Numerics;
 using System.Text.RegularExpressions;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 
 [Problem(2023, 3, "Gear Ratios")]
 public partial class Day3Solution : IProblemSolver

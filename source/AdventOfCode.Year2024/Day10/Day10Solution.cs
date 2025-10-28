@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Numerics;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.Extensions;
 using CommunityToolkit.HighPerformance;
 
 [Problem(2024, 10, "Hoof It")]

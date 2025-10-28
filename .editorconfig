@@ -136,6 +136,27 @@ csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimenta
 # CA1822: Mark members as static
 # dotnet_diagnostic.CA1822.severity = none
 
+# Using directive should be qualified
+dotnet_diagnostic.SA1135.severity = warning
+
+# Using directive ordering
+dotnet_diagnostic.SA1208.severity = warning
+
+# Using alias directives should be placed after all using namespace directives
+dotnet_diagnostic.SA1209.severity = warning
+
+# Using directives should be ordered alphabetically by the namespaces
+dotnet_diagnostic.SA1210.severity = warning
+
+# Using alias directive ordering
+dotnet_diagnostic.SA1211.severity = warning
+
+# Using directive should appear within a namespace declaration
+dotnet_diagnostic.SA1200.severity = warning
+
+# Using static directives should be placed at the correct location
+dotnet_diagnostic.SA1216.severity = warning
+
 # Documentation
 
 # XML comment analysis is disabled due to project configuration

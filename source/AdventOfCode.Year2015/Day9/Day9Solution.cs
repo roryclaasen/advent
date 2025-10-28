@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Shared.TravellingSalesman;
 
 [Problem(2015, 9, "All in a Single Night")]
 public partial class Day9Solution : IProblemSolver

@@ -10,6 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
+using AdventOfCode.Problem.Extensions;
 using Spectre.Console;
 
 internal class PickCommand : BaseSolutionCommand
