@@ -15,22 +15,22 @@ using System.Threading.Tasks;
 
 internal sealed class ListCommand : BaseCommand
 {
-    private readonly Options commandOptions;
+    private readonly CommonOptions commonOptions;
     private readonly ISolutionFinder solutionFinder;
     private readonly AdventUri adventUri;
 
-    public ListCommand(Options options, ISolutionFinder solutionFinder, AdventUri adventUri)
+    public ListCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, AdventUri adventUri)
         : base("list", "List all available solutions")
     {
-        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(commonOptions);
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(adventUri);
 
-        this.commandOptions = options;
+        this.commonOptions = commonOptions;
         this.solutionFinder = solutionFinder;
         this.adventUri = adventUri;
 
-        this.Options.Add(options.Year);
+        this.Options.Add(commonOptions.Year);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
@@ -42,7 +42,7 @@ internal sealed class ListCommand : BaseCommand
         table.AddColumn("Link");
 
         var sortedSolvers = this.solutionFinder
-            .GetSolversFor(parseResult.GetValue(this.commandOptions.Year))
+            .GetSolversFor(parseResult.GetValue(this.commonOptions.Year))
             .GroupByYear()
             .OrderByDescending(y => y.Key);
 

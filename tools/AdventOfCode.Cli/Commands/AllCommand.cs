@@ -11,17 +11,17 @@ using System.Threading.Tasks;
 
 internal sealed class AllCommand : BaseSolutionCommand
 {
-    public AllCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-        : base(options, solutionFinder, solutionRunner, "all", "Run all the solutions")
+    public AllCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+        : base(commonOptions, solutionFinder, solutionRunner, "all", "Run all the solutions")
     {
-        this.Options.Add(options.Year);
-        this.Options.Add(options.Day);
+        this.Options.Add(commonOptions.Year);
+        this.Options.Add(commonOptions.Day);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var year = parseResult.GetValue(this.CommandOptions.Year);
-        var day = parseResult.GetValue(this.CommandOptions.Day);
+        var year = parseResult.GetValue(this.CommonOptions.Year);
+        var day = parseResult.GetValue(this.CommonOptions.Day);
 
         var solvers = this.SolutionFinder.GetSolversFor(year, day);
         var allResults = this.SolutionRunner.RunAll(solvers);

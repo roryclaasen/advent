@@ -7,11 +7,11 @@ using AdventOfCode.Shared;
 using System;
 using System.CommandLine;
 
-internal sealed class Options(IDateTimeProvider dateTimeProvider)
+internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
 {
     private readonly Lazy<Option<int>> lazyYear = new(() =>
     {
-        var argument = new Option<int>("year")
+        var argument = new Option<int>("--year")
         {
             Description = "The year of the available puzzles."
         };
@@ -30,7 +30,7 @@ internal sealed class Options(IDateTimeProvider dateTimeProvider)
 
     private readonly Lazy<Option<int>> lazyDay = new(() =>
     {
-        var argument = new Option<int>("day")
+        var argument = new Option<int>("--day")
         {
             Description = "The day of the available puzzle (1-25)."
         };

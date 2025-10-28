@@ -14,17 +14,17 @@ using System.Threading.Tasks;
 
 internal class PickCommand : BaseSolutionCommand
 {
-    public PickCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-        : base(options, solutionFinder, solutionRunner, "pick", "Runs selected puzzles.")
+    public PickCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+        : base(commonOptions, solutionFinder, solutionRunner, "pick", "Runs selected puzzles.")
     {
-        this.Options.Add(options.Year);
-        this.Options.Add(options.Day);
+        this.Options.Add(commonOptions.Year);
+        this.Options.Add(commonOptions.Day);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var selectedYear = parseResult.GetValue(this.CommandOptions.Year);
-        var selectedDay = parseResult.GetValue(this.CommandOptions.Day);
+        var selectedYear = parseResult.GetValue(this.CommonOptions.Year);
+        var selectedDay = parseResult.GetValue(this.CommonOptions.Day);
 
         if (selectedYear != 0 && selectedDay != 0)
         {

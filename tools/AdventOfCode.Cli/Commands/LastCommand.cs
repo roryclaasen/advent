@@ -11,15 +11,15 @@ using System.Threading.Tasks;
 
 internal sealed class LastCommand : BaseSolutionCommand
 {
-    public LastCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-        : base(options, solutionFinder, solutionRunner, "last", "Run the last solution for a given year")
+    public LastCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+        : base(commonOptions, solutionFinder, solutionRunner, "last", "Run the last solution for a given year")
     {
-        this.Options.Add(options.Year);
+        this.Options.Add(commonOptions.Year);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var solver = this.SolutionFinder.GetLastSolver(parseResult.GetValue(this.CommandOptions.Year));
+        var solver = this.SolutionFinder.GetLastSolver(parseResult.GetValue(this.CommonOptions.Year));
         var allResults = this.SolutionRunner.RunAll([solver]);
         var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
         return ValueTask.FromResult(exitCode);

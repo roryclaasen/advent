@@ -8,19 +8,19 @@ using System;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {
-    public BaseSolutionCommand(Options options, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner, string name, string? description = null)
+    public BaseSolutionCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner, string name, string? description = null)
         : base(name, description)
     {
-        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(commonOptions);
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(solutionRunner);
 
-        this.CommandOptions = options;
+        this.CommonOptions = commonOptions;
         this.SolutionFinder = solutionFinder;
         this.SolutionRunner = solutionRunner;
     }
 
-    protected Options CommandOptions { get; private init; }
+    protected CommonOptions CommonOptions { get; private init; }
 
     protected ISolutionFinder SolutionFinder { get; private init; }
 

@@ -58,7 +58,7 @@
     },
     "AdventOfCode.Cli (help)": {
       "commandName": "Project",
-      "commandLineArgs": "--help"
+      "commandLineArgs": "last --help"
     }
   }
 }

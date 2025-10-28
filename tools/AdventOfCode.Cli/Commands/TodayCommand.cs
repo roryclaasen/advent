@@ -11,8 +11,8 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 
-internal sealed class TodayCommand(Options options, IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-    : BaseSolutionCommand(options, solutionFinder, solutionRunner, "today", "Run todays solution")
+internal sealed class TodayCommand(CommonOptions commonOptions, IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+    : BaseSolutionCommand(commonOptions, solutionFinder, solutionRunner, "today", "Run todays solution")
 {
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
