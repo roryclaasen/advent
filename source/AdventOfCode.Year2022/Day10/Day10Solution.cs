@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 10, "Cathode-Ray Tube")]
 public partial class Day10Solution : IProblemSolver
@@ -21,7 +21,8 @@ public partial class Day10Solution : IProblemSolver
     }
 
     public object? PartTwo(string input)
-        => string.Join(Environment.NewLine,
+        => string.Join(
+            Environment.NewLine,
             RunProgram(ParseInput(input))
                 .Select(signal =>
                 {
@@ -30,8 +31,7 @@ public partial class Day10Solution : IProblemSolver
                     return Math.Abs(spriteMiddle - screenColumn) < 2 ? '#' : ' ';
                 })
                 .Chunk(40)
-                .Select(line => new string(line).TrimEnd())
-            );
+                .Select(line => new string(line).TrimEnd()));
 
     private static IEnumerable<(int Cycle, int X)> RunProgram(IEnumerable<Instruction> instructions)
     {

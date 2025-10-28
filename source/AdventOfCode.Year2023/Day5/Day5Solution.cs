@@ -3,19 +3,19 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 5, "If You Give A Seed A Fertilizer")]
 public partial class Day5Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
-        var parsedInput = this.ParseInput(input);
+        var parsedInput = ParseInput(input);
 
         long GetLocation(long source)
         {
@@ -24,6 +24,7 @@ public partial class Day5Solution : IProblemSolver
             {
                 lastLocation = GetNextValue(current, lastLocation);
             }
+
             return lastLocation;
         }
 
@@ -45,7 +46,7 @@ public partial class Day5Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        var parsedInput = this.ParseInput(input);
+        var parsedInput = ParseInput(input);
         var seeds = parsedInput.Seeds;
 
         var bag = new TreeNode(0, long.MaxValue);
@@ -62,7 +63,7 @@ public partial class Day5Solution : IProblemSolver
             .Min(n => n.Start);
     }
 
-    private InputRecord ParseInput(string input)
+    private static InputRecord ParseInput(string input)
     {
         var parts = input.Lines(2);
         var seeds = parts[0].Replace("seeds: ", string.Empty).Split(" ").Select(long.Parse).ToArray();
@@ -74,16 +75,17 @@ public partial class Day5Solution : IProblemSolver
             return range;
         }
 
-        return new InputRecord(seeds,
-        [
-            GetRange(1, "seed-to-soil map:"),
-            GetRange(2, "soil-to-fertilizer map:"),
-            GetRange(3, "fertilizer-to-water map:"),
-            GetRange(4, "water-to-light map:"),
-            GetRange(5, "light-to-temperature map:"),
-            GetRange(6, "temperature-to-humidity map:"),
-            GetRange(7, "humidity-to-location map:")
-        ]);
+        return new InputRecord(
+            seeds,
+            [
+                GetRange(1, "seed-to-soil map:"),
+                GetRange(2, "soil-to-fertilizer map:"),
+                GetRange(3, "fertilizer-to-water map:"),
+                GetRange(4, "water-to-light map:"),
+                GetRange(5, "light-to-temperature map:"),
+                GetRange(6, "temperature-to-humidity map:"),
+                GetRange(7, "humidity-to-location map:")
+            ]);
     }
 
     private static IEnumerable<MapRange> ParseMapRanges(string input, string header)
@@ -93,6 +95,7 @@ public partial class Day5Solution : IProblemSolver
         {
             throw new Exception($"Expected header {header} but got {lines[0]}");
         }
+
         foreach (var line in lines.Skip(1))
         {
             var parts = line.Split(" ").Select(long.Parse).ToArray();
@@ -135,15 +138,15 @@ public partial class Day5Solution : IProblemSolver
 
     private record InputRecord(long[] Seeds, List<List<MapRange>> Maps);
 
-    internal class TreeNode(long Start, long End, int Depth = 0)
+    internal class TreeNode(long start, long end, int depth = 0)
     {
-        public long Start { get; } = Start;
+        public long Start { get; } = start;
 
-        public long End { get; } = End;
+        public long End { get; } = end;
 
-        public int Depth { get; } = Depth;
+        public int Depth { get; } = depth;
 
-        public List<TreeNode> Children = [];
+        public List<TreeNode> Children { get; } = [];
 
         public void Populate(List<List<MapRange>> maps)
         {
@@ -163,13 +166,15 @@ public partial class Day5Solution : IProblemSolver
                 var unmappedTemp = new List<(long Start, long End)>();
                 foreach (var f in unmapped)
                 {
-                    (long x, long y) a = (f.Start, Math.Min(f.End, map.Source));
-                    (long x, long y) b = (Math.Max(f.Start, map.Source), Math.Min(f.End, map.MaxStart));
-                    (long x, long y) c = (Math.Max(f.Start, map.MaxStart), f.End);
+                    (long X, long Y) a = (f.Start, Math.Min(f.End, map.Source));
+                    (long X, long Y) b = (Math.Max(f.Start, map.Source), Math.Min(f.End, map.MaxStart));
+                    (long X, long Y) c = (Math.Max(f.Start, map.MaxStart), f.End);
 
-                    if (a.x < a.y) unmappedTemp.Add(a);
-                    if (b.x < b.y) mapped.Add((b.x - map.Source + map.Destination, b.y - map.Source + map.Destination));
-                    if (c.x < c.y) unmappedTemp.Add(c);
+#pragma warning disable SA1503 // Braces should not be omitted
+                    if (a.X < a.Y) unmappedTemp.Add(a);
+                    if (b.X < b.Y) mapped.Add((b.X - map.Source + map.Destination, b.Y - map.Source + map.Destination));
+                    if (c.X < c.Y) unmappedTemp.Add(c);
+#pragma warning restore SA1503 // Braces should not be omitted
                 }
 
                 unmapped = unmappedTemp;

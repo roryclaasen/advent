@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Drawing;
+using AdventOfCode.Problem;
 
 [Problem(2015, 03, "Perfectly Spherical Houses in a Vacuum")]
 public partial class Day3Solution : IProblemSolver
@@ -32,7 +32,6 @@ public partial class Day3Solution : IProblemSolver
                 delivered[santa.ToString()]++;
             }
         }
-
 
         return delivered.Count;
     }

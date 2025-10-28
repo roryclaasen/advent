@@ -14,6 +14,7 @@ public static class ArrayExtensions
         {
             throw new ArgumentException("Array must have at least one element.", nameof(array));
         }
+
         item1 = array[0];
     }
 
@@ -24,6 +25,7 @@ public static class ArrayExtensions
         {
             throw new ArgumentException("Array must have at least two elements.", nameof(array));
         }
+
         item1 = array[0];
         item2 = array[1];
     }
@@ -35,6 +37,7 @@ public static class ArrayExtensions
         {
             throw new ArgumentException("Array must have at least three elements.", nameof(array));
         }
+
         item1 = array[0];
         item2 = array[1];
         item3 = array[2];

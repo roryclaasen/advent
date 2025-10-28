@@ -9,7 +9,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text.RegularExpressions;
 
-public static class StringExtensions
+public static partial class StringExtensions
 {
     public static Vector2 ToVector2(this string str)
     {
@@ -23,11 +23,10 @@ public static class StringExtensions
     /// Splits a string into n number of parts.
     /// <see href="https://stackoverflow.com/a/4133475/4498839"/>
     /// </summary>
-    /// <param name="s">The string to split.</param>
+    /// <param name="str">The string to split.</param>
     /// <param name="partLength">The length of each part.</param>
     /// <param name="skip">The number of chars to skip before the next part.</param>
     /// <returns><see cref="IEnumerable{string}"/> of parts.</returns>
-    /// <exception cref="ArgumentNullException"></exception>
     public static IEnumerable<string> SplitInParts(this string str, int partLength, int skip = 0)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
@@ -50,8 +49,7 @@ public static class StringExtensions
 
         return string.Join(Environment.NewLine, str
             .Lines()
-            .Select(line => Regex.Replace(line, @"^\s*" + Regex.Escape(margin), ""))
-        );
+            .Select(line => Regex.Replace(line, @"^\s*" + Regex.Escape(margin), string.Empty)));
     }
 
     public static string Indent(this string str, int length, bool firstLine = false)
@@ -59,7 +57,7 @@ public static class StringExtensions
         ArgumentNullException.ThrowIfNull(str, nameof(str));
 
         var indent = new string(' ', length);
-        var res = string.Join(Environment.NewLine + new string(' ', length), str.Lines().Select(line => Regex.Replace(line, @"^\s*\|", "")));
+        var res = string.Join(Environment.NewLine + new string(' ', length), str.Lines().Select(line => MarginRegex().Replace(line, string.Empty)));
         return firstLine ? indent + res : res;
     }
 
@@ -144,4 +142,7 @@ public static class StringExtensions
             minIndex = str.IndexOf(value, minIndex + 1);
         }
     }
+
+    [GeneratedRegex(@"^\s*\|")]
+    private static partial Regex MarginRegex();
 }

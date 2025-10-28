@@ -1,6 +1,9 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
+using System;
+using System.CommandLine;
+using System.Text;
 using AdventOfCode.Cli.Commands;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Cli.Services.Finder;
@@ -11,9 +14,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.CommandLine;
-using System.Text;
 
 Console.OutputEncoding = Encoding.UTF8;
 

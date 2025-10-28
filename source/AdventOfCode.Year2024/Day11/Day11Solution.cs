@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2024, 11, "Plutonian Pebbles")]
 public partial class Day11Solution : IProblemSolver
@@ -18,6 +18,8 @@ public partial class Day11Solution : IProblemSolver
 
     public object? PartTwo(string input)
         => ParseInput(input).Sum(s => this.Calculate(s, 75));
+
+    private static IEnumerable<long> ParseInput(string input) => input.Spaces().Select(long.Parse);
 
     private long Calculate(long stone, int blinks)
     {
@@ -53,6 +55,4 @@ public partial class Day11Solution : IProblemSolver
         this.stoneCache.Add(key, value);
         return value;
     }
-
-    private static IEnumerable<long> ParseInput(string input) => input.Spaces().Select(long.Parse);
 }

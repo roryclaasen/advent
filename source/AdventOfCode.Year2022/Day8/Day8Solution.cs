@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 8, "Treetop Tree House")]
 public partial class Day8Solution : IProblemSolver
@@ -136,9 +136,13 @@ public partial class Day8Solution : IProblemSolver
 
         int xStep = 0, yStep = 0;
         if (direction == Direction.Up || direction == Direction.Down)
+        {
             yStep = direction == Direction.Up ? -1 : 1;
+        }
         else
+        {
             xStep = direction == Direction.Right ? 1 : -1;
+        }
 
         for (var i = 0; i < Math.Max(grid.Width, grid.Height); i++)
         {

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-public static class IIProblemSolverExtensions
+public static class IProblemSolverExtensions
 {
     public static int GetYear(this IProblemSolver solver)
         => solver is IProblemDetails problem ? problem.Year : 0;

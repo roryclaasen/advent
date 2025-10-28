@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
 using System.Linq;
 using System.Text.Json;
 using System.Text.Json.Nodes;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
 
 [Problem(2015, 12, "JSAbacusFramework.io")]
 public partial class Day12Solution : IProblemSolver
@@ -26,6 +26,9 @@ public partial class Day12Solution : IProblemSolver
         return this.CountNumbersWithoutRed(jsonObject);
     }
 
+    [GeneratedRegex("-?\\d+")]
+    private static partial Regex NumberRegex();
+
     private int CountNumbersWithoutRed(JsonNode? node) => node switch
     {
         JsonObject jsonObject when !this.HasRed(jsonObject) => jsonObject.Select(j => j.Value).Sum(this.CountNumbersWithoutRed),
@@ -40,7 +43,4 @@ public partial class Day12Solution : IProblemSolver
         JsonObject jsonObject => jsonObject.Select(j => j.Value).OfType<JsonValue>().Any(this.HasRed),
         _ => false
     };
-
-    [GeneratedRegex("-?\\d+")]
-    private static partial Regex NumberRegex();
 }

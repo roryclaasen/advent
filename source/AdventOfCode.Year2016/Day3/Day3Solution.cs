@@ -3,18 +3,18 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2016, 3, "Squares With Three Sides")]
 public partial class Day3Solution : IProblemSolver
 {
     public object? PartOne(string input)
         => ParseInput(input)
-            .Count(this.IsValidTriangle);
+            .Count(IsValidTriangle);
 
     public object? PartTwo(string input)
     {
@@ -42,15 +42,15 @@ public partial class Day3Solution : IProblemSolver
                 inputArray[i + 2][2]
             };
 
-            validTriangles += this.IsValidTriangle(triangle1) ? 1 : 0;
-            validTriangles += this.IsValidTriangle(triangle2) ? 1 : 0;
-            validTriangles += this.IsValidTriangle(triangle3) ? 1 : 0;
+            validTriangles += IsValidTriangle(triangle1) ? 1 : 0;
+            validTriangles += IsValidTriangle(triangle2) ? 1 : 0;
+            validTriangles += IsValidTriangle(triangle3) ? 1 : 0;
         }
 
         return validTriangles;
     }
 
-    private bool IsValidTriangle(int[] sides)
+    private static bool IsValidTriangle(int[] sides)
         => sides[0] + sides[1] > sides[2] &&
                sides[1] + sides[2] > sides[0] &&
                sides[2] + sides[0] > sides[1];

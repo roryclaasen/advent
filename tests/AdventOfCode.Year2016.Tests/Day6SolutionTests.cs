@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Year2016.Tests;
 
-using AdventOfCode.Shared.Tests;
 using System.Diagnostics.CodeAnalysis;
+using AdventOfCode.Shared.Tests;
 
 [TestClass]
 public class Day6SolutionTests : SolverBaseTests<Day6Solution>

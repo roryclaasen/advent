@@ -3,13 +3,13 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 3, "Gear Ratios")]
 public partial class Day3Solution : IProblemSolver
@@ -37,6 +37,7 @@ public partial class Day3Solution : IProblemSolver
                 }
             }
         }
+
         return sum;
     }
 
@@ -77,6 +78,7 @@ public partial class Day3Solution : IProblemSolver
                 }
             }
         }
+
         return sum;
     }
 

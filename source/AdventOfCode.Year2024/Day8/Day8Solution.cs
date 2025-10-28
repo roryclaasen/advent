@@ -3,18 +3,16 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2024, 8, "Resonant Collinearity")]
 public partial class Day8Solution : IProblemSolver
 {
-    private record struct InputData(ILookup<char, Vector2> Antennas, int Width, int Height);
-
     public object? PartOne(string input)
     {
         var (antentas, width, height) = ParseInput(input);
@@ -88,4 +86,6 @@ public partial class Day8Solution : IProblemSolver
         var lines = input.Lines();
         return new InputData(GetAntennas(lines).ToLookup(a => a.Frequency, a => a.Position), lines.Length, lines.First().Length);
     }
+
+    private record struct InputData(ILookup<char, Vector2> Antennas, int Width, int Height);
 }

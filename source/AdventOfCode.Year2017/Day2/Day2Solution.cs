@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2017;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2017, 2, "Corruption Checksum")]
 public partial class Day2Solution : IProblemSolver
@@ -31,7 +31,10 @@ public partial class Day2Solution : IProblemSolver
             {
                 for (var j = 0; j < row.Length; j++)
                 {
-                    if (i == j) continue;
+                    if (i == j)
+                    {
+                        continue;
+                    }
 
                     if (row[i] % row[j] == 0)
                     {
@@ -44,7 +47,7 @@ public partial class Day2Solution : IProblemSolver
         return sum;
     }
 
-    static IEnumerable<int[]> ParseInput(string input)
+    private static IEnumerable<int[]> ParseInput(string input)
     {
         foreach (var line in input.Replace('\t', ' ').Lines())
         {

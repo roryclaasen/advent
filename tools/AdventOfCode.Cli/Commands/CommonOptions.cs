@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Shared;
 using System;
 using System.CommandLine;
+using AdventOfCode.Shared;
 
 internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
 {

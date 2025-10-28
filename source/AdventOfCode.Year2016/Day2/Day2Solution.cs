@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2016, 2, "Bathroom Security")]
 public partial class Day2Solution : IProblemSolver

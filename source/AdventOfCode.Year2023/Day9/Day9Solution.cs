@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 9, "Mirage Maintenance")]
 public partial class Day9Solution : IProblemSolver

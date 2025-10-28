@@ -8,11 +8,11 @@ using AdventOfCode.Problem;
 [Problem(2015, 11, "Corporate Policy")]
 public partial class Day11Solution : IProblemSolver
 {
-    public object? PartOne(string input) => this.FindNextPassword(input);
+    public object? PartOne(string input) => FindNextPassword(input);
 
-    public object? PartTwo(string input) => this.FindNextPassword(this.FindNextPassword(input));
+    public object? PartTwo(string input) => FindNextPassword(FindNextPassword(input));
 
-    private string FindNextPassword(string current)
+    private static string FindNextPassword(string current)
     {
         var newPassword = current;
         do

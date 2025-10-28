@@ -3,17 +3,17 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 19, "Medicine for Rudolph")]
 public partial class Day19Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
-        var (molecule, replacements) = this.ParseInput(input);
+        var (molecule, replacements) = ParseInput(input);
 
         var molecules = GetAllNewMolecules(molecule, replacements);
         return molecules.Count;
@@ -21,18 +21,17 @@ public partial class Day19Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        var (moleculeGoal, replacements) = this.ParseInput(input);
+        var (moleculeGoal, replacements) = ParseInput(input);
 
         var currentMolecules = new HashSet<string> { moleculeGoal };
         var step = 0;
         while (!currentMolecules.Contains("e"))
         {
             step++;
-            currentMolecules = currentMolecules
+            currentMolecules = [.. currentMolecules
                 .SelectMany(m => GetAllPreviousMolecules(m, replacements))
                 .OrderBy(step => step.Length)
-                .Take(500)
-                .ToHashSet();
+                .Take(500)];
         }
 
         return step;
@@ -68,7 +67,7 @@ public partial class Day19Solution : IProblemSolver
         return molecules;
     }
 
-    private (string Molecule, IEnumerable<Replacement> Replacements) ParseInput(string input)
+    private static (string Molecule, IEnumerable<Replacement> Replacements) ParseInput(string input)
     {
         var parts = input.Lines(2);
         return (parts[1], ParseReplacements(parts[0]));

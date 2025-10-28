@@ -11,9 +11,9 @@ internal readonly record struct ProblemInfo
     public readonly int Day;
     public readonly string? Name;
 
-    public ProblemInfo(string Namespace, string className, int year, int day, string? name)
+    public ProblemInfo(string classNamespace, string className, int year, int day, string? name)
     {
-        this.Namespace = Namespace;
+        this.Namespace = classNamespace;
         this.ClassName = className;
         this.Year = year;
         this.Day = day;

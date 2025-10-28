@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2024, 7, "Bridge Repair")]
 public partial class Day7Solution : IProblemSolver
@@ -20,6 +20,7 @@ public partial class Day7Solution : IProblemSolver
         {
             return (long)equation.Result;
         }
+
         return 0;
     });
 
@@ -34,7 +35,7 @@ public partial class Day7Solution : IProblemSolver
         return 0;
     }))).Result.Sum();
 
-    static IEnumerable<ulong> GetAllPossibleResults(bool allowConcatenation, ulong left, params IEnumerable<ulong> rights)
+    private static IEnumerable<ulong> GetAllPossibleResults(bool allowConcatenation, ulong left, params IEnumerable<ulong> rights)
     {
         if (!rights.Any())
         {
@@ -45,11 +46,22 @@ public partial class Day7Solution : IProblemSolver
         var next = rights.First();
         var nextRights = rights.Skip(1);
 
-        foreach (var result in GetAllPossibleResults(allowConcatenation, left + next, nextRights)) yield return result;
-        foreach (var result in GetAllPossibleResults(allowConcatenation, left * next, nextRights)) yield return result;
+        foreach (var result in GetAllPossibleResults(allowConcatenation, left + next, nextRights))
+        {
+            yield return result;
+        }
+
+        foreach (var result in GetAllPossibleResults(allowConcatenation, left * next, nextRights))
+        {
+            yield return result;
+        }
+
         if (allowConcatenation)
         {
-            foreach (var result in GetAllPossibleResults(true, MathUtils.FastConcat(left, next), nextRights)) yield return result;
+            foreach (var result in GetAllPossibleResults(true, MathUtils.FastConcat(left, next), nextRights))
+            {
+                yield return result;
+            }
         }
     }
 

@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2019;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2019, 3, "Crossed Wires")]
 public partial class Day3Solution : IProblemSolver
@@ -68,7 +68,7 @@ public partial class Day3Solution : IProblemSolver
         return [.. input.Lines().Select(ParseLine)];
     }
 
-    record Instruction(Direction Direction, int Distance);
+    private record Instruction(Direction Direction, int Distance);
 
     private class Vector3ComparerAsVector2 : IEqualityComparer<Vector3>
     {

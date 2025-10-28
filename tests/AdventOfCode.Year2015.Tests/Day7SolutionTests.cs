@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015.Tests;
 
-using AdventOfCode.Shared.Tests;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Shared.Tests;
 
 [TestClass]
 public class Day7SolutionTests : SolverBaseTests<Day7Solution>

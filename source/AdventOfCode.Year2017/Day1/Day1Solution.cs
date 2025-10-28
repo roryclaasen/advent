@@ -28,7 +28,7 @@ public partial class Day1Solution : IProblemSolver
         var sum = 0;
         for (var i = 0; i < input.Length; i++)
         {
-            var next = (i + input.Length / 2) % input.Length;
+            var next = (i + (input.Length / 2)) % input.Length;
             if (input[i] == input[next])
             {
                 sum += int.Parse(input[i].ToString());

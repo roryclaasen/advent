@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2016, 6, "Signals and Noise")]
 public partial class Day6Solution : IProblemSolver

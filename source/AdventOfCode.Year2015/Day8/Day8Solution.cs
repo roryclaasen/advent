@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 8, "Matchsticks")]
 public partial class Day8Solution : IProblemSolver
@@ -75,6 +75,7 @@ public partial class Day8Solution : IProblemSolver
                 i++;
             }
         }
+
         return sb.ToString();
     }
 
@@ -93,6 +94,7 @@ public partial class Day8Solution : IProblemSolver
 
             sb.Append(encodedChar);
         }
+
         sb.Append('"');
         return sb.ToString();
     }

@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Analyzers;
 
-using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.Text;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.Text;
 
 [Generator]
 public class ResourceGenerator : IIncrementalGenerator

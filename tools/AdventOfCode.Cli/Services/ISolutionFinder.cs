@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Cli.Services;
 
-using AdventOfCode.Problem;
 using System.Collections.Generic;
+using AdventOfCode.Problem;
 
 internal interface ISolutionFinder
 {

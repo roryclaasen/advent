@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 9, "Rope Bridge")]
 public partial class Day9Solution : IProblemSolver

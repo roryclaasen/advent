@@ -3,15 +3,24 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 22, "Wizard Simulator 20XX")]
 public partial class Day22Solution : IProblemSolver
 {
+    private enum Spell
+    {
+        MagicMissile,
+        Drain,
+        Shield,
+        Poison,
+        Recharge
+    }
+
     public object? PartOne(string input)
     {
         var boss = ParseInput(input);
@@ -48,7 +57,6 @@ public partial class Day22Solution : IProblemSolver
                     minManaSpent = Math.Min(minManaSpent ?? int.MaxValue, fight.PlayerManaSpent);
                     continue;
                 }
-
 
                 // Boss Turn
                 fight.ApplyEffects();
@@ -108,7 +116,6 @@ public partial class Day22Solution : IProblemSolver
                     continue;
                 }
 
-
                 // Boss Turn
                 fight.ApplyEffects();
                 if (fight.IsBossDead)
@@ -152,13 +159,9 @@ public partial class Day22Solution : IProblemSolver
 
         public int BossHitPoints { get; set; }
 
-        private int PlayerMana { get; set; } = 500;
-
         public int PlayerHitPoints { get; set; } = 50;
 
         public int PlayerManaSpent { get; private set; }
-
-        private int PlayerArmor => this.ActiveEffects.ContainsKey(Spell.Shield) ? 7 : 0;
 
         public bool IsPlayerDead => this.PlayerHitPoints <= 0 || this.PlayerMana < 53;
 
@@ -167,6 +170,10 @@ public partial class Day22Solution : IProblemSolver
         public bool IsGameOver => this.IsPlayerDead || this.IsBossDead;
 
         public Dictionary<Spell, int> ActiveEffects { get; private set; } = [];
+
+        private int PlayerMana { get; set; } = 500;
+
+        private int PlayerArmor => this.ActiveEffects.ContainsKey(Spell.Shield) ? 7 : 0;
 
         public void BossAttack()
         {
@@ -249,14 +256,5 @@ public partial class Day22Solution : IProblemSolver
                 PlayerManaSpent = this.PlayerManaSpent
             };
         }
-    }
-
-    private enum Spell
-    {
-        MagicMissile,
-        Drain,
-        Shield,
-        Poison,
-        Recharge
     }
 }

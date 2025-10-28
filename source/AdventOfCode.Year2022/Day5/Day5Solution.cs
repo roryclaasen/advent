@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 5, "Supply Stacks")]
 public partial class Day5Solution : IProblemSolver
@@ -17,11 +17,11 @@ public partial class Day5Solution : IProblemSolver
     {
         var parsedInput = ParseInput(input);
         var stacks = parsedInput.Stacks;
-        foreach (var (Count, From, To) in parsedInput.Instructions)
+        foreach (var (count, from, to) in parsedInput.Instructions)
         {
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
-                stacks[To - 1].Push(stacks[From - 1].Pop());
+                stacks[to - 1].Push(stacks[from - 1].Pop());
             }
         }
 
@@ -32,17 +32,17 @@ public partial class Day5Solution : IProblemSolver
     {
         var parsedInput = ParseInput(input);
         var stacks = parsedInput.Stacks;
-        foreach (var (Count, From, To) in parsedInput.Instructions)
+        foreach (var (count, from, to) in parsedInput.Instructions)
         {
             var items = new Stack<char>();
-            for (var i = 0; i < Count; i++)
+            for (var i = 0; i < count; i++)
             {
-                items.Push(stacks[From - 1].Pop());
+                items.Push(stacks[from - 1].Pop());
             }
 
             foreach (var item in items)
             {
-                stacks[To - 1].Push(item);
+                stacks[to - 1].Push(item);
             }
         }
 

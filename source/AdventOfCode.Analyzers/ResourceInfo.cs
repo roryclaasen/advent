@@ -3,10 +3,9 @@
 
 namespace AdventOfCode.Analyzers;
 
-using AdventOfCode.Problem;
 using System;
-using System.Collections.Generic;
 using System.Text;
+using AdventOfCode.Problem;
 
 internal readonly record struct ResourceInfo
 {
@@ -15,9 +14,9 @@ internal readonly record struct ResourceInfo
     public readonly string FileName;
     public readonly string? Contents;
 
-    public ResourceInfo(string Namespace, string className, string fileName, string? contents)
+    public ResourceInfo(string classNamespace, string className, string fileName, string? contents)
     {
-        this.Namespace = Namespace;
+        this.Namespace = classNamespace;
         this.ClassName = className;
         this.FileName = fileName;
         this.Contents = contents;
@@ -48,6 +47,7 @@ internal readonly record struct ResourceInfo
             {
                 sb.Append(new string(' ', padding));
             }
+
             if (i == length)
             {
                 sb.Append(lines[i]);

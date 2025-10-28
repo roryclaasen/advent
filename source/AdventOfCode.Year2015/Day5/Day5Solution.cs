@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015;
 
+using System.Text.RegularExpressions;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Text.RegularExpressions;
 
 [Problem(2015, 5, "Doesn't He Have Intern-Elves For This?")]
 public partial class Day5Solution : IProblemSolver

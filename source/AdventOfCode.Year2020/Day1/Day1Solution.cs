@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2020;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2020, 1, "Report Repair")]
 public partial class Day1Solution : IProblemSolver

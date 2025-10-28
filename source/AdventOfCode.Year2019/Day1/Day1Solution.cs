@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2019;
 
+using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Linq;
 
 [Problem(2019, 1, "The Tyranny of the Rocket Equation")]
 public partial class Day1Solution : IProblemSolver
@@ -22,9 +22,10 @@ public partial class Day1Solution : IProblemSolver
             {
                 s += y;
             }
+
             return s;
         });
     }
 
-    private static int Fuel(int x) => x / 3 - 2;
+    private static int Fuel(int x) => (x / 3) - 2;
 }

@@ -27,6 +27,7 @@ public static partial class IIEnumerableExtensions
             visited.Add(start);
             permutation.Add(start);
         }
+
         Permute(values, visited, permutation, permutations, end);
         return permutations;
     }

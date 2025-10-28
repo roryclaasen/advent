@@ -3,13 +3,15 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 16, "Aunt Sue")]
+[SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted", Justification = "Code is hard to read with braces as it's too long. And I'm too lazy to pretty it up")]
 public partial class Day16Solution : IProblemSolver
 {
     public object? PartOne(string input)
@@ -108,12 +110,13 @@ public partial class Day16Solution : IProblemSolver
                 var propertySplits = property.Split(":");
                 properties.Add(propertySplits[0].Trim(), int.Parse(propertySplits[1]));
             }
+
             yield return new AuntSue(number, properties);
         }
     }
 
-    private record AuntSue(int Number, Dictionary<string, int> Properties);
-
     [GeneratedRegex("Sue (\\d+): (.*)")]
     private static partial Regex AuntRegex();
+
+    private record AuntSue(int Number, Dictionary<string, int> Properties);
 }

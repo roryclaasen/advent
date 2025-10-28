@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2023;
 
+using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Linq;
 
 [Problem(2023, 1, "Trebuchet?!")]
 public partial class Day1Solution : IProblemSolver

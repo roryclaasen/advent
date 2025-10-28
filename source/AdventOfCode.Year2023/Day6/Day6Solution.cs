@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 6, "Wait For It")]
 public partial class Day6Solution : IProblemSolver
@@ -27,7 +27,7 @@ public partial class Day6Solution : IProblemSolver
         var winningRanges = new List<long>();
         for (var i = 0; i < lines[0].Length; i++)
         {
-            var possibleWins = this.NumberOfWinsPossible(int.Parse(lines[0][i]), int.Parse(lines[1][i]));
+            var possibleWins = NumberOfWinsPossible(int.Parse(lines[0][i]), int.Parse(lines[1][i]));
             winningRanges.Add(possibleWins);
         }
 
@@ -42,12 +42,12 @@ public partial class Day6Solution : IProblemSolver
             .Select(long.Parse)
             .ToArray();
 
-        return this.NumberOfWinsPossible(time, distance);
+        return NumberOfWinsPossible(time, distance);
     }
 
-    private long NumberOfWinsPossible(long time, long distance)
+    private static long NumberOfWinsPossible(long time, long distance)
     {
-        var result = this.FindStartAndEnd(time, distance);
+        var result = FindStartAndEnd(time, distance);
         if (!result.HasValue)
         {
             return 0;
@@ -56,7 +56,7 @@ public partial class Day6Solution : IProblemSolver
         return (result.Value.End + 1) - result.Value.Start;
     }
 
-    private (long Start, long End)? FindStartAndEnd(long time, long distance)
+    private static (long Start, long End)? FindStartAndEnd(long time, long distance)
     {
         var attemptedTimes = new Dictionary<long, bool>();
 
@@ -70,7 +70,6 @@ public partial class Day6Solution : IProblemSolver
 
             return result;
         }
-        ;
 
         var start = Search(time, (current) =>
         {

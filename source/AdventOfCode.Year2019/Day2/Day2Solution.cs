@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2019;
 
-using AdventOfCode.Problem;
 using System;
 using System.Diagnostics;
 using System.Linq;
+using AdventOfCode.Problem;
 
 [Problem(2019, 2, "1202 Program Alarm")]
 public partial class Day2Solution : IProblemSolver
@@ -58,7 +58,7 @@ public partial class Day2Solution : IProblemSolver
 
                 if (memory[0] == 19690720)
                 {
-                    return 100 * noun + verb;
+                    return (100 * noun) + verb;
                 }
             }
         }

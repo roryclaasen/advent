@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 2, "Cube Conundrum")]
 public partial class Day2Solution : IProblemSolver
@@ -46,9 +46,6 @@ public partial class Day2Solution : IProblemSolver
 
     private partial record class GameReveal(int Red, int Blue, int Green)
     {
-        [GeneratedRegex("(?<amount>\\d+) (?<color>red|blue|green)")]
-        private static partial Regex ColorRegex();
-
         public static GameReveal ParseInput(string input)
         {
             var red = 0;
@@ -80,6 +77,9 @@ public partial class Day2Solution : IProblemSolver
 
             return new GameReveal(red, blue, green);
         }
+
+        [GeneratedRegex("(?<amount>\\d+) (?<color>red|blue|green)")]
+        private static partial Regex ColorRegex();
     }
 
     private record Game(int Id, IEnumerable<GameReveal> Reveals);

@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Analyzers;
 
+using System.Text;
 using AdventOfCode.Problem;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
-using System.Text;
 
 [Generator]
 public class ProblemGenerator : IIncrementalGenerator

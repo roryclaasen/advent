@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
 using System.Text;
+using AdventOfCode.Problem;
 
 [Problem(2015, 10, "Elves Look, Elves Say")]
 public partial class Day10Solution : IProblemSolver
@@ -29,7 +29,7 @@ public partial class Day10Solution : IProblemSolver
         return input.Length;
     }
 
-    public static string LookAndSay(string input)
+    internal static string LookAndSay(string input)
     {
         var finalString = new StringBuilder();
 

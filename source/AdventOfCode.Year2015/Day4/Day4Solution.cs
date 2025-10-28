@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
 using System.Security.Cryptography;
 using System.Text;
+using AdventOfCode.Problem;
 
 [Problem(2015, 4, "The Ideal Stocking Stuffer")]
 public partial class Day4Solution : IProblemSolver

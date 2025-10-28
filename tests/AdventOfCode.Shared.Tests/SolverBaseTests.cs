@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Shared.Tests;
 
-using AdventOfCode.Problem;
 using System.Diagnostics.CodeAnalysis;
+using AdventOfCode.Problem;
 
 public abstract class SolverBaseTests<TSolver> where TSolver : IProblemSolver, new()
 {

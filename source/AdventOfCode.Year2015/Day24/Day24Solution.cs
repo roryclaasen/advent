@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Collections.Immutable;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 24, "It Hangs in the Balance")]
 public partial class Day24Solution : IProblemSolver
@@ -16,16 +16,16 @@ public partial class Day24Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var packages = ParseInput(input).ToArray();
-        return this.FindBestQE(packages, 3);
+        return FindBestQE(packages, 3);
     }
 
     public object? PartTwo(string input)
     {
         var packages = ParseInput(input).ToArray();
-        return this.FindBestQE(packages, 4);
+        return FindBestQE(packages, 4);
     }
 
-    private long FindBestQE(int[] packages, int groups)
+    private static long FindBestQE(int[] packages, int groups)
     {
         var targetWeight = packages.Sum() / groups;
 

@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
 using System;
 using System.Collections.Generic;
 using System.Security.Cryptography;
 using System.Text;
+using AdventOfCode.Problem;
 
 [Problem(2016, 5, "How About a Nice Game of Chess?")]
 public partial class Day5Solution : IProblemSolver

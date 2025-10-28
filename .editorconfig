@@ -135,3 +135,67 @@ csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimenta
 
 # CA1822: Mark members as static
 # dotnet_diagnostic.CA1822.severity = none
+
+# Documentation
+
+# XML comment analysis is disabled due to project configuration
+dotnet_diagnostic.SA0001.severity = none
+
+# missing XML comment for parameter
+dotnet_diagnostic.CS1573.severity = none
+
+# missing XML comment for public type
+dotnet_diagnostic.CS1591.severity = none
+
+# missing XML comment for type parameter
+dotnet_diagnostic.CS1712.severity = none
+
+# elements must be documented
+dotnet_diagnostic.SA1600.severity = none
+
+# partial elements must be documented
+dotnet_diagnostic.SA1601.severity = none
+
+# enum items must be documented
+dotnet_diagnostic.SA1602.severity = none
+
+# elements must have summary documentation
+dotnet_diagnostic.SA1604.severity = none
+
+# partial elements must have summary documentation
+dotnet_diagnostic.SA1605.severity = none
+
+# parameters must be documented
+dotnet_diagnostic.SA1611.severity = none
+
+# return values must be documented
+dotnet_diagnostic.SA1615.severity = none
+
+# constructor summary must begin with standard text
+dotnet_diagnostic.SA1642.severity = none
+
+# Stylecop
+
+# Generic type constraints should be on their own line
+dotnet_diagnostic.SA1127.severity = none
+
+# Put constructor initializers on their own line
+dotnet_diagnostic.SA1128.severity = none
+
+# Use trailing comma in multi-line initializers
+dotnet_diagnostic.SA1413.severity = none
+
+# Braces for multi-line statements should not share line
+dotnet_diagnostic.SA1500.severity = none
+
+# Statement should not be on a single line
+dotnet_diagnostic.SA1501.severity = none
+
+# Element should not be on a single line
+dotnet_diagnostic.SA1502.severity = none
+
+# Single-line comment should be preceded by blank line
+dotnet_diagnostic.SA1515.severity = none
+
+# Documentation text should end with a period
+dotnet_diagnostic.SA1629.severity = none

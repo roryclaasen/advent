@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 18, "Like a GIF For Your Yard")]
 public partial class Day18Solution : IProblemSolver

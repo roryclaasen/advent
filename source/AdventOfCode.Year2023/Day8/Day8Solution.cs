@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 8, "Haunted Wasteland")]
 public partial class Day8Solution : IProblemSolver
@@ -44,6 +44,7 @@ public partial class Day8Solution : IProblemSolver
             } while (!current.EndsWith('Z'));
             allPaths.Add(steps);
         }
+
         return MathUtils.Lcm(allPaths);
     }
 

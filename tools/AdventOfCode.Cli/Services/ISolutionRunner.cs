@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Cli.Services;
 
+using System.Collections.Generic;
 using AdventOfCode.Cli.Services.Runner;
 using AdventOfCode.Problem;
-using System.Collections.Generic;
 
 internal interface ISolutionRunner
 {

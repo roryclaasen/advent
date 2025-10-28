@@ -3,25 +3,25 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2024, 1, "Historian Hysteria")]
 public partial class Day1Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
-        var (Left, Right) = ParseInput(input);
-        return Left.WithIndex().Sum(i => Math.Abs(Right[i.Index] - i.Item));
+        var (left, right) = ParseInput(input);
+        return left.WithIndex().Sum(i => Math.Abs(right[i.Index] - i.Item));
     }
 
     public object? PartTwo(string input)
     {
-        var (Left, Right) = ParseInput(input);
-        return Left.Sum(n => n * Right.Count(x => x == n));
+        var (left, right) = ParseInput(input);
+        return left.Sum(n => n * right.Count(x => x == n));
     }
 
     private static (List<int> Left, List<int> Right) ParseInput(string input)
@@ -38,6 +38,7 @@ public partial class Day1Solution : IProblemSolver
             left.Add(leftNumber);
             right.Add(rightNumber);
         }
+
         left.Sort();
         right.Sort();
         return (left, right);

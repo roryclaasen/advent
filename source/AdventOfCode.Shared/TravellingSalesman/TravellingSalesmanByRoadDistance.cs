@@ -9,18 +9,13 @@ using System.Linq;
 
 public class TravellingSalesmanByRoadDistance
 {
-    public record Road<T>(T From, T To, float Distance) where T : class;
-
     public static List<Road<T>> CityRouteToRoadRoute<T>(List<T> route, List<Road<T>> roads) where T : class
     {
         var result = new List<Road<T>>();
         for (int i = 0; i < route.Count - 1; i++)
         {
-            var road = roads.FirstOrDefault(r => r.From.Equals(route[i]) && r.To.Equals(route[i + 1]));
-            if (road is null)
-            {
-                throw new ArgumentException($"No road found between {route[i]} and {route[i + 1]}");
-            }
+            var road = roads.FirstOrDefault(r => r.From.Equals(route[i]) && r.To.Equals(route[i + 1]))
+                ?? throw new ArgumentException($"No road found between {route[i]} and {route[i + 1]}");
 
             result.Add(road);
         }
@@ -39,11 +34,8 @@ public class TravellingSalesmanByRoadDistance
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
             {
-                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]));
-                if (road is null)
-                {
-                    throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
-                }
+                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]))
+                    ?? throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
 
                 distance += road.Distance;
             }
@@ -69,11 +61,8 @@ public class TravellingSalesmanByRoadDistance
             var distance = 0f;
             for (int i = 0; i < permutation.Count - 1; i++)
             {
-                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]));
-                if (road is null)
-                {
-                    throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
-                }
+                var road = roads.FirstOrDefault(r => r.From.Equals(permutation[i]) && r.To.Equals(permutation[i + 1]))
+                    ?? throw new ArgumentException($"No road found between {permutation[i]} and {permutation[i + 1]}");
 
                 distance += road.Distance;
             }
@@ -87,4 +76,6 @@ public class TravellingSalesmanByRoadDistance
 
         return shortestPath;
     }
+
+    public record Road<T>(T From, T To, float Distance) where T : class;
 }

@@ -19,6 +19,7 @@ public static class HashSetExtensions
         {
             added |= self.Add(value);
         }
+
         return added;
     }
 }

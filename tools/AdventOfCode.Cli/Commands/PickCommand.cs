@@ -3,14 +3,14 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Services;
-using AdventOfCode.Problem;
-using Spectre.Console;
 using System;
 using System.CommandLine;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AdventOfCode.Cli.Services;
+using AdventOfCode.Problem;
+using Spectre.Console;
 
 internal class PickCommand : BaseSolutionCommand
 {

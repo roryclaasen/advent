@@ -3,15 +3,29 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 2, "Rock Paper Scissors")]
 public partial class Day2Solution : IProblemSolver
 {
+    private enum RPSMove : int
+    {
+        Rock = 1,
+        Paper = 2,
+        Scissors = 3
+    }
+
+    private enum Outcome
+    {
+        Win,
+        Lose,
+        Draw
+    }
+
     public object? PartOne(string input) => CalculateScore(ParseInput1(input));
 
     public object? PartTwo(string input)
@@ -76,10 +90,6 @@ public partial class Day2Solution : IProblemSolver
             _ => throw new ArgumentOutOfRangeException(nameof(a), a, null)
         };
     }
-
-    private enum RPSMove : int { Rock = 1, Paper = 2, Scissors = 3 }
-
-    private enum Outcome { Win, Lose, Draw }
 
     private record RPSRound(RPSMove Move, RPSMove Opponent);
 

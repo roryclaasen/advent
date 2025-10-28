@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Shared.Tests;
 
-using NSubstitute;
 using System;
+using NSubstitute;
 
 [TestClass]
 public class AdventUriTests

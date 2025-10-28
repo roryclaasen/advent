@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2020;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2020, 2, "Password Philosophy")]
 public partial class Day2Solution : IProblemSolver
@@ -41,8 +41,8 @@ public partial class Day2Solution : IProblemSolver
         }
     }
 
-    private record PasswordPolicy(int Min, int Max, char Character, string Password);
-
     [GeneratedRegex("(?<Min>\\d+)-(?<Max>\\d+) (?<Character>\\w): (?<Password>\\w+)")]
     private static partial Regex PasswordPolicyRegex();
+
+    private record PasswordPolicy(int Min, int Max, char Character, string Password);
 }

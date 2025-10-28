@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015;
 
+using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Linq;
 
 [Problem(2015, 20, "Infinite Elves and Infinite Houses")]
 public partial class Day20Solution : IProblemSolver

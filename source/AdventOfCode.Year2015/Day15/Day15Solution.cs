@@ -3,16 +3,16 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 15, "Science for Hungry People")]
 public partial class Day15Solution : IProblemSolver
 {
-    private static int MaxTeaspoons = 100;
+    private const int MaxTeaspoons = 100;
 
     public object? PartOne(string input)
     {
@@ -37,11 +37,11 @@ public partial class Day15Solution : IProblemSolver
                 for (var k = 0; k <= MaxTeaspoons - i - j; k++)
                 {
                     var l = MaxTeaspoons - i - j - k;
-                    var capacity = Math.Max(0, ingredients[0].Capacity * i + ingredients[1].Capacity * j + ingredients[2].Capacity * k + ingredients[3].Capacity * l);
-                    var durability = Math.Max(0, ingredients[0].Durability * i + ingredients[1].Durability * j + ingredients[2].Durability * k + ingredients[3].Durability * l);
-                    var flavor = Math.Max(0, ingredients[0].Flavor * i + ingredients[1].Flavor * j + ingredients[2].Flavor * k + ingredients[3].Flavor * l);
-                    var texture = Math.Max(0, ingredients[0].Texture * i + ingredients[1].Texture * j + ingredients[2].Texture * k + ingredients[3].Texture * l);
-                    var calories = Math.Max(0, ingredients[0].Calories * i + ingredients[1].Calories * j + ingredients[2].Calories * k + ingredients[3].Calories * l);
+                    var capacity = Math.Max(0, (ingredients[0].Capacity * i) + (ingredients[1].Capacity * j) + (ingredients[2].Capacity * k) + (ingredients[3].Capacity * l));
+                    var durability = Math.Max(0, (ingredients[0].Durability * i) + (ingredients[1].Durability * j) + (ingredients[2].Durability * k) + (ingredients[3].Durability * l));
+                    var flavor = Math.Max(0, (ingredients[0].Flavor * i) + (ingredients[1].Flavor * j) + (ingredients[2].Flavor * k) + (ingredients[3].Flavor * l));
+                    var texture = Math.Max(0, (ingredients[0].Texture * i) + (ingredients[1].Texture * j) + (ingredients[2].Texture * k) + (ingredients[3].Texture * l));
+                    var calories = Math.Max(0, (ingredients[0].Calories * i) + (ingredients[1].Calories * j) + (ingredients[2].Calories * k) + (ingredients[3].Calories * l));
                     var score = bestScore(capacity, durability, flavor, texture, calories);
                     best = Math.Max(best, score);
                 }
@@ -72,8 +72,8 @@ public partial class Day15Solution : IProblemSolver
         }
     }
 
-    private record class Ingredient(string Name, int Capacity, int Durability, int Flavor, int Texture, int Calories);
-
     [GeneratedRegex("(?<name>\\w+): capacity (?<capacity>-?\\d+), durability (?<durability>-?\\d+), flavor (?<flavor>-?\\d+), texture (?<texture>-?\\d+), calories (?<calories>-?\\d+)")]
     private static partial Regex IngredientRegex();
+
+    private record class Ingredient(string Name, int Capacity, int Durability, int Flavor, int Texture, int Calories);
 }

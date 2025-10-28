@@ -4,19 +4,22 @@
     <Product>AdventOfCode</Product>
     <Authors>Rory Claasen</Authors>
 
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <RepositoryUrl>https://github.com/roryclaasen/advent</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+  </PropertyGroup>
+  
+  <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
 
     <Nullable>enable</Nullable>
     <IsPublishable>false</IsPublishable>
-
-    <PublishRepositoryUrl>true</PublishRepositoryUrl>
-    <RepositoryUrl>https://github.com/roryclaasen/advent</RepositoryUrl>
-    <RepositoryType>git</RepositoryType>
-
     <DebugType>embedded</DebugType>
 
     <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
     <AccelerateBuildsInVisualStudio>true</AccelerateBuildsInVisualStudio>
+
+    <GenerateDocumentationFile>false</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -26,8 +29,6 @@
   <PropertyGroup Label="Code Quality">
     <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
-
-    <NoWarn>$(NoWarn);SA1600;SA1601;SA1313;SA1208;SA1413;SA1010</NoWarn>
   </PropertyGroup>
 
   <ItemGroup Label="Code Quality">

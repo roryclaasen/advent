@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2015;
 
+using System;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System;
 
 [Problem(2015, 6, "Probably a Fire Hazard")]
 public partial class Day6Solution : IProblemSolver
@@ -86,7 +86,6 @@ public partial class Day6Solution : IProblemSolver
 
         return brightness;
     }
-
 
     private static int[,] MakeGrid() => new int[1000, 1000];
 }

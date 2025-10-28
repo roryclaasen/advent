@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 3, "Rucksack Reorganization")]
 public partial class Day3Solution : IProblemSolver
@@ -18,8 +18,8 @@ public partial class Day3Solution : IProblemSolver
             .Distinct()
             .Where(letter => rucksack.Compartment2.Contains(letter))
             .Select(Priority)
-            .Sum()
-        ).Sum();
+            .Sum())
+        .Sum();
 
     public object? PartTwo(string input)
     {

@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 4, "Scratchcards")]
 public partial class Day4Solution : IProblemSolver
@@ -29,7 +29,6 @@ public partial class Day4Solution : IProblemSolver
 
         return ParseInput(input).Sum(CalculatePoints);
     }
-
 
     public object? PartTwo(string input)
     {
@@ -70,13 +69,13 @@ public partial class Day4Solution : IProblemSolver
         }
     }
 
-    private record ScratchCard(int Id, IReadOnlyCollection<int> WinningNumbers, IReadOnlyCollection<int> PickedNumbers)
-    {
-        private bool IsWinningNumber(int number) => this.WinningNumbers.Contains(number);
-
-        public IReadOnlyCollection<int> NumbersThatWon => this.PickedNumbers.Where(this.IsWinningNumber).ToList();
-    }
-
     [GeneratedRegex(@"Card +(?<Id>\d+):(?<Winning>(?: +\d+)+) \|(?<Picked>(?: +\d+)+)")]
     private static partial Regex CardRegex();
+
+    private record ScratchCard(int Id, IReadOnlyCollection<int> WinningNumbers, IReadOnlyCollection<int> PickedNumbers)
+    {
+        public IReadOnlyCollection<int> NumbersThatWon => [.. this.PickedNumbers.Where(this.IsWinningNumber)];
+
+        private bool IsWinningNumber(int number) => this.WinningNumbers.Contains(number);
+    }
 }

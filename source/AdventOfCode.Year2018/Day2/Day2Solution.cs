@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2018;
 
+using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using System.Linq;
 
 [Problem(2018, 2, "Inventory Management System")]
 public partial class Day2Solution : IProblemSolver
@@ -22,6 +22,7 @@ public partial class Day2Solution : IProblemSolver
             {
                 twos++;
             }
+
             if (counts.Contains(3))
             {
                 threes++;

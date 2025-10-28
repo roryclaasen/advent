@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
 using System;
 using System.Collections.Generic;
+using AdventOfCode.Problem;
 
 [Problem(2016, 1, "No Time for a Taxicab")]
 public partial class Day1Solution : IProblemSolver
@@ -44,7 +44,7 @@ public partial class Day1Solution : IProblemSolver
         var position = (x: 0, y: 0);
         var direction = 0;
 
-        var visited = new HashSet<(int x, int y)> { position };
+        var visited = new HashSet<(int X, int Y)> { position };
 
         foreach (var instruction in instructions)
         {
@@ -70,6 +70,7 @@ public partial class Day1Solution : IProblemSolver
                 {
                     return Math.Abs(position.x) + Math.Abs(position.y);
                 }
+
                 visited.Add(position);
             }
         }

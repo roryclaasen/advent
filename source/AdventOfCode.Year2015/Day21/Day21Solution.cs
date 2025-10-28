@@ -3,20 +3,27 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 21, "RPG Simulator 20XX")]
 public partial class Day21Solution : IProblemSolver
 {
+    private enum ItemType
+    {
+        Weapon,
+        Armor,
+        Ring
+    }
+
     public object? PartOne(string input)
     {
         var boss = ParseInput(input);
         var minGold = int.MaxValue;
-        foreach (var items in this.GetAllItemCombinations())
+        foreach (var items in GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
             if (goldSpent < minGold && Fight(boss, items))
@@ -24,7 +31,6 @@ public partial class Day21Solution : IProblemSolver
                 minGold = Math.Min(minGold, goldSpent);
             }
         }
-        ;
 
         return minGold;
     }
@@ -33,7 +39,7 @@ public partial class Day21Solution : IProblemSolver
     {
         var boss = ParseInput(input);
         var maxGold = int.MinValue;
-        foreach (var items in this.GetAllItemCombinations())
+        foreach (var items in GetAllItemCombinations())
         {
             var goldSpent = items.Sum(i => i.Cost);
             if (goldSpent > maxGold && !Fight(boss, items))
@@ -45,7 +51,7 @@ public partial class Day21Solution : IProblemSolver
         return maxGold;
     }
 
-    private IEnumerable<Item[]> GetAllItemCombinations()
+    private static IEnumerable<Item[]> GetAllItemCombinations()
     {
         var shop = GetShop();
         foreach (var weapon in shop.Where(i => i.Type == ItemType.Weapon))
@@ -95,8 +101,8 @@ public partial class Day21Solution : IProblemSolver
         return playerHitPoints > 0;
     }
 
-    private static List<Item> GetShop() => new()
-    {
+    private static List<Item> GetShop() =>
+    [
         // Weapons
         new Item("Dagger", 8, 4, 0, ItemType.Weapon),
         new Item("Shortsword", 10, 5, 0, ItemType.Weapon),
@@ -118,16 +124,7 @@ public partial class Day21Solution : IProblemSolver
         new Item("Defense +1", 20, 0, 1, ItemType.Ring),
         new Item("Defense +2", 40, 0, 2, ItemType.Ring),
         new Item("Defense +3", 80, 0, 3, ItemType.Ring)
-    };
-
-    private record Item(string Name, int Cost, int Damage, int Armor, ItemType Type);
-
-    private enum ItemType
-    {
-        Weapon,
-        Armor,
-        Ring
-    }
+    ];
 
     private static BossStats ParseInput(string input)
     {
@@ -154,4 +151,6 @@ public partial class Day21Solution : IProblemSolver
     }
 
     private record BossStats(int HitPoints, int Damage, int Armor);
+
+    private record Item(string Name, int Cost, int Damage, int Armor, ItemType Type);
 }

@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
 using System;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
 
 [Problem(2024, 3, "Mull It Over")]
 public partial class Day3Solution : IProblemSolver
@@ -42,5 +42,5 @@ public partial class Day3Solution : IProblemSolver
     }
 
     [GeneratedRegex(@"do\(\)|don't\(\)|mul\((\d+),(\d+)\)")]
-    public static partial Regex SequenceRegex();
+    private static partial Regex SequenceRegex();
 }

@@ -3,14 +3,14 @@
 
 namespace AdventOfCode.Cli.Services.Runner;
 
-using AdventOfCode.Cli.Services;
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
-using Spectre.Console;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AdventOfCode.Cli.Services;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
+using Spectre.Console;
 
 internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRunner
 {
@@ -38,35 +38,6 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
 
         return allResults;
     }
-
-    private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
-    {
-        var solverName = solver.GetName();
-        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
-
-        ctx.Status("Running part 1");
-        var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
-
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
-        if (partOne.IsError)
-        {
-            AnsiConsole.WriteException(partOne.Error);
-        }
-
-        ctx.Status("Running part 2");
-        var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
-
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
-        if (partTwo.IsError)
-        {
-            AnsiConsole.WriteException(partTwo.Error);
-        }
-
-        return new SolutionResult(partOne, partTwo);
-
-        static string GetResultEmoji(ProblemPartResult result)
-            => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
-    });
 
     private static void PrintResult(SolutionResult result)
     {
@@ -135,4 +106,33 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         stopwatch.Stop();
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
+
+    private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
+    {
+        var solverName = solver.GetName();
+        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
+
+        ctx.Status("Running part 1");
+        var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
+
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
+        if (partOne.IsError)
+        {
+            AnsiConsole.WriteException(partOne.Error);
+        }
+
+        ctx.Status("Running part 2");
+        var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
+
+        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
+        if (partTwo.IsError)
+        {
+            AnsiConsole.WriteException(partTwo.Error);
+        }
+
+        return new SolutionResult(partOne, partTwo);
+
+        static string GetResultEmoji(ProblemPartResult result)
+            => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
+    });
 }

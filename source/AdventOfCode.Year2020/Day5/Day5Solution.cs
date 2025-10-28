@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2020;
 
-using AdventOfCode.Problem;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
 
 [Problem(2020, 5, "Binary Boarding")]
 public partial class Day5Solution : IProblemSolver
@@ -46,7 +46,7 @@ public partial class Day5Solution : IProblemSolver
         {
             var row = Convert.ToInt32(input[..7].Replace('F', '0').Replace('B', '1'), 2);
             var column = Convert.ToInt32(input[7..].Replace('L', '0').Replace('R', '1'), 2);
-            var seatId = row * 8 + column;
+            var seatId = (row * 8) + column;
             return new BoardingPass(row, column, seatId);
         }
     }

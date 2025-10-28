@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 23, "Opening the Turing Lock")]
 public partial class Day23Solution : IProblemSolver
@@ -61,6 +61,7 @@ public partial class Day23Solution : IProblemSolver
                     {
                         pointer++;
                     }
+
                     break;
                 case "jio":
                     if (register[instruction.Register] == 1)
@@ -71,6 +72,7 @@ public partial class Day23Solution : IProblemSolver
                     {
                         pointer++;
                     }
+
                     break;
                 default:
                     throw new Exception($"Unknown instruction: {instruction.Operation}");
@@ -84,12 +86,12 @@ public partial class Day23Solution : IProblemSolver
     {
         foreach (var line in input.Lines())
         {
-
             var match = InstructionRegex().Match(line);
             if (!match.Success)
             {
-                throw new System.Exception($"Failed to parse instruction: {line}");
+                throw new Exception($"Failed to parse instruction: {line}");
             }
+
             var operation = match.Groups["operation"].Value;
             var register = match.Groups["register"].Value;
             var offset = int.TryParse(match.Groups["offset"].Value, out var intOffset) ? intOffset : 0;
@@ -98,8 +100,8 @@ public partial class Day23Solution : IProblemSolver
         }
     }
 
-    private record Instruction(string Operation, string Register, int Offset);
-
     [GeneratedRegex("^(?<operation>\\w+) (?<register>[ab])?(, )?(?<offset>[+-]\\d+)?$")]
     private static partial Regex InstructionRegex();
+
+    private record Instruction(string Operation, string Register, int Offset);
 }

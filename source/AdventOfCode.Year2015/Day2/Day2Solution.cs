@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 2, "I Was Told There Would Be No Math")]
 public partial class Day2Solution : IProblemSolver

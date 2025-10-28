@@ -3,23 +3,32 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 7, "Some Assembly Required")]
 public partial class Day7Solution : IProblemSolver
 {
+    private enum Operation
+    {
+        And,
+        Or,
+        Not,
+        LShift,
+        RShift
+    }
+
     public object? PartOne(string input) => this.RunInput(input)["a"];
 
     public object? PartTwo(string input)
     {
         var instructions = this.ParseInput(input);
-        var part1Result = RunInstructions(new List<InstructionBase>(instructions));
+        var part1Result = RunInstructions([.. instructions]);
         var aValue = part1Result["a"];
 
         var partTwoIns = new List<InstructionBase>(instructions);
@@ -154,26 +163,17 @@ public partial class Day7Solution : IProblemSolver
         }
     }
 
+    [GeneratedRegex("^(?:(?<Value>\\d+)|(?<A>\\w+)) -> (?<Output>\\w+)$", RegexOptions.Singleline)]
+    private partial Regex SetValueRegex();
+
+    [GeneratedRegex("^(?:(?<Operation>NOT) (?<A>\\w+)|(?<A>\\w+) (?<Operation>AND|OR|LSHIFT|RSHIFT) (?<B>\\w+)) -> (?<Output>\\w+)$", RegexOptions.Singleline)]
+    private partial Regex BitWiseRegex();
+
     public abstract record InstructionBase(string Output);
 
     private record SetValueInstruction(string Output, ushort Value) : InstructionBase(Output);
 
     private record SetValueFromWireInstruction(string Output, string A) : InstructionBase(Output);
 
-    private enum Operation
-    {
-        And,
-        Or,
-        Not,
-        LShift,
-        RShift
-    }
-
     private record BitWiseInstruction(string Output, Operation Operation, string A, string? B = null) : InstructionBase(Output);
-
-    [GeneratedRegex("^(?:(?<Value>\\d+)|(?<A>\\w+)) -> (?<Output>\\w+)$", RegexOptions.Singleline)]
-    private partial Regex SetValueRegex();
-
-    [GeneratedRegex("^(?:(?<Operation>NOT) (?<A>\\w+)|(?<A>\\w+) (?<Operation>AND|OR|LSHIFT|RSHIFT) (?<B>\\w+)) -> (?<Output>\\w+)$", RegexOptions.Singleline)]
-    private partial Regex BitWiseRegex();
 }

@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Cli.Services.Finder;
 
-using AdventOfCode.Cli.Services;
-using AdventOfCode.Problem;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Cli.Services;
+using AdventOfCode.Problem;
 
 internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISolutionFinder
 {

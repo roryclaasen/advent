@@ -3,9 +3,9 @@
 
 namespace AdventOfCode.Cli.Services.Runner;
 
-using Spectre.Console;
 using System;
 using System.Diagnostics.CodeAnalysis;
+using Spectre.Console;
 
 internal record struct ProblemPartResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
 {

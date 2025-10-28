@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2016, 8, "Two-Factor Authentication")]
 public partial class Day8Solution : IProblemSolver
@@ -60,6 +60,7 @@ public partial class Day8Solution : IProblemSolver
                 {
                     row[(x + ins.B) % screen.GetLength(1)] = screen[ins.A, x];
                 }
+
                 for (var x = 0; x < screen.GetLength(1); x++)
                 {
                     screen[ins.A, x] = row[x];
@@ -72,6 +73,7 @@ public partial class Day8Solution : IProblemSolver
                 {
                     column[(y + ins.B) % screen.GetLength(0)] = screen[y, ins.A];
                 }
+
                 for (var y = 0; y < screen.GetLength(0); y++)
                 {
                     screen[y, ins.A] = column[y];

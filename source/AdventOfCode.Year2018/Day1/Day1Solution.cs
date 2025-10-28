@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2018;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2018, 1, "Chronal Calibration")]
 public partial class Day1Solution : IProblemSolver

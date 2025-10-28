@@ -1,32 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <Import Project="../Directory.Build.Props" />
+	<Import Project="../Directory.Build.Props" />
 
-  <PropertyGroup>
-    <Product>AdventOfCode.Tests</Product>
+	<PropertyGroup>
+		<Product>AdventOfCode.Tests</Product>
 
-    <EnableMSTestRunner>true</EnableMSTestRunner>
-    <TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
+		<EnableMSTestRunner>true</EnableMSTestRunner>
+		<TestingPlatformDotnetTestSupport>true</TestingPlatformDotnetTestSupport>
 
-    <OutputType>Exe</OutputType>
+		<OutputType>Exe</OutputType>
 
-    <IsPublishable>false</IsPublishable>
-    <IsPackable>false</IsPackable>
+		<IsPublishable>false</IsPublishable>
+		<IsPackable>false</IsPackable>
 
-    <Nullable>annotations</Nullable>
+		<Nullable>annotations</Nullable>
 
-    <GenerateDocumentationFile>false</GenerateDocumentationFile>
-    <EnableSourceLink>false</EnableSourceLink>
+		<GenerateDocumentationFile>false</GenerateDocumentationFile>
+		<EnableSourceLink>false</EnableSourceLink>
 
-    <NoWarn>$(NoWarn);SA1116;SA1117;SA1118</NoWarn>
-  </PropertyGroup>
+		<NoWarn>$(NoWarn);SA1116;SA1117;SA1118</NoWarn>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <PackageReference Include="NSubstitute" />
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="NSubstitute" />
+	</ItemGroup>
 
-  <ItemGroup>
-    <Compile Include="$(MSBuildThisFileDirectory)/MSTestSettings.cs" Link="MSTestSettings.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)/Usings.cs" Link="Usings.cs" />
-  </ItemGroup>
+	<ItemGroup>
+		<Compile Include="$(MSBuildThisFileDirectory)/MSTestSettings.cs" Link="MSTestSettings.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/Usings.cs" Link="Usings.cs" />
+	</ItemGroup>
 </Project>

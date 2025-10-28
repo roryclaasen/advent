@@ -3,19 +3,19 @@
 
 namespace AdventOfCode.Year2020;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2020, 4, "Passport Processing")]
 public partial class Day4Solution : IProblemSolver
 {
-    public object? PartOne(string input) => ParseInput(input).Count(p => p.HasNonNullValues());
-
     private static readonly string[] ValidEyeColors = ["amb", "blu", "brn", "gry", "grn", "hzl", "oth"];
+
+    public object? PartOne(string input) => ParseInput(input).Count(p => p.HasNonNullValues());
 
     public object? PartTwo(string input)
     {
@@ -111,15 +111,23 @@ public partial class Day4Solution : IProblemSolver
     private record Passport
     {
         public string? BirthYear { get; init; }
+
         public string? IssueYear { get; init; }
+
         public string? ExpirationYear { get; init; }
+
         public string? Height { get; init; }
+
         public string? HairColor { get; init; }
+
         public string? EyeColor { get; init; }
+
         public string? PassportId { get; init; }
+
         public string? CountryId { get; init; }
 
         [MemberNotNullWhen(true, nameof(BirthYear), nameof(IssueYear), nameof(ExpirationYear), nameof(Height), nameof(HairColor), nameof(EyeColor), nameof(PassportId))]
+        [SuppressMessage("StyleCop.CSharp.LayoutRules", "SA1503:Braces should not be omitted", Justification = "Readability")]
         public bool HasNonNullValues()
         {
             if (this.BirthYear is null) return false;

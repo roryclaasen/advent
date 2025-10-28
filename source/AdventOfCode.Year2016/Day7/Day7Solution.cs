@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2016;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2016, 7, "Internet Protocol Version 7")]
 public partial class Day7Solution : IProblemSolver
@@ -30,6 +30,9 @@ public partial class Day7Solution : IProblemSolver
             }
         }
     }
+
+    [GeneratedRegex(@"(?<address>[a-z]+)(?:\[(?<hypernet>[a-z]+)\])?")]
+    private static partial Regex IPv7Regex();
 
     private record class IPv7Address(string[] Address, string[] HypernetSequence)
     {
@@ -73,7 +76,4 @@ public partial class Day7Solution : IProblemSolver
             return false;
         }
     }
-
-    [GeneratedRegex(@"(?<address>[a-z]+)(?:\[(?<hypernet>[a-z]+)\])?")]
-    private static partial Regex IPv7Regex();
 }

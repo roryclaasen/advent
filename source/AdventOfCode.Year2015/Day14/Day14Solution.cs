@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 14, "Reindeer Olympics")]
 public partial class Day14Solution : IProblemSolver
@@ -21,17 +21,18 @@ public partial class Day14Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        var reindeer = Parse(input).ToList();
+        var allReindeer = Parse(input).ToList();
         var scores = new Dictionary<Reindeer, int>();
         for (var i = 1; i <= this.TotalSeconds; i++)
         {
-            var distances = reindeer.Select(r => (Reindeer: r, Distance: DistanceTraveled(r, i)));
+            var distances = allReindeer.Select(r => (Reindeer: r, Distance: DistanceTraveled(r, i)));
             var maxDistance = distances.Max(x => x.Distance);
-            foreach (var (Reindeer, Distance) in distances.Where(x => x.Distance == maxDistance))
+            foreach (var (reindeer, distance) in distances.Where(x => x.Distance == maxDistance))
             {
-                scores[Reindeer] = scores.GetValueOrDefault(Reindeer) + 1;
+                scores[reindeer] = scores.GetValueOrDefault(reindeer) + 1;
             }
         }
+
         return scores.Values.Max();
     }
 
@@ -49,6 +50,7 @@ public partial class Day14Solution : IProblemSolver
         {
             distance += reindeer.Speed * remainder;
         }
+
         return distance;
     }
 
@@ -68,8 +70,8 @@ public partial class Day14Solution : IProblemSolver
         }
     }
 
-    private record Reindeer(string Name, int Speed, int FlyTime, int RestTime);
-
     [GeneratedRegex("(?<Name>\\w+) can fly (?<Speed>\\d+) km/s for (?<FlyTime>\\d+) seconds, but then must rest for (?<RestTime>\\d+) seconds\\.")]
     private static partial Regex ReindeerRegex();
+
+    private record Reindeer(string Name, int Speed, int FlyTime, int RestTime);
 }

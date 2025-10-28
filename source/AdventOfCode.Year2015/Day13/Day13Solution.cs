@@ -3,19 +3,17 @@
 
 namespace AdventOfCode.Year2015;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.RegularExpressions;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2015, 13, "Knights of the Dinner Table")]
 public partial class Day13Solution : IProblemSolver
 {
     public object? PartOne(string input)
-    {
-        return this.GetOptimalHappiness(ParseInput(input));
-    }
+        => GetOptimalHappiness(ParseInput(input));
 
     public object? PartTwo(string input)
     {
@@ -27,10 +25,10 @@ public partial class Day13Solution : IProblemSolver
             guestArrangements.Add(new GuestArrangement(guest, "Me", 0));
         }
 
-        return this.GetOptimalHappiness(guestArrangements);
+        return GetOptimalHappiness(guestArrangements);
     }
 
-    private int GetOptimalHappiness(IEnumerable<GuestArrangement> guestArrangements)
+    private static int GetOptimalHappiness(IEnumerable<GuestArrangement> guestArrangements)
     {
         var permutations = guestArrangements
             .Select(x => x.Guest)
@@ -55,6 +53,7 @@ public partial class Day13Solution : IProblemSolver
             var neighborArrangement = guestArrangements.Single(x => x.Guest == neighbor && x.Neighbor == guest).Happiness;
             totalHappiness += guestArrangement + neighborArrangement;
         }
+
         return totalHappiness;
     }
 
@@ -72,13 +71,14 @@ public partial class Day13Solution : IProblemSolver
                 {
                     happiness *= -1;
                 }
+
                 yield return new GuestArrangement(guest, neighbor, happiness);
             }
         }
     }
 
-    private record GuestArrangement(string Guest, string Neighbor, int Happiness);
-
     [GeneratedRegex("(?<Guest>\\w+) would (?<gain>lose|gain) (?<happiness>\\d+) happiness units by sitting next to (?<Neighbor>\\w+)\\.")]
     private static partial Regex GuestArrangementRegex();
+
+    private record GuestArrangement(string Guest, string Neighbor, int Happiness);
 }

@@ -3,19 +3,19 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
-using CommunityToolkit.HighPerformance;
 using System;
 using System.Linq;
 using System.Text;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
+using CommunityToolkit.HighPerformance;
 
 [Problem(2024, 4, "Ceres Search")]
 public partial class Day4Solution : IProblemSolver
 {
     public object? PartOne(string input)
     {
-        ReadOnlySpan<char> XMAS = "XMAS";
+        ReadOnlySpan<char> xMAS = "XMAS";
         int[][] directions = [[1, 0], [-1, 0], [0, 1], [0, -1], [1, 1], [1, -1], [-1, 1], [-1, -1]];
 
         var grid = GetWordSearch(input);
@@ -27,7 +27,7 @@ public partial class Day4Solution : IProblemSolver
             {
                 foreach (var dir in directions)
                 {
-                    if (CheckWordMatch(XMAS, grid, x, y, dir[1], dir[0]))
+                    if (CheckWordMatch(xMAS, grid, x, y, dir[1], dir[0]))
                     {
                         total++;
                     }
@@ -40,7 +40,7 @@ public partial class Day4Solution : IProblemSolver
 
     public object? PartTwo(string input)
     {
-        ReadOnlySpan<char> X_MAS = "MAS";
+        ReadOnlySpan<char> x_MAS = "MAS";
         int[][] directions = [[1, 1], [1, -1], [-1, 1], [-1, -1]];
 
         var grid = GetWordSearch(input);
@@ -52,7 +52,7 @@ public partial class Day4Solution : IProblemSolver
                 var matched = 0;
                 foreach (var dir in directions)
                 {
-                    if (CheckWordMatch(X_MAS, grid, x - dir[1], y - dir[0], dir[1], dir[0]))
+                    if (CheckWordMatch(x_MAS, grid, x - dir[1], y - dir[0], dir[1], dir[0]))
                     {
                         matched++;
                     }

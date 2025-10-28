@@ -3,13 +3,13 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Services;
-using AdventOfCode.Shared;
-using Spectre.Console;
 using System.CommandLine;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using AdventOfCode.Cli.Services;
+using AdventOfCode.Shared;
+using Spectre.Console;
 
 internal sealed class TodayCommand(CommonOptions commonOptions, IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
     : BaseSolutionCommand(commonOptions, solutionFinder, solutionRunner, "today", "Run todays solution")

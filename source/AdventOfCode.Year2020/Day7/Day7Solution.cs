@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2020;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2020, 7, "Handy Haversacks")]
 public partial class Day7Solution : IProblemSolver
@@ -41,9 +41,8 @@ public partial class Day7Solution : IProblemSolver
         int CountBags(string color)
         {
             var bag = bagRules.First(b => b.Color == color);
-            return bag.Bags.Sum(b => b.Count + b.Count * CountBags(b.Bag));
+            return bag.Bags.Sum(b => b.Count + (b.Count * CountBags(b.Bag)));
         }
-
 
         return CountBags("shiny gold");
     }

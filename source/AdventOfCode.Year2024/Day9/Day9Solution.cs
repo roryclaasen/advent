@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2024, 9, "Disk Fragmenter")]
 public partial class Day9Solution : IProblemSolver

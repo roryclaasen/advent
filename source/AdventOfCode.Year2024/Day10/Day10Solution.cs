@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2024;
 
+using System.Collections.Generic;
+using System.Numerics;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 using CommunityToolkit.HighPerformance;
-using System.Collections.Generic;
-using System.Numerics;
 
 [Problem(2024, 10, "Hoof It")]
 public partial class Day10Solution : IProblemSolver
@@ -72,14 +72,17 @@ public partial class Day10Solution : IProblemSolver
         {
             trailHeads.AddRange(GetAllTrailHeads(map, next, x + 1, y));
         }
+
         if ((x - 1) >= 0)
         {
             trailHeads.AddRange(GetAllTrailHeads(map, next, x - 1, y));
         }
+
         if ((y + 1) < map.Height)
         {
             trailHeads.AddRange(GetAllTrailHeads(map, next, x, y + 1));
         }
+
         if ((y - 1) >= 0)
         {
             trailHeads.AddRange(GetAllTrailHeads(map, next, x, y - 1));
@@ -106,14 +109,17 @@ public partial class Day10Solution : IProblemSolver
         {
             trailHeads += GetAllDistinctTrailHeads(map, next, x + 1, y);
         }
+
         if ((x - 1) >= 0)
         {
             trailHeads += GetAllDistinctTrailHeads(map, next, x - 1, y);
         }
+
         if ((y + 1) < map.Height)
         {
             trailHeads += GetAllDistinctTrailHeads(map, next, x, y + 1);
         }
+
         if ((y - 1) >= 0)
         {
             trailHeads += GetAllDistinctTrailHeads(map, next, x, y - 1);

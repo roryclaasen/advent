@@ -3,11 +3,11 @@
 
 namespace AdventOfCode.Year2019;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2019, 4, "Secure Container")]
 public partial class Day4Solution : IProblemSolver
@@ -17,6 +17,13 @@ public partial class Day4Solution : IProblemSolver
 
     public object? PartTwo(string input)
         => ParseInput(input).Where(this.IsValidPassword).Count(p => p.GroupBy(c => c).Any(g => g.Count() == 2));
+
+    private static IEnumerable<string> ParseInput(string input) => input
+        .Split('-')
+        .Select(int.Parse)
+        .ToRange()
+        .ToEnumerable()
+        .Select(p => p.ToString());
 
     private bool IsValidPassword(string password)
     {
@@ -36,11 +43,4 @@ public partial class Day4Solution : IProblemSolver
 
         return hasDouble;
     }
-
-    private static IEnumerable<string> ParseInput(string input) => input
-        .Split('-')
-        .Select(int.Parse)
-        .ToRange()
-        .ToEnumerable()
-        .Select(p => p.ToString());
 }

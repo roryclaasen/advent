@@ -3,10 +3,10 @@
 
 namespace AdventOfCode.Year2022;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System.Collections.Generic;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2022, 4, "Camp Cleanup")]
 public partial class Day4Solution : IProblemSolver
@@ -14,9 +14,9 @@ public partial class Day4Solution : IProblemSolver
     public object? PartOne(string input)
     {
         var count = 0;
-        foreach (var (Elf1, Elf2) in ParseInput(input))
+        foreach (var (elf1, elf2) in ParseInput(input))
         {
-            var (first, other) = (Elf1.Start == Elf2.Start && Elf1.End >= Elf2.End) || Elf1.Start < Elf2.Start ? (Elf1, Elf2) : (Elf2, Elf1);
+            var (first, other) = (elf1.Start == elf2.Start && elf1.End >= elf2.End) || elf1.Start < elf2.Start ? (elf1, elf2) : (elf2, elf1);
             if (first.End >= other.End)
             {
                 count++;
@@ -29,9 +29,9 @@ public partial class Day4Solution : IProblemSolver
     public object? PartTwo(string input)
     {
         var count = 0;
-        foreach (var (Elf1, Elf2) in ParseInput(input))
+        foreach (var (elf1, elf2) in ParseInput(input))
         {
-            var (first, other) = (Elf1.Start == Elf2.Start && Elf1.End >= Elf2.End) || Elf1.Start < Elf2.Start ? (Elf1, Elf2) : (Elf2, Elf1);
+            var (first, other) = (elf1.Start == elf2.Start && elf1.End >= elf2.End) || elf1.Start < elf2.Start ? (elf1, elf2) : (elf2, elf1);
             if (other.Start <= first.End)
             {
                 count++;

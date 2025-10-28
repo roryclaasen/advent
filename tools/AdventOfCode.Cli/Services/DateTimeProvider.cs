@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Cli.Services;
 
-using AdventOfCode.Shared;
 using System;
+using AdventOfCode.Shared;
 
 internal sealed class DateTimeProvider : IDateTimeProvider
 {

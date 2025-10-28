@@ -3,12 +3,12 @@
 
 namespace AdventOfCode.Year2023;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2023, 7, "Camel Cards")]
 public partial class Day7Solution : IProblemSolver
@@ -38,16 +38,22 @@ public partial class Day7Solution : IProblemSolver
         }
     }
 
-    private class CamelHandSort(int JokerValue = 11) : IComparer<Hand>
+    private class CamelHandSort(int jokerValue = 11) : IComparer<Hand>
     {
         public int Compare(Hand? x, Hand? y)
         {
             if (x is null && y is null)
+            {
                 return 0;
+            }
             else if (x is null)
+            {
                 return -1;
+            }
             else if (y is null)
+            {
                 return 1;
+            }
 
             for (var i = 0; i < x.CamelCards.Length; i++)
             {
@@ -56,7 +62,9 @@ public partial class Day7Solution : IProblemSolver
 
                 var result = thisCard.CompareTo(otherCard);
                 if (result != 0)
+                {
                     return result;
+                }
             }
 
             return 0;
@@ -67,7 +75,7 @@ public partial class Day7Solution : IProblemSolver
             'A' => 14,
             'K' => 13,
             'Q' => 12,
-            'J' => JokerValue,
+            'J' => jokerValue,
             'T' => 10,
             _ => card - '0'
         };
@@ -96,9 +104,9 @@ public partial class Day7Solution : IProblemSolver
                 .Max(GetPairType);
         }
 
-        private static int GetPairType(char[] Cards)
+        private static int GetPairType(char[] cards)
         {
-            var group = Cards.GroupBy(c => c);
+            var group = cards.GroupBy(c => c);
             return (group.Count(), group.Max(g => g.Count())) switch
             {
                 (5, 1) => 0, // High Card

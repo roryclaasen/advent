@@ -3,8 +3,8 @@
 
 namespace AdventOfCode.Cli.Commands;
 
-using AdventOfCode.Cli.Services;
 using System;
+using AdventOfCode.Cli.Services;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {

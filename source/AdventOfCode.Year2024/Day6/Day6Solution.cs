@@ -3,14 +3,14 @@
 
 namespace AdventOfCode.Year2024;
 
-using AdventOfCode.Problem;
-using AdventOfCode.Shared;
-using CommunityToolkit.HighPerformance;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
+using AdventOfCode.Problem;
+using AdventOfCode.Shared;
+using CommunityToolkit.HighPerformance;
 
 [Problem(2024, 6, "Guard Gallivant")]
 public partial class Day6Solution : IProblemSolver
