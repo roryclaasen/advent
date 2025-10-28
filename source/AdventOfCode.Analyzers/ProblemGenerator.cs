@@ -29,7 +29,8 @@ public class ProblemGenerator : IIncrementalGenerator
                     attribute.ConstructorArguments.Length == 3 ? attribute.ConstructorArguments[2].Value?.ToString() : null);
             });
 
-        context.RegisterSourceOutput(pipeline, static (context, model) => context.AddSource($"{model.ClassName}.g.cs", SourceText.From($$"""
+        context.RegisterSourceOutput(pipeline, static (context, model) => context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
+            $$"""
             namespace {{model.Namespace}}
             {
                 [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
@@ -48,24 +49,7 @@ public class ProblemGenerator : IIncrementalGenerator
                     public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
                 }
             }
-            """, Encoding.UTF8)));
-    }
-
-    private readonly record struct ProblemInfo
-    {
-        public readonly string Namespace;
-        public readonly string ClassName;
-        public readonly int Year;
-        public readonly int Day;
-        public readonly string? Name;
-
-        public ProblemInfo(string Namespace, string className, int year, int day, string? name)
-        {
-            this.Namespace = Namespace;
-            this.ClassName = className;
-            this.Year = year;
-            this.Day = day;
-            this.Name = name;
-        }
+            """,
+            Encoding.UTF8)));
     }
 }
