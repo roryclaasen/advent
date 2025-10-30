@@ -4,52 +4,48 @@
 namespace AdventOfCode.Problem.Extensions;
 
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
 
+[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1101:Prefix local calls with this", Justification = "Can't use the this keyword in static/extension classes.")]
 public static class IProblemSolverExtensions
 {
-    public static int GetYear(this IProblemSolver solver)
-        => solver is IProblemDetails problem ? problem.Year : 0;
-
-    public static int GetDay(this IProblemSolver solver)
-        => solver is IProblemDetails problem ? problem.Day : 0;
-
-    public static string? GetName(this IProblemSolver solver)
-        => solver is IProblemDetails problem ? problem.Name : null;
-
-    public static string GetDisplayName(this IProblemSolver solver, bool includeYear = false)
+    extension(IProblemSolver solver)
     {
-        var sb = new StringBuilder();
-        if (includeYear)
+        public int Year => solver is IProblemDetails problem ? problem.Year : 0;
+        public int Day => solver is IProblemDetails problem ? problem.Day : 0;
+        public string Name => solver is IProblemDetails problem ? problem.Name : string.Empty;
+
+        public string? Input => solver is IProblemInput problem ? problem.Input : null;
+
+        public string? Expected1 => solver is IProblemExpectedResultPart1 problem ? problem.Expected1 : null;
+        public string? Expected2 => solver is IProblemExpectedResultPart2 problem ? problem.Expected2 : null;
+
+        public string GetDisplayName(bool includeYear = false)
         {
-            sb.Append($"Year {solver.GetYear()} ");
+            var sb = new StringBuilder();
+            if (includeYear)
+            {
+                sb.Append($"Year {solver.Year} ");
+            }
+
+            sb.Append($"Day {solver.Day}");
+
+            var name = solver.Name;
+            if (!string.IsNullOrWhiteSpace(name))
+            {
+                sb.Append($" - {name}");
+            }
+
+            return sb.ToString();
         }
-
-        sb.Append($"Day {solver.GetDay()}");
-
-        var name = solver.GetName();
-        if (!string.IsNullOrWhiteSpace(name))
-        {
-            sb.Append($" - {name}");
-        }
-
-        return sb.ToString();
     }
 
     public static IOrderedEnumerable<IProblemSolver> OrderByYearAndDay(this IEnumerable<IProblemSolver> solvers)
-        => solvers.OrderBy(s => s.GetYear()).ThenBy(s => s.GetDay());
+        => solvers.OrderBy(s => s.Year).ThenBy(s => s.Day);
 
     public static IEnumerable<IGrouping<int, IProblemSolver>> GroupByYear(this IEnumerable<IProblemSolver> solvers)
-        => solvers.GroupBy(s => s.GetYear());
-
-    public static string? GetInput(this IProblemSolver solver)
-        => solver is IProblemInput problem ? problem.Input : null;
-
-    public static string? GetExpectedResultPart1(this IProblemSolver solver)
-        => solver is IProblemExpectedResultPart1 problem ? problem.Expected1 : null;
-
-    public static string? GetExpectedResultPart2(this IProblemSolver solver)
-        => solver is IProblemExpectedResultPart2 problem ? problem.Expected2 : null;
+        => solvers.GroupBy(s => s.Year);
 }

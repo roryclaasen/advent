@@ -21,7 +21,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
 
 #if DEBUG
-        if (solvers.All(p => p.GetDay() == 0 && p.GetYear() == 0))
+        if (solvers.All(p => p.Day == 0 && p.Year == 0))
         {
             throw new SolutionMissingException("Looks like the solution data didn't generate. Try rebuilding the solution.");
         }
@@ -29,7 +29,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
 
         if (day != 0 && year != 0)
         {
-            var validSolvers = solvers.Where(s => s.GetYear() == year && s.GetDay() == day);
+            var validSolvers = solvers.Where(s => s.Year == year && s.Day == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -39,7 +39,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
         else if (day == 0 && year != 0)
         {
-            var validSolvers = solvers.Where(s => s.GetYear() == year);
+            var validSolvers = solvers.Where(s => s.Year == year);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -49,7 +49,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
         else if (day != 0 && year == 0)
         {
-            var validSolvers = solvers.Where(s => s.GetYear() == day);
+            var validSolvers = solvers.Where(s => s.Year == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();

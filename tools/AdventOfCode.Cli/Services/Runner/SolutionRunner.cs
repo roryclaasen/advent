@@ -20,15 +20,15 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         AnsiConsole.Write(new FigletText("Advent of Code").LeftJustified());
 
         var allResults = new List<SolutionResult>();
-        var solversByYear = solvers.GroupBy(s => s.GetYear());
+        var solversByYear = solvers.GroupBy(s => s.Year);
         foreach (var year in solversByYear.OrderBy(y => y.Key))
         {
-            var yearNumber = year.First().GetYear();
+            var yearNumber = year.First().Year;
             var rule = new Rule($"[{Color.White}][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
             rule.RuleStyle(Color.Olive);
             AnsiConsole.Write(rule);
 
-            foreach (var solver in year.OrderBy(s => s.GetDay()))
+            foreach (var solver in year.OrderBy(s => s.Day))
             {
                 var result = this.Run(solver);
                 allResults.Add(result);
@@ -93,7 +93,7 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         var stopwatch = Stopwatch.StartNew();
         try
         {
-            ArgumentNullException.ThrowIfNull(input);
+            ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
             actual = part.Invoke(input)?.ToString();
         }
         catch (Exception e)
@@ -110,11 +110,11 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
 
     private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
     {
-        var solverName = solver.GetName();
-        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.GetYear(), solver.GetDay()), solver.GetDisplayName());
+        var solverName = solver.Name;
+        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), solver.GetDisplayName());
 
         ctx.Status("Running part 1");
-        var partOne = Solve(solver.PartOne, solver.GetInput(), solver.GetExpectedResultPart1());
+        var partOne = Solve(solver.PartOne, solver.Input, solver.Expected1);
 
         AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
         if (partOne.IsError)
@@ -123,7 +123,7 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         }
 
         ctx.Status("Running part 2");
-        var partTwo = Solve(solver.PartTwo, solver.GetInput(), solver.GetExpectedResultPart2());
+        var partTwo = Solve(solver.PartTwo, solver.Input, solver.Expected2);
 
         AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
         if (partTwo.IsError)

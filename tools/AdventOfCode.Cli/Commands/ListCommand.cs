@@ -48,11 +48,11 @@ internal sealed class ListCommand : BaseCommand
 
         foreach (var yearSolvers in sortedSolvers)
         {
-            foreach (var solver in yearSolvers.OrderBy(s => s.GetDay()))
+            foreach (var solver in yearSolvers.OrderBy(s => s.Day))
             {
-                var year = solver.GetYear();
-                var day = solver.GetDay();
-                var name = solver.GetName() ?? string.Empty;
+                var year = solver.Year;
+                var day = solver.Day;
+                var name = solver.Name;
                 var uri = this.adventUri.Build(year, day);
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
