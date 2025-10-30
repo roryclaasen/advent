@@ -29,27 +29,40 @@ public class ProblemGenerator : IIncrementalGenerator
                     attribute.ConstructorArguments.Length == 3 ? attribute.ConstructorArguments[2].Value?.ToString() : null);
             });
 
-        context.RegisterSourceOutput(pipeline, static (context, model) => context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
-            $$"""
-            namespace {{model.Namespace}}
-            {
-                [System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
-                public partial class {{model.ClassName}} : {{typeof(IProblemDetails).FullName}}
+        context.RegisterSourceOutput(pipeline, static (context, model) =>
+        {
+            var compilerAttributes = $$"""
+            #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
+                    [global::System.Diagnostics.DebuggerNonUserCode]
+                    [global::System.CodeDom.Compiler.GeneratedCode("{{ThisAssembly.AssemblyName}}", "{{ThisAssembly.AssemblyVersion}}")]
+                    #endif
+                    #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+                    #endif
+            """;
+
+            context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
+                $$"""
+                namespace {{model.Namespace}}
                 {
-                    [System.Runtime.CompilerServices.CompilerGenerated]
-                    public int Year => {{model.Year}};
-
-                    [System.Runtime.CompilerServices.CompilerGenerated]
-                    public int Day => {{model.Day}};
-
-                    [System.Runtime.CompilerServices.CompilerGenerated]
-                    public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
-
-                    [System.Runtime.CompilerServices.CompilerGenerated]
-                    public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
+                    [global::System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
+                    public partial class {{model.ClassName}} : global::{{typeof(IProblemDetails).FullName}}
+                    {
+                        {{compilerAttributes}}
+                        public int Year => {{model.Year}};
+                
+                        {{compilerAttributes}}
+                        public int Day => {{model.Day}};
+                
+                        {{compilerAttributes}}
+                        public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
+                
+                        {{compilerAttributes}}
+                        public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
+                    }
                 }
-            }
-            """,
-            Encoding.UTF8)));
+                """,
+                Encoding.UTF8));
+        });
     }
 }

@@ -38,20 +38,33 @@ public class ResourceGenerator : IIncrementalGenerator
                 return new ResourceInfo(inputNamespace, className, fileName, f.GetText(ct)?.ToString());
             });
 
-        context.RegisterSourceOutput(resourcePipeline, static (context, model) => context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From(
-            $$""""
-            namespace {{model.Namespace}}
-            {
-                public partial class {{model.ClassName}} : {{model.Interface}}
+        context.RegisterSourceOutput(resourcePipeline, static (context, model) =>
+        {
+            var compilerAttributes = $$"""
+            #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
+                    [global::System.Diagnostics.DebuggerNonUserCode]
+                    [global::System.CodeDom.Compiler.GeneratedCode("{{ThisAssembly.AssemblyName}}", "{{ThisAssembly.AssemblyVersion}}")]
+                    #endif
+                    #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+                    #endif
+            """;
+
+            context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From(
+                $$""""
+                namespace {{model.Namespace}}
                 {
-                    [System.Runtime.CompilerServices.CompilerGenerated]
-                    public string {{model.FileName}} =>
-                        """
-                        {{model.PadContents(12)}}
-                        """;
+                    public partial class {{model.ClassName}} : global::{{model.Interface}}
+                    {
+                        {{compilerAttributes}}
+                        public string {{model.FileName}} =>
+                            """
+                            {{model.PadContents(12)}}
+                            """;
+                    }
                 }
-            }
-            """",
-            Encoding.UTF8)));
+                """",
+                Encoding.UTF8));
+        });
     }
 }
