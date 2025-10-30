@@ -6,7 +6,7 @@ namespace AdventOfCode.Shared.Extensions;
 using System.Collections.Generic;
 using System.Numerics;
 
-public static class Vector2Exensions
+public static class Vector2Extensions
 {
     public static IEnumerable<Vector2> EightNeighbors(this Vector2 vector)
     {

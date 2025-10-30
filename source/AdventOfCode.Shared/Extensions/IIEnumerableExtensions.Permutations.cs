@@ -15,7 +15,7 @@ public static partial class IIEnumerableExtensions
     /// <typeparam name="T">The type of the values.</typeparam>
     /// <param name="values">The values to permutate.</param>
     /// <param name="start">Optional starting value for all permutations</param>
-    /// <param name="start">Optional ending value for all permutations</param>
+    /// <param name="end">Optional ending value for all permutations</param>
     /// <returns>A list of all the possible permutations of the provided values.</returns>
     public static List<List<T>> Permutations<T>(this IEnumerable<T> values, T? start = null, T? end = null) where T : class
     {

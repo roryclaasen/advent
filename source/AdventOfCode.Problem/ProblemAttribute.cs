@@ -5,7 +5,7 @@ namespace AdventOfCode.Problem;
 
 using System;
 
-[AttributeUsage(AttributeTargets.Class)]
+[AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
 public class ProblemAttribute(int year, int day, string? name = null) : Attribute
 {
     public int Year { get; } = year;
