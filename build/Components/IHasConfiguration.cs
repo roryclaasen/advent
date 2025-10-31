@@ -5,5 +5,8 @@ using Nuke.Common;
 
 internal interface IHasConfiguration : INukeBuild
 {
-    Configuration Configuration { get; }
+    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
+    public Configuration Configuration
+        => this.TryGetValue(() => this.Configuration)
+        ?? (this.IsLocalBuild ? Configuration.Debug : Configuration.Release);
 }

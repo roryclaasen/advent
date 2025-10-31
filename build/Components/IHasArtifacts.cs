@@ -6,7 +6,8 @@ using Nuke.Common.IO;
 
 internal interface IHasArtifacts : INukeBuild
 {
-    AbsolutePath? ArtifactsDirectory { get; }
-
-    AbsolutePath ArtifactsDirectoryOrDefault => this.ArtifactsDirectory ?? this.RootDirectory / "artifacts";
+    [Parameter("Output folder for artifacts")]
+    public AbsolutePath ArtifactsDirectory
+        => this.TryGetValue(() => this.ArtifactsDirectory)
+        ?? (this.RootDirectory / "artifacts");
 }

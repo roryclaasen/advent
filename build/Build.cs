@@ -3,8 +3,6 @@
 
 using Nuke.Common;
 using Nuke.Common.CI.GitHubActions;
-using Nuke.Common.IO;
-using Nuke.Common.ProjectModel;
 
 [GitHubActions(
     "continuous",
@@ -13,15 +11,6 @@ using Nuke.Common.ProjectModel;
     InvokedTargets = new[] { nameof(CI), nameof(CD) })]
 public class Build : NukeBuild, IClean, IRestore, ICompile, ITest, IPublish
 {
-    [Solution(SuppressBuildProjectCheck = true)]
-    public Solution Solution { get; set; }
-
-    [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
-    public Configuration Configuration { get; set; } = IsLocalBuild ? Configuration.Debug : Configuration.Release;
-
-    [Parameter("Custom output folder for artifacts")]
-    public AbsolutePath? ArtifactsDirectory => default;
-
     public Target CI => _ => _
         .DependsOn(((IRestore)this).Restore)
         .DependsOn(((ICompile)this).Compile)

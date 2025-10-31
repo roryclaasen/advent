@@ -106,7 +106,7 @@
       "properties": {
         "ArtifactsDirectory": {
           "type": "string",
-          "description": "Custom output folder for artifacts"
+          "description": "Output folder for artifacts"
         },
         "Configuration": {
           "type": "string",

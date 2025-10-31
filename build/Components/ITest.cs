@@ -15,22 +15,22 @@ using Nuke.Common.Utilities.Collections;
 internal interface ITest : ICompile, IHasArtifacts
 {
     [Parameter("Output folder for test results")]
-    public AbsolutePath? TestResultDirectory => default;
-
-    private AbsolutePath TestResultDirectoryOrDefault => this.TestResultDirectory ?? this.ArtifactsDirectoryOrDefault / "test-results";
+    public AbsolutePath TestResultDirectory
+        => this.TryGetValue(() => this.TestResultDirectory)
+        ?? (this.ArtifactsDirectory / "test-results");
 
     public Target Test => _ => _
         .Requires(() => this.Solution)
         .Requires(() => this.Configuration)
         .DependsOn(this.Compile)
-        .Produces(this.TestResultDirectoryOrDefault / "*.trx")
+        .Produces(this.TestResultDirectory / "*.trx")
         .Executes(this.RunTest);
 
     private void RunTest()
     {
         try
         {
-            this.TestResultDirectoryOrDefault.DeleteDirectory();
+            this.TestResultDirectory.DeleteDirectory();
 
             var settings = new DotNetTestSettings()
                 .EnableNoRestore()
@@ -38,7 +38,7 @@ internal interface ITest : ICompile, IHasArtifacts
                 .SetConfiguration(this.Configuration)
                 .AddProcessAdditionalArguments("--solution", this.Solution)
                 .AddProcessAdditionalArguments("--report-trx")
-                .AddProcessAdditionalArguments("--results-directory", this.TestResultDirectoryOrDefault);
+                .AddProcessAdditionalArguments("--results-directory", this.TestResultDirectory);
 
             DotNetTasks.DotNetTest(settings);
         }
@@ -55,7 +55,7 @@ internal interface ITest : ICompile, IHasArtifacts
             "/xn:TestRun/xn:Results/xn:UnitTestResult/@outcome",
             ("xn", "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"));
 
-        var resultFiles = this.TestResultDirectoryOrDefault.GlobFiles("*.trx");
+        var resultFiles = this.TestResultDirectory.GlobFiles("*.trx");
         List<string> outcomes = [.. resultFiles.SelectMany(GetOutcomes)];
 
         var passedTests = outcomes.Count(x => x == "Passed");

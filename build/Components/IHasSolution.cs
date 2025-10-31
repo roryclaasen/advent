@@ -6,5 +6,6 @@ using Nuke.Common.ProjectModel;
 
 internal interface IHasSolution : INukeBuild
 {
-    public Solution Solution { get; }
+    [Solution(SuppressBuildProjectCheck = true)]
+    public Solution? Solution => this.TryGetValue(() => this.Solution);
 }
