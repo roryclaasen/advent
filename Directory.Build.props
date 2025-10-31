@@ -8,11 +8,11 @@
     <RepositoryUrl>https://github.com/roryclaasen/advent</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
-    
+
     <DebugType>embedded</DebugType>
 
     <IsPublishable>false</IsPublishable>

@@ -7,6 +7,9 @@
     <File Path="global.json" />
     <File Path="version.json" />
   </Folder>
+  <Folder Name="/Build/">
+    <Project Path="build/_build.csproj" />
+  </Folder>
   <Folder Name="/Source/">
     <File Path="source/Source.Build.props" />
     <Project Path="source/AdventOfCode.Analyzers/AdventOfCode.Analyzers.csproj" />
