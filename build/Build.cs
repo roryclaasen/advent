@@ -7,8 +7,8 @@ using Nuke.Common.CI.GitHubActions;
 [GitHubActions(
     "continuous",
     GitHubActionsImage.UbuntuLatest,
-    On = new[] { GitHubActionsTrigger.Push },
-    InvokedTargets = new[] { nameof(CI), nameof(CD) })]
+    On = [GitHubActionsTrigger.Push, GitHubActionsTrigger.PullRequest],
+    InvokedTargets = [nameof(CI), nameof(CD)])]
 public class Build : NukeBuild, IClean, IRestore, ICompile, ITest, IPublish
 {
     public Target CI => _ => _
