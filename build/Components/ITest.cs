@@ -56,7 +56,7 @@ internal interface ITest : ICompile, IHasArtifacts
             ("xn", "http://microsoft.com/schemas/VisualStudio/TeamTest/2010"));
 
         var resultFiles = this.TestResultDirectory.GlobFiles("*.trx");
-        List<string> outcomes = [.. resultFiles.SelectMany(GetOutcomes)];
+        var outcomes = resultFiles.SelectMany(GetOutcomes);
 
         var passedTests = outcomes.Count(x => x == "Passed");
         var failedTests = outcomes.Count(x => x == "Failed");

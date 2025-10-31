@@ -35,11 +35,13 @@ jobs:
         run: ./build.cmd CI CD
       - name: 'Publish: test-results'
         uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: test-results
           path: artifacts/test-results
       - name: 'Publish: bin'
         uses: actions/upload-artifact@v4
+        if: success() || failure()
         with:
           name: bin
           path: artifacts/bin

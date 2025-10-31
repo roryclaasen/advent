@@ -8,7 +8,8 @@ using Nuke.Common.CI.GitHubActions;
     "continuous",
     GitHubActionsImage.UbuntuLatest,
     On = [GitHubActionsTrigger.Push, GitHubActionsTrigger.PullRequest],
-    InvokedTargets = [nameof(CI), nameof(CD)])]
+    InvokedTargets = [nameof(CI), nameof(CD)],
+    PublishCondition = "success() || failure()")]
 public class Build : NukeBuild, IClean, IRestore, ICompile, ITest, IPublish
 {
     public Target CI => _ => _
