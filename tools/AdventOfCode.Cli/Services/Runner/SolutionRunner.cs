@@ -51,18 +51,18 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         table.AddColumn(new TableColumn("Result").Centered());
         table.AddColumn(new TableColumn("Expected").Centered());
 
+        AddTableRow(1, result.Part1);
+        table.AddEmptyRow();
+        AddTableRow(2, result.Part2);
+
+        AnsiConsole.Write(table);
+
         void AddTableRow(int partNumber, ProblemPartResult part)
         {
             var partRow = $"[{part.ActualColor}]{(part.IsError ? "ERROR" : part.Actual ?? "NULL")}[/]";
             var partExpected = $"[{part.ExpectedColor}]{part.Expected ?? "NULL"}[/]";
             table.AddRow(partNumber.ToString(), partRow, partExpected);
         }
-
-        AddTableRow(1, result.Part1);
-        table.AddEmptyRow();
-        AddTableRow(2, result.Part2);
-
-        AnsiConsole.Write(table);
     }
 
     private static string FormatTimeSpan(TimeSpan timeSpan)
@@ -103,8 +103,11 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
             throw;
 #endif
         }
+        finally
+        {
+            stopwatch.Stop();
+        }
 
-        stopwatch.Stop();
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
 

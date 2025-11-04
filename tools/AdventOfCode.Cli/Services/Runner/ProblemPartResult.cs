@@ -7,7 +7,7 @@ using System;
 using System.Diagnostics.CodeAnalysis;
 using Spectre.Console;
 
-internal record struct ProblemPartResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
+internal readonly record struct ProblemPartResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
 {
     [MemberNotNullWhen(true, nameof(Error))]
     public readonly bool IsError => this.Error is not null;
