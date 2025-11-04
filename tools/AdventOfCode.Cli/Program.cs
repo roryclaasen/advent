@@ -64,7 +64,6 @@ static IHost BuildApplicationAsync(string[] args)
     builder.Services.AddTransient<AllCommand>();
     builder.Services.AddTransient<TodayCommand>();
     builder.Services.AddTransient<LastCommand>();
-    builder.Services.AddTransient<PickCommand>();
 
     return builder.Build();
 }
