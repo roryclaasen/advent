@@ -16,7 +16,6 @@ using BaseRootCommand = System.CommandLine.RootCommand;
 
 internal sealed class RootCommand : BaseRootCommand
 {
-    private readonly CommonOptions commonOptions;
     private readonly ISolutionFinder solutionFinder;
     private readonly ISolutionRunner solutionRunner;
 
@@ -25,7 +24,6 @@ internal sealed class RootCommand : BaseRootCommand
         AllCommand allCommand,
         TodayCommand todayCommand,
         LastCommand lastCommand,
-        CommonOptions commonOptions,
         ISolutionFinder solutionFinder,
         ISolutionRunner solutionRunner)
         : base("Rory Claasens solutions to Advent of Code")
@@ -34,7 +32,6 @@ internal sealed class RootCommand : BaseRootCommand
         ArgumentNullException.ThrowIfNull(allCommand);
         ArgumentNullException.ThrowIfNull(todayCommand);
         ArgumentNullException.ThrowIfNull(lastCommand);
-        ArgumentNullException.ThrowIfNull(commonOptions);
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(solutionRunner);
 
@@ -43,20 +40,19 @@ internal sealed class RootCommand : BaseRootCommand
         this.Subcommands.Add(todayCommand);
         this.Subcommands.Add(lastCommand);
 
-        this.commonOptions = commonOptions;
         this.solutionFinder = solutionFinder;
         this.solutionRunner = solutionRunner;
 
-        this.Options.Add(commonOptions.Year);
-        this.Options.Add(commonOptions.Day);
+        this.Options.Add(CommonOptions.Year);
+        this.Options.Add(CommonOptions.Day);
 
         this.SetAction(async (parseResult, cancellationToken) => await this.ExecuteAsync(parseResult, cancellationToken));
     }
 
     private ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var selectedYear = parseResult.GetValue(this.commonOptions.Year);
-        var selectedDay = parseResult.GetValue(this.commonOptions.Day);
+        var selectedYear = parseResult.GetValue(CommonOptions.Year);
+        var selectedDay = parseResult.GetValue(CommonOptions.Day);
 
         if (selectedYear != 0 && selectedDay != 0)
         {

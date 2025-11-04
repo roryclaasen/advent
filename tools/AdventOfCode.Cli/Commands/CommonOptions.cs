@@ -5,11 +5,10 @@ namespace AdventOfCode.Cli.Commands;
 
 using System;
 using System.CommandLine;
-using AdventOfCode.Shared;
 
-internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
+internal static class CommonOptions
 {
-    private readonly Lazy<Option<int>> lazyYear = new(() =>
+    private static readonly Lazy<Option<int>> LazyYear = new(() =>
     {
         var argument = new Option<int>("--year")
         {
@@ -19,7 +18,7 @@ internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
         argument.Validators.Add(result =>
         {
             var year = result.GetRequiredValue(argument);
-            if (year < 2015 || year > dateTimeProvider.Now.Year)
+            if (year < 2015 || year > DateTime.Now.Year)
             {
                 result.AddError("Year must be between 2015 and current year.");
             }
@@ -28,7 +27,7 @@ internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
         return argument;
     });
 
-    private readonly Lazy<Option<int>> lazyDay = new(() =>
+    private static readonly Lazy<Option<int>> LazyDay = new(() =>
     {
         var argument = new Option<int>("--day")
         {
@@ -47,7 +46,7 @@ internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
         return argument;
     });
 
-    internal Option<int> Year => this.lazyYear.Value;
+    internal static Option<int> Year => LazyYear.Value;
 
-    internal Option<int> Day => this.lazyDay.Value;
+    internal static Option<int> Day => LazyDay.Value;
 }

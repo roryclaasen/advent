@@ -57,8 +57,6 @@ static IHost BuildApplicationAsync(string[] args)
         builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IProblemSolver), solution));
     }
 
-    builder.Services.AddSingleton<CommonOptions>();
-
     builder.Services.AddTransient<AdventOfCode.Cli.Commands.RootCommand>();
     builder.Services.AddTransient<ListCommand>();
     builder.Services.AddTransient<AllCommand>();

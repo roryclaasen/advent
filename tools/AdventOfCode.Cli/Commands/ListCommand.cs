@@ -15,22 +15,19 @@ using Spectre.Console;
 
 internal sealed class ListCommand : BaseCommand
 {
-    private readonly CommonOptions commonOptions;
     private readonly ISolutionFinder solutionFinder;
     private readonly AdventUri adventUri;
 
-    public ListCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, AdventUri adventUri)
+    public ListCommand(ISolutionFinder solutionFinder, AdventUri adventUri)
         : base("list", "List all available solutions")
     {
-        ArgumentNullException.ThrowIfNull(commonOptions);
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(adventUri);
 
-        this.commonOptions = commonOptions;
         this.solutionFinder = solutionFinder;
         this.adventUri = adventUri;
 
-        this.Options.Add(commonOptions.Year);
+        this.Options.Add(CommonOptions.Year);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
@@ -42,7 +39,7 @@ internal sealed class ListCommand : BaseCommand
         table.AddColumn("Link");
 
         var sortedSolvers = this.solutionFinder
-            .GetSolversFor(parseResult.GetValue(this.commonOptions.Year))
+            .GetSolversFor(parseResult.GetValue(CommonOptions.Year))
             .GroupByYear()
             .OrderByDescending(y => y.Key);
 
