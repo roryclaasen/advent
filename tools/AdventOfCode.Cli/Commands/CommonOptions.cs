@@ -53,7 +53,6 @@ internal static class CommonOptions
             {
                 if (day > 12)
                 {
-
                     result.AddError("Day must be less than or equal to 12.");
                 }
             }
