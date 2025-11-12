@@ -12,7 +12,8 @@ internal static class CommonOptions
     {
         var argument = new Option<int>("--year", "-y")
         {
-            Description = "The year of the available puzzles."
+            Description = "The year of the available puzzles.",
+            Arity = ArgumentArity.ZeroOrOne
         };
 
         argument.Validators.Add(result =>
@@ -36,7 +37,8 @@ internal static class CommonOptions
     {
         var argument = new Option<int>("--day", "-d")
         {
-            Description = "The day of the available puzzle."
+            Description = "The day of the available puzzle.",
+            Arity = ArgumentArity.ZeroOrOne
         };
 
         argument.Validators.Add(result =>
