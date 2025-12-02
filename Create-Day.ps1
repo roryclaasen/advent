@@ -20,7 +20,7 @@ $SessionFile = Join-Path $PSScriptRoot "session.txt"
 
 $SourceFolder = Join-Path $PSScriptRoot "source"
 $TestsFolder = Join-Path $PSScriptRoot "tests"
-$SolutionFile = Join-Path $PSScriptRoot "AdventOfCode.sln"
+$SolutionFile = Join-Path $PSScriptRoot "AdventOfCode.slnx"
 
 $ProjectName = "AdventOfCode.Year$Year"
 $ProjectFolder = Join-Path $SourceFolder $ProjectName
@@ -122,6 +122,9 @@ if (-not (Test-path DayFolder)) {
     $title = Get-DayTitleOrNull
 
     Set-Content -Path $CsFile -Value @"
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year${Year};
 
 using AdventOfCode.Problem;
@@ -160,6 +163,9 @@ if (-not (Test-Path $TestProjectFolder)) {
 
 if (-not (Test-Path $TestCsFile)) {
     Set-Content -Path $TestCsFile -Value @"
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Year$Year.Tests;
 
 using AdventOfCode.Shared.Tests;
