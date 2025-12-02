@@ -6,6 +6,7 @@ namespace AdventOfCode.Year2025;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Transactions;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared.Extensions;
 
@@ -19,11 +20,11 @@ public partial class Day2Solution : IProblemSolver
     private static long Implementation(string input, Func<long, long> countFunc)
     {
         long count = 0;
-        foreach (var range in ParseInput(input))
+        foreach (var (start, end) in ParseInput(input))
         {
-            foreach (var numbers in range)
+            for (long current = start; current <= end; current++)
             {
-                count += countFunc.Invoke(numbers);
+                count += countFunc.Invoke(current);
             }
         }
 
@@ -33,19 +34,13 @@ public partial class Day2Solution : IProblemSolver
     private static long CountPart1(long number)
     {
         var numberStr = number.ToString();
-        var length = numberStr.Length;
-        if (length % 2 != 0)
+        if (numberStr.Length % 2 != 0)
         {
             return 0;
         }
 
-        var half = numberStr.AsSpan(0, length / 2);
-        if (numberStr.EndsWith(half))
-        {
-            return number;
-        }
-
-        return 0;
+        var halfStr = numberStr.AsSpan(0, numberStr.Length / 2);
+        return numberStr.EndsWith(halfStr) ? number : 0;
     }
 
     private static long CountPart2(long number)
