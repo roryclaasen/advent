@@ -25,6 +25,8 @@
   </Folder>
   <Folder Name="/Tests/">
     <File Path="tests/Tests.Build.props" />
+    <File Path="tests/MSTestSettings.cs" />
+    <File Path="tests/Usings.cs" />
     <Project Path="tests/AdventOfCode.Shared.Tests/AdventOfCode.Shared.Tests.csproj" />
     <Project Path="tests/AdventOfCode.Year2015.Tests/AdventOfCode.Year2015.Tests.csproj" />
     <Project Path="tests/AdventOfCode.Year2016.Tests/AdventOfCode.Year2016.Tests.csproj" />
