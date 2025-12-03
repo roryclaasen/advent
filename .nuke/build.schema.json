@@ -24,11 +24,10 @@
     "ExecutableTarget": {
       "type": "string",
       "enum": [
-        "CD",
-        "CI",
         "Clean",
         "Compile",
         "Publish",
+        "PublishAOT",
         "Restore",
         "Test"
       ]
@@ -119,6 +118,9 @@
         "PublishDirectory": {
           "type": "string",
           "description": "Output folder for binaries"
+        },
+        "RID": {
+          "type": "string"
         },
         "Solution": {
           "type": "string",

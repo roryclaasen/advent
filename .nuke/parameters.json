@@ -1,4 +1,6 @@
 {
   "$schema": "build.schema.json",
-  "Solution": "AdventOfCode.slnx"
+  "Solution": "AdventOfCode.slnx",
+
+  "NoLogo": true
 }

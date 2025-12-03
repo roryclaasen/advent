@@ -18,11 +18,11 @@ jobs:
         with:
           dotnet-version: 10.x
       - name: Restore dependencies
-        run: dotnet restore
+        run: ./build restore
       - name: Build
-        run: dotnet build --no-restore
+        run: ./build compile
       - name: Test
-        run: dotnet test --no-build --verbosity normal --report-trx
+        run: ./build test
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         if: success() || failure()
@@ -52,7 +52,7 @@ jobs:
         with:
           dotnet-version: 10.x
       - name: Build
-        run: dotnet publish ./tools/AdventOfCode.Cli/AdventOfCode.Cli.csproj -c Release -r ${{ matrix.rid }} -o ./artifacts/bin
+        run: ./build PublishAOT --rid ${{ matrix.rid }}
       - name: Create Release Artifact
         uses: actions/upload-artifact@v4
         with:

@@ -5,7 +5,7 @@ using Nuke.Common;
 using Nuke.Common.IO;
 using Nuke.Common.Tools.DotNet;
 
-internal interface IPublish : ICompile, IHasArtifacts
+internal interface IPublish : ICompile, IHasRuntimeIdentifier, IHasArtifacts
 {
     [Parameter("Output folder for binaries")]
     public AbsolutePath PublishDirectory
@@ -19,6 +19,13 @@ internal interface IPublish : ICompile, IHasArtifacts
         .Produces(this.PublishDirectory)
         .Executes(this.RunPublish);
 
+    public Target PublishAOT => _ => _
+        .Requires(() => this.Solution)
+        .Requires(() => this.Configuration)
+        .Requires(() => this.RID)
+        .Produces(this.PublishDirectory)
+        .Executes(this.RunPublishAOT);
+
     private void RunPublish()
     {
         this.PublishDirectory.DeleteDirectory();
@@ -29,6 +36,19 @@ internal interface IPublish : ICompile, IHasArtifacts
             .SetProperty("PublishDir", this.PublishDirectory)
             .SetConfiguration(this.Configuration)
             .SetProject(this.Solution);
+
+        DotNetTasks.DotNetPublish(settings);
+    }
+
+    private void RunPublishAOT()
+    {
+        this.PublishDirectory.DeleteDirectory();
+
+        var settings = new DotNetPublishSettings()
+            .SetProperty("PublishDir", this.PublishDirectory)
+            .SetConfiguration(this.Configuration)
+            .SetProject(this.Solution)
+            .SetRuntime(this.RID);
 
         DotNetTasks.DotNetPublish(settings);
     }
