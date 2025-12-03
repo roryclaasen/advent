@@ -19,8 +19,8 @@ public partial class Day1Solution : IProblemSolver
         {
             position = ins.Direction switch
             {
-                'L' => position - ins.Offset,
-                'R' => position + ins.Offset,
+                Direction.Left => position - ins.Offset,
+                Direction.Right => position + ins.Offset,
                 _ => throw new InvalidOperationException("Invalid direction")
             };
 
@@ -55,8 +55,8 @@ public partial class Day1Solution : IProblemSolver
             {
                 position = direction switch
                 {
-                    'L' => position - 1,
-                    'R' => position + 1,
+                    Direction.Left => position - 1,
+                    Direction.Right => position + 1,
                     _ => throw new InvalidOperationException("Invalid direction")
                 };
 
@@ -83,9 +83,9 @@ public partial class Day1Solution : IProblemSolver
     {
         foreach (var line in input.Lines())
         {
-            yield return new Instruction(line[0], int.Parse(line[1..]));
+            yield return new Instruction((Direction)line.AsSpan(0, 1)[0], int.Parse(line[1..]));
         }
     }
 
-    private record struct Instruction(char Direction, int Offset);
+    private record struct Instruction(Direction Direction, int Offset);
 }
