@@ -122,7 +122,8 @@
           "description": "Output folder for binaries"
         },
         "RID": {
-          "type": "string"
+          "type": "string",
+          "description": "DotNet runtime identifier (RID). Used for self-contained deployments and AOT compilation"
         },
         "Solution": {
           "type": "string",

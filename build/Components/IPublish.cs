@@ -26,28 +26,24 @@ internal interface IPublish : ICompile, IHasRuntimeIdentifier, IHasArtifacts
         .Produces(this.PublishDirectory)
         .Executes(this.RunPublishAOT);
 
+    private DotNetPublishSettings BaseDotNetPublishSettings => new DotNetPublishSettings()
+        .EnableNoRestore()
+        .SetConfiguration(this.Configuration)
+        .SetProject(this.Solution)
+        .SetProperty("PublishDir", this.PublishDirectory);
+
     private void RunPublish()
     {
         this.PublishDirectory.DeleteDirectory();
 
-        var settings = new DotNetPublishSettings()
-            .EnableNoRestore()
-            .EnableNoBuild()
-            .SetProperty("PublishDir", this.PublishDirectory)
-            .SetConfiguration(this.Configuration)
-            .SetProject(this.Solution);
-
-        DotNetTasks.DotNetPublish(settings);
+        DotNetTasks.DotNetPublish(this.BaseDotNetPublishSettings);
     }
 
     private void RunPublishAOT()
     {
         this.PublishDirectory.DeleteDirectory();
 
-        var settings = new DotNetPublishSettings()
-            .SetProperty("PublishDir", this.PublishDirectory)
-            .SetConfiguration(this.Configuration)
-            .SetProject(this.Solution)
+        var settings = this.BaseDotNetPublishSettings
             .SetRuntime(this.RID);
 
         DotNetTasks.DotNetPublish(settings);

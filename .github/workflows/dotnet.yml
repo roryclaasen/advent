@@ -24,7 +24,7 @@ jobs:
         if: success() || failure()
         with:
           name: test-results
-          path: "**/*.trx"
+          path: ./artifacts/test-results/*.trx
 
   build:
     name: Build ${{ matrix.os }}
