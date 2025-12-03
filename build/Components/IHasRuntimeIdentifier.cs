@@ -12,7 +12,7 @@ internal interface IHasRuntimeIdentifier : INukeBuild
             var rid = this.TryGetValue(() => this.RID);
             return rid switch
             {
-                not null when !string.IsNullOrWhiteSpace(rid) => rid,
+                not null => rid,
                 _ when OperatingSystem.IsWindows() => "win-x64",
                 _ when OperatingSystem.IsLinux() => "linux-x64",
                 _ when OperatingSystem.IsMacOS() => "osx-x64",
