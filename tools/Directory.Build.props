@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <Import Project="./Tools.Build.Props" />
+  <Import Project="./Tools.Build.props" />
 </Project>
