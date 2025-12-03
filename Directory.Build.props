@@ -8,11 +8,14 @@
     <RepositoryUrl>https://github.com/roryclaasen/advent</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
   </PropertyGroup>
-  
+
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
+    <RuntimeIdentifiers>win-x64;linux-x64;osx-x64</RuntimeIdentifiers>
     <Nullable>enable</Nullable>
-    
+
+    <IsAotCompatible Condition="'$(IsAotCompatible)'==''">true</IsAotCompatible>
+
     <DebugType>embedded</DebugType>
 
     <IsPublishable>false</IsPublishable>
@@ -37,8 +40,4 @@
     <PackageReference Include="StyleCop.Analyzers" />
     <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
-
-  <PropertyGroup>
-    <IsAotCompatible Condition="'$(IsAotCompatible)'==''">true</IsAotCompatible>
-  </PropertyGroup>
 </Project>
