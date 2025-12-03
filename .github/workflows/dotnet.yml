@@ -25,6 +25,14 @@ jobs:
         with:
           name: test-results
           path: ./artifacts/test-results/*.trx
+      - uses: dorny/test-reporter@v2
+        if: ${{ (success() || failure()) && github.repository == 'roryclaasen/advent' }}
+        with:
+          name: Advent of Code Tests
+          path: ./artifacts/test-results/*.trx
+          reporter: dotnet-trx
+          list-tests: failed
+
 
   build:
     name: Build ${{ matrix.os }}
