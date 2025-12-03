@@ -3,7 +3,9 @@
 
 using Nuke.Common;
 using Nuke.Common.IO;
+using Nuke.Common.Tooling;
 using Nuke.Common.Tools.DotNet;
+using Nuke.Common.Utilities;
 
 internal interface IPublish : ICompile, IHasRuntimeIdentifier, IHasArtifacts
 {
@@ -26,8 +28,7 @@ internal interface IPublish : ICompile, IHasRuntimeIdentifier, IHasArtifacts
         .Produces(this.PublishDirectory)
         .Executes(this.RunPublishAOT);
 
-    private DotNetPublishSettings BaseDotNetPublishSettings => new DotNetPublishSettings()
-        .EnableNoRestore()
+    private Configure<DotNetPublishSettings> PublishSettingsBase => _ => _
         .SetConfiguration(this.Configuration)
         .SetProject(this.Solution)
         .SetProperty("PublishDir", this.PublishDirectory);
@@ -36,14 +37,20 @@ internal interface IPublish : ICompile, IHasRuntimeIdentifier, IHasArtifacts
     {
         this.PublishDirectory.DeleteDirectory();
 
-        DotNetTasks.DotNetPublish(this.BaseDotNetPublishSettings);
+        var settings = new DotNetPublishSettings()
+            .Apply(this.PublishSettingsBase)
+            .EnableNoRestore()
+            .EnableNoBuild();
+
+        DotNetTasks.DotNetPublish(settings);
     }
 
     private void RunPublishAOT()
     {
         this.PublishDirectory.DeleteDirectory();
 
-        var settings = this.BaseDotNetPublishSettings
+        var settings = new DotNetPublishSettings()
+            .Apply(this.PublishSettingsBase)
             .SetRuntime(this.RID);
 
         DotNetTasks.DotNetPublish(settings);
