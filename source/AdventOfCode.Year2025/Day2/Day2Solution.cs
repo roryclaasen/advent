@@ -6,7 +6,6 @@ namespace AdventOfCode.Year2025;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Transactions;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared.Extensions;
 

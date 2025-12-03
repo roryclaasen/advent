@@ -8,6 +8,10 @@ jobs:
   test:
     name: Test
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      actions: read
+      checks: write
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -17,18 +21,22 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.x
-      - name: Restore dependencies
-        run: dotnet restore
-      - name: Build
-        run: dotnet build --no-restore
-      - name: Test
-        run: dotnet test --no-build --verbosity normal --report-trx
+      - name: Run './build.cmd CI'
+        run: ./build.cmd CI
       - name: Upload Test Results
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: test-results
-          path: "**/*.trx"
+          path: ./artifacts/test-results/*.trx
+      - uses: dorny/test-reporter@v2
+        if: ${{ (success() || failure()) && github.repository == 'roryclaasen/advent' }}
+        with:
+          name: Advent of Code Tests
+          path: ./artifacts/test-results/*.trx
+          reporter: dotnet-trx
+          list-tests: failed
+
 
   build:
     name: Build ${{ matrix.os }}
@@ -40,8 +48,8 @@ jobs:
             rid: linux-x64
           - os: windows-latest
             rid: win-x64
-          - os: macos-latest
-            rid: osx-x64
+          # - os: macos-latest
+          #   rid: osx-x64
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
@@ -51,8 +59,8 @@ jobs:
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: 10.x
-      - name: Build
-        run: dotnet publish ./tools/AdventOfCode.Cli/AdventOfCode.Cli.csproj -c Release -r ${{ matrix.rid }} -o ./artifacts/bin
+      - name: Run './build.cmd CD'
+        run: ./build.cmd CD --rid ${{ matrix.rid }}
       - name: Create Release Artifact
         uses: actions/upload-artifact@v4
         with:
