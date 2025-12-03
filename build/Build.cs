@@ -3,7 +3,7 @@
 
 using Nuke.Common;
 
-public class Build : NukeBuild, IClean, IRestore, ICompile, ITest, IPublish
+public class Build : NukeBuild, IClean, IRestore, ICompile, ITest, IPublish, ICreateDay
 {
     public Target CI => _ => _
         .DependsOn(((IRestore)this).Restore)

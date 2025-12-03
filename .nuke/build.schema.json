@@ -28,6 +28,11 @@
         "CI",
         "Clean",
         "Compile",
+        "CreateDay",
+        "CreateDaySource",
+        "CreateDayTests",
+        "CreateYearSourceProject",
+        "CreateYearTestsProject",
         "Publish",
         "PublishAOT",
         "Restore",
@@ -105,6 +110,10 @@
   "allOf": [
     {
       "properties": {
+        "AocSession": {
+          "type": "string",
+          "default": "Secrets must be entered via 'nuke :secrets [profile]'"
+        },
         "ArtifactsDirectory": {
           "type": "string",
           "description": "Output folder for artifacts"
@@ -116,6 +125,10 @@
             "Debug",
             "Release"
           ]
+        },
+        "Day": {
+          "type": "string",
+          "description": "Day of the Advent of Code to create"
         },
         "PublishDirectory": {
           "type": "string",
@@ -132,6 +145,10 @@
         "TestResultDirectory": {
           "type": "string",
           "description": "Output folder for test results"
+        },
+        "Year": {
+          "type": "string",
+          "description": "Year of the Advent of Code to create the day for"
         }
       }
     },

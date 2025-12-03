@@ -203,6 +203,9 @@ dotnet_diagnostic.SA1127.severity = none
 # Put constructor initializers on their own line
 dotnet_diagnostic.SA1128.severity = none
 
+# A Code Analysis SuppressMessage attribute does not include a justification.
+dotnet_diagnostic.SA1404.severity = none
+
 # Use trailing comma in multi-line initializers
 dotnet_diagnostic.SA1413.severity = none
 
