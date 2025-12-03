@@ -4,5 +4,7 @@
 
   <PropertyGroup>
     <IsPublishable>true</IsPublishable>
+
+    <PublishAot Condition="'$(IsAotCompatible)'=='true'">true</PublishAot>
   </PropertyGroup>
 </Project>

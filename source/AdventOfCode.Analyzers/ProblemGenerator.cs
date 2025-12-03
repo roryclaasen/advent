@@ -3,6 +3,7 @@
 
 namespace AdventOfCode.Analyzers;
 
+using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
 using Microsoft.CodeAnalysis;
@@ -12,6 +13,16 @@ using Microsoft.CodeAnalysis.Text;
 [Generator]
 public class ProblemGenerator : IIncrementalGenerator
 {
+    private const string CompilerAttributes = """
+        #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
+                [global::System.Diagnostics.DebuggerNonUserCode]
+                [global::System.CodeDom.Compiler.GeneratedCode("AdventOfCode.Generators", "1.0.0")]
+                #endif
+                #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+                #endif
+        """;
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         var pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
@@ -31,16 +42,6 @@ public class ProblemGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(pipeline, static (context, model) =>
         {
-            var compilerAttributes = $$"""
-            #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
-                    [global::System.Diagnostics.DebuggerNonUserCode]
-                    [global::System.CodeDom.Compiler.GeneratedCode("{{ThisAssembly.AssemblyName}}", "{{ThisAssembly.AssemblyVersion}}")]
-                    #endif
-                    #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-                    #endif
-            """;
-
             context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
                 $$"""
                 namespace {{model.Namespace}}
@@ -48,17 +49,53 @@ public class ProblemGenerator : IIncrementalGenerator
                     [global::System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
                     public partial class {{model.ClassName}} : global::{{typeof(IProblemDetails).FullName}}
                     {
-                        {{compilerAttributes}}
+                        {{CompilerAttributes}}
                         public int Year => {{model.Year}};
                 
-                        {{compilerAttributes}}
+                        {{CompilerAttributes}}
                         public int Day => {{model.Day}};
                 
-                        {{compilerAttributes}}
+                        {{CompilerAttributes}}
                         public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
                 
-                        {{compilerAttributes}}
+                        {{CompilerAttributes}}
                         public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
+                    }
+                }
+                """,
+                Encoding.UTF8));
+        });
+
+        var servicesPipeline = pipeline.Collect();
+        context.RegisterSourceOutput(servicesPipeline, static (context, models) =>
+        {
+            var exampleProblem = models.FirstOrDefault();
+            if (exampleProblem == default)
+            {
+                return;
+            }
+
+            var problemType = typeof(IProblemSolver).FullName;
+            var tryAddEnumerableLines = models
+                .OrderBy(model => model.Day)
+                .Select(model => $"typeof(global::{model.Namespace}.{model.ClassName})")
+                .Select(model => $"services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(global::{problemType}), {model}));");
+
+            context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(
+                $$"""
+                namespace {{exampleProblem.Namespace}}
+                {
+                    using global::Microsoft.Extensions.DependencyInjection;
+                    using global::Microsoft.Extensions.DependencyInjection.Extensions;
+                
+                    public static class ServiceCollectionExtensions
+                    {
+                        {{CompilerAttributes}}
+                        public static IServiceCollection AddSolutionsFor{{exampleProblem.Year}}(this IServiceCollection services)
+                        {
+                            {{string.Join($"\r\n            ", tryAddEnumerableLines)}}
+                            return services;
+                        }
                     }
                 }
                 """,

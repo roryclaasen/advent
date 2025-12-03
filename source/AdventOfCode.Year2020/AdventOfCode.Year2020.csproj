@@ -1,11 +1,5 @@
-<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <AdditionalFiles Include="Day*\*.txt" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" OutputItemType="Analyzer" />
-    <ProjectReference Include="..\AdventOfCode.Analyzers\AdventOfCode.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
-    <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
-  </ItemGroup>
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <IsYearSolver>true</IsYearSolver>
+  </PropertyGroup>
 </Project>

@@ -37,4 +37,8 @@
     <PackageReference Include="StyleCop.Analyzers" />
     <AdditionalFiles Include="$(SolutionDir)\stylecop.json" Link="stylecop.json" />
   </ItemGroup>
+
+  <PropertyGroup>
+    <IsAotCompatible Condition="'$(IsAotCompatible)'==''">true</IsAotCompatible>
+  </PropertyGroup>
 </Project>
