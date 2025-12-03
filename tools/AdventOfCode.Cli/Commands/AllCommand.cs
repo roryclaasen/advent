@@ -11,17 +11,17 @@ using AdventOfCode.Cli.Services;
 
 internal sealed class AllCommand : BaseSolutionCommand
 {
-    public AllCommand(CommonOptions commonOptions, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-        : base(commonOptions, solutionFinder, solutionRunner, "all", "Run all the solutions")
+    public AllCommand(ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+        : base(solutionFinder, solutionRunner, "all", "Run all the solutions")
     {
-        this.Options.Add(commonOptions.Year);
-        this.Options.Add(commonOptions.Day);
+        this.Options.Add(CommonOptions.Year);
+        this.Options.Add(CommonOptions.Day);
     }
 
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var year = parseResult.GetValue(this.CommonOptions.Year);
-        var day = parseResult.GetValue(this.CommonOptions.Day);
+        var year = parseResult.GetValue(CommonOptions.Year);
+        var day = parseResult.GetValue(CommonOptions.Day);
 
         var solvers = this.SolutionFinder.GetSolversFor(year, day);
         var allResults = this.SolutionRunner.RunAll(solvers);

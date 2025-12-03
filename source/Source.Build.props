@@ -1,8 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-  <Import Project="../Directory.Build.Props" />
+  <Import Project="../Directory.Build.props" />
 
   <ItemGroup>
     <InternalsVisibleTo Include="$(AssemblyName).Tests" />
   </ItemGroup>
+
+  <ItemGroup Condition="'$(IsYearSolver)' == 'true'">
+    <AdditionalFiles Include="Day*\*.txt" />
+
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" />
+
+    <ProjectReference Include="..\AdventOfCode.Problem\AdventOfCode.Problem.csproj" OutputItemType="Analyzer" />
+    <ProjectReference Include="..\AdventOfCode.Analyzers\AdventOfCode.Analyzers.csproj" OutputItemType="Analyzer" ReferenceOutputAssembly="false" />
+    <ProjectReference Include="..\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
+  </ItemGroup>
+
 </Project>

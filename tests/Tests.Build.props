@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Project>
-	<Import Project="../Directory.Build.Props" />
+	<Import Project="../Directory.Build.props" />
 
 	<PropertyGroup>
 		<Product>AdventOfCode.Tests</Product>
@@ -18,7 +18,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<Compile Include="$(MSBuildThisFileDirectory)/MSTestSettings.cs" Link="MSTestSettings.cs" />
-		<Compile Include="$(MSBuildThisFileDirectory)/Usings.cs" Link="Usings.cs" />
+		<Compile Include="$(MSBuildThisFileDirectory)/MSTestSettings.cs" Link="MSTestSettings.cs" Visible="False" />
+		<Compile Include="$(MSBuildThisFileDirectory)/Usings.cs" Link="Usings.cs" Visible="False" />
 	</ItemGroup>
 </Project>

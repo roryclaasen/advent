@@ -5,49 +5,69 @@ namespace AdventOfCode.Cli.Commands;
 
 using System;
 using System.CommandLine;
-using AdventOfCode.Shared;
 
-internal sealed class CommonOptions(IDateTimeProvider dateTimeProvider)
+internal static class CommonOptions
 {
-    private readonly Lazy<Option<int>> lazyYear = new(() =>
+    private static readonly Lazy<Option<int>> LazyYear = new(() =>
     {
-        var argument = new Option<int>("--year")
+        var argument = new Option<int>("--year", "-y")
         {
-            Description = "The year of the available puzzles."
+            Description = "The year of the available puzzles.",
+            Arity = ArgumentArity.ZeroOrOne
         };
 
         argument.Validators.Add(result =>
         {
             var year = result.GetRequiredValue(argument);
-            if (year < 2015 || year > dateTimeProvider.Now.Year)
+            if (year < 2015)
             {
-                result.AddError("Year must be between 2015 and current year.");
+                result.AddError("Year must be greater than or equal to 2015.");
+            }
+
+            if (year > DateTime.Now.Year)
+            {
+                result.AddError($"Year must be less than or equal to {DateTime.Now.Year}.");
             }
         });
 
         return argument;
     });
 
-    private readonly Lazy<Option<int>> lazyDay = new(() =>
+    private static readonly Lazy<Option<int>> LazyDay = new(() =>
     {
-        var argument = new Option<int>("--day")
+        var argument = new Option<int>("--day", "-d")
         {
-            Description = "The day of the available puzzle (1-25)."
+            Description = "The day of the available puzzle.",
+            Arity = ArgumentArity.ZeroOrOne
         };
 
         argument.Validators.Add(result =>
         {
             var day = result.GetRequiredValue(argument);
-            if (day < 1 || day > 25)
+
+            if (day < 1)
             {
-                result.AddError("Day must be between 1 and 25.");
+                result.AddError("Day must be greater than or equal to 1.");
+            }
+
+            var year = result.GetValue(Year);
+            if (year >= 2025)
+            {
+                if (day > 12)
+                {
+                    result.AddError("Day must be less than or equal to 12.");
+                }
+            }
+            else if (day > 25)
+            {
+                result.AddError("Day must be less than or equal to 25.");
             }
         });
 
         return argument;
     });
 
-    internal Option<int> Year => this.lazyYear.Value;
+    internal static Option<int> Year => LazyYear.Value;
 
-    internal Option<int> Day => this.lazyDay.Value;
+    internal static Option<int> Day => LazyDay.Value;
 }

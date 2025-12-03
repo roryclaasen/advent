@@ -11,6 +11,9 @@ using System.Text.RegularExpressions;
 
 public static partial class StringExtensions
 {
+    [GeneratedRegex(@"^\s*\|")]
+    private static partial Regex MarginRegex { get; }
+
     public static Vector2 ToVector2(this string str)
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
@@ -57,7 +60,7 @@ public static partial class StringExtensions
         ArgumentNullException.ThrowIfNull(str, nameof(str));
 
         var indent = new string(' ', length);
-        var res = string.Join(Environment.NewLine + new string(' ', length), str.Lines().Select(line => MarginRegex().Replace(line, string.Empty)));
+        var res = string.Join(Environment.NewLine + new string(' ', length), str.Lines().Select(line => MarginRegex.Replace(line, string.Empty)));
         return firstLine ? indent + res : res;
     }
 
@@ -142,7 +145,4 @@ public static partial class StringExtensions
             minIndex = str.IndexOf(value, minIndex + 1);
         }
     }
-
-    [GeneratedRegex(@"^\s*\|")]
-    private static partial Regex MarginRegex();
 }

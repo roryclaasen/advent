@@ -8,11 +8,19 @@ using AdventOfCode.Cli.Commands;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Cli.Services.Finder;
 using AdventOfCode.Cli.Services.Runner;
-using AdventOfCode.Problem;
 using AdventOfCode.Shared;
+using AdventOfCode.Year2015;
+using AdventOfCode.Year2016;
+using AdventOfCode.Year2017;
+using AdventOfCode.Year2018;
+using AdventOfCode.Year2019;
+using AdventOfCode.Year2020;
+using AdventOfCode.Year2022;
+using AdventOfCode.Year2023;
+using AdventOfCode.Year2024;
+using AdventOfCode.Year2025;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
 
 Console.OutputEncoding = Encoding.UTF8;
@@ -52,20 +60,22 @@ static IHost BuildApplicationAsync(string[] args)
     builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();
     builder.Services.AddSingleton<ISolutionRunner, SolutionRunner>();
 
-    foreach (var solution in AssemblyFinder.FindAllOfType<IProblemSolver>())
-    {
-        builder.Services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(IProblemSolver), solution));
-    }
-
-    builder.Services.AddSingleton<CommonOptions>();
+    builder.Services.AddSolutionsFor2015();
+    builder.Services.AddSolutionsFor2016();
+    builder.Services.AddSolutionsFor2017();
+    builder.Services.AddSolutionsFor2018();
+    builder.Services.AddSolutionsFor2019();
+    builder.Services.AddSolutionsFor2020();
+    builder.Services.AddSolutionsFor2022();
+    builder.Services.AddSolutionsFor2023();
+    builder.Services.AddSolutionsFor2024();
+    builder.Services.AddSolutionsFor2025();
 
     builder.Services.AddTransient<AdventOfCode.Cli.Commands.RootCommand>();
     builder.Services.AddTransient<ListCommand>();
     builder.Services.AddTransient<AllCommand>();
     builder.Services.AddTransient<TodayCommand>();
     builder.Services.AddTransient<LastCommand>();
-    builder.Services.AddTransient<PickCommand>();
 
-    var app = builder.Build();
-    return app;
+    return builder.Build();
 }

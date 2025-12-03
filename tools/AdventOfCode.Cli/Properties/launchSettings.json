@@ -1,8 +1,8 @@
 {
   "profiles": {
-    "AdventOfCode.Cli (pick)": {
+    "AdventOfCode.Cli": {
       "commandName": "Project",
-      "commandLineArgs": "pick"
+      "commandLineArgs": ""
     },
     "AdventOfCode.Cli (today)": {
       "commandName": "Project",
@@ -58,7 +58,7 @@
     },
     "AdventOfCode.Cli (help)": {
       "commandName": "Project",
-      "commandLineArgs": "last --help"
+      "commandLineArgs": "--help"
     }
   }
 }

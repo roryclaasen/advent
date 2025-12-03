@@ -11,8 +11,8 @@ using AdventOfCode.Cli.Services;
 using AdventOfCode.Shared;
 using Spectre.Console;
 
-internal sealed class TodayCommand(CommonOptions commonOptions, IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
-    : BaseSolutionCommand(commonOptions, solutionFinder, solutionRunner, "today", "Run todays solution")
+internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+    : BaseSolutionCommand(solutionFinder, solutionRunner, "today", "Run todays solution")
 {
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {

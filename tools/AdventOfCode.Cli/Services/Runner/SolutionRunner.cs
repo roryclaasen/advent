@@ -6,6 +6,7 @@ namespace AdventOfCode.Cli.Services.Runner;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using AdventOfCode.Cli.Services;
 using AdventOfCode.Problem;
@@ -51,18 +52,18 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         table.AddColumn(new TableColumn("Result").Centered());
         table.AddColumn(new TableColumn("Expected").Centered());
 
+        AddTableRow(1, result.Part1);
+        table.AddEmptyRow();
+        AddTableRow(2, result.Part2);
+
+        AnsiConsole.Write(table);
+
         void AddTableRow(int partNumber, ProblemPartResult part)
         {
             var partRow = $"[{part.ActualColor}]{(part.IsError ? "ERROR" : part.Actual ?? "NULL")}[/]";
             var partExpected = $"[{part.ExpectedColor}]{part.Expected ?? "NULL"}[/]";
             table.AddRow(partNumber.ToString(), partRow, partExpected);
         }
-
-        AddTableRow(1, result.Part1);
-        table.AddEmptyRow();
-        AddTableRow(2, result.Part2);
-
-        AnsiConsole.Write(table);
     }
 
     private static string FormatTimeSpan(TimeSpan timeSpan)
@@ -103,8 +104,11 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
             throw;
 #endif
         }
+        finally
+        {
+            stopwatch.Stop();
+        }
 
-        stopwatch.Stop();
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
 
@@ -119,7 +123,7 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
         if (partOne.IsError)
         {
-            AnsiConsole.WriteException(partOne.Error);
+            WriteException(partOne.Error);
         }
 
         ctx.Status("Running part 2");
@@ -128,12 +132,16 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
         if (partTwo.IsError)
         {
-            AnsiConsole.WriteException(partTwo.Error);
+            WriteException(partTwo.Error);
         }
 
         return new SolutionResult(partOne, partTwo);
 
         static string GetResultEmoji(ProblemPartResult result)
             => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
+
+        [UnconditionalSuppressMessage("AOT", "IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.")]
+        static void WriteException(Exception exception)
+            => AnsiConsole.WriteException(exception);
     });
 }
