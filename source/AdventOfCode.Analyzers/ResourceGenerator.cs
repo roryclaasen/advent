@@ -13,6 +13,16 @@ using Microsoft.CodeAnalysis.Text;
 [Generator]
 public class ResourceGenerator : IIncrementalGenerator
 {
+    private const string CompilerAttributes = """
+        #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
+                [global::System.Diagnostics.DebuggerNonUserCode]
+                [global::System.CodeDom.Compiler.GeneratedCode("AdventOfCode.Generators", "1.0.0")]
+                #endif
+                #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
+                [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
+                #endif
+        """;
+
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         static bool IsResourceFileValid(string path)
@@ -40,23 +50,13 @@ public class ResourceGenerator : IIncrementalGenerator
 
         context.RegisterSourceOutput(resourcePipeline, static (context, model) =>
         {
-            var compilerAttributes = $$"""
-            #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
-                    [global::System.Diagnostics.DebuggerNonUserCode]
-                    [global::System.CodeDom.Compiler.GeneratedCode("{{ThisAssembly.AssemblyName}}", "{{ThisAssembly.AssemblyVersion}}")]
-                    #endif
-                    #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                    [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-                    #endif
-            """;
-
             context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From(
                 $$""""
                 namespace {{model.Namespace}}
                 {
                     public partial class {{model.ClassName}} : global::{{model.Interface}}
                     {
-                        {{compilerAttributes}}
+                        {{CompilerAttributes}}
                         public string {{model.FileName}} =>
                             """
                             {{model.PadContents(12)}}

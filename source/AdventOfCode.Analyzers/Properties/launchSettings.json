@@ -42,7 +42,7 @@
     },
     "Debug Generator (2025)": {
       "commandName": "DebugRoslynComponent",
-      "targetProject": "..\\AdventOfCode.Year2024\\AdventOfCode.Year2024.csproj"
+      "targetProject": "..\\AdventOfCode.Year2025\\AdventOfCode.Year2025.csproj"
     }
   }
 }

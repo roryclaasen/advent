@@ -3,6 +3,7 @@
 
 namespace AdventOfCode.Analyzers;
 
+using System.Collections.Immutable;
 using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
@@ -38,9 +39,18 @@ public class ProblemGenerator : IIncrementalGenerator
                     int.Parse(attribute.ConstructorArguments[0].Value?.ToString()),
                     int.Parse(attribute.ConstructorArguments[1].Value?.ToString()),
                     attribute.ConstructorArguments.Length == 3 ? attribute.ConstructorArguments[2].Value?.ToString() : null);
-            });
+            }).Collect();
 
-        context.RegisterSourceOutput(pipeline, static (context, model) =>
+        context.RegisterSourceOutput(pipeline, static (context, models) =>
+        {
+            CreateProblemDetails(context, models);
+            CreateServiceCollectionExtensions(context, models);
+        });
+    }
+
+    private static void CreateProblemDetails(SourceProductionContext context, ImmutableArray<ProblemInfo> models)
+    {
+        foreach (var model in models)
         {
             context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
                 $$"""
@@ -64,25 +74,25 @@ public class ProblemGenerator : IIncrementalGenerator
                 }
                 """,
                 Encoding.UTF8));
-        });
+        }
+    }
 
-        var servicesPipeline = pipeline.Collect();
-        context.RegisterSourceOutput(servicesPipeline, static (context, models) =>
+    private static void CreateServiceCollectionExtensions(SourceProductionContext context, ImmutableArray<ProblemInfo> models)
+    {
+        var exampleProblem = models.FirstOrDefault();
+        if (exampleProblem == default)
         {
-            var exampleProblem = models.FirstOrDefault();
-            if (exampleProblem == default)
-            {
-                return;
-            }
+            return;
+        }
 
-            var problemType = typeof(IProblemSolver).FullName;
-            var tryAddEnumerableLines = models
-                .OrderBy(model => model.Day)
-                .Select(model => $"typeof(global::{model.Namespace}.{model.ClassName})")
-                .Select(model => $"services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(global::{problemType}), {model}));");
+        var problemType = typeof(IProblemSolver).FullName;
+        var tryAddEnumerableLines = models
+            .OrderBy(model => model.Day)
+            .Select(model => $"typeof(global::{model.Namespace}.{model.ClassName})")
+            .Select(model => $"services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(global::{problemType}), {model}));");
 
-            context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(
-                $$"""
+        context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(
+            $$"""
                 namespace {{exampleProblem.Namespace}}
                 {
                     using global::Microsoft.Extensions.DependencyInjection;
@@ -99,7 +109,6 @@ public class ProblemGenerator : IIncrementalGenerator
                     }
                 }
                 """,
-                Encoding.UTF8));
-        });
+            Encoding.UTF8));
     }
 }

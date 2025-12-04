@@ -106,8 +106,8 @@ internal partial interface ICreateDay : IRestore
             sourceFolder.CreateDirectory();
         }
 
-        WriteContentsToFile(sourceFolder / "expected1.txt", string.Empty);
-        WriteContentsToFile(sourceFolder / "expected2.txt", string.Empty);
+        WriteContentsToFile(sourceFolder / "Expected1.txt", string.Empty);
+        WriteContentsToFile(sourceFolder / "Expected2.txt", string.Empty);
 
         var solutionFile = sourceFolder / $"Day{this.Day!.Value}Solution.cs";
         if (!solutionFile.FileExists())
@@ -142,7 +142,7 @@ public partial class Day{this.Day!.Value}Solution : IProblemSolver
             Log.Information($"File {solutionFile.Name} already exists, skipping creation.");
         }
 
-        var inputFile = sourceFolder / "input.txt";
+        var inputFile = sourceFolder / "Input.txt";
         if (!inputFile.FileExists())
         {
             var input = await this.GetDayInputFromWebsite();
