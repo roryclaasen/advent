@@ -3,37 +3,25 @@
 
 namespace AdventOfCode.Shared.Extensions;
 
-using System.Collections.Generic;
 using System.Numerics;
 
 public static class Vector2Extensions
 {
-    public static IEnumerable<Vector2> EightNeighbors(this Vector2 vector)
+    public static void Deconstruct(this Vector2 vector, out float x, out float y)
     {
-        foreach (var neighbor in vector.FourNeighbors())
-        {
-            yield return neighbor;
-        }
-
-        foreach (var neighbor in vector.CornerNeighbors())
-        {
-            yield return neighbor;
-        }
+        x = vector.X;
+        y = vector.Y;
     }
 
-    public static IEnumerable<Vector2> FourNeighbors(this Vector2 vector)
-    {
-        yield return vector + Vector2.UnitX; // right
-        yield return vector - Vector2.UnitX; // left
-        yield return vector + Vector2.UnitY; // down
-        yield return vector - Vector2.UnitY; // up
-    }
+    public static bool WithinBounds(this Vector2 vector, Vector2 min, Vector2 max)
+        => vector.WithinBounds(min.X, min.Y, max.X, max.Y);
 
-    public static IEnumerable<Vector2> CornerNeighbors(this Vector2 vector)
-    {
-        yield return vector + Vector2.One; // down right
-        yield return vector - Vector2.One; // up left
-        yield return vector + new Vector2(1, -1); // up right
-        yield return vector - new Vector2(1, -1); // down left
-    }
+    public static bool WithinBounds(this Vector2 vector, Vector2 start, float width, float height)
+        => vector.WithinBounds(start.X, start.Y, start.X + width, start.Y + height);
+
+    public static bool WithinBounds(this Vector2 vector, float x1, float y1, float x2, float y2)
+        => vector.X >= x1 && vector.X < x2 && vector.Y >= y1 && vector.Y < y2;
+
+    public static bool WithinBounds(this Vector2 vector, float width, float height)
+        => vector.WithinBounds(0, 0, width, height);
 }
