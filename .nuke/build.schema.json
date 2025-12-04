@@ -112,6 +112,7 @@
       "properties": {
         "AocSession": {
           "type": "string",
+          "description": "AOC session cookie value for fetching input from the website",
           "default": "Secrets must be entered via 'nuke :secrets [profile]'"
         },
         "ArtifactsDirectory": {
