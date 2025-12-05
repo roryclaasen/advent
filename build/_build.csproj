@@ -1,5 +1,4 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <RootNamespace></RootNamespace>
@@ -18,5 +17,4 @@
   <ItemGroup>
     <PackageReference Include="Nuke.Common" />
   </ItemGroup>
-
 </Project>
