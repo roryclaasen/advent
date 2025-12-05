@@ -63,7 +63,8 @@ public readonly record struct SimpleRange<TNumber>
         return new SimpleRange<TNumber>(newStart, newEnd);
     }
 
-    public RangeEnumerator<TNumber> GetEnumerator() => new(this.Start, this.End);
+    public RangeEnumerator<TNumber> GetEnumerator()
+        => new(this.Start, this.End);
 
     public void Deconstruct(out TNumber start, out TNumber end)
     {
