@@ -7,6 +7,18 @@ using System;
 
 public static class ArrayExtensions
 {
+    extension(Array)
+    {
+        public static T[] Create<T>(int length, T value)
+        {
+            ArgumentNullException.ThrowIfNull(value, nameof(value));
+            ArgumentOutOfRangeException.ThrowIfNegative(length, nameof(length));
+            var array = new T[length];
+            Array.Fill(array, value);
+            return array;
+        }
+    }
+
     public static void Deconstruct<T>(this T[] array, out T item1)
     {
         ArgumentNullException.ThrowIfNull(array, nameof(array));

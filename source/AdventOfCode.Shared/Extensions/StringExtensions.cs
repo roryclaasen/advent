@@ -149,14 +149,10 @@ public static partial class StringExtensions
         }
     }
 
-    public static ReadOnlySpan2D<char> AsSpan2D(this string str)
-        => AsSpan2D(str.AsSpan());
-
-    public static ReadOnlySpan2D<char> AsSpan2D(this ReadOnlySpan<char> span)
+    public static ReadOnlySpan<char> GetWidthAndHeight(this ReadOnlySpan<char> span, out int width, out int height)
     {
-        var height = 0;
-        var width = 0;
-
+        height = 0;
+        width = 0;
         var sb = new ValueStringBuilder();
         foreach (var line in span.EnumerateLines())
         {
@@ -165,8 +161,11 @@ public static partial class StringExtensions
             width = Math.Max(width, line.Length);
         }
 
-        return sb.AsSpan().AsSpan2D(height, width);
+        return sb.AsSpan();
     }
+
+    public static ReadOnlySpan2D<char> AsSpan2D(this ReadOnlySpan<char> span)
+        => span.GetWidthAndHeight(out var width, out var height).AsSpan2D(height, width);
 
     public static VerticalSplitEnumerator VerticalSplit(this string str, char separator)
         => new(str.AsSpan2D(), separator);
