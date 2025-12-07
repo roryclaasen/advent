@@ -83,7 +83,5 @@ public ref struct VerticalSplitEnumerator : IEnumerator<ReadOnlySpan<char>>
         this.current = default;
     }
 
-    readonly void IEnumerator.Reset() => throw new NotSupportedException();
-
     readonly void IDisposable.Dispose() { }
 }

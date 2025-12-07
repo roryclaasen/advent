@@ -1,8 +1,9 @@
-﻿// Copyright (c) Rory Claasen. All rights reserved.
+// Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
 namespace AdventOfCode.Shared.Numerics;
 
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
@@ -27,6 +28,8 @@ public ref struct RangeEnumerator<TNumber> : IEnumerator<TNumber>
 
     readonly object IEnumerator.Current => this.current;
 
+    public readonly RangeEnumerator<TNumber> GetEnumerator() => this;
+
     public bool MoveNext()
     {
         if (this.current < this.end)
@@ -40,7 +43,5 @@ public ref struct RangeEnumerator<TNumber> : IEnumerator<TNumber>
 
     public void Reset() => this.current = this.start;
 
-    public readonly void Dispose()
-    {
-    }
+    readonly void IDisposable.Dispose() { }
 }
