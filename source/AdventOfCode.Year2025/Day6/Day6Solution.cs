@@ -5,7 +5,6 @@ namespace AdventOfCode.Year2025;
 
 using System;
 using System.Collections.Generic;
-using System.Data;
 using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
