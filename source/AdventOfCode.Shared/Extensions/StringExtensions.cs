@@ -7,7 +7,11 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Text;
 using System.Text.RegularExpressions;
+using AdventOfCode.Shared.Memory;
+using CommunityToolkit.HighPerformance;
+using LinkDotNet.StringBuilder;
 
 public static partial class StringExtensions
 {
@@ -145,4 +149,32 @@ public static partial class StringExtensions
             minIndex = str.IndexOf(value, minIndex + 1);
         }
     }
+
+    public static ReadOnlySpan2D<char> AsSpan2D(this string str)
+        => AsSpan2D(str.AsSpan());
+
+    public static ReadOnlySpan2D<char> AsSpan2D(this ReadOnlySpan<char> span)
+    {
+        var height = 0;
+        var width = 0;
+
+        var sb = new ValueStringBuilder();
+        foreach (var line in span.EnumerateLines())
+        {
+            sb.Append(line);
+            height++;
+            width = Math.Max(width, line.Length);
+        }
+
+        return sb.AsSpan().AsSpan2D(height, width);
+    }
+
+    public static VerticalSplitEnumerator VerticalSplit(this string str, char separator)
+        => new(str.AsSpan2D(), separator);
+
+    public static VerticalSplitEnumerator VerticalSplit(this ReadOnlySpan<char> span, char separator)
+    => new(span.AsSpan2D(), separator);
+
+    public static VerticalSplitEnumerator VerticalSplit(this ReadOnlySpan2D<char> span, char separator)
+        => new(span, separator);
 }
