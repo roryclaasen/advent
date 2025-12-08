@@ -5,9 +5,9 @@ namespace AdventOfCode.Problem;
 
 public interface IProblemDetails
 {
-    public int Year { get; }
+    int Year { get; }
 
-    public int Day { get; }
+    int Day { get; }
 
-    public string Name { get; }
+    string Name { get; }
 }
