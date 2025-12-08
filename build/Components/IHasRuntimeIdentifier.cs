@@ -7,8 +7,10 @@ using Nuke.Common;
 internal interface IHasRuntimeIdentifier : INukeBuild
 {
     [Parameter("DotNet runtime identifier (RID). Used for self-contained deployments and AOT compilation.")]
-    public string RID {
-        get {
+    public string RID
+    {
+        get
+        {
             var rid = this.TryGetValue(() => this.RID);
             return rid switch
             {
