@@ -87,7 +87,7 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         return $"[{color}]{format}[/]";
     }
 
-    private static ProblemPartResult Solve(Func<string, object?> part, string? input, string? expected)
+    private static ProblemPartResult SolveImplementation(Func<string, object?> part, string? input, string? expected)
     {
         string? actual = null;
         Exception? error = null;
@@ -112,23 +112,46 @@ internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRun
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
 
+    private static ProblemPartResult RunSolver(IProblemSolver solver, int part, StatusContext ctx)
+    {
+        var hasProgress = solver as IHasProgress;
+
+        try
+        {
+            hasProgress?.ProgressChanged += UpdateProgress;
+            ctx.Status($"Running part {part}");
+
+            return part switch
+            {
+                1 => SolveImplementation(solver.PartOne, solver.Input, solver.Expected1),
+                2 => SolveImplementation(solver.PartTwo, solver.Input, solver.Expected2),
+                _ => throw new UnreachableException()
+            };
+        }
+        finally
+        {
+            hasProgress?.ProgressChanged -= UpdateProgress;
+        }
+
+        void UpdateProgress(object? sender, ProgressEventArgs args)
+        {
+            ctx.Status($"Running part {part} - {args.Current}/{args.Total}");
+        }
+    }
+
     private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
     {
         var solverName = solver.Name;
         AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), solver.GetDisplayName());
 
-        ctx.Status("Running part 1");
-        var partOne = Solve(solver.PartOne, solver.Input, solver.Expected1);
-
+        var partOne = RunSolver(solver, 1, ctx);
         AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
         if (partOne.IsError)
         {
             WriteException(partOne.Error);
         }
 
-        ctx.Status("Running part 2");
-        var partTwo = Solve(solver.PartTwo, solver.Input, solver.Expected2);
-
+        var partTwo = RunSolver(solver, 2, ctx);
         AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
         if (partTwo.IsError)
         {

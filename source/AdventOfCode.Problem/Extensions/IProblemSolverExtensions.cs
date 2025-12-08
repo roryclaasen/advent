@@ -9,7 +9,7 @@ using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
 
-[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1101:Prefix local calls with this", Justification = "Can't use the this keyword in static/extension classes.")]
+[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1101:Prefix local calls with this")]
 public static class IProblemSolverExtensions
 {
     extension(IProblemSolver solver)
