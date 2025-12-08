@@ -9,7 +9,7 @@ using System.Collections.Immutable;
 using System.Linq;
 using System.Text.RegularExpressions;
 using AdventOfCode.Problem;
-using AdventOfCode.Shared.Numerics;
+using AdventOfCode.Shared;
 
 [Problem(2025, 5, "Cafeteria")]
 public partial class Day5Solution : IProblemSolver

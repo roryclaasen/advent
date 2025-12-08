@@ -6,11 +6,7 @@ namespace AdventOfCode.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Numerics;
 using System.Text.RegularExpressions;
-using AdventOfCode.Shared.Memory;
-using CommunityToolkit.HighPerformance;
-using LinkDotNet.StringBuilder;
 
 public static partial class StringExtensions
 {
@@ -140,6 +136,4 @@ public static partial class StringExtensions
             minIndex = str.IndexOf(value, minIndex + 1);
         }
     }
-
-    
 }

@@ -5,15 +5,9 @@ namespace AdventOfCode.Year2025;
 
 using System;
 using System.Buffers;
-using System.Collections;
 using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Numerics;
-using System.Threading.Tasks.Dataflow;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 using CommunityToolkit.HighPerformance;
 
 [Problem(2025, 7, "Laboratories")]

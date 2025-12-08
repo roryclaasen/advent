@@ -3,7 +3,6 @@
 
 namespace AdventOfCode.Year2025.Tests;
 
-using System.Diagnostics.CodeAnalysis;
 using AdventOfCode.Shared.Tests;
 
 [TestClass]

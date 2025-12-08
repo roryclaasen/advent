@@ -122,9 +122,10 @@ internal partial interface ICreateDay : IRestore
 namespace AdventOfCode.Year{this.Year!.Value};
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 
 [Problem({this.Year!.Value}, {this.Day!.Value}, {name})]
 public partial class Day{this.Day!.Value}Solution : IProblemSolver

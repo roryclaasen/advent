@@ -1,14 +1,11 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Shared.Extensions;
+namespace AdventOfCode.Shared;
 
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Numerics;
-using System.Text;
-using AdventOfCode.Shared.Memory;
 using CommunityToolkit.HighPerformance;
 using LinkDotNet.StringBuilder;
 
@@ -18,8 +15,8 @@ public static class SpanExtensions
     {
         var cords = span.Split(',');
 
-        var x = cords.MoveNext() ? cords.Current : throw new FormatException("Invalid Vector3 format.");
-        var y = cords.MoveNext() ? cords.Current : throw new FormatException("Invalid Vector3 format.");
+        var x = cords.MoveNext() ? cords.Current : throw new FormatException("Invalid Vector2 format.");
+        var y = cords.MoveNext() ? cords.Current : throw new FormatException("Invalid Vector2 format.");
 
         return new Vector2(GetNumber<float>(span[x]), GetNumber<float>(span[y]));
     }

@@ -10,7 +10,6 @@ using System.Linq;
 using System.Numerics;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 
 [Problem(2025, 8, "Playground")]
 public partial class Day8Solution : IProblemSolver

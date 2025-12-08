@@ -9,7 +9,6 @@ using System.Linq;
 using System.Numerics;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 
 [Problem(2024, 8, "Resonant Collinearity")]
 public partial class Day8Solution : IProblemSolver

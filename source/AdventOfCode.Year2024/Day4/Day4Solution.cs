@@ -8,7 +8,6 @@ using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 using CommunityToolkit.HighPerformance;
 
 [Problem(2024, 4, "Ceres Search")]

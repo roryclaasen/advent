@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
-using AdventOfCode.Shared.Extensions;
 
 [Problem(2025, 2, "Gift Shop")]
 public partial class Day2Solution : IProblemSolver

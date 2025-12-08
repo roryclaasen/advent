@@ -8,7 +8,6 @@ using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 using LinkDotNet.StringBuilder;
 
 [Problem(2025, 6, "Trash Compactor")]

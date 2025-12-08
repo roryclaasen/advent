@@ -1,13 +1,12 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Shared.Extensions;
+namespace AdventOfCode.Shared;
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
-using AdventOfCode.Shared.Numerics;
 
 public static class RangeExtensions
 {

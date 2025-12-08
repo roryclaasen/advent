@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
-using AdventOfCode.Shared.Extensions;
+using AdventOfCode.Shared;
 
 [Problem(2019, 4, "Secure Container")]
 public partial class Day4Solution : IProblemSolver

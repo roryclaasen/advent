@@ -6,7 +6,6 @@ namespace AdventOfCode.Year2015;
 using System;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 
 [Problem(2015, 6, "Probably a Fire Hazard")]
 public partial class Day6Solution : IProblemSolver

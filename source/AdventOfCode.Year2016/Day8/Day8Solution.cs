@@ -7,7 +7,6 @@ using System;
 using System.Collections.Generic;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
-using AdventOfCode.Shared.Extensions;
 
 [Problem(2016, 8, "Two-Factor Authentication")]
 public partial class Day8Solution : IProblemSolver
