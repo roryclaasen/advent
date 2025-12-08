@@ -17,14 +17,6 @@ public static partial class StringExtensions
     [GeneratedRegex(@"^\s*\|")]
     private static partial Regex MarginRegex { get; }
 
-    public static Vector2 ToVector2(this string str)
-    {
-        ArgumentNullException.ThrowIfNull(str, nameof(str));
-
-        var cords = str.Split(',').Select(float.Parse).ToArray();
-        return new Vector2(cords[0], cords[1]);
-    }
-
     /// <summary>
     /// Splits a string into n number of parts.
     /// <see href="https://stackoverflow.com/a/4133475/4498839"/>
@@ -149,30 +141,5 @@ public static partial class StringExtensions
         }
     }
 
-    public static ReadOnlySpan<char> GetWidthAndHeight(this ReadOnlySpan<char> span, out int width, out int height)
-    {
-        height = 0;
-        width = 0;
-        var sb = new ValueStringBuilder();
-        foreach (var line in span.EnumerateLines())
-        {
-            sb.Append(line);
-            height++;
-            width = Math.Max(width, line.Length);
-        }
-
-        return sb.AsSpan();
-    }
-
-    public static ReadOnlySpan2D<char> AsSpan2D(this ReadOnlySpan<char> span)
-        => span.GetWidthAndHeight(out var width, out var height).AsSpan2D(height, width);
-
-    public static VerticalSplitEnumerator VerticalSplit(this string str, char separator)
-        => new(str.AsSpan2D(), separator);
-
-    public static VerticalSplitEnumerator VerticalSplit(this ReadOnlySpan<char> span, char separator)
-    => new(span.AsSpan2D(), separator);
-
-    public static VerticalSplitEnumerator VerticalSplit(this ReadOnlySpan2D<char> span, char separator)
-        => new(span, separator);
+    
 }
