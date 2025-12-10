@@ -14,7 +14,7 @@ using AdventOfCode.Problem.Extensions;
 using AdventOfCode.Shared;
 using Spectre.Console;
 
-internal sealed partial class SolutionRunner(AdventUri adventUri) : ISolutionRunner
+internal sealed class SolutionRunner(AdventUri adventUri) : ISolutionRunner
 {
     public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
     {

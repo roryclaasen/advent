@@ -9,8 +9,7 @@ using AdventOfCode.Problem;
 
 internal interface ISolutionRunner
 {
-    IReadOnlyList<SolutionResult> Run(IProblemSolver solver)
-        => this.RunAll([solver]);
+    IReadOnlyList<SolutionResult> Run(IProblemSolver solver) => this.RunAll([solver]);
 
     IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers);
 }

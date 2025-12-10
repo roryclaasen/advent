@@ -4,6 +4,8 @@
 namespace AdventOfCode.Cli.Commands;
 
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.CommandLine;
 using System.Linq;
 using System.Threading;
@@ -56,9 +58,8 @@ internal sealed class RootCommand : BaseRootCommand
 
         if (selectedYear != 0 && selectedDay != 0)
         {
-            var solver = this.solutionFinder.GetSolversFor(selectedYear, selectedDay);
-            var exitCode = this.solutionRunner.RunAll(solver).Any(r => r.HasError) ? -1 : 0;
-            return ValueTask.FromResult(exitCode);
+            var solvers = this.solutionFinder.GetSolversFor(selectedYear, selectedDay);
+            return RunAllSolvers(solvers);
         }
 
         var prompt = new MultiSelectionPrompt<IProblemSolver>()
@@ -81,11 +82,15 @@ internal sealed class RootCommand : BaseRootCommand
             prompt.AddChoiceGroup(new YearPlaceHolder(selectedYear), this.solutionFinder.GetSolversFor(selectedYear).OrderByYearAndDay());
         }
 
-        var pickedSolvers = AnsiConsole.Prompt(prompt);
+        var pickedSolvers = AnsiConsole.Prompt(prompt).Where(s => s is not YearPlaceHolder);
+        return RunAllSolvers(pickedSolvers);
 
-        var allResults = this.solutionRunner.RunAll(pickedSolvers.Where(s => s is not YearPlaceHolder));
-        var isError = allResults.Any(r => r.HasError);
-        return ValueTask.FromResult(isError ? -1 : 0);
+        ValueTask<int> RunAllSolvers(IEnumerable<IProblemSolver> solvers)
+        {
+            var results = this.solutionRunner.RunAll(solvers);
+            var exitCode = results.Any(r => r.HasError) ? -1 : 0;
+            return ValueTask.FromResult(exitCode);
+        }
     }
 
     private string SolverNameConverter(IProblemSolver solver)

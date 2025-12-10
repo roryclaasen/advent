@@ -20,7 +20,7 @@ internal sealed class LastCommand : BaseSolutionCommand
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var solver = this.SolutionFinder.GetLastSolver(parseResult.GetValue(CommonOptions.Year));
-        var allResults = this.SolutionRunner.RunAll([solver]);
+        var allResults = this.SolutionRunner.Run(solver);
         var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
         return ValueTask.FromResult(exitCode);
     }
