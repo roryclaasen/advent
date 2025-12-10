@@ -87,4 +87,41 @@ public static class MathUtils
             return (a * Math.Pow(10, Math.Floor(Math.Log10(b)) + 1)) + b;
         }
     }
+
+    public static IEnumerable<List<int>> GetSubsetsOfSize(int n, int k)
+    {
+        if (k == 0)
+        {
+            yield return [];
+            yield break;
+        }
+
+        var indices = new int[k];
+        for (var i = 0; i < k; i++)
+        {
+            indices[i] = i;
+        }
+
+        while (true)
+        {
+            yield return [.. indices];
+
+            var i = k - 1;
+            while (i >= 0 && indices[i] == n - k + i)
+            {
+                i--;
+            }
+
+            if (i < 0)
+            {
+                break;
+            }
+
+            indices[i]++;
+            for (var j = i + 1; j < k; j++)
+            {
+                indices[j] = indices[j - 1] + 1;
+            }
+        }
+    }
 }
