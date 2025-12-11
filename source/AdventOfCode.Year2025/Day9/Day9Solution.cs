@@ -4,10 +4,8 @@
 namespace AdventOfCode.Year2025;
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Immutable;
-using System.Linq;
 using System.Numerics;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
