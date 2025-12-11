@@ -61,20 +61,20 @@ internal partial interface ICreateDay : IRestore
         .DependsOn(this.CreateDaySource)
         .DependsOn(this.CreateDayTests);
 
-    private AbsolutePath YearSourceFolder => this.Solution!.Directory / "source" / $"AdventOfCode.Year{this.Year.Value}";
+    private AbsolutePath YearSourceFolder => this.Solution!.Directory / "source" / $"AdventOfCode.Year{this.Year}";
 
-    private AbsolutePath YearSourceProject => this.YearSourceFolder / $"AdventOfCode.Year{this.Year.Value}.csproj";
+    private AbsolutePath YearSourceProject => this.YearSourceFolder / $"AdventOfCode.Year{this.Year}.csproj";
 
-    private AbsolutePath YearTestsFolder => this.Solution!.Directory / "tests" / $"AdventOfCode.Year{this.Year.Value}.Tests";
+    private AbsolutePath YearTestsFolder => this.Solution!.Directory / "tests" / $"AdventOfCode.Year{this.Year}.Tests";
 
-    private AbsolutePath YearTestsProject => this.YearTestsFolder / $"AdventOfCode.Year{this.Year.Value}.Tests.csproj";
+    private AbsolutePath YearTestsProject => this.YearTestsFolder / $"AdventOfCode.Year{this.Year}.Tests.csproj";
 
     [GeneratedRegex(@"<article class=""day-desc""><h2>--- Day \d+: (.+) ---</h2>")]
     private static partial Regex DayWebsiteRegex { get; }
 
     public void RunCreateYearSourceProject()
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year?.Value ?? 0, nameof(this.Year));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year ?? 0, nameof(this.Year));
 
         this.CreateNewProject(this.YearSourceFolder, this.YearSourceProject, "classlib", "Source", @"<Project Sdk=""Microsoft.NET.Sdk"">
   <PropertyGroup>
@@ -85,11 +85,11 @@ internal partial interface ICreateDay : IRestore
 
     public void RunCreateYearTestsProject()
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year?.Value ?? 0, nameof(this.Year));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year ?? 0, nameof(this.Year));
 
         this.CreateNewProject(this.YearTestsFolder, this.YearTestsProject, "mstest", "Tests", @$"<Project Sdk=""MSTest.Sdk"">
   <ItemGroup>
-    <ProjectReference Include=""..\..\source\AdventOfCode.Year{this.Year!.Value}.Tests\AdventOfCode.Year{this.Year!.Value}.Tests.csproj"" />
+    <ProjectReference Include=""..\..\source\AdventOfCode.Year{this.Year}.Tests\AdventOfCode.Year{this.Year}.Tests.csproj"" />
     <ProjectReference Include=""..\AdventOfCode.Shared.Tests\AdventOfCode.Shared.Tests.csproj"" />
   </ItemGroup>
 </Project>");
@@ -97,10 +97,10 @@ internal partial interface ICreateDay : IRestore
 
     private async Task RunCreateDaySource()
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year?.Value ?? 0, nameof(this.Year));
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Day?.Value ?? 0, nameof(this.Day));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year ?? 0, nameof(this.Year));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Day ?? 0, nameof(this.Day));
 
-        var sourceFolder = this.YearSourceFolder / $"Day{this.Day!.Value}";
+        var sourceFolder = this.YearSourceFolder / $"Day{this.Day}";
         if (!sourceFolder.Exists())
         {
             sourceFolder.CreateDirectory();
@@ -109,7 +109,7 @@ internal partial interface ICreateDay : IRestore
         WriteContentsToFile(sourceFolder / "Expected1.txt", string.Empty);
         WriteContentsToFile(sourceFolder / "Expected2.txt", string.Empty);
 
-        var solutionFile = sourceFolder / $"Day{this.Day!.Value}Solution.cs";
+        var solutionFile = sourceFolder / $"Day{this.Day}Solution.cs";
         if (!solutionFile.FileExists())
         {
             var name = await this.GetDayNameFromWebsite();
@@ -119,16 +119,17 @@ internal partial interface ICreateDay : IRestore
             solutionFile.WriteAllText(@$"// Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Year{this.Year!.Value};
+namespace AdventOfCode.Year{this.Year};
 
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Shared;
 
-[Problem({this.Year!.Value}, {this.Day!.Value}, {name})]
-public partial class Day{this.Day!.Value}Solution : IProblemSolver
+[Problem({this.Year}, {this.Day}, {name})]
+public partial class Day{this.Day}Solution : IProblemSolver
 {{
     public object? PartOne(string input)
     {{
@@ -162,10 +163,10 @@ public partial class Day{this.Day!.Value}Solution : IProblemSolver
 
     private void RunCreateDayTests()
     {
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year?.Value ?? 0, nameof(this.Year));
-        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Day?.Value ?? 0, nameof(this.Day));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Year ?? 0, nameof(this.Year));
+        ArgumentOutOfRangeException.ThrowIfNegativeOrZero(this.Day ?? 0, nameof(this.Day));
 
-        var testFile = this.YearTestsFolder / $"Day{this.Day!.Value}SolutionTests.cs";
+        var testFile = this.YearTestsFolder / $"Day{this.Day}SolutionTests.cs";
         if (testFile.Exists())
         {
             Log.Information($"File {testFile.Name} already exists, skipping creation.");
@@ -176,12 +177,12 @@ public partial class Day{this.Day!.Value}Solution : IProblemSolver
         testFile.WriteAllText(@$"// Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Year{this.Year!.Value}.Tests;
+namespace AdventOfCode.Year{this.Year}.Tests;
 
 using AdventOfCode.Shared.Tests;
 
 [TestClass]
-public class Day{this.Day.Value}SolutionTests : SolverBaseTests<Day{this.Day.Value}Solution>
+public class Day{this.Day}SolutionTests : SolverBaseTests<Day{this.Day}Solution>
 {{
     [TestMethod]
     [DataRow("""", """")]
@@ -203,10 +204,10 @@ public class Day{this.Day.Value}SolutionTests : SolverBaseTests<Day{this.Day.Val
 
     private async Task<string?> GetDayNameFromWebsite()
     {
-        var url = $"https://adventofcode.com/{this.Year.Value}/day/{this.Day.Value}";
+        var url = $"https://adventofcode.com/{this.Year}/day/{this.Day}";
 
         Log.Information($"Fetching day name from {url}");
-        var response = await HttpTasks.HttpDownloadStringAsync($"https://adventofcode.com/{this.Year.Value}/day/{this.Day.Value}");
+        var response = await HttpTasks.HttpDownloadStringAsync($"https://adventofcode.com/{this.Year}/day/{this.Day}");
 
         var match = DayWebsiteRegex.Match(response);
         var name = match.Success ? match.Groups[1].Value : null;
@@ -226,7 +227,7 @@ public class Day{this.Day.Value}SolutionTests : SolverBaseTests<Day{this.Day.Val
             return null;
         }
 
-        var url = $"https://adventofcode.com/{this.Year.Value}/day/{this.Day.Value}/input";
+        var url = $"https://adventofcode.com/{this.Year}/day/{this.Day}/input";
 
         Log.Information($"Fetching day input from {url}");
         var response = await HttpTasks.HttpDownloadStringAsync(url, headerConfigurator: (headers) =>

@@ -7,44 +7,31 @@ using System.ComponentModel;
 using System.Globalization;
 
 [TypeConverter(typeof(AocNumberTypeConverter))]
-internal class AocNumber
+internal class AocNumber(int value)
 {
-    public AocNumber(int value)
-    {
-        this.Value = value;
-    }
+    public int Value { get; set; } = value;
 
-    public AocNumber(string value)
-    {
-        if (int.TryParse(value, out var intValue))
-        {
-            this.Value = intValue;
-        }
-    }
+    public static implicit operator int(AocNumber aocYear) => aocYear.Value;
 
-    public int? Value { get; set; }
-
-    public static implicit operator int?(AocNumber aocYear)
-        => aocYear.Value;
-
-    public static implicit operator string(AocNumber aocYear)
-        => aocYear.Value?.ToString() ?? string.Empty;
+    public override string ToString() => this.Value.ToString();
 
     public class AocNumberTypeConverter : TypeConverter
     {
         public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType)
         {
-            return sourceType == typeof(string) || base.CanConvertFrom(context, sourceType);
+            return sourceType == typeof(string)
+                || sourceType == typeof(int)
+                || base.CanConvertFrom(context, sourceType);
         }
 
         public override object? ConvertFrom(ITypeDescriptorContext? context, CultureInfo? culture, object value)
         {
-            if (value is string stringValue)
+            if (value is int intValue)
             {
-                return new AocNumber(stringValue);
+                return new AocNumber(intValue);
             }
 
-            if (value is int intValue)
+            if (value is string stringValue && int.TryParse(stringValue, culture, out intValue))
             {
                 return new AocNumber(intValue);
             }
