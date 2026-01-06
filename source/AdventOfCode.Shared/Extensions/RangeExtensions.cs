@@ -5,9 +5,11 @@ namespace AdventOfCode.Shared;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Numerics;
 
+[SuppressMessage("StyleCop.CSharp.ReadabilityRules", "SA1101:Prefix local calls with this")]
 public static class RangeExtensions
 {
     extension(Range range)
