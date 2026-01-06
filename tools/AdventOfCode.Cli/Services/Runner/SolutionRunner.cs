@@ -112,53 +112,24 @@ internal sealed class SolutionRunner(AdventUri adventUri) : ISolutionRunner
         return new ProblemPartResult(stopwatch.Elapsed, expected, actual, error);
     }
 
-    private static ProblemPartResult RunSolver(IProblemSolver solver, int part, StatusContext ctx)
+    private static ProblemPartResult RunSolverPart(IProblemSolver solver, int part, StatusContext ctx)
     {
-        var hasProgress = solver as IHasProgress;
+        ctx.Status($"Running part {part}");
 
-        try
+        var result = part switch
         {
-            hasProgress?.ProgressChanged += UpdateProgress;
-            ctx.Status($"Running part {part}");
+            1 => SolveImplementation(solver.PartOne, solver.Input, solver.Expected1),
+            2 => SolveImplementation(solver.PartTwo, solver.Input, solver.Expected2),
+            _ => throw new UnreachableException("How did you manage this?")
+        };
 
-            return part switch
-            {
-                1 => SolveImplementation(solver.PartOne, solver.Input, solver.Expected1),
-                2 => SolveImplementation(solver.PartTwo, solver.Input, solver.Expected2),
-                _ => throw new UnreachableException()
-            };
-        }
-        finally
+        AnsiConsole.MarkupLine($"{GetResultEmoji(result)}  Part {part} - {FormatTimeSpan(result.Elapsed)}");
+        if (result.IsError)
         {
-            hasProgress?.ProgressChanged -= UpdateProgress;
+            WriteException(result.Error);
         }
 
-        void UpdateProgress(object? sender, ProgressEventArgs args)
-        {
-            ctx.Status($"Running part {part} - {args.Current}/{args.Total}");
-        }
-    }
-
-    private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
-    {
-        var solverName = solver.Name;
-        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), solver.GetDisplayName());
-
-        var partOne = RunSolver(solver, 1, ctx);
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partOne)}  Part 1 - {FormatTimeSpan(partOne.Elapsed)}");
-        if (partOne.IsError)
-        {
-            WriteException(partOne.Error);
-        }
-
-        var partTwo = RunSolver(solver, 2, ctx);
-        AnsiConsole.MarkupLine($"{GetResultEmoji(partTwo)}  Part 2 - {FormatTimeSpan(partTwo.Elapsed)}");
-        if (partTwo.IsError)
-        {
-            WriteException(partTwo.Error);
-        }
-
-        return new SolutionResult(partOne, partTwo);
+        return result;
 
         static string GetResultEmoji(ProblemPartResult result)
             => result.IsCorrect ? ":check_mark:" : result.IsError ? ":red_exclamation_mark:" : ":cross_mark:";
@@ -166,5 +137,16 @@ internal sealed class SolutionRunner(AdventUri adventUri) : ISolutionRunner
         [UnconditionalSuppressMessage("AOT", "IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.")]
         static void WriteException(Exception exception)
             => AnsiConsole.WriteException(exception);
+    }
+
+    private SolutionResult Run(IProblemSolver solver) => AnsiConsole.Status().Start("Initializing solution", ctx =>
+    {
+        var solverName = solver.Name;
+        AnsiConsole.MarkupLine(":calendar: [link={0}]{1}[/]", adventUri.Build(solver.Year, solver.Day), solver.GetDisplayName());
+
+        var partOne = RunSolverPart(solver, part: 1, ctx);
+        var partTwo = RunSolverPart(solver, part: 2, ctx);
+
+        return new SolutionResult(partOne, partTwo);
     });
 }
