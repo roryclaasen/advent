@@ -11,7 +11,7 @@ public abstract class SolverBaseTests<TSolver> where TSolver : IProblemSolver, n
     protected TSolver Solver { get; private set; }
 
     [TestInitialize]
-    [MemberNotNull(nameof(this.Solver))]
+    [MemberNotNull(nameof(Solver))]
     public virtual void SetUp()
     {
         this.Solver = new TSolver();

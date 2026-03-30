@@ -10,7 +10,7 @@ using AdventOfCode.Shared.Tests;
 public class Day6SolutionTests : SolverBaseTests<Day6Solution>
 {
     [TestInitialize]
-    [MemberNotNull(nameof(this.Solver))]
+    [MemberNotNull(nameof(Solver))]
     public override void SetUp()
     {
         base.SetUp();
