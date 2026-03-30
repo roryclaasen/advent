@@ -41,15 +41,18 @@ jobs:
   build:
     name: Build ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+    needs: test
     strategy:
       matrix:
         include:
           - os: ubuntu-latest
             rid: linux-x64
-          - os: windows-latest
-            rid: win-x64
           # - os: macos-latest
           #   rid: osx-x64
+          - os: windows-latest
+            rid: win-x64
+          - os: windows-11-arm
+            rid: win-arm64
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
