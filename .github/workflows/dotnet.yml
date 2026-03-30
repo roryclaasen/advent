@@ -14,23 +14,23 @@ jobs:
       checks: write
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.x
       - name: Run './build.cmd CI'
         run: ./build.cmd CI
       - name: Upload Test Results
-        uses: actions/upload-artifact@v4
-        if: success() || failure()
+        uses: actions/upload-artifact@v7
+        if: ${{ !cancelled() }}
         with:
           name: test-results
           path: ./artifacts/test-results/*.trx
       - uses: dorny/test-reporter@v2
-        if: ${{ (success() || failure()) && github.repository == 'roryclaasen/advent' }}
+        if: ${{ !cancelled() && github.repository == 'roryclaasen/advent' }}
         with:
           name: Advent of Code Tests
           path: ./artifacts/test-results/*.trx
@@ -55,17 +55,17 @@ jobs:
             rid: win-arm64
     steps:
       - name: Checkout Code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Setup .NET
-        uses: actions/setup-dotnet@v4
+        uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.x
       - name: Run './build.cmd CD'
         run: ./build.cmd CD --rid ${{ matrix.rid }}
       - name: Create Release Artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: advent-${{ matrix.rid }}
           path: ./artifacts/bin
