@@ -47,7 +47,7 @@ internal sealed class RootCommand : BaseRootCommand
         this.Options.Add(CommonOptions.Year);
         this.Options.Add(CommonOptions.Day);
 
-        this.SetAction(async (parseResult, cancellationToken) => await this.ExecuteAsync(parseResult, cancellationToken));
+        this.SetAction((parseResult, cancellationToken) => this.ExecuteAsync(parseResult, cancellationToken).AsTask());
     }
 
     private ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)

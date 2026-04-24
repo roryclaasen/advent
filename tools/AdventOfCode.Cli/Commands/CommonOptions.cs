@@ -1,15 +1,21 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
+// Copyright (c) Rory Claasen. All rights reserved.
+// Licensed under the MIT license. See LICENSE in the project root for license information.
+
 namespace AdventOfCode.Cli.Commands;
 
-using System;
 using System.CommandLine;
 using AdventOfCode.Cli.Services;
 
 internal static class CommonOptions
 {
-    private static readonly Lazy<Option<int>> LazyYear = new(() =>
+    internal static Option<int> Year { get; } = CreateYearOption();
+
+    internal static Option<int> Day { get; } = CreateDayOption();
+
+    private static Option<int> CreateYearOption()
     {
         var argument = new Option<int>("--year", "-y")
         {
@@ -33,9 +39,9 @@ internal static class CommonOptions
         });
 
         return argument;
-    });
+    }
 
-    private static readonly Lazy<Option<int>> LazyDay = new(() =>
+    private static Option<int> CreateDayOption()
     {
         var argument = new Option<int>("--day", "-d")
         {
@@ -67,9 +73,5 @@ internal static class CommonOptions
         });
 
         return argument;
-    });
-
-    internal static Option<int> Year => LazyYear.Value;
-
-    internal static Option<int> Day => LazyDay.Value;
+    }
 }

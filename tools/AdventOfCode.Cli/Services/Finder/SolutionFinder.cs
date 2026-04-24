@@ -11,17 +11,19 @@ using AdventOfCode.Problem.Extensions;
 
 internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISolutionFinder
 {
+    private readonly IProblemSolver[] solvers = [.. solvers];
+
     public IEnumerable<IProblemSolver> GetSolvers() => this.GetSolversFor();
 
     public IEnumerable<IProblemSolver> GetSolversFor(int year = 0, int day = 0)
     {
-        if (!solvers.Any())
+        if (this.solvers.Length == 0)
         {
             throw new SolutionMissingException("There are no solutions yet");
         }
 
 #if DEBUG
-        if (solvers.All(p => p.Day == 0 && p.Year == 0))
+        if (this.solvers.All(p => p.Day == 0 && p.Year == 0))
         {
             throw new SolutionMissingException("Looks like the solution data didn't generate. Try rebuilding the solution.");
         }
@@ -29,7 +31,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
 
         if (day != 0 && year != 0)
         {
-            var validSolvers = solvers.Where(s => s.Year == year && s.Day == day);
+            var validSolvers = this.solvers.Where(s => s.Year == year && s.Day == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -39,7 +41,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
         else if (day == 0 && year != 0)
         {
-            var validSolvers = solvers.Where(s => s.Year == year);
+            var validSolvers = this.solvers.Where(s => s.Year == year);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -49,7 +51,7 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
         else if (day != 0 && year == 0)
         {
-            var validSolvers = solvers.Where(s => s.Year == day);
+            var validSolvers = this.solvers.Where(s => s.Day == day);
             if (validSolvers.Any())
             {
                 return validSolvers.OrderByYearAndDay();
@@ -58,9 +60,9 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
             throw new SolutionMissingException($"There are no solutions yet for the day {day}", day: day);
         }
 
-        return solvers.OrderByYearAndDay();
+        return this.solvers.OrderByYearAndDay();
     }
 
     public IProblemSolver GetLastSolver(int year = 0)
-        => this.GetSolversFor(year: year).GroupByYear().Select(g => g.OrderByYearAndDay().Last()).Last();
+        => this.GetSolversFor(year: year).OrderByYearAndDay().Last();
 }

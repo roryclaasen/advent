@@ -22,9 +22,9 @@ internal sealed class SolutionRunner(AdventUri adventUri) : ISolutionRunner
 
         var allResults = new List<SolutionResult>();
         var solversByYear = solvers.GroupBy(s => s.Year);
-        foreach (var year in solversByYear.OrderBy(y => y.Key))
+        foreach (var year in solversByYear)
         {
-            var yearNumber = year.First().Year;
+            var yearNumber = year.Key;
             var rule = new Rule($"[{Color.White}][link={adventUri.Build(yearNumber)}]{yearNumber}[/][/]");
             rule.RuleStyle(Color.Olive);
             AnsiConsole.Write(rule);

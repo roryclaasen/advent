@@ -12,7 +12,7 @@ internal abstract class BaseCommand : Command
     public BaseCommand(string name, string? description = null)
         : base(name, description)
     {
-        this.SetAction(async (parseResult, cancellationToken) => await this.ExecuteAsync(parseResult, cancellationToken));
+        this.SetAction((parseResult, cancellationToken) => this.ExecuteAsync(parseResult, cancellationToken).AsTask());
     }
 
     protected abstract ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken);

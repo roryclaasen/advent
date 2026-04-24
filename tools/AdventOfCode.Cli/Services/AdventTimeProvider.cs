@@ -5,9 +5,9 @@ namespace AdventOfCode.Cli.Services;
 
 using System;
 
-internal class AdventTimeProvider : TimeProvider
+internal sealed class AdventTimeProvider : TimeProvider
 {
     public static AdventTimeProvider Instance { get; } = new AdventTimeProvider();
 
-    public override TimeZoneInfo LocalTimeZone => TimeZoneInfo.FindSystemTimeZoneById("EST");
+    public override TimeZoneInfo LocalTimeZone { get; } = TimeZoneInfo.FindSystemTimeZoneById("Eastern Standard Time");
 }

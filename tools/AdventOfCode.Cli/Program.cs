@@ -25,7 +25,7 @@ using Microsoft.Extensions.Hosting;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-using var app = BuildApplicationAsync(args);
+using var app = BuildApplication(args);
 
 await app.StartAsync().ConfigureAwait(false);
 
@@ -46,7 +46,7 @@ await app.StopAsync().ConfigureAwait(false);
 
 return exitCode;
 
-static IHost BuildApplicationAsync(string[] args)
+static IHost BuildApplication(string[] args)
 {
     var settings = new HostApplicationBuilderSettings
     {

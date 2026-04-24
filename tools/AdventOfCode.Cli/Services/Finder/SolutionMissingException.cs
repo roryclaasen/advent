@@ -5,7 +5,7 @@ namespace AdventOfCode.Cli.Services.Finder;
 
 using System;
 
-internal class SolutionMissingException : Exception
+internal sealed class SolutionMissingException : Exception
 {
     public SolutionMissingException(string message)
         : base(message)

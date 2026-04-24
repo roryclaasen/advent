@@ -41,7 +41,10 @@ internal sealed class ListCommand : BaseCommand
         var sortedSolvers = this.solutionFinder
             .GetSolversFor(parseResult.GetValue(CommonOptions.Year))
             .GroupByYear()
-            .OrderByDescending(y => y.Key);
+            .OrderByDescending(y => y.Key)
+            .ToList();
+
+        var lastYearKey = sortedSolvers.Count > 0 ? sortedSolvers[^1].Key : 0;
 
         foreach (var yearSolvers in sortedSolvers)
         {
@@ -54,7 +57,7 @@ internal sealed class ListCommand : BaseCommand
                 table.AddRow(year.ToString(), day.ToString(), name, $"[link={uri}]{uri}[/]");
             }
 
-            if (yearSolvers.Key != sortedSolvers.Last().Key)
+            if (yearSolvers.Key != lastYearKey)
             {
                 table.AddEmptyRow();
             }
