@@ -4,6 +4,10 @@ on:
   pull_request:
   push:
 
+env:
+  DOTNET_CLI_TELEMETRY_OPTOUT: 1
+  DOTNET_NOLOGO: 1
+
 jobs:
   test:
     name: Test
@@ -21,22 +25,25 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.x
-      - name: Run './build.cmd CI'
-        run: ./build.cmd CI
+      - name: Restore
+        run: dotnet restore AdventOfCode.slnx
+      - name: Build
+        run: dotnet build AdventOfCode.slnx --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --solution AdventOfCode.slnx --configuration Release --no-restore --no-build --results-directory ${{ github.workspace }}/artifacts/test-results -- --report-trx
       - name: Upload Test Results
         uses: actions/upload-artifact@v7
         if: ${{ !cancelled() }}
         with:
           name: test-results
-          path: ./artifacts/test-results/*.trx
+          path: ${{ github.workspace }}/artifacts/test-results/*.trx
       - uses: dorny/test-reporter@v2
         if: ${{ !cancelled() && github.repository == 'roryclaasen/advent' }}
         with:
           name: Advent of Code Tests
-          path: ./artifacts/test-results/*.trx
+          path: ${{ github.workspace }}/artifacts/test-results/*.trx
           reporter: dotnet-trx
           list-tests: failed
-
 
   build:
     name: Build ${{ matrix.os }}
@@ -62,10 +69,10 @@ jobs:
         uses: actions/setup-dotnet@v5
         with:
           dotnet-version: 10.x
-      - name: Run './build.cmd CD'
-        run: ./build.cmd CD --rid ${{ matrix.rid }}
+      - name: Publish (AOT)
+        run: dotnet publish AdventOfCode.slnx --configuration Release --runtime ${{ matrix.rid }} -p:PublishDir=${{ github.workspace }}/artifacts/bin/
       - name: Create Release Artifact
         uses: actions/upload-artifact@v7
         with:
           name: advent-${{ matrix.rid }}
-          path: ./artifacts/bin
+          path: ${{ github.workspace }}/artifacts/bin/

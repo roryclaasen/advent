@@ -11,7 +11,6 @@
     <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.7" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.7" />
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.9.50" />
-    <PackageVersion Include="Nuke.Common" Version="10.1.0" />
     <PackageVersion Include="Spectre.Console.Analyzer" Version="1.0.0" />
     <PackageVersion Include="Spectre.Console" Version="0.55.2" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
