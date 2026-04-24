@@ -100,6 +100,11 @@ public class ProblemGenerator : IIncrementalGenerator
                 
                     public static class ServiceCollectionExtensions
                     {
+                        /// <summary>
+                        /// Registers all Advent of Code {{exampleProblem.Year}} problem solvers as <see cref="global::{{problemType}}"/> singletons.
+                        /// </summary>
+                        /// <param name="services">The <see cref="IServiceCollection"/> to add the solvers to.</param>
+                        /// <returns>The same <see cref="IServiceCollection"/> so that calls can be chained.</returns>
                         {{CompilerAttributes}}
                         public static IServiceCollection AddSolutionsFor{{exampleProblem.Year}}(this IServiceCollection services)
                         {
