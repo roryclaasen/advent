@@ -53,6 +53,10 @@ $YearSourceProject = Join-Path $YearSourceFolder "AdventOfCode.Year$Year.csproj"
 $YearTestsFolder   = Join-Path $TestsRoot  "AdventOfCode.Year$Year.Tests"
 $YearTestsProject  = Join-Path $YearTestsFolder  "AdventOfCode.Year$Year.Tests.csproj"
 
+$CliProject        = Join-Path $RepoRoot 'tools\AdventOfCode.Cli\AdventOfCode.Cli.csproj'
+$CliProgram        = Join-Path $RepoRoot 'tools\AdventOfCode.Cli\Program.cs'
+$CliLaunchSettings = Join-Path $RepoRoot 'tools\AdventOfCode.Cli\Properties\launchSettings.json'
+
 function Write-Info($message)    { Write-Host "[info]  $message" -ForegroundColor Cyan }
 function Write-Skip($message)    { Write-Host "[skip]  $message" -ForegroundColor DarkGray }
 function Write-Created($message) { Write-Host "[new]   $message" -ForegroundColor Green }
@@ -149,6 +153,165 @@ function New-YearTestsProject {
         -Template 'mstest' `
         -SolutionFolder 'Tests' `
         -ProjectContents $contents
+}
+
+function Update-CliIntegration {
+    if (-not (Test-Path -LiteralPath $CliProject)) {
+        Write-Warning "CLI project not found at $CliProject; skipping CLI integration."
+        return
+    }
+
+    Write-Info "Ensuring AdventOfCode.Cli references Year$Year"
+    Invoke-DotNet add $CliProject reference $YearSourceProject | Out-Null
+
+    if (-not (Test-Path -LiteralPath $CliProgram)) {
+        Write-Warning "Program.cs not found at $CliProgram; skipping Program.cs update."
+        return
+    }
+
+    $bytes = [System.IO.File]::ReadAllBytes($CliProgram)
+    $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF
+    $encoding = [System.Text.UTF8Encoding]::new($hasBom)
+    [string[]]$lines = [System.IO.File]::ReadAllLines($CliProgram, $encoding)
+
+    $updated = $false
+
+    $usingLine = "using AdventOfCode.Year$Year;"
+    if (-not ($lines -contains $usingLine)) {
+        $index = Find-YearInsertIndex -Lines $lines -Pattern '^using AdventOfCode\.Year(\d+);' -Year $Year
+        if ($index -ge 0) {
+            $lines = Insert-LineAt -Lines $lines -Index $index -Line $usingLine
+            $updated = $true
+            Write-Created "Program.cs (+$usingLine)"
+        } else {
+            Write-Warning "Could not find AdventOfCode.YearXXXX using block in Program.cs; skipping using insert."
+        }
+    } else {
+        Write-Skip "Program.cs using"
+    }
+
+    $serviceLine = "    builder.Services.AddSolutionsFor$Year();"
+    if (-not ($lines -contains $serviceLine)) {
+        $index = Find-YearInsertIndex -Lines $lines -Pattern 'builder\.Services\.AddSolutionsFor(\d+)\(\);' -Year $Year
+        if ($index -ge 0) {
+            $lines = Insert-LineAt -Lines $lines -Index $index -Line $serviceLine
+            $updated = $true
+            Write-Created "Program.cs (+AddSolutionsFor$Year)"
+        } else {
+            Write-Warning "Could not find builder.Services.AddSolutionsForXXXX() block in Program.cs; skipping service registration."
+        }
+    } else {
+        Write-Skip "Program.cs AddSolutionsFor$Year"
+    }
+
+    if ($updated) {
+        [System.IO.File]::WriteAllLines($CliProgram, $lines, $encoding)
+    }
+}
+
+function Update-CliLaunchSettings {
+    if (-not (Test-Path -LiteralPath $CliLaunchSettings)) {
+        Write-Warning "launchSettings.json not found at $CliLaunchSettings; skipping launch profile."
+        return
+    }
+
+    $profileName = "AdventOfCode.Cli ($Year)"
+    $bytes = [System.IO.File]::ReadAllBytes($CliLaunchSettings)
+    $hasBom = $bytes.Length -ge 3 -and $bytes[0] -eq 0xEF -and $bytes[1] -eq 0xBB -and $bytes[2] -eq 0xBF
+    $encoding = [System.Text.UTF8Encoding]::new($hasBom)
+    [string[]]$lines = [System.IO.File]::ReadAllLines($CliLaunchSettings, $encoding)
+
+    if ($lines | Where-Object { $_ -match [regex]::Escape("`"$profileName`":") }) {
+        Write-Skip "launchSettings.json ($profileName)"
+        return
+    }
+
+    $headerRegex = [regex]'^\s*"AdventOfCode\.Cli \((\d+)\)":\s*\{'
+    $insertIndex = -1
+    $lastYearCloseIndex = -1
+
+    for ($i = 0; $i -lt $lines.Length; $i++) {
+        $m = $headerRegex.Match($lines[$i])
+        if (-not $m.Success) { continue }
+        $matchYear = [int]$m.Groups[1].Value
+        if ($matchYear -gt $Year) {
+            $insertIndex = $i
+            break
+        }
+        # find the closing '},' for this 4-line profile (expected at $i + 3)
+        for ($j = $i + 1; $j -lt $lines.Length; $j++) {
+            if ($lines[$j] -match '^\s*\},?\s*$') { $lastYearCloseIndex = $j; break }
+        }
+    }
+
+    if ($insertIndex -lt 0) {
+        if ($lastYearCloseIndex -lt 0) {
+            Write-Warning "Could not locate year profile block in launchSettings.json; skipping."
+            return
+        }
+        $insertIndex = $lastYearCloseIndex + 1
+    }
+
+    # Ensure the profile above ends with ',' (it should for a year profile, but be safe for the "largest year" case)
+    $prevCloseIdx = $insertIndex - 1
+    if ($prevCloseIdx -ge 0 -and $lines[$prevCloseIdx] -match '^(\s*)\}\s*$') {
+        $lines[$prevCloseIdx] = "$($Matches[1])},"
+    }
+
+    $block = @(
+        "    `"$profileName`": {",
+        '      "commandName": "Project",',
+        "      `"commandLineArgs`": `"last --year $Year`""
+    )
+    # Trailing line: if we're inserting before another profile, need trailing comma; if at end (becomes last), no comma.
+    $nextLineIdx = $insertIndex
+    $needsComma = $false
+    while ($nextLineIdx -lt $lines.Length) {
+        if ($lines[$nextLineIdx].Trim().Length -eq 0) { $nextLineIdx++; continue }
+        if ($lines[$nextLineIdx] -match '^\s*"') { $needsComma = $true }
+        break
+    }
+    $block += if ($needsComma) { '    },' } else { '    }' }
+
+    $before = if ($insertIndex -gt 0) { $lines[0..($insertIndex - 1)] } else { @() }
+    $after  = if ($insertIndex -lt $lines.Length) { $lines[$insertIndex..($lines.Length - 1)] } else { @() }
+    $lines = @($before) + $block + @($after)
+
+    [System.IO.File]::WriteAllLines($CliLaunchSettings, $lines, $encoding)
+    Write-Created "launchSettings.json (+$profileName)"
+}
+
+function Find-YearInsertIndex {
+    param(
+        [Parameter(Mandatory)][AllowEmptyCollection()][AllowEmptyString()][string[]]$Lines,
+        [Parameter(Mandatory)][string]$Pattern,
+        [Parameter(Mandatory)][int]$Year
+    )
+
+    $regex = [regex]$Pattern
+    $lastMatchIndex = -1
+    for ($i = 0; $i -lt $Lines.Length; $i++) {
+        $m = $regex.Match($Lines[$i])
+        if (-not $m.Success) { continue }
+        $matchYear = [int]$m.Groups[1].Value
+        if ($matchYear -gt $Year) { return $i }
+        $lastMatchIndex = $i
+    }
+
+    if ($lastMatchIndex -lt 0) { return -1 }
+    return $lastMatchIndex + 1
+}
+
+function Insert-LineAt {
+    param(
+        [Parameter(Mandatory)][AllowEmptyCollection()][AllowEmptyString()][string[]]$Lines,
+        [Parameter(Mandatory)][int]$Index,
+        [Parameter(Mandatory)][string]$Line
+    )
+
+    $before = if ($Index -gt 0) { $Lines[0..($Index - 1)] } else { @() }
+    $after  = if ($Index -lt $Lines.Length) { $Lines[$Index..($Lines.Length - 1)] } else { @() }
+    return @($before) + @($Line) + @($after)
 }
 
 function Get-DayNameFromWebsite {
@@ -295,6 +458,8 @@ Invoke-DotNet restore $Solution
 
 New-YearSourceProject
 New-YearTestsProject
+Update-CliIntegration
+Update-CliLaunchSettings
 
 if ($PSBoundParameters.ContainsKey('Day')) {
     New-DaySource
