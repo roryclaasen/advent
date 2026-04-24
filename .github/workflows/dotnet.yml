@@ -46,7 +46,7 @@ jobs:
           list-tests: failed
 
   build:
-    name: Build ${{ matrix.os }}
+    name: Build ${{ matrix.rid }}
     runs-on: ${{ matrix.os }}
     needs: test
     strategy:
