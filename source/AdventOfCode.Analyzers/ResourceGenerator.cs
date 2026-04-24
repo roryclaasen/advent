@@ -3,50 +3,24 @@
 
 namespace AdventOfCode.Analyzers;
 
-using System.Collections.Generic;
+using System;
 using System.IO;
-using System.Linq;
 using System.Text;
+using System.Threading;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 
 [Generator]
 public class ResourceGenerator : IIncrementalGenerator
 {
-    private const string CompilerAttributes = """
-        #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
-                [global::System.Diagnostics.DebuggerNonUserCode]
-                [global::System.CodeDom.Compiler.GeneratedCode("AdventOfCode.Generators", "1.0.0")]
-                #endif
-                #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-                #endif
-        """;
+    private static readonly char[] PathSeparators = ['/', '\\'];
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        static bool IsResourceFileValid(string path)
-        {
-            HashSet<string> validFiles = ["Input", "Expected1", "Expected2"];
-            var fileName = Path.GetFileNameWithoutExtension(path);
-            return validFiles.Contains(fileName);
-        }
-
         var resourcePipeline = context.AdditionalTextsProvider
-            .Where(static f => f.Path.EndsWith(".txt") && IsResourceFileValid(f.Path))
-            .Select(static (f, ct) =>
-            {
-                // TODO: A bit hacky but can't think of a better way to do this right now
-                var fileName = Path.GetFileNameWithoutExtension(f.Path);
-
-                var pathParts = f.Path
-                    .Split(Path.DirectorySeparatorChar)
-                    .SkipWhile(f => !f.StartsWith("AdventOfCode."));
-
-                var inputNamespace = pathParts.First();
-                var className = $"{pathParts.Skip(1).First()}Solution";
-                return new ResourceInfo(inputNamespace, className, fileName, f.GetText(ct)?.ToString());
-            });
+            .Select(static (file, ct) => TryParseResource(file, ct))
+            .Where(static info => info is not null)
+            .Select(static (info, _) => info!.Value);
 
         context.RegisterSourceOutput(resourcePipeline, static (context, model) =>
         {
@@ -56,7 +30,7 @@ public class ResourceGenerator : IIncrementalGenerator
                 {
                     public partial class {{model.ClassName}} : global::{{model.Interface}}
                     {
-                        {{CompilerAttributes}}
+                        {{GeneratorConstants.CompilerAttributes}}
                         public string {{model.FileName}} =>
                             """
                             {{model.PadContents(12)}}
@@ -66,5 +40,41 @@ public class ResourceGenerator : IIncrementalGenerator
                 """",
                 Encoding.UTF8));
         });
+    }
+
+    private static ResourceInfo? TryParseResource(AdditionalText file, CancellationToken ct)
+    {
+        var path = file.Path;
+        if (!path.EndsWith(".txt", StringComparison.OrdinalIgnoreCase))
+        {
+            return null;
+        }
+
+        var fileName = Path.GetFileNameWithoutExtension(path);
+        if (fileName != "Input" && fileName != "Expected1" && fileName != "Expected2")
+        {
+            return null;
+        }
+
+        var parts = path.Split(PathSeparators);
+        var startIndex = -1;
+        for (int i = 0; i < parts.Length; i++)
+        {
+            if (parts[i].StartsWith("AdventOfCode.", StringComparison.Ordinal))
+            {
+                startIndex = i;
+                break;
+            }
+        }
+
+        if (startIndex < 0 || startIndex + 1 >= parts.Length)
+        {
+            return null;
+        }
+
+        var inputNamespace = parts[startIndex];
+        var className = $"{parts[startIndex + 1]}Solution";
+        var contents = file.GetText(ct)?.ToString();
+        return new ResourceInfo(inputNamespace, className, fileName, contents);
     }
 }

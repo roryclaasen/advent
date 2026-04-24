@@ -14,77 +14,71 @@ using Microsoft.CodeAnalysis.Text;
 [Generator]
 public class ProblemGenerator : IIncrementalGenerator
 {
-    private const string CompilerAttributes = """
-        #if NETSTANDARD || NETFRAMEWORK || NETCOREAPP
-                [global::System.Diagnostics.DebuggerNonUserCode]
-                [global::System.CodeDom.Compiler.GeneratedCode("AdventOfCode.Generators", "1.0.0")]
-                #endif
-                #if NET40_OR_GREATER || NETCOREAPP2_0_OR_GREATER || NETSTANDARD2_0_OR_GREATER
-                [global::System.Diagnostics.CodeAnalysis.ExcludeFromCodeCoverage]
-                #endif
-        """;
+    private static readonly SymbolDisplayFormat NamespaceFormat =
+        SymbolDisplayFormat.FullyQualifiedFormat
+            .WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted);
 
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
-        var pipeline = context.SyntaxProvider.ForAttributeWithMetadataName(
+        var perProblem = context.SyntaxProvider.ForAttributeWithMetadataName(
             typeof(ProblemAttribute).FullName,
             predicate: static (syntaxNode, _) => syntaxNode is ClassDeclarationSyntax,
-            transform: static (context, ct) =>
+            transform: static (context, _) =>
             {
                 var containingClass = context.TargetSymbol;
                 var attribute = context.Attributes[0];
                 return new ProblemInfo(
-                    containingClass.ContainingNamespace.ToDisplayString(SymbolDisplayFormat.FullyQualifiedFormat.WithGlobalNamespaceStyle(SymbolDisplayGlobalNamespaceStyle.Omitted)),
+                    containingClass.ContainingNamespace.ToDisplayString(NamespaceFormat),
                     containingClass.Name,
-                    int.Parse(attribute.ConstructorArguments[0].Value?.ToString()),
-                    int.Parse(attribute.ConstructorArguments[1].Value?.ToString()),
+                    (int)attribute.ConstructorArguments[0].Value!,
+                    (int)attribute.ConstructorArguments[1].Value!,
                     attribute.ConstructorArguments.Length == 3 ? attribute.ConstructorArguments[2].Value?.ToString() : null);
-            }).Collect();
+            });
 
-        context.RegisterSourceOutput(pipeline, static (context, models) =>
-        {
-            CreateProblemDetails(context, models);
-            CreateServiceCollectionExtensions(context, models);
-        });
+        // Emit one Day{N}Solution.g.cs per problem. Keeping this stream un-collected means that
+        // editing a single [Problem]-attributed class only regenerates that class's file, instead
+        // of invalidating every generated file in the project.
+        context.RegisterSourceOutput(perProblem, static (context, model) => EmitProblemDetails(context, model));
+
+        // The service-collection extensions file genuinely needs the full set of problems; this
+        // single aggregated file is the only output that regenerates when any problem changes.
+        context.RegisterSourceOutput(perProblem.Collect(), static (context, models) => EmitServiceCollectionExtensions(context, models));
     }
 
-    private static void CreateProblemDetails(SourceProductionContext context, ImmutableArray<ProblemInfo> models)
+    private static void EmitProblemDetails(SourceProductionContext context, ProblemInfo model)
     {
-        foreach (var model in models)
-        {
-            context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
-                $$"""
-                namespace {{model.Namespace}}
+        context.AddSource($"{model.ClassName}.g.cs", SourceText.From(
+            $$"""
+            namespace {{model.Namespace}}
+            {
+                [global::System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
+                public partial class {{model.ClassName}} : global::{{typeof(IProblemDetails).FullName}}
                 {
-                    [global::System.Diagnostics.DebuggerDisplay("{ToString(),nq}")]
-                    public partial class {{model.ClassName}} : global::{{typeof(IProblemDetails).FullName}}
-                    {
-                        {{CompilerAttributes}}
-                        public int Year => {{model.Year}};
-                
-                        {{CompilerAttributes}}
-                        public int Day => {{model.Day}};
-                
-                        {{CompilerAttributes}}
-                        public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
-                
-                        {{CompilerAttributes}}
-                        public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
-                    }
+                    {{GeneratorConstants.CompilerAttributes}}
+                    public int Year => {{model.Year}};
+
+                    {{GeneratorConstants.CompilerAttributes}}
+                    public int Day => {{model.Day}};
+
+                    {{GeneratorConstants.CompilerAttributes}}
+                    public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
+
+                    {{GeneratorConstants.CompilerAttributes}}
+                    public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";
                 }
-                """,
-                Encoding.UTF8));
-        }
+            }
+            """,
+            Encoding.UTF8));
     }
 
-    private static void CreateServiceCollectionExtensions(SourceProductionContext context, ImmutableArray<ProblemInfo> models)
+    private static void EmitServiceCollectionExtensions(SourceProductionContext context, ImmutableArray<ProblemInfo> models)
     {
-        var exampleProblem = models.FirstOrDefault();
-        if (exampleProblem == default)
+        if (models.IsDefaultOrEmpty)
         {
             return;
         }
 
+        var exampleProblem = models[0];
         var problemType = typeof(IProblemSolver).FullName;
         var tryAddEnumerableLines = models
             .OrderBy(model => model.Day)
@@ -97,7 +91,7 @@ public class ProblemGenerator : IIncrementalGenerator
                 {
                     using global::Microsoft.Extensions.DependencyInjection;
                     using global::Microsoft.Extensions.DependencyInjection.Extensions;
-                
+
                     public static class ServiceCollectionExtensions
                     {
                         /// <summary>
@@ -105,7 +99,7 @@ public class ProblemGenerator : IIncrementalGenerator
                         /// </summary>
                         /// <param name="services">The <see cref="IServiceCollection"/> to add the solvers to.</param>
                         /// <returns>The same <see cref="IServiceCollection"/> so that calls can be chained.</returns>
-                        {{CompilerAttributes}}
+                        {{GeneratorConstants.CompilerAttributes}}
                         public static IServiceCollection AddSolutionsFor{{exampleProblem.Year}}(this IServiceCollection services)
                         {
                             {{string.Join($"\r\n            ", tryAddEnumerableLines)}}

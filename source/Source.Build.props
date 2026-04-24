@@ -6,6 +6,10 @@
     <InternalsVisibleTo Include="$(AssemblyName).Tests" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <EmitCompilerGeneratedFiles>true</EmitCompilerGeneratedFiles>
+  </PropertyGroup>
+
   <ItemGroup Condition="'$(IsYearSolver)' == 'true'">
     <AdditionalFiles Include="Day*\*.txt" />
 
