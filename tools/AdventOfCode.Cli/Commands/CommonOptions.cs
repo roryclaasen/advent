@@ -5,6 +5,7 @@ namespace AdventOfCode.Cli.Commands;
 
 using System;
 using System.CommandLine;
+using AdventOfCode.Cli.Services;
 
 internal static class CommonOptions
 {
@@ -24,9 +25,10 @@ internal static class CommonOptions
                 result.AddError("Year must be greater than or equal to 2015.");
             }
 
-            if (year > DateTime.Now.Year)
+            var currentYear = AdventTimeProvider.Instance.GetLocalNow().Year;
+            if (year > currentYear)
             {
-                result.AddError($"Year must be less than or equal to {DateTime.Now.Year}.");
+                result.AddError($"Year must be less than or equal to {currentYear}.");
             }
         });
 

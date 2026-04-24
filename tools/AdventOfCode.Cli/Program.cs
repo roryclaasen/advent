@@ -55,7 +55,7 @@ static IHost BuildApplicationAsync(string[] args)
     settings.Configuration.AddEnvironmentVariables();
 
     var builder = Host.CreateEmptyApplicationBuilder(settings);
-    builder.Services.AddSingleton<TimeProvider, AdventTimeProvider>();
+    builder.Services.AddSingleton<TimeProvider>(AdventTimeProvider.Instance);
     builder.Services.AddSingleton<AdventUri>();
     builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();
     builder.Services.AddSingleton<ISolutionRunner, SolutionRunner>();

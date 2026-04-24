@@ -7,5 +7,7 @@ using System;
 
 internal class AdventTimeProvider : TimeProvider
 {
+    public static AdventTimeProvider Instance { get; } = new AdventTimeProvider();
+
     public override TimeZoneInfo LocalTimeZone => TimeZoneInfo.FindSystemTimeZoneById("EST");
 }
