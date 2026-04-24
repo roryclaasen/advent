@@ -5,11 +5,11 @@ namespace AdventOfCode.Shared;
 
 using System;
 
-public class AdventUri(IDateTimeProvider dateTimeProvider)
+public class AdventUri(TimeProvider timeProvider)
 {
     public Uri Build(int year)
     {
-        if (year < 2015 || year > dateTimeProvider.Now.Year)
+        if (year < 2015 || year > timeProvider.GetLocalNow().Year)
         {
             throw new ArgumentOutOfRangeException(nameof(year), year, "Year must be between 2015 and the current year");
         }
@@ -19,7 +19,7 @@ public class AdventUri(IDateTimeProvider dateTimeProvider)
 
     public Uri Build(int year, int day)
     {
-        if (year < 2015 || year > dateTimeProvider.Now.Year)
+        if (year < 2015 || year > timeProvider.GetLocalNow().Year)
         {
             throw new ArgumentOutOfRangeException(nameof(year), year, "Year must be between 2015 and the current year");
         }

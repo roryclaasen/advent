@@ -1,5 +1,8 @@
 <Project Sdk="MSTest.Sdk">
   <ItemGroup>
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\..\source\AdventOfCode.Problem\AdventOfCode.Problem.csproj" />
     <ProjectReference Include="..\..\source\AdventOfCode.Shared\AdventOfCode.Shared.csproj" />
   </ItemGroup>

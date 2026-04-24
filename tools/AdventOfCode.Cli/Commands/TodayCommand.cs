@@ -3,6 +3,7 @@
 
 namespace AdventOfCode.Cli.Commands;
 
+using System;
 using System.CommandLine;
 using System.Linq;
 using System.Threading;
@@ -11,12 +12,12 @@ using AdventOfCode.Cli.Services;
 using AdventOfCode.Shared;
 using Spectre.Console;
 
-internal sealed class TodayCommand(IDateTimeProvider dateTimeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+internal sealed class TodayCommand(TimeProvider timeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
     : BaseSolutionCommand(solutionFinder, solutionRunner, "today", "Run todays solution")
 {
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
-        var now = dateTimeProvider.AoCNow;
+        var now = timeProvider.GetLocalNow();
         if (now is { Month: 12, Day: >= 1 and <= 25 })
         {
             var solvers = this.SolutionFinder.GetSolversFor(now.Year, now.Day);

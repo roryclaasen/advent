@@ -4,21 +4,20 @@
 namespace AdventOfCode.Shared.Tests;
 
 using System;
-using NSubstitute;
+using Microsoft.Extensions.Time.Testing;
 
 [TestClass]
 public class AdventUriTests
 {
-    private IDateTimeProvider dateTimeProvider;
+    private FakeTimeProvider timeProvider;
     private AdventUri adventUri;
 
     [TestInitialize]
     public void Initialize()
     {
-        this.dateTimeProvider = Substitute.For<IDateTimeProvider>();
-        this.dateTimeProvider.Now.Returns(new DateTime(2020, 12, 1, 0, 0, 0, DateTimeKind.Local));
+        this.timeProvider = new FakeTimeProvider(new DateTimeOffset(2020, 12, 1, 0, 0, 0, TimeSpan.Zero));
 
-        this.adventUri = new AdventUri(this.dateTimeProvider);
+        this.adventUri = new AdventUri(this.timeProvider);
     }
 
     [TestMethod]
