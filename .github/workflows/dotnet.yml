@@ -37,7 +37,7 @@ jobs:
         with:
           name: test-results
           path: ${{ github.workspace }}/artifacts/test-results/*.trx
-      - uses: dorny/test-reporter@v2
+      - uses: dorny/test-reporter@v3
         if: ${{ !cancelled() && github.repository == 'roryclaasen/advent' }}
         with:
           name: Advent of Code Tests
