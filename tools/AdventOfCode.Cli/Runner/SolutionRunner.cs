@@ -34,12 +34,12 @@ internal sealed class SolutionRunner(SolutionResultRenderer renderer) : ISolutio
 
             foreach (var solver in year.OrderBy(s => s.Day))
             {
-                var result = renderer.Run(solver, _ => new SolutionResult(
-                    SolvePart(solver.PartOne, solver.Input, solver.Expected1),
-                    SolvePart(solver.PartTwo, solver.Input, solver.Expected2)));
+                var result = renderer.Run(
+                    solver,
+                    () => SolvePart(solver.PartOne, solver.Input, solver.Expected1),
+                    () => SolvePart(solver.PartTwo, solver.Input, solver.Expected2));
 
                 results.Add(result);
-                renderer.Result(solver, result);
             }
         }
 
