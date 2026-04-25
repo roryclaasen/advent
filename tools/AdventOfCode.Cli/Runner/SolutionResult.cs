@@ -4,6 +4,7 @@
 namespace AdventOfCode.Cli.Runner;
 
 using System.Collections.Generic;
+using System.Linq;
 
 internal readonly record struct SolutionResult(PartResult Part1, PartResult Part2)
 {
@@ -14,4 +15,6 @@ internal readonly record struct SolutionResult(PartResult Part1, PartResult Part
         yield return this.Part1;
         yield return this.Part2;
     }
+
+    public static int ToExitCode(IReadOnlyList<SolutionResult> results) => results.Any(r => r.HasError) ? -1 : 0;
 }

@@ -15,11 +15,11 @@ using Spectre.Console;
 
 internal sealed class ListCommand : BaseCommand
 {
-    private readonly ISolutionFinder solutionFinder;
+    private readonly SolutionFinder solutionFinder;
     private readonly AdventUri adventUri;
     private readonly IAnsiConsole console;
 
-    public ListCommand(ISolutionFinder solutionFinder, AdventUri adventUri, IAnsiConsole console)
+    public ListCommand(SolutionFinder solutionFinder, AdventUri adventUri, IAnsiConsole console)
         : base("list", "List all available solutions")
     {
         ArgumentNullException.ThrowIfNull(solutionFinder);

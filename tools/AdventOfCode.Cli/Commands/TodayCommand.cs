@@ -5,7 +5,6 @@ namespace AdventOfCode.Cli.Commands;
 
 using System;
 using System.CommandLine;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AdventOfCode.Cli.Finder;
@@ -14,8 +13,8 @@ using Spectre.Console;
 
 internal sealed class TodayCommand(
     TimeProvider timeProvider,
-    ISolutionFinder solutionFinder,
-    ISolutionRunner solutionRunner,
+    SolutionFinder solutionFinder,
+    SolutionRunner solutionRunner,
     IAnsiConsole console)
     : BaseSolutionCommand(solutionFinder, solutionRunner, "today", "Run todays solution")
 {
@@ -25,9 +24,8 @@ internal sealed class TodayCommand(
         if (now is { Month: 12, Day: >= 1 and <= 25 })
         {
             var solvers = this.SolutionFinder.GetSolversFor(now.Year, now.Day);
-            var allResults = this.SolutionRunner.RunAll(solvers);
-            var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
-            return ValueTask.FromResult(exitCode);
+            var results = this.SolutionRunner.RunAll(solvers);
+            return ValueTask.FromResult(SolutionResult.ToExitCode(results));
         }
 
         console.MarkupLine("[red]Error:[/] Event is not active. This option works in Dec 1-25 only.");

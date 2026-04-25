@@ -10,7 +10,7 @@ using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Problem.Extensions;
 
-internal sealed class SolutionRunner(SolutionResultRenderer renderer) : ISolutionRunner
+internal sealed class SolutionRunner(SolutionResultRenderer renderer)
 {
     public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
     {
@@ -25,11 +25,11 @@ internal sealed class SolutionRunner(SolutionResultRenderer renderer) : ISolutio
 
         var results = new List<SolutionResult>(solversList.Count);
 
-        foreach (var year in solversList.GroupByYear().OrderBy(g => g.Key))
+        foreach (var year in solversList.OrderByYearAndDay().GroupByYear())
         {
             renderer.Year(year.Key);
 
-            foreach (var solver in year.OrderBy(s => s.Day))
+            foreach (var solver in year)
             {
                 var result = renderer.Run(
                     solver,

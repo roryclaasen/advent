@@ -52,8 +52,8 @@ static IHost BuildApplication(string[] args)
     builder.Services.AddSingleton<IAnsiConsole>(AnsiConsole.Console);
     builder.Services.AddSingleton<TimeProvider>(AdventTimeProvider.Instance);
     builder.Services.AddSingleton<AdventUri>();
-    builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();
-    builder.Services.AddSingleton<ISolutionRunner, SolutionRunner>();
+    builder.Services.AddSingleton<SolutionFinder>();
+    builder.Services.AddSingleton<SolutionRunner>();
     builder.Services.AddSingleton<SolutionResultRenderer>();
 
     builder.Services.AddSolutionsFor2015();

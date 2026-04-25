@@ -18,8 +18,8 @@ using BaseRootCommand = System.CommandLine.RootCommand;
 
 internal sealed class RootCommand : BaseRootCommand
 {
-    private readonly ISolutionFinder solutionFinder;
-    private readonly ISolutionRunner solutionRunner;
+    private readonly SolutionFinder solutionFinder;
+    private readonly SolutionRunner solutionRunner;
     private readonly IAnsiConsole console;
 
     public RootCommand(
@@ -27,8 +27,8 @@ internal sealed class RootCommand : BaseRootCommand
         AllCommand allCommand,
         TodayCommand todayCommand,
         LastCommand lastCommand,
-        ISolutionFinder solutionFinder,
-        ISolutionRunner solutionRunner,
+        SolutionFinder solutionFinder,
+        SolutionRunner solutionRunner,
         IAnsiConsole console)
         : base("Rory Claasens solutions to Advent of Code")
     {
@@ -92,8 +92,7 @@ internal sealed class RootCommand : BaseRootCommand
         ValueTask<int> RunAllSolvers(IEnumerable<IProblemSolver> solvers)
         {
             var results = this.solutionRunner.RunAll(solvers);
-            var exitCode = results.Any(r => r.HasError) ? -1 : 0;
-            return ValueTask.FromResult(exitCode);
+            return ValueTask.FromResult(SolutionResult.ToExitCode(results));
         }
     }
 

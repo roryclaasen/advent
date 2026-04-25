@@ -7,13 +7,11 @@ using System;
 
 internal sealed class SolutionMissingException : Exception
 {
-    public SolutionMissingException(string message)
-        : base(message)
+    public SolutionMissingException(string message) : base(message)
     {
     }
 
-    public SolutionMissingException(string message, int? year = null, int? day = null)
-        : base(message)
+    public SolutionMissingException(string message, int? year = null, int? day = null) : base(message)
     {
         this.Year = year;
         this.Day = day;

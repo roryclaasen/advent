@@ -4,7 +4,6 @@
 namespace AdventOfCode.Cli.Commands;
 
 using System.CommandLine;
-using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AdventOfCode.Cli.Finder;
@@ -12,7 +11,7 @@ using AdventOfCode.Cli.Runner;
 
 internal sealed class LastCommand : BaseSolutionCommand
 {
-    public LastCommand(ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+    public LastCommand(SolutionFinder solutionFinder, SolutionRunner solutionRunner)
         : base(solutionFinder, solutionRunner, "last", "Run the last solution for a given year")
     {
         this.Options.Add(CommonOptions.Year);
@@ -21,8 +20,7 @@ internal sealed class LastCommand : BaseSolutionCommand
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var solver = this.SolutionFinder.GetLastSolver(parseResult.GetValue(CommonOptions.Year));
-        var allResults = this.SolutionRunner.Run(solver);
-        var exitCode = allResults.Any(r => r.HasError) ? -1 : 0;
-        return ValueTask.FromResult(exitCode);
+        var results = this.SolutionRunner.RunAll([solver]);
+        return ValueTask.FromResult(SolutionResult.ToExitCode(results));
     }
 }

@@ -8,7 +8,7 @@ using System.Linq;
 using AdventOfCode.Problem;
 using AdventOfCode.Problem.Extensions;
 
-internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISolutionFinder
+internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers)
 {
     private readonly IProblemSolver[] solvers = [.. solvers];
 
@@ -28,40 +28,26 @@ internal sealed class SolutionFinder(IEnumerable<IProblemSolver> solvers) : ISol
         }
 #endif
 
-        if (day != 0 && year != 0)
-        {
-            var validSolvers = this.solvers.Where(s => s.Year == year && s.Day == day);
-            if (validSolvers.Any())
-            {
-                return validSolvers.OrderByYearAndDay();
-            }
+        var matched = this.solvers
+            .Where(s => (year == 0 || s.Year == year) && (day == 0 || s.Day == day))
+            .OrderByYearAndDay()
+            .ToList();
 
-            throw new SolutionMissingException($"There are no solutions yet for the year {year} and day {day}", year, day);
-        }
-        else if (day == 0 && year != 0)
+        if (matched.Count > 0)
         {
-            var validSolvers = this.solvers.Where(s => s.Year == year);
-            if (validSolvers.Any())
-            {
-                return validSolvers.OrderByYearAndDay();
-            }
-
-            throw new SolutionMissingException($"There are no solutions yet for the year {year}", year);
-        }
-        else if (day != 0 && year == 0)
-        {
-            var validSolvers = this.solvers.Where(s => s.Day == day);
-            if (validSolvers.Any())
-            {
-                return validSolvers.OrderByYearAndDay();
-            }
-
-            throw new SolutionMissingException($"There are no solutions yet for the day {day}", day: day);
+            return matched;
         }
 
-        return this.solvers.OrderByYearAndDay();
+        var message = (year, day) switch
+        {
+            (0, 0) => "There are no solutions yet",
+            (_, 0) => $"There are no solutions yet for the year {year}",
+            (0, _) => $"There are no solutions yet for the day {day}",
+            _ => $"There are no solutions yet for the year {year} and day {day}",
+        };
+
+        throw new SolutionMissingException(message, year == 0 ? null : year, day == 0 ? null : day);
     }
 
-    public IProblemSolver GetLastSolver(int year = 0)
-        => this.GetSolversFor(year: year).OrderByYearAndDay().Last();
+    public IProblemSolver GetLastSolver(int year = 0) => this.GetSolversFor(year: year).Last();
 }

@@ -9,17 +9,18 @@ using AdventOfCode.Cli.Runner;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {
-    public BaseSolutionCommand(ISolutionFinder solutionFinder, ISolutionRunner solutionRunner, string name, string? description = null)
+    public BaseSolutionCommand(SolutionFinder solutionFinder, SolutionRunner solutionRunner, string name, string? description = null)
         : base(name, description)
     {
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(solutionRunner);
+        ArgumentNullException.ThrowIfNullOrWhiteSpace(name);
 
         this.SolutionFinder = solutionFinder;
         this.SolutionRunner = solutionRunner;
     }
 
-    protected ISolutionFinder SolutionFinder { get; private init; }
+    protected SolutionFinder SolutionFinder { get; private init; }
 
-    protected ISolutionRunner SolutionRunner { get; init; }
+    protected SolutionRunner SolutionRunner { get; init; }
 }
