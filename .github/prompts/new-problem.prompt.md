@@ -41,22 +41,88 @@ When it creates a **new year project** it will also:
 1. Create `source/AdventOfCode.Year{YYYY}` (classlib) and
    `tests/AdventOfCode.Year{YYYY}.Tests` (mstest), adding both to
    `AdventOfCode.slnx`.
-2. Add a `ProjectReference` from `tools/AdventOfCode.Cli` to the new year
-   project.
-3. Insert `using AdventOfCode.Year{YYYY};` and
-   `builder.Services.AddSolutionsFor{YYYY}();` into
-   `tools/AdventOfCode.Cli/Program.cs` (in sorted position).
-4. Add a matching `"AdventOfCode.Cli ({YYYY})"` profile to
-   `tools/AdventOfCode.Cli/Properties/launchSettings.json`.
 
 When a `-Day` is also provided, it scaffolds `DayNSolution.cs`,
 `DayNSolutionTests.cs`, `Input.txt`, `Expected1.txt`, and `Expected2.txt`
 under the corresponding `DayN/` folder.
 
+The script intentionally does **not** edit the CLI project, `Program.cs`,
+or `launchSettings.json` — you (Copilot) own those steps. See below.
+
+## After running the script: wire the year into the CLI
+
+If the script created a **new year project** (i.e. this is the first day
+scaffolded for `{YYYY}`), perform the following edits yourself. Skip any
+step that is already done (the user may have re-run the script). All four
+edits must end up sorted by year ascending, with `{YYYY}` slotted into the
+correct position relative to the existing entries.
+
+1. **`tools/AdventOfCode.Cli/AdventOfCode.Cli.csproj`** — add a
+   `<ProjectReference>` to the new year project inside the existing
+   year-references `<ItemGroup>`:
+
+   ```xml
+   <ProjectReference Include="..\..\source\AdventOfCode.Year{YYYY}\AdventOfCode.Year{YYYY}.csproj" />
+   ```
+
+2. **`tools/AdventOfCode.Cli/Program.cs`** — add a `using` directive in the
+   sorted `using AdventOfCode.Year####;` block at the top of the file:
+
+   ```csharp
+   using AdventOfCode.Year{YYYY};
+   ```
+
+3. **`tools/AdventOfCode.Cli/Program.cs`** — register the year's solutions
+   in the sorted `builder.Services.AddSolutionsFor####();` block inside
+   `BuildApplication`:
+
+   ```csharp
+       builder.Services.AddSolutionsFor{YYYY}();
+   ```
+
+   `AddSolutionsFor{YYYY}` is generated automatically by the
+   `ProblemGenerator` source generator from any `[Problem({YYYY}, …)]`
+   class — do not try to define it manually. If your IDE flags it as
+   missing before the first build, run `dotnet build` once to materialise
+   the generated source.
+
+4. **`tools/AdventOfCode.Cli/Properties/launchSettings.json`** — add a
+   profile in the sorted year block:
+
+   ```json
+       "AdventOfCode.Cli ({YYYY})": {
+         "commandName": "Project",
+         "commandLineArgs": "last --year {YYYY}"
+       },
+   ```
+
+   Make sure the trailing comma matches the surrounding entries (no
+   trailing comma if it becomes the last profile in its block).
+
+For an existing year (just adding a new day), none of the four CLI edits
+are needed — the year is already wired up.
+
+## Verify the build
+
+After the script and any CLI edits, run a build from the repo root to
+confirm everything compiles and the source generators have produced
+`AddSolutionsFor{YYYY}` etc.:
+
+```powershell
+dotnet build AdventOfCode.slnx --configuration Release
+```
+
+If the build fails, fix the issue (most commonly: a missing CLI edit,
+the wrong sort position, or a stray comma in `launchSettings.json`) and
+build again until it succeeds. Do not report success until the build is
+green.
+
 ## After running
 
-1. Summarise what the script output (which files were `[new]` vs `[skip]`).
-2. Do **not** commit the changes — leave them staged/unstaged for the user to
-   review.
+1. Summarise what the script output (which files were `[new]` vs `[skip]`),
+   which CLI files you edited (or "no CLI changes – existing year"), and
+   confirm the build succeeded.
+2. Do **not** commit the changes — leave them staged/unstaged for the user
+   to review.
 3. If the script failed, show the error and stop. Do not attempt to work
    around it by manually creating files.
