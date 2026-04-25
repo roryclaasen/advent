@@ -9,25 +9,19 @@ public class AdventUri(TimeProvider timeProvider)
 {
     public Uri Build(int year)
     {
-        if (year < 2015 || year > timeProvider.GetLocalNow().Year)
-        {
-            throw new ArgumentOutOfRangeException(nameof(year), year, "Year must be between 2015 and the current year");
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(year, 2015, nameof(year));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(year, timeProvider.GetLocalNow().Year, nameof(year));
 
         return new($"https://adventofcode.com/{year}");
     }
 
     public Uri Build(int year, int day)
     {
-        if (year < 2015 || year > timeProvider.GetLocalNow().Year)
-        {
-            throw new ArgumentOutOfRangeException(nameof(year), year, "Year must be between 2015 and the current year");
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(year, 2015, nameof(year));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(year, timeProvider.GetLocalNow().Year, nameof(year));
 
-        if (day < 1 || day > 25)
-        {
-            throw new ArgumentOutOfRangeException(nameof(day), day, "Day must be between 1 and 25");
-        }
+        ArgumentOutOfRangeException.ThrowIfLessThan(day, 1, nameof(day));
+        ArgumentOutOfRangeException.ThrowIfGreaterThan(day, 25, nameof(day));
 
         return new($"https://adventofcode.com/{year}/day/{day}");
     }

@@ -19,7 +19,6 @@ using AdventOfCode.Year2022;
 using AdventOfCode.Year2023;
 using AdventOfCode.Year2024;
 using AdventOfCode.Year2025;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
@@ -48,13 +47,7 @@ return exitCode;
 
 static IHost BuildApplication(string[] args)
 {
-    var settings = new HostApplicationBuilderSettings
-    {
-        Configuration = new ConfigurationManager()
-    };
-    settings.Configuration.AddEnvironmentVariables();
-
-    var builder = Host.CreateEmptyApplicationBuilder(settings);
+    var builder = Host.CreateEmptyApplicationBuilder(null);
     builder.Services.AddSingleton<TimeProvider>(AdventTimeProvider.Instance);
     builder.Services.AddSingleton<AdventUri>();
     builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();

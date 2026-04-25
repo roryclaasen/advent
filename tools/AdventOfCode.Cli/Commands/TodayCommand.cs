@@ -9,7 +9,6 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using AdventOfCode.Cli.Services;
-using AdventOfCode.Shared;
 using Spectre.Console;
 
 internal sealed class TodayCommand(TimeProvider timeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
