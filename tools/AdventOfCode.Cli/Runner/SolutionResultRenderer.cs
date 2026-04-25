@@ -15,8 +15,6 @@ using Spectre.Console.Rendering;
 
 internal sealed class SolutionResultRenderer(IAnsiConsole console, AdventUri adventUri)
 {
-    private const int MaxAnswerLength = 60;
-
     public void Banner()
     {
         console.Write(new FigletText("Advent of Code")
@@ -155,14 +153,14 @@ internal sealed class SolutionResultRenderer(IAnsiConsole console, AdventUri adv
         }
         else
         {
-            var actualText = string.IsNullOrWhiteSpace(result.Actual) ? "null" : Truncate(result.Actual);
+            var actualText = string.IsNullOrWhiteSpace(result.Actual) ? "null" : result.Actual;
             answer = new Markup($"[{color}]{Markup.Escape(actualText)}[/]");
 
             detail = verdict switch
             {
                 Verdict.Pass => new Markup("[green]matches expected[/]"),
                 Verdict.Unknown => new Markup("[grey italic]no expected answer[/]"),
-                Verdict.Fail => new Markup($"[red]≠[/] [grey]{Markup.Escape(Truncate(result.Expected ?? string.Empty))}[/]"),
+                Verdict.Fail => new Markup($"[red]≠[/] [grey]{Markup.Escape(result.Expected ?? string.Empty)}[/]"),
                 _ => new Markup(string.Empty),
             };
         }
@@ -210,9 +208,6 @@ internal sealed class SolutionResultRenderer(IAnsiConsole console, AdventUri adv
 
         return $"[{color}]{text}[/]";
     }
-
-    private static string Truncate(string value)
-        => value.Length <= MaxAnswerLength ? value : string.Concat(value.AsSpan(0, MaxAnswerLength - 1), "…");
 
     [UnconditionalSuppressMessage("AOT", "IL3050:Calling members annotated with 'RequiresDynamicCodeAttribute' may break functionality when AOT compiling.")]
     private void WriteException(Exception exception) => console.WriteException(exception);
