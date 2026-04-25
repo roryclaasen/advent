@@ -7,7 +7,8 @@ using System.CommandLine;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli.Finder;
+using AdventOfCode.Cli.Runner;
 
 internal sealed class AllCommand : BaseSolutionCommand
 {

@@ -9,7 +9,8 @@ using System.CommandLine;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli.Finder;
+using AdventOfCode.Cli.Runner;
 using AdventOfCode.Problem;
 using AdventOfCode.Problem.Extensions;
 using Spectre.Console;
@@ -19,6 +20,7 @@ internal sealed class RootCommand : BaseRootCommand
 {
     private readonly ISolutionFinder solutionFinder;
     private readonly ISolutionRunner solutionRunner;
+    private readonly IAnsiConsole console;
 
     public RootCommand(
         ListCommand listCommand,
@@ -26,7 +28,8 @@ internal sealed class RootCommand : BaseRootCommand
         TodayCommand todayCommand,
         LastCommand lastCommand,
         ISolutionFinder solutionFinder,
-        ISolutionRunner solutionRunner)
+        ISolutionRunner solutionRunner,
+        IAnsiConsole console)
         : base("Rory Claasens solutions to Advent of Code")
     {
         ArgumentNullException.ThrowIfNull(listCommand);
@@ -35,6 +38,7 @@ internal sealed class RootCommand : BaseRootCommand
         ArgumentNullException.ThrowIfNull(lastCommand);
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(solutionRunner);
+        ArgumentNullException.ThrowIfNull(console);
 
         this.Subcommands.Add(listCommand);
         this.Subcommands.Add(allCommand);
@@ -43,6 +47,7 @@ internal sealed class RootCommand : BaseRootCommand
 
         this.solutionFinder = solutionFinder;
         this.solutionRunner = solutionRunner;
+        this.console = console;
 
         this.Options.Add(CommonOptions.Year);
         this.Options.Add(CommonOptions.Day);
@@ -81,7 +86,7 @@ internal sealed class RootCommand : BaseRootCommand
             prompt.AddChoiceGroup(new YearPlaceHolder(selectedYear), this.solutionFinder.GetSolversFor(selectedYear).OrderByYearAndDay());
         }
 
-        var pickedSolvers = AnsiConsole.Prompt(prompt).Where(s => s is not YearPlaceHolder);
+        var pickedSolvers = this.console.Prompt(prompt).Where(s => s is not YearPlaceHolder);
         return RunAllSolvers(pickedSolvers);
 
         ValueTask<int> RunAllSolvers(IEnumerable<IProblemSolver> solvers)

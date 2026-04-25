@@ -1,13 +1,12 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Cli.Services.Runner;
+namespace AdventOfCode.Cli.Runner;
 
 using System;
 using System.Diagnostics.CodeAnalysis;
-using Spectre.Console;
 
-internal readonly record struct ProblemPartResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
+internal readonly record struct PartResult(TimeSpan Elapsed, string? Expected, string? Actual, Exception? Error)
 {
     [MemberNotNullWhen(true, nameof(Error))]
     public readonly bool IsError => this.Error is not null;
@@ -15,7 +14,19 @@ internal readonly record struct ProblemPartResult(TimeSpan Elapsed, string? Expe
     [MemberNotNullWhen(true, nameof(Actual))]
     public readonly bool IsCorrect => !this.IsError && !string.IsNullOrWhiteSpace(this.Actual) && (this.Expected?.Equals(this.Actual, StringComparison.Ordinal) ?? true);
 
-    public readonly Color ActualColor => this.IsCorrect ? Color.Green : Color.Red;
+    public Verdict Verdict {
+        get {
+            if (this.IsError)
+            {
+                return Verdict.Error;
+            }
 
-    public readonly Color ExpectedColor => string.IsNullOrWhiteSpace(this.Expected) ? Color.Yellow : this.ActualColor;
+            if (string.IsNullOrWhiteSpace(this.Expected))
+            {
+                return Verdict.Unknown;
+            }
+
+            return this.IsCorrect ? Verdict.Pass : Verdict.Fail;
+        }
+    }
 }

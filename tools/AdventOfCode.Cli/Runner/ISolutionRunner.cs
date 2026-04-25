@@ -1,10 +1,9 @@
 // Copyright (c) Rory Claasen. All rights reserved.
 // Licensed under the MIT license. See LICENSE in the project root for license information.
 
-namespace AdventOfCode.Cli.Services;
+namespace AdventOfCode.Cli.Runner;
 
 using System.Collections.Generic;
-using AdventOfCode.Cli.Services.Runner;
 using AdventOfCode.Problem;
 
 internal interface ISolutionRunner

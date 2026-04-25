@@ -4,7 +4,8 @@
 namespace AdventOfCode.Cli.Commands;
 
 using System;
-using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli.Finder;
+using AdventOfCode.Cli.Runner;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {

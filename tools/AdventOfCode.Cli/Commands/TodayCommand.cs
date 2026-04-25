@@ -8,10 +8,15 @@ using System.CommandLine;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli.Finder;
+using AdventOfCode.Cli.Runner;
 using Spectre.Console;
 
-internal sealed class TodayCommand(TimeProvider timeProvider, ISolutionFinder solutionFinder, ISolutionRunner solutionRunner)
+internal sealed class TodayCommand(
+    TimeProvider timeProvider,
+    ISolutionFinder solutionFinder,
+    ISolutionRunner solutionRunner,
+    IAnsiConsole console)
     : BaseSolutionCommand(solutionFinder, solutionRunner, "today", "Run todays solution")
 {
     protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
@@ -25,8 +30,8 @@ internal sealed class TodayCommand(TimeProvider timeProvider, ISolutionFinder so
             return ValueTask.FromResult(exitCode);
         }
 
-        AnsiConsole.MarkupLine($"[{Color.Red}]Error:[/] Event is not active. This option works in Dec 1-25 only.");
-        AnsiConsole.MarkupLine("Run --help to see all available commands.");
+        console.MarkupLine("[red]Error:[/] Event is not active. This option works in Dec 1-25 only.");
+        console.MarkupLine("[grey]Run --help to see all available commands.[/]");
 
         return ValueTask.FromResult(-1);
     }

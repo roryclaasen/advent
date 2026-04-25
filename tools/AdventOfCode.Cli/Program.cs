@@ -4,10 +4,10 @@
 using System;
 using System.CommandLine;
 using System.Text;
+using AdventOfCode.Cli;
 using AdventOfCode.Cli.Commands;
-using AdventOfCode.Cli.Services;
-using AdventOfCode.Cli.Services.Finder;
-using AdventOfCode.Cli.Services.Runner;
+using AdventOfCode.Cli.Finder;
+using AdventOfCode.Cli.Runner;
 using AdventOfCode.Shared;
 using AdventOfCode.Year2015;
 using AdventOfCode.Year2016;
@@ -21,6 +21,7 @@ using AdventOfCode.Year2024;
 using AdventOfCode.Year2025;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Spectre.Console;
 
 Console.OutputEncoding = Encoding.UTF8;
 
@@ -48,10 +49,12 @@ return exitCode;
 static IHost BuildApplication(string[] args)
 {
     var builder = Host.CreateEmptyApplicationBuilder(null);
+    builder.Services.AddSingleton<IAnsiConsole>(AnsiConsole.Console);
     builder.Services.AddSingleton<TimeProvider>(AdventTimeProvider.Instance);
     builder.Services.AddSingleton<AdventUri>();
     builder.Services.AddSingleton<ISolutionFinder, SolutionFinder>();
     builder.Services.AddSingleton<ISolutionRunner, SolutionRunner>();
+    builder.Services.AddSingleton<SolutionResultRenderer>();
 
     builder.Services.AddSolutionsFor2015();
     builder.Services.AddSolutionsFor2016();

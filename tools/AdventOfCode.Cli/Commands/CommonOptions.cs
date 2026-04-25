@@ -4,7 +4,7 @@
 namespace AdventOfCode.Cli.Commands;
 
 using System.CommandLine;
-using AdventOfCode.Cli.Services;
+using AdventOfCode.Cli;
 
 internal static class CommonOptions
 {
