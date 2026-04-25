@@ -14,21 +14,18 @@ internal sealed class SolutionRunner(SolutionResultRenderer renderer) : ISolutio
 {
     public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
     {
-        var solverList = solvers.ToList();
-        if (solverList.Count == 0)
+        renderer.Banner();
+
+        var solversList = solvers.ToList();
+        if (solversList.Count == 0)
         {
             renderer.NoSolutions();
             return [];
         }
 
-        if (solverList.Count > 1)
-        {
-            renderer.Banner();
-        }
+        var results = new List<SolutionResult>(solversList.Count);
 
-        var results = new List<SolutionResult>(solverList.Count);
-
-        foreach (var year in solverList.GroupByYear().OrderBy(g => g.Key))
+        foreach (var year in solversList.GroupByYear().OrderBy(g => g.Key))
         {
             renderer.Year(year.Key);
 
