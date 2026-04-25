@@ -60,3 +60,7 @@ The script creates the year `csproj`s, the day folder, solution + test class, an
 - Targets `net10.0`, `Nullable=enable`, `IsAotCompatible=true` — avoid reflection / dynamic / unbounded generics that break trimming/AOT in the year libraries.
 - Test runner is Microsoft.Testing.Platform (not VSTest). Use `--filter-method` / `--filter-class` (with `*` wildcards), not `--filter`. Tests are parallelised at method scope (`tests/MSTestSettings.cs`).
 - CI (`.github/workflows/dotnet.yml`) runs restore → build → test → publish per RID; mirror these commands locally before pushing.
+
+## Git workflow
+
+- **Do not run `git commit` (or `git push`) unless the user explicitly asks for it.** Stage and edit freely, but leave commit timing to the user. Phrases like "commit this", "commit it", or "push it" are the signal — without them, finish the work and stop.
