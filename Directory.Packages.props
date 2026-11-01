@@ -1,16 +1,16 @@
-<Project>
+ <Project>
   <PropertyGroup>
     <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
     <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
   </PropertyGroup>
   <ItemGroup>
     <PackageVersion Include="CommunityToolkit.HighPerformance" Version="8.4.2" />
-    <PackageVersion Include="LinkDotNet.StringBuilder" Version="3.4.2" />
+    <PackageVersion Include="LinkDotNet.StringBuilder" Version="3.7.4" />
     <PackageVersion Include="Microsoft.CodeAnalysis.Analyzers" Version="5.6.0" />
     <PackageVersion Include="Microsoft.CodeAnalysis.CSharp" Version="5.6.0" />
-    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.10" />
+    <PackageVersion Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="10.0.14" />
     <PackageVersion Include="Microsoft.Extensions.Hosting" Version="10.0.10" />
-    <PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.91" />
+    <PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.94" />
     <PackageVersion Include="Spectre.Console.Analyzer" Version="1.0.0" />
     <PackageVersion Include="Spectre.Console" Version="0.57.2" />
     <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
