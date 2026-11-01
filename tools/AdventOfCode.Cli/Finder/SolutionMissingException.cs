@@ -7,6 +7,10 @@ using System;
 
 internal sealed class SolutionMissingException : Exception
 {
+    public SolutionMissingException()
+    {
+    }
+
     public SolutionMissingException(string message) : base(message)
     {
     }
@@ -15,6 +19,10 @@ internal sealed class SolutionMissingException : Exception
     {
         this.Year = year;
         this.Day = day;
+    }
+
+    public SolutionMissingException(string? message, Exception? innerException) : base(message, innerException)
+    {
     }
 
     public int? Year { get; private set; }

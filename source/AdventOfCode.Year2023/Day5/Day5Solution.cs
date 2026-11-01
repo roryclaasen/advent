@@ -93,7 +93,7 @@ public partial class Day5Solution : IProblemSolver
         var lines = input.Lines();
         if (lines[0] != header)
         {
-            throw new Exception($"Expected header {header} but got {lines[0]}");
+            throw new FormatException($"Expected header {header} but got {lines[0]}");
         }
 
         foreach (var line in lines.Skip(1))

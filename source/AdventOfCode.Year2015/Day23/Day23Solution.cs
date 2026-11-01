@@ -75,7 +75,7 @@ public partial class Day23Solution : IProblemSolver
 
                     break;
                 default:
-                    throw new Exception($"Unknown instruction: {instruction.Operation}");
+                    throw new InvalidOperationException($"Unknown instruction: {instruction.Operation}");
             }
         }
 
@@ -89,7 +89,7 @@ public partial class Day23Solution : IProblemSolver
             var match = InstructionRegex().Match(line);
             if (!match.Success)
             {
-                throw new Exception($"Failed to parse instruction: {line}");
+                throw new FormatException($"Failed to parse instruction: {line}");
             }
 
             var operation = match.Groups["operation"].Value;

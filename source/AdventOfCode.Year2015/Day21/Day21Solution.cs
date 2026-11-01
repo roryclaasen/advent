@@ -133,15 +133,15 @@ public partial class Day21Solution : IProblemSolver
         var armor = 0;
         foreach (var line in input.Lines())
         {
-            if (line.StartsWith("Hit Points: "))
+            if (line.StartsWith("Hit Points: ", StringComparison.Ordinal))
             {
                 hitPoints = int.Parse(line[12..]);
             }
-            else if (line.StartsWith("Damage: "))
+            else if (line.StartsWith("Damage: ", StringComparison.Ordinal))
             {
                 damage = int.Parse(line[8..]);
             }
-            else if (line.StartsWith("Armor: "))
+            else if (line.StartsWith("Armor: ", StringComparison.Ordinal))
             {
                 armor = int.Parse(line[7..]);
             }

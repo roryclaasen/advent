@@ -64,7 +64,7 @@ public partial class Day4Solution : IProblemSolver
             }
             else
             {
-                throw new Exception($"Unable to parse line: {line}");
+                throw new FormatException($"Unable to parse line: {line}");
             }
         }
     }

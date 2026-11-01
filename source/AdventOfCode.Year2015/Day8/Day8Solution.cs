@@ -35,7 +35,7 @@ public partial class Day8Solution : IProblemSolver
     {
         if (!input.StartsWith('"') || !input.EndsWith('"'))
         {
-            throw new Exception("Invalid input string");
+            throw new FormatException("Invalid input string");
         }
 
         var trimed = input[1..^1];
@@ -47,7 +47,7 @@ public partial class Day8Solution : IProblemSolver
             {
                 if (i == trimed.Length - 1)
                 {
-                    throw new Exception("Invalid escape sequence (Out Of Bounds)");
+                    throw new FormatException("Invalid escape sequence (Out Of Bounds)");
                 }
 
                 var next = trimed[i + 1];
@@ -66,7 +66,7 @@ public partial class Day8Solution : IProblemSolver
                 }
                 else
                 {
-                    throw new Exception("Invalid escape sequence");
+                    throw new FormatException("Invalid escape sequence");
                 }
             }
             else

@@ -52,7 +52,7 @@ public partial class Day8Solution : IProblemSolver
     {
         Direction.Left => mappings[current].Left,
         Direction.Right => mappings[current].Right,
-        _ => throw new Exception("Invalid direction")
+        _ => throw new InvalidOperationException("Invalid direction")
     };
 
     private static (Direction[] Directions, Dictionary<string, (string Left, string Right)> Mapping) ParseInput(string input)
@@ -61,7 +61,7 @@ public partial class Day8Solution : IProblemSolver
         var directions = parts[0].ToCharArray().Select(c => (Direction)c);
         if (directions.Any(d => d == Direction.Up || d == Direction.Down))
         {
-            throw new Exception("Invalid input (directions)");
+            throw new FormatException("Invalid input (directions)");
         }
 
         var mappings = new Dictionary<string, (string, string)>();
@@ -70,7 +70,7 @@ public partial class Day8Solution : IProblemSolver
             var match = NodeMapRegex().Match(line);
             if (!match.Success)
             {
-                throw new Exception($"Invalid input '{line}'");
+                throw new FormatException($"Invalid input '{line}'");
             }
 
             var source = match.Groups[1].Value;

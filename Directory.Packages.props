@@ -13,7 +13,8 @@
     <PackageVersion Include="Nerdbank.GitVersioning" Version="3.10.94" />
     <PackageVersion Include="Spectre.Console.Analyzer" Version="1.0.0" />
     <PackageVersion Include="Spectre.Console" Version="0.57.2" />
-    <PackageVersion Include="StyleCop.Analyzers" Version="1.2.0-beta.556" />
+    <PackageVersion Include="Roslynator.Analyzers" Version="5.0.0" />
+    <PackageVersion Include="Roslynator.Formatting.Analyzers" Version="5.0.0" />
     <PackageVersion Include="System.CommandLine" Version="2.0.10" />
   </ItemGroup>
   <ItemGroup Label="Test Packages">

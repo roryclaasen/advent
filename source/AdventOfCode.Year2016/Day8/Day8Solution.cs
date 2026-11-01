@@ -81,7 +81,7 @@ public partial class Day8Solution : IProblemSolver
             }
             else
             {
-                throw new Exception($"Unknown instruction: {ins.Operation}");
+                throw new InvalidOperationException($"Unknown instruction: {ins.Operation}");
             }
         }
 
@@ -92,20 +92,20 @@ public partial class Day8Solution : IProblemSolver
     {
         foreach (var line in input.Lines())
         {
-            if (line.StartsWith("rect"))
+            if (line.StartsWith("rect", StringComparison.Ordinal))
             {
                 var parts = line.Split(' ');
                 var size = parts[1].Split('x');
                 yield return new Instruction("rect", int.Parse(size[0]), int.Parse(size[1]));
             }
-            else if (line.StartsWith("rotate row"))
+            else if (line.StartsWith("rotate row", StringComparison.Ordinal))
             {
                 var parts = line.Split(' ');
                 var row = int.Parse(parts[2].Split('=')[1]);
                 var amount = int.Parse(parts[4]);
                 yield return new Instruction("rotate row", row, amount);
             }
-            else if (line.StartsWith("rotate column"))
+            else if (line.StartsWith("rotate column", StringComparison.Ordinal))
             {
                 var parts = line.Split(' ');
                 var column = int.Parse(parts[2].Split('=')[1]);
@@ -114,7 +114,7 @@ public partial class Day8Solution : IProblemSolver
             }
             else
             {
-                throw new Exception($"Unknown instruction: {line}");
+                throw new FormatException($"Unknown instruction: {line}");
             }
         }
     }

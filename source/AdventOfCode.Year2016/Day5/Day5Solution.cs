@@ -5,6 +5,7 @@ namespace AdventOfCode.Year2016;
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
 using AdventOfCode.Problem;
@@ -21,7 +22,7 @@ public partial class Day5Solution : IProblemSolver
         while (password.Length < 8)
         {
             var hashString = this.GetHash($"{input}{index}");
-            if (hashString.StartsWith("00000"))
+            if (hashString.StartsWith("00000", StringComparison.Ordinal))
             {
                 password.Append(hashString[5]);
             }
@@ -40,7 +41,7 @@ public partial class Day5Solution : IProblemSolver
         while (found < 8)
         {
             var hashString = this.GetHash($"{input}{index}");
-            if (hashString.StartsWith("00000"))
+            if (hashString.StartsWith("00000", StringComparison.Ordinal))
             {
                 var position = hashString[5] - '0';
                 if (position < 8 && chars[position] == '\0')
@@ -56,6 +57,7 @@ public partial class Day5Solution : IProblemSolver
         return new string(chars);
     }
 
+    [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "MD5 is required by the puzzle and is not used for security.")]
     private string GetHash(string input)
     {
         if (this.hashCache.TryGetValue(input, out var hashString))
@@ -64,7 +66,7 @@ public partial class Day5Solution : IProblemSolver
         }
 
         var hash = MD5.HashData(Encoding.ASCII.GetBytes(input));
-        hashString = BitConverter.ToString(hash).Replace("-", string.Empty).ToLowerInvariant();
+        hashString = Convert.ToHexStringLower(hash);
         this.hashCache.Add(input, hashString);
         return hashString;
     }

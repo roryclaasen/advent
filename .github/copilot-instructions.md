@@ -14,7 +14,7 @@ The solution file is `AdventOfCode.slnx` (XML solution format). The repo pins SD
 - Run a single test (Microsoft.Testing.Platform syntax, not VSTest): append `-- --filter-method "*Day1SolutionTests.SolvePart1*"` (or `--filter-class`). Plain `--filter "Name~..."` will not work.
 - Publish (AOT-compatible; `IsAotCompatible=true` in `Directory.Build.props`): `dotnet publish AdventOfCode.slnx -c Release -r <rid>` where rid ∈ `win-x64`, `win-arm64`, `linux-x64`, `osx-x64`.
 - Run a year/day via the CLI: `dotnet run --project tools/AdventOfCode.Cli -- last --year 2024` (subcommands: `list`, `all`, `today`, `last`).
-- Lint: StyleCop.Analyzers + .NET analyzers run as part of `dotnet build` (`EnforceCodeStyleInBuild=true`). There is no separate lint command — fixing build warnings is fixing lint.
+- Lint: Roslynator.Analyzers, Roslynator.Formatting.Analyzers, and .NET analyzers run during `dotnet build` (`EnforceCodeStyleInBuild=true`). The repository has no separate lint command.
 
 ## Scaffolding new years/days
 
@@ -47,17 +47,18 @@ The script creates the year `csproj`s, the day folder, solution + test class, an
 
 ## Conventions
 
-- All `.cs` files start with the StyleCop file header (`stylecop.json` defines it):
+- All `.cs` files start with the copyright header defined by `file_header_template` in `.editorconfig`:
   ```
   // Copyright (c) Rory Claasen. All rights reserved.
   // Licensed under the MIT license. See LICENSE in the project root for license information.
   ```
-- File-scoped `namespace` first, then `using` directives **inside** the namespace (this is the StyleCop layout used everywhere — do not move usings to the top of the file).
+- The repository uses a file-scoped `namespace` followed by `using` directives **inside** the namespace.
 - Solution classes are `public partial class Day{N}Solution : IProblemSolver` — the `partial` is mandatory because generators add the `Year`/`Day`/`Name`/`Input`/`Expected1`/`Expected2` members.
 - Year projects use `InternalsVisibleTo("$(AssemblyName).Tests")` (set in `Source.Build.props`), so tests may reach internals of the year being tested.
 - Indentation: 4 spaces (2 for `*.{json,yml,slnx,csproj,props,config}`); CRLF; final newline; **except** `*.txt` (puzzle inputs) which keep no trailing newline and preserve trailing whitespace — the scaffolder writes inputs without a trailing newline on purpose, do not "fix" them.
 - Central package management is on (`Directory.Packages.props`, `ManagePackageVersionsCentrally=true`); add `<PackageReference Include="X" />` without a version, and add the `<PackageVersion>` entry in `Directory.Packages.props`.
 - Targets `net10.0`, `Nullable=enable`, `IsAotCompatible=true` — avoid reflection / dynamic / unbounded generics that break trimming/AOT in the year libraries.
+- `InvariantGlobalization=true` in `Directory.Build.props` makes the CLI and test executables use invariant globalization. Puzzle parsing does not need explicit culture arguments.
 - Test runner is Microsoft.Testing.Platform (not VSTest). Use `--filter-method` / `--filter-class` (with `*` wildcards), not `--filter`. Tests are parallelised at method scope (`tests/MSTestSettings.cs`).
 - CI (`.github/workflows/dotnet.yml`) runs restore → build → test → publish per RID; mirror these commands locally before pushing.
 

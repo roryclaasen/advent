@@ -42,7 +42,7 @@ public partial class Day4Solution : IProblemSolver
                 continue;
             }
 
-            if (passport.Height.EndsWith("cm"))
+            if (passport.Height.EndsWith("cm", StringComparison.Ordinal))
             {
                 var height = passport.Height.Substring(0, passport.Height.Length - 2);
                 if (!int.TryParse(height, out var heightValue) || heightValue < 150 || heightValue > 193)
@@ -50,7 +50,7 @@ public partial class Day4Solution : IProblemSolver
                     continue;
                 }
             }
-            else if (passport.Height.EndsWith("in"))
+            else if (passport.Height.EndsWith("in", StringComparison.Ordinal))
             {
                 var height = passport.Height.Substring(0, passport.Height.Length - 2);
                 if (!int.TryParse(height, out var heightValue) || heightValue < 59 || heightValue > 76)

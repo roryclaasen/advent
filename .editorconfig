@@ -14,7 +14,7 @@ insert_final_newline = true
 [*.{json,yml}]
 indent_size = 2
 
-[*.{slnx,csproj,props,[cC]onfig}]
+[*.{slnx,csproj,props,targets,[cC]onfig}]
 indent_size = 2
 
 [*.txt]
@@ -38,6 +38,18 @@ dotnet_naming_rule.non_field_members_should_be_pascal_case.severity = suggestion
 dotnet_naming_rule.non_field_members_should_be_pascal_case.symbols = non_field_members
 dotnet_naming_rule.non_field_members_should_be_pascal_case.style = pascal_case
 
+dotnet_naming_rule.fields_camel_case.symbols = fields
+dotnet_naming_rule.fields_camel_case.style = unprefixed_camel_case
+dotnet_naming_rule.fields_camel_case.severity = warning
+
+dotnet_naming_rule.static_fields_pascal_case.symbols = static_fields
+dotnet_naming_rule.static_fields_pascal_case.style = pascal_case
+dotnet_naming_rule.static_fields_pascal_case.severity = warning
+
+dotnet_naming_rule.const_fields_pascal_case.symbols = const_fields
+dotnet_naming_rule.const_fields_pascal_case.style = pascal_case
+dotnet_naming_rule.const_fields_pascal_case.severity = warning
+
 # Symbol specifications
 
 dotnet_naming_symbols.interface.applicable_kinds = interface
@@ -52,7 +64,21 @@ dotnet_naming_symbols.non_field_members.applicable_kinds = property, event, meth
 dotnet_naming_symbols.non_field_members.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
 dotnet_naming_symbols.non_field_members.required_modifiers =
 
+dotnet_naming_symbols.fields.applicable_kinds = field
+dotnet_naming_symbols.fields.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.static_fields.required_modifiers = static
+
+dotnet_naming_symbols.const_fields.applicable_kinds = field
+dotnet_naming_symbols.const_fields.applicable_accessibilities = public, internal, private, protected, protected_internal, private_protected
+dotnet_naming_symbols.const_fields.required_modifiers = const
+
 # Naming styles
+
+dotnet_naming_style.unprefixed_camel_case.capitalization = camel_case
+dotnet_naming_style.unprefixed_camel_case.required_prefix =
 
 dotnet_naming_style.begins_with_i.required_prefix = I
 dotnet_naming_style.begins_with_i.required_suffix =
@@ -64,10 +90,6 @@ dotnet_naming_style.pascal_case.required_suffix =
 dotnet_naming_style.pascal_case.word_separator =
 dotnet_naming_style.pascal_case.capitalization = pascal_case
 
-dotnet_naming_style.pascal_case.required_prefix =
-dotnet_naming_style.pascal_case.required_suffix =
-dotnet_naming_style.pascal_case.word_separator =
-dotnet_naming_style.pascal_case.capitalization = pascal_case
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
 tab_width = 4
 indent_size = 4
@@ -95,11 +117,21 @@ dotnet_style_allow_statement_immediately_after_block_experimental = true:silent
 dotnet_style_allow_multiple_blank_lines_experimental = true:silent
 
 [*.cs]
+file_header_template = Copyright (c) Rory Claasen. All rights reserved.\nLicensed under the MIT license. See LICENSE in the project root for license information.
+dotnet_diagnostic.IDE0073.severity = warning
+dotnet_style_qualification_for_field = true:suggestion
+dotnet_style_qualification_for_property = true:suggestion
+dotnet_style_qualification_for_method = true:suggestion
+dotnet_style_qualification_for_event = true:suggestion
+dotnet_diagnostic.IDE0009.severity = suggestion
 csharp_indent_labels = one_less_than_current
 csharp_using_directive_placement = inside_namespace:suggestion
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+csharp_new_line_before_open_brace = types, methods, properties, control_blocks, anonymous_methods, anonymous_types, object_collection_array_initializers, lambdas, local_functions
 csharp_prefer_simple_using_statement = true:suggestion
 csharp_prefer_braces = true:silent
-csharp_style_namespace_declarations = block_scoped:silent
+csharp_style_namespace_declarations = file_scoped:silent
 csharp_style_prefer_method_group_conversion = true:silent
 csharp_style_prefer_top_level_statements = true:silent
 csharp_style_prefer_primary_constructors = true:suggestion
@@ -133,34 +165,9 @@ csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental
 csharp_style_allow_blank_line_after_colon_in_constructor_initializer_experimental = true:silent
 csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
 
-# CA1822: Mark members as static
-# dotnet_diagnostic.CA1822.severity = none
-
-# Using directive should be qualified
-dotnet_diagnostic.SA1135.severity = warning
-
-# Using directive ordering
-dotnet_diagnostic.SA1208.severity = warning
-
-# Using alias directives should be placed after all using namespace directives
-dotnet_diagnostic.SA1209.severity = warning
-
-# Using directives should be ordered alphabetically by the namespaces
-dotnet_diagnostic.SA1210.severity = warning
-
-# Using alias directive ordering
-dotnet_diagnostic.SA1211.severity = warning
-
-# Using directive should appear within a namespace declaration
-dotnet_diagnostic.SA1200.severity = warning
-
-# Using static directives should be placed at the correct location
-dotnet_diagnostic.SA1216.severity = warning
+dotnet_diagnostic.CA1716.severity = none
 
 # Documentation
-
-# XML comment analysis is disabled due to project configuration
-dotnet_diagnostic.SA0001.severity = none
 
 # missing XML comment for parameter
 dotnet_diagnostic.CS1573.severity = none
@@ -171,55 +178,22 @@ dotnet_diagnostic.CS1591.severity = none
 # missing XML comment for type parameter
 dotnet_diagnostic.CS1712.severity = none
 
-# elements must be documented
-dotnet_diagnostic.SA1600.severity = none
+# Roslynator documentation rules corresponding to disabled StyleCop rules
+dotnet_diagnostic.RCS1137.severity = none
+dotnet_diagnostic.RCS1138.severity = none
+dotnet_diagnostic.RCS1139.severity = none
+dotnet_diagnostic.RCS1141.severity = none
+dotnet_diagnostic.RCS1142.severity = none
 
-# partial elements must be documented
-dotnet_diagnostic.SA1601.severity = none
+# Preserve mixed auto-accessor and block-accessor formatting
+dotnet_diagnostic.RCS0020.severity = none
+dotnet_diagnostic.RCS0025.severity = none
+dotnet_diagnostic.RCS0042.severity = none
+dotnet_diagnostic.RCS1024.severity = none
 
-# enum items must be documented
-dotnet_diagnostic.SA1602.severity = none
+# Roslynator equivalents for disabled StyleCop formatting rules
+dotnet_diagnostic.RCS0029.severity = none
+dotnet_diagnostic.RCS0034.severity = none
 
-# elements must have summary documentation
-dotnet_diagnostic.SA1604.severity = none
-
-# partial elements must have summary documentation
-dotnet_diagnostic.SA1605.severity = none
-
-# parameters must be documented
-dotnet_diagnostic.SA1611.severity = none
-
-# return values must be documented
-dotnet_diagnostic.SA1615.severity = none
-
-# constructor summary must begin with standard text
-dotnet_diagnostic.SA1642.severity = none
-
-# Stylecop
-
-# Generic type constraints should be on their own line
-dotnet_diagnostic.SA1127.severity = none
-
-# Put constructor initializers on their own line
-dotnet_diagnostic.SA1128.severity = none
-
-# A Code Analysis SuppressMessage attribute does not include a justification.
-dotnet_diagnostic.SA1404.severity = none
-
-# Use trailing comma in multi-line initializers
-dotnet_diagnostic.SA1413.severity = none
-
-# Braces for multi-line statements should not share line
-dotnet_diagnostic.SA1500.severity = none
-
-# Statement should not be on a single line
-dotnet_diagnostic.SA1501.severity = none
-
-# Element should not be on a single line
-dotnet_diagnostic.SA1502.severity = none
-
-# Single-line comment should be preceded by blank line
-dotnet_diagnostic.SA1515.severity = none
-
-# Documentation text should end with a period
-dotnet_diagnostic.SA1629.severity = none
+# Keep using directives inside namespaces; RCS1094 enforces the opposite style
+dotnet_diagnostic.RCS1094.severity = none

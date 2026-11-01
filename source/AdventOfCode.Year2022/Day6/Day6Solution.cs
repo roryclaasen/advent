@@ -25,6 +25,6 @@ public partial class Day6Solution : IProblemSolver
             }
         }
 
-        throw new Exception("Unbale to find marker");
+        throw new InvalidOperationException("Unbale to find marker");
     }
 }

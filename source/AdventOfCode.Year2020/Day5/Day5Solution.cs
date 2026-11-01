@@ -29,7 +29,7 @@ public partial class Day5Solution : IProblemSolver
             }
         }
 
-        throw new Exception("Seat not found");
+        throw new InvalidOperationException("Seat not found");
     }
 
     private static IEnumerable<BoardingPass> ParseInput(string input)

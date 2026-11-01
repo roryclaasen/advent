@@ -195,7 +195,7 @@ public partial class Day22Solution : IProblemSolver
                         this.PlayerMana += 101;
                         break;
                     default:
-                        throw new Exception("Unknown Effect");
+                        throw new InvalidOperationException("Unknown Effect");
                 }
 
                 this.ActiveEffects[effect]--;
@@ -208,7 +208,7 @@ public partial class Day22Solution : IProblemSolver
         {
             if (this.ActiveEffects.ContainsKey(spell))
             {
-                throw new Exception("Spell already active");
+                throw new InvalidOperationException("Spell already active");
             }
 
             switch (spell)
@@ -240,7 +240,7 @@ public partial class Day22Solution : IProblemSolver
                     this.PlayerManaSpent += 229;
                     break;
                 default:
-                    throw new Exception("Unknown spell");
+                    throw new InvalidOperationException("Unknown spell");
             }
         }
 

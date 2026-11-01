@@ -70,6 +70,6 @@ public partial class Day6Solution : IProblemSolver
     {
         '+' => number.Sum(),
         '*' => number.Product(),
-        _ => throw new Exception($"Unknown operation: {instruction}"),
+        _ => throw new FormatException($"Unknown operation: {instruction}"),
     };
 }

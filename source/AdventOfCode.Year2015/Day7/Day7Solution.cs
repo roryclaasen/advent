@@ -151,7 +151,7 @@ public partial class Day7Solution : IProblemSolver
                     "NOT" => Operation.Not,
                     "LSHIFT" => Operation.LShift,
                     "RSHIFT" => Operation.RShift,
-                    _ => throw new Exception("Unknown operation")
+                    _ => throw new FormatException("Unknown operation")
                 };
                 var output = bitWiseMatch.Groups["Output"].Value;
                 yield return new BitWiseInstruction(output, operation, a, b);

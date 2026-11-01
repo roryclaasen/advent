@@ -116,7 +116,7 @@ public partial class Day7Solution : IProblemSolver
                 (2, 3) => 4, // Full House
                 (2, 4) => 5, // Four of a Kind
                 (1, 5) => 6, // Five of a Kind
-                _ => throw new Exception("Unable to determine pair type")
+                _ => throw new InvalidOperationException("Unable to determine pair type")
             };
         }
     }

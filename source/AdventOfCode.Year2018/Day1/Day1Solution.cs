@@ -31,7 +31,7 @@ public partial class Day1Solution : IProblemSolver
             }
         }
 
-        throw new Exception($"Unable to find a solution after {maxIterations} iterations");
+        throw new InvalidOperationException($"Unable to find a solution after {maxIterations} iterations");
     }
 
     private static IEnumerable<int> ParseInput(string input)

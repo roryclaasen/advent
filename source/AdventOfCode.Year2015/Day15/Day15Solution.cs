@@ -58,7 +58,7 @@ public partial class Day15Solution : IProblemSolver
             var match = IngredientRegex().Match(line);
             if (!match.Success)
             {
-                throw new Exception($"Failed to parse line '{line}'");
+                throw new FormatException($"Failed to parse line '{line}'");
             }
 
             var name = match.Groups["name"].Value;

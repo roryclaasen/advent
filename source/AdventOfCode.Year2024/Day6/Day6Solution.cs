@@ -22,7 +22,7 @@ public partial class Day6Solution : IProblemSolver
         var (completed, visited) = Simulate(map, guard);
         if (!completed)
         {
-            throw new Exception("Guard did not complete the simulation");
+            throw new InvalidOperationException("Guard did not complete the simulation");
         }
 
         return visited.Count;

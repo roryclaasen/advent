@@ -86,7 +86,7 @@ public partial class Day7Solution : IProblemSolver
                     }
                     else
                     {
-                        throw new Exception("Unable to go back a layer");
+                        throw new InvalidOperationException("Unable to go back a layer");
                     }
                 }
                 else
@@ -107,7 +107,7 @@ public partial class Day7Solution : IProblemSolver
                             }
                             else
                             {
-                                throw new Exception("Node is not a directory");
+                                throw new InvalidOperationException("Node is not a directory");
                             }
                         }
                         else
@@ -123,10 +123,10 @@ public partial class Day7Solution : IProblemSolver
             {
                 if (currentDir is null)
                 {
-                    throw new Exception("Current directory is null");
+                    throw new InvalidOperationException("Current directory is null");
                 }
 
-                while (lines.Count > 0 && !lines.Peek().StartsWith("$"))
+                while (lines.Count > 0 && !lines.Peek().StartsWith('$'))
                 {
                     var output = lines.Dequeue();
                     var outRegex = listRegex.Match(output);
@@ -144,7 +144,7 @@ public partial class Day7Solution : IProblemSolver
 
                     if (node is null)
                     {
-                        throw new Exception("Unable to parse node");
+                        throw new FormatException("Unable to parse node");
                     }
 
                     currentDir.Nodes.Add(second, node);
@@ -152,13 +152,13 @@ public partial class Day7Solution : IProblemSolver
             }
             else
             {
-                throw new Exception($"Unknown command {ins}");
+                throw new FormatException($"Unknown command {ins}");
             }
         }
 
         if (tree is null)
         {
-            throw new Exception("Unable to parse tree");
+            throw new FormatException("Unable to parse tree");
         }
 
         return tree;

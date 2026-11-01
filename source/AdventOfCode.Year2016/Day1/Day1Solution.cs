@@ -22,7 +22,7 @@ public partial class Day1Solution : IProblemSolver
             {
                 'L' => (direction + 3) % 4,
                 'R' => (direction + 1) % 4,
-                _ => throw new Exception("Invalid direction")
+                _ => throw new FormatException("Invalid direction")
             };
 
             position = direction switch
@@ -31,7 +31,7 @@ public partial class Day1Solution : IProblemSolver
                 1 => (position.x + instruction.Distance, position.y),
                 2 => (position.x, position.y - instruction.Distance),
                 3 => (position.x - instruction.Distance, position.y),
-                _ => throw new Exception("Invalid direction")
+                _ => throw new InvalidOperationException("Invalid direction")
             };
         }
 
@@ -52,7 +52,7 @@ public partial class Day1Solution : IProblemSolver
             {
                 'L' => (direction + 3) % 4,
                 'R' => (direction + 1) % 4,
-                _ => throw new Exception("Invalid direction")
+                _ => throw new FormatException("Invalid direction")
             };
 
             for (var i = 0; i < instruction.Distance; i++)
@@ -63,7 +63,7 @@ public partial class Day1Solution : IProblemSolver
                     1 => (position.x + 1, position.y),
                     2 => (position.x, position.y - 1),
                     3 => (position.x - 1, position.y),
-                    _ => throw new Exception("Invalid direction")
+                    _ => throw new InvalidOperationException("Invalid direction")
                 };
 
                 if (visited.Contains(position))
@@ -75,7 +75,7 @@ public partial class Day1Solution : IProblemSolver
             }
         }
 
-        throw new Exception("No location visited twice");
+        throw new InvalidOperationException("No location visited twice");
     }
 
     private static IEnumerable<Instruction> ParseInput(string input)

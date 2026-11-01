@@ -52,7 +52,7 @@ public partial class Day16Solution : IProblemSolver
             return aunt.Number;
         }
 
-        throw new Exception("No aunt found");
+        throw new InvalidOperationException("No aunt found");
     }
 
     public object? PartTwo(string input)
@@ -93,7 +93,7 @@ public partial class Day16Solution : IProblemSolver
             return aunt.Number;
         }
 
-        throw new Exception("No aunt found");
+        throw new InvalidOperationException("No aunt found");
     }
 
     private static IEnumerable<AuntSue> ParseInput(string input)

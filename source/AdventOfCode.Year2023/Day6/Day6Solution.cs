@@ -21,7 +21,7 @@ public partial class Day6Solution : IProblemSolver
 
         if (lines.Length != 2)
         {
-            throw new Exception("Invalid input");
+            throw new FormatException("Invalid input");
         }
 
         var winningRanges = new List<long>();

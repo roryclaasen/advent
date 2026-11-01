@@ -38,7 +38,7 @@ public partial class Day24Solution : IProblemSolver
             }
         }
 
-        throw new Exception("No solution found");
+        throw new InvalidOperationException("No solution found");
     }
 
     private static IEnumerable<ImmutableList<long>> PickPackages(int[] packages, int count, int i, int targetWeight)

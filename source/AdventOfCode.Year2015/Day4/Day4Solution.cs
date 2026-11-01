@@ -3,6 +3,8 @@
 
 namespace AdventOfCode.Year2015;
 
+using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Security.Cryptography;
 using System.Text;
 using AdventOfCode.Problem;
@@ -10,6 +12,7 @@ using AdventOfCode.Problem;
 [Problem(2015, 4, "The Ideal Stocking Stuffer")]
 public partial class Day4Solution : IProblemSolver
 {
+    [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "MD5 is required by the puzzle and is not used for security.")]
     public object? PartOne(string input)
     {
         int? number = null;
@@ -20,7 +23,7 @@ public partial class Day4Solution : IProblemSolver
 
             var hashBytes = MD5.HashData(Encoding.ASCII.GetBytes(secret));
             var hash = MakeHashReadable(hashBytes);
-            if (hash.StartsWith("00000"))
+            if (hash.StartsWith("00000", StringComparison.Ordinal))
             {
                 number = inputNumber;
             }
@@ -32,6 +35,7 @@ public partial class Day4Solution : IProblemSolver
         return number;
     }
 
+    [SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "MD5 is required by the puzzle and is not used for security.")]
     public object? PartTwo(string input)
     {
         int? number = null;
@@ -42,7 +46,7 @@ public partial class Day4Solution : IProblemSolver
 
             var hashBytes = MD5.HashData(Encoding.ASCII.GetBytes(secret));
             var hash = MakeHashReadable(hashBytes);
-            if (hash.StartsWith("000000"))
+            if (hash.StartsWith("000000", StringComparison.Ordinal))
             {
                 number = inputNumber;
             }
@@ -56,12 +60,6 @@ public partial class Day4Solution : IProblemSolver
 
     private static string MakeHashReadable(byte[] input)
     {
-        var sOutput = new StringBuilder(input.Length);
-        for (var i = 0; i < input.Length; i++)
-        {
-            sOutput.Append(input[i].ToString("X2"));
-        }
-
-        return sOutput.ToString();
+        return Convert.ToHexString(input);
     }
 }

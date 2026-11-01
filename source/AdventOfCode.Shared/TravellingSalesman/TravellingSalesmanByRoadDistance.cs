@@ -7,7 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public class TravellingSalesmanByRoadDistance
+public static class TravellingSalesmanByRoadDistance
 {
     public static List<Road<T>> CityRouteToRoadRoute<T>(List<T> route, List<Road<T>> roads) where T : class
     {

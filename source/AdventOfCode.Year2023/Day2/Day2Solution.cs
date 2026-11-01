@@ -56,7 +56,7 @@ public partial class Day2Solution : IProblemSolver
             {
                 if (!match.Success)
                 {
-                    throw new Exception("Unable to parse color");
+                    throw new FormatException("Unable to parse color");
                 }
 
                 var color = match.Groups["color"].Value;

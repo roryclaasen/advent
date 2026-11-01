@@ -27,7 +27,7 @@ public partial class Day4Solution : IProblemSolver
             }
         }
 
-        throw new Exception("Failed to find room");
+        throw new InvalidOperationException("Failed to find room");
     }
 
     private static bool IsRealRoom(Room room)
@@ -72,7 +72,7 @@ public partial class Day4Solution : IProblemSolver
             var match = RoomRegex().Match(input);
             if (!match.Success)
             {
-                throw new Exception($"Failed to parse room: {input}");
+                throw new FormatException($"Failed to parse room: {input}");
             }
 
             return new Room(match.Groups["name"].Value, int.Parse(match.Groups["sectorId"].Value), match.Groups["checksum"].Value);

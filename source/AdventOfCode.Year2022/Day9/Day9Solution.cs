@@ -50,7 +50,7 @@ public partial class Day9Solution : IProblemSolver
                         knots[0] += Vector2.UnitX;
                         break;
                     default:
-                        throw new Exception("Unknown direction");
+                        throw new FormatException("Unknown direction");
                 }
 
                 for (var k = 1; k < knots.Length; k++)

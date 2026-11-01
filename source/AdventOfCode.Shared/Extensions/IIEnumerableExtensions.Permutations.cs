@@ -42,9 +42,8 @@ public static partial class IIEnumerableExtensions
 
         foreach (var value in values)
         {
-            if (!visited.Contains(value))
+            if (visited.Add(value))
             {
-                visited.Add(value);
                 var newPermutation = new List<T>(permutation) { value };
                 Permute(values, visited, newPermutation, permutations, end);
                 visited.Remove(value);
