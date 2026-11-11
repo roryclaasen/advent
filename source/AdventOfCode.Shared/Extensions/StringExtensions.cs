@@ -56,7 +56,7 @@ public static partial class StringExtensions
     }
 
     /// <summary>
-    /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter.
+    /// Splits a string into lines after normalizing line endings to <see cref="Environment.NewLine"/>.
     /// </summary>
     /// <param name="str">The input string</param>
     /// <param name="options">A bitwise combination of the enumeration values that specifies whether to trim substrings and include empty substrings.</param>
@@ -64,7 +64,7 @@ public static partial class StringExtensions
     public static string[] Lines(this string str, StringSplitOptions options = StringSplitOptions.None) => str.Lines(1, options);
 
     /// <summary>
-    /// Splits a string into substrings based on the <see cref="Environment.NewLine"/> delimiter concatenate <see langword="count"/> times.
+    /// Splits a string into substrings after normalizing line endings to <see cref="Environment.NewLine"/>, repeated <paramref name="count"/> times.
     /// </summary>
     /// <param name="str">The input string</param>
     /// <param name="count">The number of times to concatenate <see cref="Environment.NewLine"/>.</param>
@@ -74,7 +74,7 @@ public static partial class StringExtensions
     {
         ArgumentNullException.ThrowIfNull(str, nameof(str));
         var separator = string.Concat(Enumerable.Repeat(Environment.NewLine, count));
-        return str.Split(separator, options);
+        return str.ReplaceLineEndings(Environment.NewLine).Split(separator, options);
     }
 
     /// <summary>

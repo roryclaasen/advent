@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using AdventOfCode.Problem;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Text;
 
@@ -61,7 +62,7 @@ public class ProblemGenerator : IIncrementalGenerator
                     public int Day => {{model.Day}};
 
                     {{GeneratorConstants.CompilerAttributes}}
-                    public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : $"\"{model.Name}\"")}};
+                    public string Name => {{(string.IsNullOrWhiteSpace(model.Name) ? "string.Empty" : SymbolDisplay.FormatLiteral(model.Name!, quote: true))}};
 
                     {{GeneratorConstants.CompilerAttributes}}
                     public override string ToString() => $"Year {this.Year} Day {this.Day}{(!string.IsNullOrWhiteSpace(this.Name) ? $" - {this.Name}" : string.Empty)}";

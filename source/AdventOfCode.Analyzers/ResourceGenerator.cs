@@ -8,6 +8,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.Text;
 
 [Generator]
@@ -25,19 +26,16 @@ public class ResourceGenerator : IIncrementalGenerator
         context.RegisterSourceOutput(resourcePipeline, static (context, model) =>
         {
             context.AddSource($"{model.ClassName}-{model.FileName}.g.cs", SourceText.From(
-                $$""""
+                $$"""
                 namespace {{model.Namespace}}
                 {
                     public partial class {{model.ClassName}} : global::{{model.Interface}}
                     {
                         {{GeneratorConstants.CompilerAttributes}}
-                        public string {{model.FileName}} =>
-                            """
-                            {{model.PadContents(12)}}
-                            """;
+                        public string {{model.FileName}} => {{SymbolDisplay.FormatLiteral(model.Contents ?? string.Empty, quote: true)}};
                     }
                 }
-                """",
+                """,
                 Encoding.UTF8));
         });
     }

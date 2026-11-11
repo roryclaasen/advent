@@ -4,7 +4,6 @@
 namespace AdventOfCode.Analyzers;
 
 using System;
-using System.Text;
 using AdventOfCode.Problem;
 
 internal readonly record struct ResourceInfo
@@ -29,35 +28,4 @@ internal readonly record struct ResourceInfo
         "Expected2" => typeof(IProblemExpectedResultPart2).FullName,
         _ => throw new NotImplementedException()
     };
-
-    public string PadContents(int padding = 0, bool skipFirstLine = true)
-    {
-        if (this.Contents is null)
-        {
-            return string.Empty;
-        }
-
-        var sb = new StringBuilder();
-
-        var lines = this.Contents.Split(["\r\n", "\r", "\n"], StringSplitOptions.None);
-        var length = lines.Length - 1;
-        for (int i = 0; i < lines.Length; i++)
-        {
-            if ((i == 0 && !skipFirstLine) || i != 0)
-            {
-                sb.Append(new string(' ', padding));
-            }
-
-            if (i == length)
-            {
-                sb.Append(lines[i]);
-            }
-            else
-            {
-                sb.AppendLine(lines[i]);
-            }
-        }
-
-        return sb.ToString();
-    }
 }

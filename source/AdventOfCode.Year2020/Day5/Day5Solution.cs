@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using AdventOfCode.Problem;
+using AdventOfCode.Shared;
 
 [Problem(2020, 5, "Binary Boarding")]
 public partial class Day5Solution : IProblemSolver
@@ -34,7 +35,7 @@ public partial class Day5Solution : IProblemSolver
 
     private static IEnumerable<BoardingPass> ParseInput(string input)
     {
-        foreach (var line in input.Split(Environment.NewLine))
+        foreach (var line in input.Lines())
         {
             yield return BoardingPass.Parse(line);
         }
