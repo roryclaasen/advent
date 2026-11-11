@@ -9,8 +9,7 @@ using AdventOfCode.Cli.Runner;
 
 internal abstract class BaseSolutionCommand : BaseCommand
 {
-    public BaseSolutionCommand(SolutionFinder solutionFinder, SolutionRunner solutionRunner, string name, string? description = null)
-        : base(name, description)
+    protected BaseSolutionCommand(SolutionFinder solutionFinder, SolutionRunner solutionRunner, string name, string? description = null) : base(name, description)
     {
         ArgumentNullException.ThrowIfNull(solutionFinder);
         ArgumentNullException.ThrowIfNull(solutionRunner);

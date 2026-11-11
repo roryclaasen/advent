@@ -9,8 +9,7 @@ using System.Threading.Tasks;
 
 internal abstract class BaseCommand : Command
 {
-    public BaseCommand(string name, string? description = null)
-        : base(name, description)
+    protected BaseCommand(string name, string? description = null) : base(name, description)
     {
         this.SetAction((parseResult, cancellationToken) => this.ExecuteAsync(parseResult, cancellationToken).AsTask());
     }
