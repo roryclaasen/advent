@@ -2,6 +2,10 @@
 <Project>
   <Import Project="../Directory.Build.props" />
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(AssemblyName).Tests" />
+  </ItemGroup>
+
   <PropertyGroup>
     <IsPublishable>true</IsPublishable>
 

@@ -24,7 +24,7 @@ internal sealed class AllCommand : BaseSolutionCommand
         var day = parseResult.GetValue(CommonOptions.Day);
 
         var solvers = this.SolutionFinder.GetSolversFor(year, day);
-        var results = this.SolutionRunner.RunAll(solvers);
+        var results = this.SolutionRunner.RunAll(solvers, cancellationToken);
         return ValueTask.FromResult(SolutionResult.ToExitCode(results));
     }
 }

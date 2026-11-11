@@ -1,0 +1,5 @@
+<Project Sdk="MSTest.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\..\tools\AdventOfCode.Cli\AdventOfCode.Cli.csproj" />
+  </ItemGroup>
+</Project>

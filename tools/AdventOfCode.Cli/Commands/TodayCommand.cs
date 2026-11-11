@@ -20,7 +20,7 @@ internal sealed class TodayCommand(TimeProvider timeProvider, SolutionFinder sol
         if (now is { Month: 12, Day: >= 1 and <= 12 })
         {
             var solvers = this.SolutionFinder.GetSolversFor(now.Year, now.Day);
-            var results = this.SolutionRunner.RunAll(solvers);
+            var results = this.SolutionRunner.RunAll(solvers, cancellationToken);
             return ValueTask.FromResult(SolutionResult.ToExitCode(results));
         }
 

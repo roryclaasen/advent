@@ -30,7 +30,7 @@ internal sealed class SelectCommand : BaseSolutionCommand
         this.Options.Add(CommonOptions.Day);
     }
 
-    protected override ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
+    protected override async ValueTask<int> ExecuteAsync(ParseResult parseResult, CancellationToken cancellationToken)
     {
         var selectedYear = parseResult.GetValue(CommonOptions.Year);
         var selectedDay = parseResult.GetValue(CommonOptions.Day);
@@ -61,13 +61,13 @@ internal sealed class SelectCommand : BaseSolutionCommand
             prompt.AddChoiceGroup(new YearPlaceHolder(selectedYear), this.SolutionFinder.GetSolversFor(selectedYear).OrderByYearAndDay());
         }
 
-        var pickedSolvers = this.console.Prompt(prompt).Where(s => s is not YearPlaceHolder);
-        return RunAllSolvers(pickedSolvers);
+        var pickedSolvers = await prompt.ShowAsync(this.console, cancellationToken).ConfigureAwait(false);
+        return RunAllSolvers(pickedSolvers.Where(s => s is not YearPlaceHolder));
 
-        ValueTask<int> RunAllSolvers(IEnumerable<IProblemSolver> solvers)
+        int RunAllSolvers(IEnumerable<IProblemSolver> solvers)
         {
-            var results = this.SolutionRunner.RunAll(solvers);
-            return ValueTask.FromResult(SolutionResult.ToExitCode(results));
+            var results = this.SolutionRunner.RunAll(solvers, cancellationToken);
+            return SolutionResult.ToExitCode(results);
         }
     }
 

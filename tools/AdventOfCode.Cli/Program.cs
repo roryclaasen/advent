@@ -4,6 +4,7 @@
 using System;
 using System.CommandLine;
 using System.Text;
+using System.Threading;
 using AdventOfCode.Cli;
 using AdventOfCode.Cli.Commands;
 using AdventOfCode.Cli.Finder;
@@ -29,19 +30,25 @@ using var app = BuildApplication();
 await app.StartAsync().ConfigureAwait(false);
 
 var rootCommand = app.Services.GetRequiredService<AdventOfCode.Cli.Commands.RootCommand>();
+var applicationLifetime = app.Services.GetRequiredService<IHostApplicationLifetime>();
 
-var exitCode = await rootCommand.Parse(args).InvokeAsync(new InvocationConfiguration()
+try
 {
+    return await rootCommand.Parse(args).InvokeAsync(new InvocationConfiguration()
+    {
+        // Let the current puzzle part finish before cancellation stops further attempts.
+        ProcessTerminationTimeout = Timeout.InfiniteTimeSpan,
 #if DEBUG
-    EnableDefaultExceptionHandler = !System.Diagnostics.Debugger.IsAttached
+        EnableDefaultExceptionHandler = !System.Diagnostics.Debugger.IsAttached
 #else
-    EnableDefaultExceptionHandler = true
+        EnableDefaultExceptionHandler = true
 #endif
-});
-
-await app.StopAsync().ConfigureAwait(false);
-
-return exitCode;
+    }, applicationLifetime.ApplicationStopping);
+}
+finally
+{
+    await app.StopAsync().ConfigureAwait(false);
+}
 
 static IHost BuildApplication()
 {

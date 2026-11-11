@@ -7,12 +7,13 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using AdventOfCode.Problem;
 using AdventOfCode.Problem.Extensions;
 
 internal sealed class SolutionRunner(SolutionResultRenderer renderer)
 {
-    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers)
+    public IReadOnlyList<SolutionResult> RunAll(IEnumerable<IProblemSolver> solvers, CancellationToken cancellationToken)
     {
         renderer.Banner();
 
@@ -31,10 +32,12 @@ internal sealed class SolutionRunner(SolutionResultRenderer renderer)
 
             foreach (var solver in year)
             {
+                cancellationToken.ThrowIfCancellationRequested();
+
                 var result = renderer.Run(
                     solver,
-                    () => SolvePart(solver.PartOne, solver.Input, solver.Expected1),
-                    () => SolvePart(solver.PartTwo, solver.Input, solver.Expected2));
+                    () => SolvePart(solver.PartOne, solver.Input, solver.Expected1, cancellationToken),
+                    () => SolvePart(solver.PartTwo, solver.Input, solver.Expected2, cancellationToken));
 
                 results.Add(result);
             }
@@ -44,15 +47,17 @@ internal sealed class SolutionRunner(SolutionResultRenderer renderer)
         return results;
     }
 
-    private static PartResult SolvePart(Func<string, object?> part, string? input, string? expected)
+    private static PartResult SolvePart(Func<string, object?> part, string? input, string? expected, CancellationToken cancellationToken)
     {
+        cancellationToken.ThrowIfCancellationRequested();
+
         string? actual = null;
         Exception? error = null;
         var stopwatch = Stopwatch.StartNew();
         try
         {
             ArgumentNullException.ThrowIfNullOrWhiteSpace(input);
-            actual = part(input)?.ToString();
+            actual = part.Invoke(input)?.ToString();
         }
         catch (Exception e)
         {
