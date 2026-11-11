@@ -4,6 +4,9 @@
 namespace AdventOfCode.Cli.Commands;
 
 using System.CommandLine;
+using System.CommandLine.Completions;
+using System.CommandLine.Parsing;
+using System.Linq;
 using AdventOfCode.Cli;
 
 internal static class CommonOptions
@@ -20,9 +23,16 @@ internal static class CommonOptions
             Arity = ArgumentArity.ZeroOrOne
         };
 
+        argument.CompletionSources.Add(_ => Enumerable.Range(2015, AdventTimeProvider.Instance.GetLocalNow().Year - 2015 + 1).Select(year => new CompletionItem(year.ToString())));
+
         argument.Validators.Add(result =>
         {
-            var year = result.GetRequiredValue(argument);
+            if (!TryGetValue(result, out var year))
+            {
+                result.AddError("Year must be an integer.");
+                return;
+            }
+
             if (year < 2015)
             {
                 result.AddError("Year must be greater than or equal to 2015.");
@@ -46,16 +56,34 @@ internal static class CommonOptions
             Arity = ArgumentArity.ZeroOrOne
         };
 
+        argument.CompletionSources.Add(context =>
+        {
+            if (!TryGetValue(context.ParseResult.GetResult(Year), out var year))
+            {
+                return [];
+            }
+
+            return Enumerable.Range(1, year >= 2025 ? 12 : 25).Select(day => new CompletionItem(day.ToString(), sortText: day.ToString("D2")));
+        });
+
         argument.Validators.Add(result =>
         {
-            var day = result.GetRequiredValue(argument);
+            if (!TryGetValue(result, out var day))
+            {
+                result.AddError("Day must be an integer.");
+                return;
+            }
 
             if (day < 1)
             {
                 result.AddError("Day must be greater than or equal to 1.");
             }
 
-            var year = result.GetValue(Year);
+            if (!TryGetValue(result.GetResult(Year), out var year))
+            {
+                return;
+            }
+
             if (year >= 2025)
             {
                 if (day > 12)
@@ -70,5 +98,11 @@ internal static class CommonOptions
         });
 
         return argument;
+    }
+
+    private static bool TryGetValue(OptionResult? result, out int value)
+    {
+        value = 0;
+        return result is null || result.Tokens.Count == 0 || int.TryParse(result.Tokens[0].Value, out value);
     }
 }
