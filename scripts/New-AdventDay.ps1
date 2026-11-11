@@ -10,7 +10,7 @@
     The script does **not** wire the new year project into the CLI runner —
     that step (adding the `<ProjectReference>`, the `using` and
     `AddSolutionsFor{YYYY}()` lines in `Program.cs`, and the launch profile)
-    is handled separately. See `.github/prompts/new-problem.prompt.md`.
+    is handled separately. See `.github/skills/new-problem/SKILL.md`.
 
     If an Advent of Code session cookie is provided (either via -AocSession
     or the AOC_SESSION environment variable), the puzzle title and puzzle

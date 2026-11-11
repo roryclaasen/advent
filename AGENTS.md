@@ -1,10 +1,12 @@
-# Advent of Code – Copilot Instructions
+# Advent of Code – Agent Instructions
 
-C# / .NET 10 solutions to [Advent of Code](https://adventofcode.com) puzzles. Per-year class libraries, an MSTest test project per year, a `System.CommandLine`-based CLI runner, and Roslyn source generators that wire problems together.
+C# / .NET 11 solutions to [Advent of Code](https://adventofcode.com) puzzles.
+Per-year class libraries, an MSTest test project per year, a `System.CommandLine`-based CLI runner, and Roslyn source generators that wire problems together.
 
 ## Build, test, lint
 
-The solution file is `AdventOfCode.slnx` (XML solution format). The repo pins SDKs in `global.json` (.NET, MSTest.Sdk); `dotnet test` runs via the new Microsoft.Testing.Platform runner.
+The solution file is `AdventOfCode.slnx` (XML solution format).
+The repo pins SDKs in `global.json` (.NET, MSTest.Sdk); `dotnet test` runs via the new Microsoft.Testing.Platform runner.
 
 - Restore / build / test the whole repo:
   - `dotnet restore AdventOfCode.slnx`
@@ -18,21 +20,8 @@ The solution file is `AdventOfCode.slnx` (XML solution format). The repo pins SD
 
 ## Scaffolding new years/days
 
-**Always use the script to create the year/day files** — do not hand-create them:
-
-```powershell
-pwsh -NoProfile -ExecutionPolicy Bypass -File ./scripts/New-AdventDay.ps1 -Year 2024 -Day 1
-```
-
-If `$env:AOC_SESSION` is set, the script also fetches the puzzle title and `Input.txt` from adventofcode.com. The script is idempotent (`[new]`/`[skip]`/`[info]`).
-
-The script creates the year `csproj`s, the day folder, solution + test class, and `Input.txt`/`Expected1.txt`/`Expected2.txt`. It deliberately does **not** wire the new year into the CLI runner — when scaffolding a brand-new year you must afterwards manually:
-
-1. Add a `<ProjectReference>` to `tools/AdventOfCode.Cli/AdventOfCode.Cli.csproj`.
-2. Add `using AdventOfCode.Year{YYYY};` and `builder.Services.AddSolutionsFor{YYYY}();` to `tools/AdventOfCode.Cli/Program.cs` (both in their existing sorted-by-year blocks).
-3. Add an `"AdventOfCode.Cli ({YYYY})"` profile to `tools/AdventOfCode.Cli/Properties/launchSettings.json`.
-
-`AddSolutionsFor{YYYY}` is emitted by `ProblemGenerator` from the `[Problem]` attribute, so it only resolves after a build. See `.github/prompts/new-problem.prompt.md` for the full contract.
+**When the user asks to add, create, or scaffold a new Advent of Code year or day, use the `new-problem` skill** in `.github/skills/new-problem/SKILL.md`.
+Read and follow the skill before scaffolding or making related CLI edits.
 
 ## Architecture
 

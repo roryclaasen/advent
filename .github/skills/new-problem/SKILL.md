@@ -1,6 +1,6 @@
 ---
-agent: 'agent'
-description: Scaffold a new Advent of Code problem (year/day) by running scripts/New-AdventDay.ps1
+name: new-problem
+description: Scaffold a new Advent of Code year or day using the repository's PowerShell script and wire new years into the CLI. Use when asked to add, create, or scaffold an Advent of Code problem, day, or year.
 ---
 
 # Generate a new Advent of Code problem
