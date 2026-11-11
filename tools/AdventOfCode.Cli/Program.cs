@@ -25,28 +25,25 @@ using Spectre.Console;
 
 Console.OutputEncoding = Encoding.UTF8;
 
-using var app = BuildApplication(args);
-
+using var app = BuildApplication();
 await app.StartAsync().ConfigureAwait(false);
 
 var rootCommand = app.Services.GetRequiredService<AdventOfCode.Cli.Commands.RootCommand>();
 
-var invokeConfig = new InvocationConfiguration()
+var exitCode = await rootCommand.Parse(args).InvokeAsync(new InvocationConfiguration()
 {
 #if DEBUG
     EnableDefaultExceptionHandler = !System.Diagnostics.Debugger.IsAttached
 #else
     EnableDefaultExceptionHandler = true
 #endif
-};
-
-var exitCode = await rootCommand.Parse(args).InvokeAsync(invokeConfig);
+});
 
 await app.StopAsync().ConfigureAwait(false);
 
 return exitCode;
 
-static IHost BuildApplication(string[] args)
+static IHost BuildApplication()
 {
     var builder = Host.CreateEmptyApplicationBuilder(null);
     builder.Services.AddSingleton<IAnsiConsole>(AnsiConsole.Console);
