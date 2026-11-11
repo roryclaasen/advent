@@ -1,9 +1,5 @@
 {
   "profiles": {
-    "AdventOfCode.Cli": {
-      "commandName": "Project",
-      "commandLineArgs": ""
-    },
     "AdventOfCode.Cli (today)": {
       "commandName": "Project",
       "commandLineArgs": "today"
