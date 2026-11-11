@@ -8,11 +8,6 @@ using AdventOfCode.Problem;
 
 internal readonly record struct ResourceInfo
 {
-    public readonly string Namespace;
-    public readonly string ClassName;
-    public readonly string FileName;
-    public readonly string? Contents;
-
     public ResourceInfo(string classNamespace, string className, string fileName, string? contents)
     {
         this.Namespace = classNamespace;
@@ -20,6 +15,14 @@ internal readonly record struct ResourceInfo
         this.FileName = fileName;
         this.Contents = contents;
     }
+
+    public readonly string Namespace { get; }
+
+    public readonly string ClassName { get; }
+
+    public readonly string FileName { get; }
+
+    public readonly string? Contents { get; }
 
     public string Interface => this.FileName switch
     {

@@ -5,12 +5,6 @@ namespace AdventOfCode.Analyzers;
 
 internal readonly record struct ProblemInfo
 {
-    public readonly string Namespace;
-    public readonly string ClassName;
-    public readonly int Year;
-    public readonly int Day;
-    public readonly string? Name;
-
     public ProblemInfo(string classNamespace, string className, int year, int day, string? name)
     {
         this.Namespace = classNamespace;
@@ -19,4 +13,14 @@ internal readonly record struct ProblemInfo
         this.Day = day;
         this.Name = name;
     }
+
+    public readonly string Namespace { get; }
+
+    public readonly string ClassName { get; }
+
+    public readonly int Year { get; }
+
+    public readonly int Day { get; }
+
+    public readonly string? Name { get; }
 }
