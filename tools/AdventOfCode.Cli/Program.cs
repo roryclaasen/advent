@@ -65,6 +65,7 @@ static IHost BuildApplication()
     builder.Services.AddSolutionsFor2025();
 
     builder.Services.AddTransient<AdventOfCode.Cli.Commands.RootCommand>();
+    builder.Services.AddTransient<SelectCommand>();
     builder.Services.AddTransient<ListCommand>();
     builder.Services.AddTransient<AllCommand>();
     builder.Services.AddTransient<TodayCommand>();
