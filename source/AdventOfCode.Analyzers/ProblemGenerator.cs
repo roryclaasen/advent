@@ -85,7 +85,7 @@ public class ProblemGenerator : IIncrementalGenerator
             .Select(model => $"typeof(global::{model.Namespace}.{model.ClassName})")
             .Select(model => $"services.TryAddEnumerable(ServiceDescriptor.Singleton(typeof(global::{problemType}), {model}));");
 
-        context.AddSource($"ServiceCollectionExtensions.g.cs", SourceText.From(
+        context.AddSource("ServiceCollectionExtensions.g.cs", SourceText.From(
             $$"""
                 namespace {{exampleProblem.Namespace}}
                 {
@@ -102,7 +102,7 @@ public class ProblemGenerator : IIncrementalGenerator
                         {{GeneratorConstants.CompilerAttributes}}
                         public static IServiceCollection AddSolutionsFor{{exampleProblem.Year}}(this IServiceCollection services)
                         {
-                            {{string.Join($"\r\n            ", tryAddEnumerableLines)}}
+                            {{string.Join("\r\n            ", tryAddEnumerableLines)}}
                             return services;
                         }
                     }
