@@ -57,23 +57,13 @@ public class ResourceGenerator : IIncrementalGenerator
         }
 
         var parts = path.Split(PathSeparators);
-        var startIndex = -1;
-        for (int i = 0; i < parts.Length; i++)
-        {
-            if (parts[i].StartsWith("AdventOfCode.", StringComparison.Ordinal))
-            {
-                startIndex = i;
-                break;
-            }
-        }
-
-        if (startIndex < 0 || startIndex + 1 >= parts.Length)
+        if (parts.Length < 3 || !parts[parts.Length - 3].StartsWith("AdventOfCode.", StringComparison.Ordinal))
         {
             return null;
         }
 
-        var inputNamespace = parts[startIndex];
-        var className = $"{parts[startIndex + 1]}Solution";
+        var inputNamespace = parts[parts.Length - 3];
+        var className = $"{parts[parts.Length - 2]}Solution";
         var contents = file.GetText(ct)?.ToString();
         return new ResourceInfo(inputNamespace, className, fileName, contents);
     }
